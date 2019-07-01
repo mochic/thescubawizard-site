@@ -1,7 +1,7 @@
-import React, { useState, useCallback } from "react"
+import React from "react"
 
 import styled, { css, keyframes } from "styled-components"
-import { animated, useSpring, useTransition } from "react-spring"
+import { animated, useSpring } from "react-spring"
 
 import { PropTypes } from "prop-types"
 
@@ -19,12 +19,8 @@ const FadeUpKeys = keyframes`
   }
 `
 
-const FadeUpAnimation = ({ animate, animationLength }) => css`
-  ${animate
-    ? css`
-        ${FadeUpKeys} ${animationLength || 3}s ease-in-out infinite
-      `
-    : null}
+const FadeUpAnimation = ({ length }) => css`
+  ${FadeUpKeys} ${length || 3}s ease-in-out infinite
 `
 
 const AnimatedP = styled(animated.p)`
@@ -32,7 +28,7 @@ const AnimatedP = styled(animated.p)`
   font-family: montserrat alternates;
   font-weight: 300;
   font-size: 22px;
-  animation: ${FadeUpAnimation};
+  animation: ${props => (props.animation ? FadeUpAnimation : null)};
 `
 
 const ScrollHint = ({ children }) => {
@@ -44,7 +40,7 @@ const ScrollHint = ({ children }) => {
   })
   return (
     <AnimatedP
-      animate={opacity.interpolate(v => v === hiHintOpacity)}
+      animation={opacity.interpolate(v => v === hiHintOpacity)}
       style={{
         opacity,
       }}
@@ -53,11 +49,6 @@ const ScrollHint = ({ children }) => {
     </AnimatedP>
   )
 }
-
-// const ScrollHint = ({show}) => {
-//   const {}
-//   const hintTransitions = useTransition({})
-// }
 
 ScrollHint.propTypes = {
   children: PropTypes.node.isRequired,

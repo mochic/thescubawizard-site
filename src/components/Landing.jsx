@@ -1,16 +1,43 @@
 import React, { useRef } from "react"
 
 import styled from "styled-components"
-import { animated, useSpring } from "react-spring"
+import { animated, useChain, useSpring, config } from "react-spring"
 
 import Logo from "./Logo"
 
-const LogoTainr = styled(animated.div)``
+import devices from "../devices"
+
+const LogoTainr = styled(animated.div)`
+  top: 0px;
+  left: 0px;
+  width: 600px;
+  height: 600px;
+  position: absolute;
+  text-align: center;
+  z-index: -2;
+
+  @media ${devices.mobileM} {
+    height: 716px;
+    width: 716px;
+  }
+`
+const LandingPage = styled(animated.div)`
+  display: grid;
+  grid-template-columns: repeat(24, 1fr);
+  grid-template-rows: repeat(24, 1fr);
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
+`
 
 // we're doing weird stuff with opacity,
 // we dont want to potentially negatively
 // affect seo
-const TitleTainr = styled(animated.div)``
+const TitleTainr = styled(animated.div)`
+  z-index: -1;
+  height: 85%;
+`
 
 const TitleChunk = styled(animated.p)`
   color: #efff2f;
@@ -25,34 +52,35 @@ const TitleChunk = styled(animated.p)`
     10px 20px 5px rgba(0, 0, 0, 0.05), -10px 20px 5px rgba(0, 0, 0, 0.05);
 `
 
-// needs to resize based on media query?
-const LogoTainer = styled(animated.div)``
-
-export default ({ ref }) => {
-  const { logoOpacity, logoFilter, titleOpacity, titleFilter } = useSpring({
-    from: {
-      logoOpacity: 0,
-      logoFilter: `blur(20px)`,
-      titleOpacity: 0,
-      titleFilter: `blur(20px)`,
-    },
-    to: [
-      { titleOpacity: 1, titleFilter: `blur(0px)` },
-      { logoOpacity: 1, logoFilter: `blur(20px)` },
-    ],
-    ref,
+export default () => {
+  const titleSpringRef = useRef()
+  const titleProps = useSpring({
+    from: { filter: `blur(20px)` },
+    to: { filter: `blur(0px)` },
+    config: { ...config.wobbly, duration: 1500 },
+    ref: titleSpringRef,
   })
 
+  const logoSpringRef = useRef()
+  const logoProps = useSpring({
+    from: { filter: `blur(20px)` },
+    to: { filter: `blur(2px)` },
+    config: { ...config.wobbly, duration: 1500 },
+    ref: logoSpringRef,
+  })
+
+  useChain([titleSpringRef, logoSpringRef], [0.3, 0.9])
+
   return (
-    <>
-      <TitleTainr style={{ opacity: titleOpacity, filter: titleFilter }}>
+    <LandingPage>
+      <TitleTainr style={titleProps}>
         <TitleChunk>the</TitleChunk>
         <TitleChunk>scuba</TitleChunk>
         <TitleChunk>wizard</TitleChunk>
       </TitleTainr>
-      <LogoTainr style={{ opacity: logoOpacity, filter: logoFilter }}>
+      <LogoTainr style={logoProps}>
         <Logo />
       </LogoTainr>
-    </>
+    </LandingPage>
   )
 }

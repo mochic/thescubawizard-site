@@ -18,9 +18,28 @@ import Scheduler from "../components/SchedulerFinal3"
 import Landing from "../components/Landing"
 import SEO from "../components/SEO"
 import Hint from "../components/ScrollHint"
-import Footer from "../components/Footer"
 
 // define the size of the containr elsewhere and also add right left padding on each page
+
+const LandingPage = styled(animated.div)`
+  display: grid;
+  grid-template-columns: repeat(24, 1fr);
+  grid-template-rows: repeat(24, 1fr);
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
+`
+
+const LogoContainr = styled(animated.div)`
+  text-align: center;
+  width: 716px;
+  height: 707px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: -2;
+`
 
 const Containr = styled(animated.div)`
   width: 100%;
@@ -61,13 +80,30 @@ const MainTainr = styled.div`
 // very important for guiding user...telling them what they're doing...etc...animated...?
 const HintContainer = styled(animated.div)`
   position: fixed;
-  top: 92%;
+  top: 80%;
   width: 100%;
   text-align: center;
-  z-index: 2;
+  z-index: -1;
 `
 // #23ff00
 // #efff2f
+const TitleChunk = styled(animated.div)`
+  color: #efff2f;
+  font-family: inconsolata;
+  font-weight: 900;
+  font-size: 96px;
+  line-height: 1;
+  opacity: 1;
+  padding: 42px 0 0 32px;
+  margin: 0;
+  text-shadow: 0px 15px 5px rgba(0, 0, 0, 0.1),
+    10px 20px 5px rgba(0, 0, 0, 0.05), -10px 20px 5px rgba(0, 0, 0, 0.05);
+`
+
+const TitleContainr = styled(animated.div)`
+  z-index: -1;
+  height: 85%;
+`
 
 const PageTainer = styled(animated.div)`
   margin: 10%;
@@ -81,49 +117,8 @@ const BlurHeaderTainer = styled(animated.div)`
   margin-top: 10%;
 `
 
-// const TestThing = styled(animated.div)`
-//   background: #000000;
-//   color: #ffffff;
-//   mix-blend-mode: lighten;
-//   font-size: 40px;
-//   font-family: roboto;
-//   font-weight: 600;
-// `
-// const TestThing = () => (
-//   <div class="knockout" style={{ position: `fixed`, width: `100%` }}>
-//     <svg class="knockout-text-container" width="100%" height="100%">
-//       <rect
-//         class="knockout-text-bg"
-//         width="100%"
-//         height="100%"
-//         fill="#000"
-//         x="0"
-//         y="0"
-//         fill-opacity="1"
-//         mask="url(#knockout-text)"
-//       />
-//       <mask id="knockout-text">
-//         <rect width="100%" height="100%" fill="#fff" x="0" y="0" />
-//         <text
-//           x="50%"
-//           y="50%"
-//           fill="#000"
-//           stroke="#fff"
-//           strokeWidth="1px"
-//           text-anchor="middle"
-//           style={{ fontSize: `40px`, fontFamily: `roboto`, fontWeight: `600` }}
-//         >
-//           schedule a chat.
-//         </text>
-//       </mask>
-//     </svg>
-//   </div>
-// )
-
 export default () => {
   const [{ percent }, set] = useSpring(() => ({ percent: 0 }))
-
-  const [percentRevealed, setPercentRevealed] = useState(0)
 
   const logoProps = useSpring({
     from: { filter: `blur(20px)` },
@@ -148,7 +143,6 @@ export default () => {
   const onScroll = useCallback(e => {
     console.log(window.scrollY / document.documentElement.clientHeight)
     set({ percent: window.scrollY / document.documentElement.clientHeight })
-    setPercentRevealed(window.scrollY / document.documentElement.clientHeight)
   }, [])
 
   useEffect(() => {
@@ -157,11 +151,19 @@ export default () => {
       window.removeEventListener("scroll", onScroll)
     }
   })
-  console.log("INDEX RERENDERED")
+
   return (
     <MainTainr onScroll={onScroll}>
-      >
-      <Landing />
+      <LandingPage>
+        <TitleContainr style={{ gridArea: `2 / 2 / auto / auto` }}>
+          <TitleChunk>the</TitleChunk>
+          <TitleChunk>scuba</TitleChunk>
+          <TitleChunk>wizard</TitleChunk>
+        </TitleContainr>
+        <LogoContainr style={logoProps}>
+          <Logo />
+        </LogoContainr>
+      </LandingPage>
       <VisibilitySensor partialVisibility={`bottom`} onChange={onHVisChange}>
         <div style={{ background: `pink` }}>
           <BlurHeaderTainer>
@@ -169,6 +171,7 @@ export default () => {
               schedule a chat.
             </BlurHeader>
           </BlurHeaderTainer>
+
           {hVis && (
             <PageTainer>
               <Scheduler />
@@ -176,12 +179,9 @@ export default () => {
           )}
         </div>
       </VisibilitySensor>
-      <VisibilitySensor>
-        <Footer />
-      </VisibilitySensor>
-      {percentRevealed < 0.05 && (
+      {percent === 0 && (
         <HintContainer>
-          <Hint>scroll to continue</Hint>
+          <Hint></Hint>
         </HintContainer>
       )}
     </MainTainr>
