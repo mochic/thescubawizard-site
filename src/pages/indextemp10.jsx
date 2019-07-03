@@ -20,14 +20,7 @@ import SEO from "../components/SEO"
 import Hint from "../components/ScrollHint"
 import Footer from "../components/Footer"
 
-import ScheduleChunk from "../chunks/Schedule"
-import LandingChunk from "../chunks/Landing"
-
 // define the size of the containr elsewhere and also add right left padding on each page
-
-const ChunkTainr = styled(animated.div)`
-  margin: 10%;
-`
 
 const Containr = styled(animated.div)`
   width: 100%;
@@ -88,6 +81,45 @@ const BlurHeaderTainer = styled(animated.div)`
   margin-top: 10%;
 `
 
+// const TestThing = styled(animated.div)`
+//   background: #000000;
+//   color: #ffffff;
+//   mix-blend-mode: lighten;
+//   font-size: 40px;
+//   font-family: roboto;
+//   font-weight: 600;
+// `
+// const TestThing = () => (
+//   <div class="knockout" style={{ position: `fixed`, width: `100%` }}>
+//     <svg class="knockout-text-container" width="100%" height="100%">
+//       <rect
+//         class="knockout-text-bg"
+//         width="100%"
+//         height="100%"
+//         fill="#000"
+//         x="0"
+//         y="0"
+//         fill-opacity="1"
+//         mask="url(#knockout-text)"
+//       />
+//       <mask id="knockout-text">
+//         <rect width="100%" height="100%" fill="#fff" x="0" y="0" />
+//         <text
+//           x="50%"
+//           y="50%"
+//           fill="#000"
+//           stroke="#fff"
+//           strokeWidth="1px"
+//           text-anchor="middle"
+//           style={{ fontSize: `40px`, fontFamily: `roboto`, fontWeight: `600` }}
+//         >
+//           schedule a chat.
+//         </text>
+//       </mask>
+//     </svg>
+//   </div>
+// )
+
 export default () => {
   const [{ percent }, set] = useSpring(() => ({ percent: 0 }))
 
@@ -128,6 +160,7 @@ export default () => {
   console.log("INDEX RERENDERED")
   return (
     <MainTainr onScroll={onScroll}>
+      >
       <Landing />
       <VisibilitySensor partialVisibility={`bottom`} onChange={onHVisChange}>
         <div style={{ background: `pink` }}>

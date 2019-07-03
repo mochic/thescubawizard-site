@@ -55,27 +55,29 @@ const GlobalStyle = createGlobalStyle`
 //   z-index: -1;
 //   overflow: hidden;
 // `
-const MainTainr = styled.div`
-  height: 100%;
-  width: 100%;
-  background: linear-gradient(
-    180deg,
-    rgba(39, 167, 125, 0.9) 0%,
-    rgba(1, 0, 0, 0.9) 64.06%
-  );
-  z-index: -1;
-  overflow: hidden;
-  margin: 0;
-  padding: 0;
+// const MainTainr = styled.div`
+//   height: 100%;
+//   width: 100%;
+//   background: linear-gradient(
+//     180deg,
+//     rgba(39, 167, 125, 0.9) 0%,
+//     rgba(1, 0, 0, 0.9) 64.06%
+//   );
+//   z-index: -1;
+//   overflow: hidden;
+//   margin: 0;
+//   padding: 0;
 
-  @media ${devices.mobileS} {
-    padding-bottom: 80px;
-  }
+//   @media ${devices.mobileS} {
+//     padding-bottom: 80px;
+//   }
 
-  @media ${devices.mobileM} {
-    padding-bottom: 100px;
-  }
-`
+//   @media ${devices.mobileM} {
+//     padding-bottom: 100px;
+//   }
+// `
+
+const MainTainr = styled.div``
 
 // const MainTainr = styled.div`
 //   height: 180vh;
