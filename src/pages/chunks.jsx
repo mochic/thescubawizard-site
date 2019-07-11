@@ -9,6 +9,8 @@ import {
   config,
 } from "react-spring"
 
+import { useGesture, withGesture, Gesture } from "react-with-gesture"
+
 import ScheduleChunk from "../chunks/Schedule"
 import LandingChunk from "../chunks/Landing"
 import FooterChunk from "../chunks/Footer"
@@ -21,11 +23,13 @@ const ChunkTainr = styled(animated.div)`
 
 const MainTainr = styled.div`
   overflow: hidden;
+  width: 100vw;
 `
 
 const LandingContainr = styled(animated.div)`
-  padding: 10%;
   overflow: hidden;
+  height: 100%;
+  width: 100%;
 `
 
 const Water = styled(animated.div)`
@@ -37,18 +41,20 @@ const Water = styled(animated.div)`
     rgba(39, 167, 125, 0.9) 0%,
     rgba(1, 0, 0, 0.9) 86%
   );
+  top: 0;
+  left: 0;
 `
 
 const ScheduleChunkContainr = styled(animated.div)`
-  margin: 10%;
+  padding: 0;
 `
 
 const FooterChunkContainr = styled(animated.div)`
-  margin: 10%;
-
+  padding: 10px;
+  text-align: center;
+  background: black;
   @media ${devices.mobileS} {
     max-height: 300px;
-    max-width: 300px;
   }
 `
 
@@ -93,9 +99,12 @@ export default () => {
   return (
     <MainTainr onScroll={onScroll}>
       <LandingContainr>
+        <Water />
         <LandingChunk />
       </LandingContainr>
-      <ScheduleChunk />
+      <ScheduleChunkContainr>
+        <ScheduleChunk />
+      </ScheduleChunkContainr>
       <FooterChunkContainr>
         <FooterChunk />
       </FooterChunkContainr>

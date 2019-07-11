@@ -13,7 +13,8 @@ const GlobalStyle = createGlobalStyle`
     body {
         margin: 0;
         padding: 0;
-        background: #2f2f2f;  
+        background: #2f2f2f; 
+        font-family: inconsolata, sans serif; 
     }
 `
 

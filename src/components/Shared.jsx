@@ -18,6 +18,6 @@ export const Link = styled(animated.a)`
   &:visited,
   &:hover,
   &:active {
-    color: #2f2f2f;
+    color: #151515;
   }
 `

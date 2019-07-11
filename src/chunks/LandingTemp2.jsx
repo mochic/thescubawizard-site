@@ -12,7 +12,6 @@ const TitleTainr = styled(animated.div)`
   margin: 0 30px 0 30px;
   padding: 330px 0 120px 0;
   z-index: 0;
-  height: 100vh;
 `
 
 const LogoTainr = styled(animated.div)`
@@ -66,174 +65,125 @@ const ChunkTainer = styled(animated.div)`
 `
 
 export default ({ initSpringRef }) => {
-  const delay = 1000
   const logoProps = useSpring({
     from: { filter: `blur(20px)` },
-    to: { filter: `blur(2px)` },
-    config: { ...config.wobbly, duration: 1500 },
-    // delay: 1800,
+    to: { filter: `blur(8px)` },
+    delay: 500,
   })
 
-  // const tc00Ref = useRef()
+  const TitleChunk0 = [
+    { key: `letter-0`, value: `t`, ref: useRef() },
+    { key: `letter-1`, value: `h`, ref: useRef() },
+    { key: `letter-2`, value: `e`, ref: useRef() },
+  ]
+
+  const TitleChunk1 = [
+    { key: `letter-3`, value: `s`, ref: useRef() },
+    { key: `letter-4`, value: `c`, ref: useRef() },
+    { key: `letter-5`, value: `u`, ref: useRef() },
+    { key: `letter-6`, value: `b`, ref: useRef() },
+    { key: `letter-7`, value: `a`, ref: useRef() },
+  ]
+
+  const TitleChunk2 = [
+    { key: `letter-8`, value: `w`, ref: useRef() },
+    { key: `letter-9`, value: `i`, ref: useRef() },
+    { key: `letter-10`, value: `z`, ref: useRef() },
+    { key: `letter-11`, value: `a`, ref: useRef() },
+    { key: `letter-12`, value: `r`, ref: useRef() },
+    { key: `letter-13`, value: `d`, ref: useRef() },
+  ]
+
+  // const [tC0Springs, setTC0] = useSpring(TitleChunk0.length, index => ({
+  //   opacity: 1,
+  //   transform: `translate3d(0,0px,0)`,
+  // }))
+
+  // const [title0Props, setTitle0Props] = useSprings(
+  //   TitleChunk0.length,
+  //   index => {
+  //     return {
+  //       from: { opacity: 0, transform: `translate3d(0,100px,0)` },
+  //       to: { opacity: 1, transform: `translate3d(0,0px,0)` },
+  //       delay: index < 1 ? index * 50 : 500 + index * 50,
+  //       config: config.stiff,
+  //       ref: TitleChunk0[index].ref,
+  //     }
+  //   }
+  // )
+
+  const [title1Props, setTitle1Props] = useSprings(
+    TitleChunk1.length,
+    index => {
+      return {
+        from: { opacity: 0, transform: `translate3d(0,100px,0)` },
+        to: { opacity: 1, transform: `translate3d(0,0px,0)` },
+        delay: index < 3 ? index * 50 : 500 + index * 50,
+        config: config.stiff,
+        ref: TitleChunk1[index].ref,
+      }
+    }
+  )
+
+  const [title2Props, setTitle2Props] = useSprings(
+    TitleChunk2.length,
+    index => {
+      return {
+        from: { opacity: 0, transform: `translate3d(0,100px,0)` },
+        to: { opacity: 1, transform: `translate3d(0,0px,0)` },
+        delay: index < 3 ? index * 50 : 500 + index * 50,
+        config: config.stiff,
+        ref: TitleChunk2[index].ref,
+      }
+    }
+  )
+
+  const tc00Ref = useRef()
   const tc00Props = useSpring({
     from: { opacity: 0, transform: `translate3d(0,40px,0)` },
     to: { opacity: 1, transform: `translate3d(0,0px,0)` },
     config: { ...config.stiff, duration: 1500 },
-    // ref: tc00Ref,
-    delay,
+    ref: tc00Ref,
   })
 
-  // const tc01Ref = useRef()
+  const tc01Ref = useRef()
   const tc01Props = useSpring({
     from: { opacity: 0, transform: `translate3d(0,60px,0)` },
     to: { opacity: 1, transform: `translate3d(0,0px,0)` },
     config: { ...config.slow, mass: 200, duration: 1500 },
-    // ref: tc01Ref,
-    delay,
+    ref: tc01Ref,
   })
 
-  // const tc02Ref = useRef()
+  const tc02Ref = useRef()
   const tc02Props = useSpring({
     from: { opacity: 0, transform: `translate3d(0,80px,0)` },
     to: { opacity: 1, transform: `translate3d(0,0px,0)` },
     config: { ...config.wobbly, tension: 120, duration: 1000 },
-    // ref: tc02Ref,
-    delay,
+    ref: tc02Ref,
   })
 
-  // const tc03Ref = useRef()
-  // s
+  const tc03Ref = useRef()
   const tc03Props = useSpring({
     from: { opacity: 0, transform: `translate3d(0,20px,0)` },
     to: { opacity: 1, transform: `translate3d(0,0px,0)` },
-    config: { ...config.wobbly, duration: 1500 },
-    // ref: tc03Ref,
-    delay,
+    config: { ...config.wobbly, duration: 1000 },
+    ref: tc03Ref,
+    delay: 1000,
   })
 
-  // const tc04Ref = useRef()
-  // c
+  const tc04Ref = useRef()
   const tc04Props = useSpring({
-    from: { opacity: 0, transform: `translate3d(0,80px,0)` },
+    from: { opacity: 0, transform: `translate3d(0,20px,0)` },
     to: { opacity: 1, transform: `translate3d(0,0px,0)` },
     config: { ...config.wobbly, duration: 1000 },
-    // ref: tc04Ref,
-    // delay: 500,
-    delay,
+    ref: tc04Ref,
+    delay: 1000,
   })
 
-  // const tc05Ref = useRef()
-  // u
-  const tc05Props = useSpring({
-    from: { opacity: 0, transform: `translate3d(0,100px,0)` },
-    to: { opacity: 1, transform: `translate3d(0,0px,0)` },
-    config: { ...config.slow, duration: 1800 },
-    // ref: tc05Ref,
-    // delay: 50,
-    delay,
-  })
-
-  // const tc06Ref = useRef()
-  // b
-  const tc06Props = useSpring({
-    from: { opacity: 0, transform: `translate3d(0,120px,0)` },
-    to: { opacity: 1, transform: `translate3d(0,0px,0)` },
-    config: { ...config.wobbly, duration: 1500 },
-    // ref: tc06Ref,
-    // delay: 100,
-    delay,
-  })
-
-  // const tc07Ref = useRef()
-  // a
-  const tc07Props = useSpring({
-    from: { opacity: 0, transform: `translate3d(0,100px,0)` },
-    to: { opacity: 1, transform: `translate3d(0,0px,0)` },
-    config: { ...config.wobbly, duration: 1100 },
-    // ref: tc07Ref,
-    delay,
-  })
-
-  // const c20Ref = useRef()
-  // w
-  const c20Props = useSpring({
-    from: { opacity: 0, transform: `translate3d(0,100px,0)` },
-    to: { opacity: 1, transform: `translate3d(0,0px,0)` },
-    config: { ...config.wobbly, duration: 1300 },
-    // ref: c20Ref,
-    delay,
-  })
-
-  // const c21Ref = useRef()
-  // i
-  const c21Props = useSpring({
-    from: { opacity: 0, transform: `translate3d(0,90px,0)` },
-    to: { opacity: 1, transform: `translate3d(0,0px,0)` },
-    config: { ...config.wobbly, duration: 1800 },
-    // ref: c21Ref,
-    delay,
-  })
-
-  // const c22Ref = useRef()
-  // z
-  const c22Props = useSpring({
-    from: { opacity: 0, transform: `translate3d(0,150px,0)` },
-    to: { opacity: 1, transform: `translate3d(0,0px,0)` },
-    config: { ...config.wobbly, duration: 1200 },
-    // ref: c22Ref,
-    delay,
-  })
-
-  // const c23Ref = useRef()
-  // a
-  const c23Props = useSpring({
-    from: { opacity: 0, transform: `translate3d(0,100px,0)` },
-    to: { opacity: 1, transform: `translate3d(0,0px,0)` },
-    config: { ...config.gentle, duration: 1300 },
-    // ref: c23Ref,
-    delay,
-  })
-
-  // const c24Ref = useRef()
-  // r
-  const c24Props = useSpring({
-    from: { opacity: 0, transform: `translate3d(0,110px,0)` },
-    to: { opacity: 1, transform: `translate3d(0,0px,0)` },
-    config: { ...config.stiff, duration: 1000 },
-    // ref: c24Ref,
-    delay,
-  })
-
-  // const c25Ref = useRef()
-  // d
-  const c25Props = useSpring({
-    from: { opacity: 0, transform: `translate3d(0,120px,0)` },
-    to: { opacity: 1, transform: `translate3d(0,0px,0)` },
-    config: { ...config.wobbly, duration: 1500 },
-    // ref: c25Ref,
-    delay,
-  })
-
-  // useChain(
-  //   [
-  //     tc00Ref,
-  //     tc02Ref,
-  //     tc01Ref,
-  //     tc06Ref,
-  //     tc05Ref,
-  //     tc03Ref,
-  //     tc04Ref,
-  //     tc07Ref,
-  //     c20Ref,
-  //     c21Ref,
-  //     c22Ref,
-  //     c23Ref,
-  //     c24Ref,
-  //     c25Ref,
-  //   ],
-  //   [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0],
-  //   3000
-  // )
+  useChain(
+    [tc00Ref, tc02Ref, tc01Ref, tc03Ref, tc04Ref],
+    [0, 0.2, 0.4, 0.9, 1.0]
+  )
 
   // const [chunk0Props, setChunk0Props] = useSpring(() => {
   //   transform: `translate3d(0,0px,0)`
@@ -285,23 +235,11 @@ export default ({ initSpringRef }) => {
           <TitleChar style={tc02Props}>e</TitleChar>
         </ChunkTainer>
         <ChunkTainer>
-          <TitleChar style={tc03Props}>s</TitleChar>
-          <TitleChar style={tc04Props}>c</TitleChar>
-          <TitleChar style={tc05Props}>u</TitleChar>
-          <TitleChar style={tc06Props}>b</TitleChar>
-          <TitleChar style={tc07Props}>a</TitleChar>
+          <TitleChar style={tc03Props}>scuba</TitleChar>
         </ChunkTainer>
         <ChunkTainer>
-          <TitleChar style={c20Props}>w</TitleChar>
-          <TitleChar style={c21Props}>i</TitleChar>
-          <TitleChar style={c22Props}>z</TitleChar>
-          <TitleChar style={c23Props}>a</TitleChar>
-          <TitleChar style={c24Props}>r</TitleChar>
-          <TitleChar style={c25Props}>d</TitleChar>
-        </ChunkTainer>
-        {/* <ChunkTainer>
           <TitleChar style={tc04Props}>wizard</TitleChar>
-        </ChunkTainer> */}
+        </ChunkTainer>
         {/* <ChunkTainer>
           {title1Props.map((props, index) => {
             console.log(props, index)

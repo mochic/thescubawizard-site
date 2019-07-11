@@ -5,35 +5,43 @@ import { animated } from "react-spring"
 
 import devices from "../devices"
 
-import { GridTainr, Link } from "../components/Shared"
+import { Link } from "../components/Shared"
 
 const Statement = styled(animated.div)`
-  background: yellow;
-  grid-area: 1 / 1 / auto / auto;
+  font-family: inconsolata;
+  font-weight: 600;
+  font-style: bold;
+  display: inline-block;
+  width 100%;
+
+  @media ${devices.mobileS} {
+    max-width: 200px;
+    padding: 30px 0 40px 0;
+  }
 `
 
-const StatementChunk = styled(animated.p)``
-
-const Grid = styled(animated.div)`
-  display: grid;
-  grid-template-columns: repeat(24, 1fr);
-  grid-template-rows: repeat(24, 1fr);
+const StatementChunk = styled(animated.p)`
+  margin: 0;
+  padding: 0;
+  color: #151515;
 `
 
 export default ({ initSpringRef }) => {
   return (
-    <Grid>
+    <>
       {/* helps us remember/not remove the space at the end */}
       <Statement>
-        <StatementChunk>{`site by `}</StatementChunk>
-        <Link
-          href="https://github.com/mochic"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          mochic
-        </Link>
+        <StatementChunk>
+          {`site by `}
+          <Link
+            href="https://github.com/mochic"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            mochic
+          </Link>
+        </StatementChunk>
       </Statement>
-    </Grid>
+    </>
   )
 }
