@@ -24,6 +24,7 @@ const ChunkTainr = styled(animated.div)`
 const MainTainr = styled.div`
   overflow: hidden;
   width: 100vw;
+  display: grid;
 `
 
 const LandingContainr = styled(animated.div)`

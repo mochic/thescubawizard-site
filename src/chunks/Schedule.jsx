@@ -9,19 +9,11 @@ import {
   useTransition,
 } from "react-spring"
 
-// import ScheduleHeader from "../components/ScheduleHeader"
-import ScheduleHeader from "../components/ScheduleSVG"
-import ScheduleHeaderAlt from "../components/ScheduleAlt"
 import ScheduleHeaderThin from "../components/ScheduleHeaderThin"
 
-import ContactHeader from "../components/ContactHeader"
-
+import { H2, OnColorP } from "../components/Shared"
 import { submitToSchedulingAPI } from "../utils"
 import devices from "../devices"
-
-const HeaderTainer = styled(animated.div)`
-  margin-right: 20px;
-`
 
 const Form = styled(animated.form)`
   display: flex;
@@ -64,20 +56,10 @@ const PContainr = styled(animated.div)`
   display: flex;
 `
 
-const HeadTainr = styled(animated.div)``
-
 const Tainr = styled(animated.div)``
 
-const Proposal = ({ handleClick, ...props }) => {
-  // const transition = useTransition(toggle, null, )
-  return (
-    <PContainr {...props}>
-      <Tainr>
-        <Text>Interested in hiring me for your next dive job?</Text>
-        <Button onClick={handleClick}>schedule a chat.</Button>
-      </Tainr>
-    </PContainr>
-  )
+const SchedulingForm = ({ handleSubmit, ...props }) => {
+  return <SFormTainr {...props}></SFormTainr>
 }
 
 const Input = styled(animated.input)`
@@ -105,17 +87,6 @@ const Statement = styled(animated.p)`
 
 const SFormTainr = styled(animated.div)`
   background: none;
-`
-
-const H2 = styled(animated.h2)`
-  margin: 0px;
-  padding: 0px;
-  font-family: roboto;
-  font-weight: 100;
-  font-size: 30px;
-  color: #ffe9c9;
-  line-height: 1;
-  margin-bottom: 30px;
 `
 
 const InputSwitchTainr = styled(animated.div)`

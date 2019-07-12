@@ -3,7 +3,6 @@ import React, { useRef, useState } from "react"
 import styled from "styled-components"
 import { animated, useSpring, useSprings, useChain, config } from "react-spring"
 
-import { GridTainr } from "../components/Shared"
 import Logo from "../components/Logo"
 
 import devices from "../devices"
@@ -213,60 +212,6 @@ export default ({ initSpringRef }) => {
     // ref: c25Ref,
     delay,
   })
-
-  // useChain(
-  //   [
-  //     tc00Ref,
-  //     tc02Ref,
-  //     tc01Ref,
-  //     tc06Ref,
-  //     tc05Ref,
-  //     tc03Ref,
-  //     tc04Ref,
-  //     tc07Ref,
-  //     c20Ref,
-  //     c21Ref,
-  //     c22Ref,
-  //     c23Ref,
-  //     c24Ref,
-  //     c25Ref,
-  //   ],
-  //   [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0],
-  //   3000
-  // )
-
-  // const [chunk0Props, setChunk0Props] = useSpring(() => {
-  //   transform: `translate3d(0,0px,0)`
-  // })
-
-  // const [chunk1Props, setChunk1Props] = useSpring(() => {
-  //   transform: `translate3d(0,0px,0)`
-  // })
-
-  // const [chunk2Props, setChunk2Props] = useSpring(() => {
-  //   transform: `translate3d(0,0px,0)`
-  // })
-  // useChain([TitleChunk0[0].ref, TitleChunk0[1].ref, TitleChunk0[2].ref])
-  // useChain(TitleChunk1.map(({ ref }) => ref))
-  // useChain(TitleChunk2.map(({ ref }) => ref))
-
-  // return (
-  //   <>
-  //     {/* <LogoTainr style={{ filter: logoFilter }}>
-  //       <Logo />
-  //     </LogoTainr> */}
-  //     <OtherTainer>
-  //       <OtherLogoTainer>
-  //         <Logo />
-  //       </OtherLogoTainer>
-  //     </OtherTainer>
-  //     <TitleTainr>
-  //       <TitleChunk>the</TitleChunk>
-  //       <TitleChunk>scuba</TitleChunk>
-  //       <TitleChunk>wizard</TitleChunk>
-  //     </TitleTainr>
-  //   </>
-  // )
 
   return (
     <>

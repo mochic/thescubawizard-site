@@ -23,14 +23,24 @@ export const validatePhone = phone => {
 }
 
 export const submitToSchedulingAPI = ({ phone, email }) => {
-  // validation = {
-  //   email: validateEmail(emailAddress),
-  //   phone: validatePhone(phoneNumber),
-  // }
-  // if (validation.email.valid || validation.phone.valid) {
-  //   if validation.email.valid)
-  //   console.log('submitted to api')
-  // } else {
-  // }
-  console.log(`submitted to api: ${phone}, ${email}`)
+  const result = {
+    validation: {
+      email: validateEmail(email),
+      phone: validatePhone(phone),
+    },
+    api: {},
+  }
+
+  if (result.validation.email.valid || result.validation.phone.valid) {
+    if (result.validation.email.valid) {
+      console.log("submitted email to api")
+      result.api.phone = {}
+    }
+    if (result.validation.phone.valid) {
+      console.log("submitted phone to api")
+      result.api.email = {}
+    }
+  }
+
+  return result
 }
