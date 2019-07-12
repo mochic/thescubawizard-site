@@ -17,6 +17,24 @@ import SEO from "../components/SEO"
 
 import devices from "../devices"
 
+// const MainTainr = styled.div`
+//   overflow: hidden;
+//   width: 100vw;
+//   display: grid;
+//   grid-template-areas:
+//     "hero"
+//     "schedule"
+//     "footer";
+
+//   @media ${devices.tablet} {
+//     grid-template-columns: 3fr 1fr;
+//     grid-template-rows: 8fr 1fr;
+//     grid-template-areas:
+//       "hero schedule"
+//       "hero footer";
+//   }
+// `
+
 const MainTainr = styled.div`
   overflow: hidden;
   width: 100vw;
@@ -27,11 +45,11 @@ const MainTainr = styled.div`
     "footer";
 
   @media ${devices.tablet} {
-    grid-template-columns: 3fr 1fr;
-    grid-template-rows: 8fr 1fr;
+    grid-template-columns: 20% auto 20%
     grid-template-areas:
-      "hero schedule"
-      "footer footer";
+      ". hero ."
+      ". schedule ."
+      ". footer .";
   }
 `
 

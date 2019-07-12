@@ -1,4 +1,4 @@
-const isValidEmail = email => {
+export const isValidEmail = email => {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 }
 
@@ -10,7 +10,7 @@ export const validateEmail = email => {
   }
 }
 
-const isValidPhone = phone => {
+export const isValidPhone = phone => {
   return /^1?\s?\(([0-9]{3}\)|[0-9]{3})[0-9]{7}$/.test(phone)
 }
 

@@ -7,17 +7,16 @@ import HeroImage from "../components/HeroImage"
 
 import devices from "../devices"
 
+const TitleTainr = styled(animated.div)`
+  margin: 0 30px 0 30px;
+  padding: 330px 0 120px 0;
+  z-index: 0;
+  height: 100vh;
+`
+
 // const TitleTainr = styled(animated.div)`
-//   margin: 0 30px 0 30px;
-//   padding: 330px 0 120px 0;
-//   z-index: 0;
-//   height: 100vh;
 //   background: red;
 // `
-
-const TitleTainr = styled(animated.div)`
-  background: red;
-`
 
 // inner outer container to have a large
 // hero image based on our screen size that
