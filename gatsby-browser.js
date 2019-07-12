@@ -14,11 +14,10 @@ const GlobalStyle = createGlobalStyle`
         margin: 0;
         padding: 0;
         background: #2f2f2f; 
-        font-family: inconsolata, sans serif; 
+        font-family: inconsolata, sans serif;
+        font-size: 20px;
     }
 `
-
-const MainTainr = styled.div``
 
 const ParticlesContainr = styled(animated.div)`
   position: absolute;
@@ -69,9 +68,9 @@ const ParticlesOrSomething = () => {
 }
 
 export const replaceComponentRenderer = ({ props, ...other }) => (
-  <MainTainr>
-    {/* <ParticlesOrSomething /> */}
+  <>
     <GlobalStyle />
+    {/* <ParticlesOrSomething /> */}
     {React.createElement(props.pageResources.component, props)}
-  </MainTainr>
+  </>
 )

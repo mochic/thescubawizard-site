@@ -9,28 +9,37 @@ import {
   config,
 } from "react-spring"
 
-import { useGesture, withGesture, Gesture } from "react-with-gesture"
+import Schedule from "../chunks/Schedule"
+import Hero from "../chunks/Hero"
+import Footer from "../chunks/Footer"
 
-import ScheduleChunk from "../chunks/Schedule"
-import LandingChunk from "../chunks/Landing"
-import FooterChunk from "../chunks/Footer"
+import SEO from "../components/SEO"
 
 import devices from "../devices"
-
-const ChunkTainr = styled(animated.div)`
-  margin: 10%;
-`
 
 const MainTainr = styled.div`
   overflow: hidden;
   width: 100vw;
   display: grid;
+  grid-template-areas:
+    "hero"
+    "schedule"
+    "footer";
+
+  @media ${devices.tablet} {
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: 8fr 1fr;
+    grid-template-areas:
+      "hero schedule"
+      "footer footer";
+  }
 `
 
-const LandingContainr = styled(animated.div)`
+const HeroContainr = styled(animated.div)`
   overflow: hidden;
   height: 100%;
   width: 100%;
+  grid-area: hero;
 `
 
 const Water = styled(animated.div)`
@@ -46,14 +55,25 @@ const Water = styled(animated.div)`
   left: 0;
 `
 
-const ScheduleChunkContainr = styled(animated.div)`
+const ScheduleContainr = styled(animated.div)`
+  grid-area: schedule;
   padding: 0;
+  padding-top: 80px;
+  padding-bottom: 40px;
+  z-index: 1;
+  background: black;
+  display: flex;
+  align-items: flex-end;
 `
 
-const FooterChunkContainr = styled(animated.div)`
+const FooterContainr = styled(animated.div)`
+  grid-area: footer;
   padding: 10px;
   text-align: center;
   background: black;
+  max-height: 300px;
+  z-index: 1;
+
   @media ${devices.mobileS} {
     max-height: 300px;
   }
@@ -96,19 +116,20 @@ export default () => {
       window.removeEventListener("scroll", onScroll)
     }
   })
-  console.log("INDEX RERENDERED")
+
   return (
     <MainTainr onScroll={onScroll}>
-      <LandingContainr>
+      <SEO title={`home`} />
+      <HeroContainr>
         <Water />
-        <LandingChunk />
-      </LandingContainr>
-      <ScheduleChunkContainr>
-        <ScheduleChunk />
-      </ScheduleChunkContainr>
-      <FooterChunkContainr>
-        <FooterChunk />
-      </FooterChunkContainr>
+        <Hero />
+      </HeroContainr>
+      <ScheduleContainr>
+        <Schedule />
+      </ScheduleContainr>
+      <FooterContainr>
+        <Footer />
+      </FooterContainr>
     </MainTainr>
   )
 }

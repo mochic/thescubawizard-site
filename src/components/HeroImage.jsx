@@ -2,7 +2,7 @@ import React from "react"
 import { StaticQuery, graphql } from "gatsby"
 import Img from "gatsby-image"
 
-const Logo = () => (
+const HeroImage = () => (
   <StaticQuery
     query={graphql`
       query {
@@ -21,4 +21,4 @@ const Logo = () => (
   />
 )
 
-export default Logo
+export default HeroImage

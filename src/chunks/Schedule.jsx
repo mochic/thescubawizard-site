@@ -34,30 +34,6 @@ const Containr = styled(animated.div)`
   background: #0a0a0a;
 `
 
-const Text = styled(animated.div)`
-  color: #ffe7d0;
-  font-size: 32px;
-  font-family: roboto;
-  margin-bottom: 40px;
-  font-weight: 300;
-  line-height: 1;
-`
-
-const Button = styled(animated.button)`
-  background: #ffe7d0;
-  font-weight: 900;
-  font-size: 24px;
-  text-align: center;
-  padding: 20px;
-  max-width: 240px;
-`
-
-const PContainr = styled(animated.div)`
-  display: flex;
-`
-
-const Tainr = styled(animated.div)``
-
 const SchedulingForm = ({ handleSubmit, ...props }) => {
   return <SFormTainr {...props}></SFormTainr>
 }
@@ -188,12 +164,6 @@ const SubHTainr = styled(animated.div)`
   position: absolute;
 `
 
-const OuterTainr = styled(animated.div)`
-  background: black;
-  padding-top: 80px;
-  padding-bottom: 40px;
-`
-
 export default ({ initSpringRef }) => {
   const [isScheduling, setScheduling] = useState(false)
   const [inputState, setInputState] = useState(null)
@@ -213,15 +183,13 @@ export default ({ initSpringRef }) => {
   //     ref: initSpringRef,
   //   })
   return (
-    <OuterTainr>
-      <Containr>
-        <HTainr>
-          <ScheduleHeaderThin />
-        </HTainr>
-        <Tainer>
-          <ScheduleForm />
-        </Tainer>
-      </Containr>
-    </OuterTainr>
+    <Containr>
+      <HTainr>
+        <ScheduleHeaderThin />
+      </HTainr>
+      <Tainer>
+        <ScheduleForm />
+      </Tainer>
+    </Containr>
   )
 }

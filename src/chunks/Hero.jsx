@@ -3,56 +3,49 @@ import React, { useRef, useState } from "react"
 import styled from "styled-components"
 import { animated, useSpring, useSprings, useChain, config } from "react-spring"
 
-import Logo from "../components/Logo"
+import HeroImage from "../components/HeroImage"
 
 import devices from "../devices"
 
+// const TitleTainr = styled(animated.div)`
+//   margin: 0 30px 0 30px;
+//   padding: 330px 0 120px 0;
+//   z-index: 0;
+//   height: 100vh;
+//   background: red;
+// `
+
 const TitleTainr = styled(animated.div)`
-  margin: 0 30px 0 30px;
-  padding: 330px 0 120px 0;
-  z-index: 0;
-  height: 100vh;
+  background: red;
 `
 
-const LogoTainr = styled(animated.div)`
+// inner outer container to have a large
+// hero image based on our screen size that
+// doesn't stretch the rest of our content weirdly...
+const OuterHeroImageTainr = styled(animated.div)`
   position: absolute;
   height: 100%;
-  width: 200%;
-  z-index: -1;
-  top: 0;
-  left: 0;
-`
-
-const OtherLogoTainer = styled(animated.div)`
-  height: 100%;
-  width: 200%;
-`
-
-const OtherTainer = styled(animated.div)`
-  position: absolute;
-  height: 100vh;
-  width: 100vw;
+  width: 100%;
   top: 0;
   left: 0;
   z-index: -1;
   overflow: hidden;
 `
 
-// box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+const InnerHeroImageTainr = styled(animated.div)`
+  height: 100%;
+  width: 200%;
 
-const TitleChunk = styled(animated.p)`
-  color: #efff2f;
-  font-family: inconsolata;
-  font-size: 96px;
-  font-weight: 900;
-  opacity: 1;
-  line-height: 1;
+  @media ${devices.tablet} {
+    height: 100%;
+    width: 100%;
+  }
 `
 
 const TitleChar = styled(animated.p)`
   color: #ffe9c9;
   font-family: inconsolata;
-  font-size: 96px;
+  font-size: 500%;
   font-weight: 900;
   margin: 0;
   padding: 0;
@@ -215,14 +208,11 @@ export default ({ initSpringRef }) => {
 
   return (
     <>
-      {/* <LogoTainr style={{ filter: logoFilter }}>
-        <Logo />
-      </LogoTainr> */}
-      <OtherTainer>
-        <OtherLogoTainer style={logoProps}>
-          <Logo />
-        </OtherLogoTainer>
-      </OtherTainer>
+      <OuterHeroImageTainr>
+        <InnerHeroImageTainr style={logoProps}>
+          <HeroImage />
+        </InnerHeroImageTainr>
+      </OuterHeroImageTainr>
       <TitleTainr>
         <ChunkTainer>
           <TitleChar style={tc00Props}>t</TitleChar>
