@@ -23,7 +23,8 @@ const Statement = styled(animated.div)`
 const StatementChunk = styled(animated.p)`
   margin: 0;
   padding: 0;
-  color: #151515;
+  color: #505050;
+  font-size: 14px;
 `
 
 export default ({ initSpringRef }) => {
@@ -37,6 +38,7 @@ export default ({ initSpringRef }) => {
             href="https://github.com/mochic"
             target="_blank"
             rel="noopener noreferrer"
+            style={{color: `#505050`}}
           >
             mochic
           </Link>

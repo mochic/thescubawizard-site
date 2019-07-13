@@ -9,6 +9,7 @@ import devices from "./src/devices"
 
 const GlobalStyle = createGlobalStyle`
     html, body {
+      overflow: hidden;
     }
     body {
         margin: 0;
@@ -70,7 +71,7 @@ const ParticlesOrSomething = () => {
 export const replaceComponentRenderer = ({ props, ...other }) => (
   <>
     <GlobalStyle />
-    {/* <ParticlesOrSomething /> */}
+    <ParticlesOrSomething />
     {React.createElement(props.pageResources.component, props)}
   </>
 )

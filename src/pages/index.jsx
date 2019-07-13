@@ -45,11 +45,19 @@ const MainTainr = styled.div`
     "footer";
 
   @media ${devices.tablet} {
-    grid-template-columns: 20% auto 20%
+    grid-template-rows: auto 30% 10%
     grid-template-areas:
-      ". hero ."
-      ". schedule ."
-      ". footer .";
+      "hero"
+      "schedule"
+      "footer";
+  }
+
+  @media ${devices.laptop} {
+    grid-template-columns: auto 30%
+    grid-template-rows: auto 10%;
+    grid-template-areas:
+      "hero schedule"
+      "hero footer";
   }
 `
 
