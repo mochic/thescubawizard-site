@@ -53,5 +53,13 @@ export const Input = styled(animated.input)`
   font-weight: 400;
   font-size: 20px;
   color: #656565;
-  padding: 5px;
+  padding: 5px 5px 10px 5px;
+
+  &[type="submit"] {
+    padding: 6px;
+    background: #ffe7d0;
+    color: #0a0a0a;
+    border-radius: 5px;
+    margin-top: 16%;
+  }
 `

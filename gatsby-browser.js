@@ -9,7 +9,6 @@ import devices from "./src/devices"
 
 const GlobalStyle = createGlobalStyle`
     html, body {
-      overflow: hidden;
     }
     body {
         margin: 0;
@@ -67,6 +66,13 @@ const ParticlesOrSomething = () => {
     </ParticlesContainr>
   )
 }
+
+const OutrTainr = styled(animated.div)``
+
+const InnrTainr = styled(animated.div)`
+  max-width: 1440px;
+  background: blue;
+`
 
 export const replaceComponentRenderer = ({ props, ...other }) => (
   <>

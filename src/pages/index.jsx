@@ -17,24 +17,6 @@ import SEO from "../components/SEO"
 
 import devices from "../devices"
 
-// const MainTainr = styled.div`
-//   overflow: hidden;
-//   width: 100vw;
-//   display: grid;
-//   grid-template-areas:
-//     "hero"
-//     "schedule"
-//     "footer";
-
-//   @media ${devices.tablet} {
-//     grid-template-columns: 3fr 1fr;
-//     grid-template-rows: 8fr 1fr;
-//     grid-template-areas:
-//       "hero schedule"
-//       "hero footer";
-//   }
-// `
-
 const MainTainr = styled.div`
   overflow: hidden;
   width: 100vw;
@@ -43,17 +25,18 @@ const MainTainr = styled.div`
     "hero"
     "schedule"
     "footer";
+  margin: auto;
 
   @media ${devices.tablet} {
-    grid-template-rows: auto 30% 10%
+    grid-template-columns: auto 48%;
+    grid-template-rows: auto 10%;
     grid-template-areas:
-      "hero"
-      "schedule"
-      "footer";
+      "hero schedule"
+      "hero footer";
   }
 
   @media ${devices.laptop} {
-    grid-template-columns: auto 30%
+    grid-template-columns: auto 432px;
     grid-template-rows: auto 10%;
     grid-template-areas:
       "hero schedule"

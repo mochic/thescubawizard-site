@@ -12,18 +12,10 @@ import {
 import ScheduleHeaderThin from "../components/ScheduleHeaderThin"
 
 import { H2, OnColorP } from "../components/Shared"
-import { submitToSchedulingAPI } from "../utils"
+import ScheduleForm from "../components/ScheduleForm"
+
+import { submitToAPI } from "../utils"
 import devices from "../devices"
-
-const Form = styled(animated.form)`
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-
-  @media ${devices.mobileS} {
-    background: none;
-  }
-`
 
 const Containr = styled(animated.div)`
   font-family: inconsolata;
@@ -32,6 +24,11 @@ const Containr = styled(animated.div)`
   padding-left: 50px;
   padding-right: 30px;
   background: #0a0a0a;
+  width: 100%;
+
+  @media ${devices.desktop} {
+    padding-right: 10%;
+  }
 `
 
 const SchedulingForm = ({ handleSubmit, ...props }) => {
@@ -51,18 +48,12 @@ const Input = styled(animated.input)`
   padding: 5px;
 `
 
-const Statement = styled(animated.p)`
-  line-height: 1;
-  font-family: montserrat alternates;
-  font-weight: 300;
-  font-size: 20px;
-  color: #c4c4c4;
-  margin: 0;
-  padding: 0;
-`
-
 const SFormTainr = styled(animated.div)`
   background: none;
+
+  @media ${devices.desktop} {
+    max-width: 432px;
+  }
 `
 
 const InputSwitchTainr = styled(animated.div)`
@@ -75,9 +66,20 @@ const InputSwitchTainr = styled(animated.div)`
   flex-direction: column;
 `
 
+// const InputButton = styled(animated.input)`
+//   margin-top: 16%;
+//   margin-left: 45%;
+//   border: 0;
+//   outline: 0;
+//   font-family: montserrat alternates;
+//   font-weight: 400;
+//   font-size: 20px;
+//   padding: 6px;
+//   background: #ffe7d0;
+//   color: #0a0a0a;
+// `
+
 const InputButton = styled(animated.input)`
-  margin-top: 16%;
-  margin-left: 45%;
   border: 0;
   outline: 0;
   font-family: montserrat alternates;
@@ -86,68 +88,73 @@ const InputButton = styled(animated.input)`
   padding: 6px;
   background: #ffe7d0;
   color: #0a0a0a;
+  border-radius: 5px;
+  margin-top: 16%;
 `
 
-const ScheduleForm = props => {
-  const [inputValues, setInputValues] = useState({})
-  const [inputErrors, setInputErrors] = useState({})
-  const [inputType, setInputType] = useState(null)
+// const ScheduleForm = props => {
+//   const [inputValues, setInputValues] = useState({})
+//   const [inputErrors, setInputErrors] = useState({})
+//   const [inputType, setInputType] = useState(null)
 
-  const inputTransitions = useState(inputType, null, {
-    from: {},
-    enter: {},
-  })
+//   const inputTransitions = useState(inputType, null, {
+//     from: {},
+//     enter: {},
+//   })
 
-  return (
-    <SFormTainr>
-      <Form
-        {...props}
-        onSubmit={e => {
-          e.preventDefault()
-          const response = submitToSchedulingAPI(inputValues)
-          console.log(response)
-        }}
-      >
-        <H2>Interested in hiring me for that next dive job?</H2>
-        <Statement>Let me know your</Statement>
-        <InputSwitchTainr>
-          <Input
-            type="tel"
-            placeholder="phone number"
-            onChange={e => {
-              e.preventDefault()
-              setInputValues({ ...inputValues, phone: e.target.value })
-            }}
-          />
-          <Statement
-            style={{
-              marginLeft: `auto`,
-              marginRight: `auto`,
-              marginTop: `16px`,
-              marginBottom: `16px`,
-            }}
-          >
-            or
-          </Statement>
-          <Input
-            type="email"
-            placeholder="email address"
-            onChange={e => {
-              e.preventDefault()
-              setInputValues({ ...inputValues, email: e.target.value })
-            }}
-          />
-        </InputSwitchTainr>
-        <Statement>so we can schedule a chat.</Statement>
-        {/* <Input type="submit" value="schedule" style={{ marginTop: `50px` }} /> */}
-        <InputButton type="submit" value="schedule" />
-      </Form>
-    </SFormTainr>
-  )
-}
+//   return (
+//     <SFormTainr>
+//       <Form
+//         {...props}
+//         onSubmit={e => {
+//           e.preventDefault()
+//           const response = submitToSchedulingAPI(inputValues)
+//           console.log(response)
+//         }}
+//       >
+//         <H2>Interested in hiring me for that next dive job?</H2>
+//         <OnColorP>Let me know your</OnColorP>
+//         <InputSwitchTainr>
+//           <Input
+//             type="tel"
+//             placeholder="phone number"
+//             onChange={e => {
+//               e.preventDefault()
+//               setInputValues({ ...inputValues, phone: e.target.value })
+//             }}
+//           />
+//           <OnColorP
+//             style={{
+//               marginLeft: `auto`,
+//               marginRight: `auto`,
+//               marginTop: `16px`,
+//               marginBottom: `16px`,
+//             }}
+//           >
+//             or
+//           </OnColorP>
+//           <Input
+//             type="email"
+//             placeholder="email address"
+//             onChange={e => {
+//               e.preventDefault()
+//               setInputValues({ ...inputValues, email: e.target.value })
+//             }}
+//           />
+//         </InputSwitchTainr>
+//         <OnColorP>so we can schedule a chat.</OnColorP>
+//         {/* <Input type="submit" value="schedule" style={{ marginTop: `50px` }} /> */}
+//         <InputButton type="submit" value="schedule" />
+//       </Form>
+//     </SFormTainr>
+//   )
+// }
 
 const Tainer = styled(animated.div)`
   overflow: hidden;
+  display: flex;
+  align-content: center;
+  justify-content: center;
 `
 
 const HTainr = styled(animated.div)`

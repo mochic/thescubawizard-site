@@ -7,32 +7,16 @@ import HeroImage from "../components/HeroImage"
 
 import devices from "../devices"
 
-// const TitleTainr = styled(animated.div)`
-//   margin: 0 30px 0 30px;
-//   padding: 330px 0 120px 0;
-//   z-index: 0;
-//   height: calc(100vh - 330px - 120px);
-// `
-
-// const TitleTainr = styled(animated.div)`
-//   display: grid;
-//   height: 100vh;
-//   grid-template-rows: 3fr 1fr 1fr 1fr 2fr;
-//   grid-template-areas: "." "titleChunk0" "titleChunk1" "titleChunk2" ".";
-
-//   @media ${devices.laptop} {
-//     grid-template-columns: repeat(1fr, 5);
-//     grid-template-rows: 2fr 1fr 2fr;
-//     grid-template-areas: ". . . . ." ". titleChunk0 titleChunk1 titleChunk2 ." ". . . . .";
-//   }
-// `
-
 const TitleTainr = styled(animated.div)`
   display: grid;
   height: 100vh;
   grid-template-rows: 3fr 1fr 1fr 1fr 2fr;
   grid-template-areas: "." "titleChunk0" "titleChunk1" "titleChunk2" ".";
-  padding-left: 20%;
+  padding-left: 10%;
+
+  @media ${devices.mobileL} {
+    padding-left: 20%;
+  }
 `
 
 // inner outer container to have a large
@@ -66,6 +50,14 @@ const TitleChar = styled(animated.p)`
   margin: 0;
   padding: 0;
   z-index: 1;
+
+  @media ${devices.laptop} {
+    font-size: 700%;
+  }
+
+  @media ${devices.desktop} {
+    font-size: 1000%;
+  }
 `
 
 const ChunkTainer = styled(animated.div)`
@@ -230,19 +222,19 @@ export default ({ initSpringRef }) => {
         </InnerHeroImageTainr>
       </OuterHeroImageTainr>
       <TitleTainr>
-        <ChunkTainer style={{gridArea: `titleChunk0`}}>
+        <ChunkTainer style={{ gridArea: `titleChunk0` }}>
           <TitleChar style={tc00Props}>t</TitleChar>
           <TitleChar style={tc01Props}>h</TitleChar>
           <TitleChar style={tc02Props}>e</TitleChar>
         </ChunkTainer>
-        <ChunkTainer style={{gridArea: `titleChunk1`}}>
+        <ChunkTainer style={{ gridArea: `titleChunk1` }}>
           <TitleChar style={tc03Props}>s</TitleChar>
           <TitleChar style={tc04Props}>c</TitleChar>
           <TitleChar style={tc05Props}>u</TitleChar>
           <TitleChar style={tc06Props}>b</TitleChar>
           <TitleChar style={tc07Props}>a</TitleChar>
         </ChunkTainer>
-        <ChunkTainer style={{gridArea: `titleChunk2`}}>
+        <ChunkTainer style={{ gridArea: `titleChunk2` }}>
           <TitleChar style={c20Props}>w</TitleChar>
           <TitleChar style={c21Props}>i</TitleChar>
           <TitleChar style={c22Props}>z</TitleChar>

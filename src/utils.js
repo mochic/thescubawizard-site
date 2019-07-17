@@ -1,3 +1,9 @@
+if (process.env.NODE_ENV === "production") {
+  const submitToAPI = require("./utils.prod.js").default
+} else {
+  const submitToAPI = require("./utils.dev.js").default
+}
+
 export const isValidEmail = email => {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 }
@@ -22,24 +28,19 @@ export const validatePhone = phone => {
   }
 }
 
-export const submitToSchedulingAPI = ({ phone, email }) => {
+export default async ({ phone, email }) => {
   const result = {
     validation: {
-      email: validateEmail(email),
       phone: validatePhone(phone),
+      email: validateEmail(email),
     },
-    api: {},
   }
 
-  if (result.validation.email.valid || result.validation.phone.valid) {
-    if (result.validation.email.valid) {
-      console.log("submitted email to api")
-      result.api.phone = {}
-    }
-    if (result.validation.phone.valid) {
-      console.log("submitted phone to api")
-      result.api.email = {}
-    }
+  if (result.validation.phone.valid || result.validation.email.valid) {
+    result.api = await submitToAPI({
+      phone,
+      email,
+    })
   }
 
   return result

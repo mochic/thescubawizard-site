@@ -31,4 +31,16 @@ describe(`isValidPhone`, () => {
   it(`validates phone #1`, () => {
     expect(isValidPhone(`(808) 223-5545`)).toBe(true)
   })
+  it(`validates phone #2`, () => {
+    expect(isValidPhone(`808-223-5545`)).toBe(true)
+  })
+  it(`validates phone #3`, () => {
+    expect(isValidPhone(`808 223 5545`)).toBe(true)
+  })
+  it(`validates phone #4`, () => {
+    expect(isValidPhone(`808-223 5545`)).toBe(true)
+  })
+  it(`validates phone #5`, () => {
+    expect(isValidPhone(`1-808-223-5545`)).toBe(true)
+  })
 })
