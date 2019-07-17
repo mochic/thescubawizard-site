@@ -1,7 +1,8 @@
+let submitToAPI
 if (process.env.NODE_ENV === "production") {
-  const submitToAPI = require("./utils.prod.js").default
+  submitToAPI = require("./api.prod.js").default
 } else {
-  const submitToAPI = require("./utils.dev.js").default
+  submitToAPI = require("./api.dev.js").default
 }
 
 export const isValidEmail = email => {

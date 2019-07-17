@@ -66,19 +66,6 @@ const InputSwitchTainr = styled(animated.div)`
   flex-direction: column;
 `
 
-// const InputButton = styled(animated.input)`
-//   margin-top: 16%;
-//   margin-left: 45%;
-//   border: 0;
-//   outline: 0;
-//   font-family: montserrat alternates;
-//   font-weight: 400;
-//   font-size: 20px;
-//   padding: 6px;
-//   background: #ffe7d0;
-//   color: #0a0a0a;
-// `
-
 const InputButton = styled(animated.input)`
   border: 0;
   outline: 0;
@@ -91,64 +78,6 @@ const InputButton = styled(animated.input)`
   border-radius: 5px;
   margin-top: 16%;
 `
-
-// const ScheduleForm = props => {
-//   const [inputValues, setInputValues] = useState({})
-//   const [inputErrors, setInputErrors] = useState({})
-//   const [inputType, setInputType] = useState(null)
-
-//   const inputTransitions = useState(inputType, null, {
-//     from: {},
-//     enter: {},
-//   })
-
-//   return (
-//     <SFormTainr>
-//       <Form
-//         {...props}
-//         onSubmit={e => {
-//           e.preventDefault()
-//           const response = submitToSchedulingAPI(inputValues)
-//           console.log(response)
-//         }}
-//       >
-//         <H2>Interested in hiring me for that next dive job?</H2>
-//         <OnColorP>Let me know your</OnColorP>
-//         <InputSwitchTainr>
-//           <Input
-//             type="tel"
-//             placeholder="phone number"
-//             onChange={e => {
-//               e.preventDefault()
-//               setInputValues({ ...inputValues, phone: e.target.value })
-//             }}
-//           />
-//           <OnColorP
-//             style={{
-//               marginLeft: `auto`,
-//               marginRight: `auto`,
-//               marginTop: `16px`,
-//               marginBottom: `16px`,
-//             }}
-//           >
-//             or
-//           </OnColorP>
-//           <Input
-//             type="email"
-//             placeholder="email address"
-//             onChange={e => {
-//               e.preventDefault()
-//               setInputValues({ ...inputValues, email: e.target.value })
-//             }}
-//           />
-//         </InputSwitchTainr>
-//         <OnColorP>so we can schedule a chat.</OnColorP>
-//         {/* <Input type="submit" value="schedule" style={{ marginTop: `50px` }} /> */}
-//         <InputButton type="submit" value="schedule" />
-//       </Form>
-//     </SFormTainr>
-//   )
-// }
 
 const Tainer = styled(animated.div)`
   overflow: hidden;

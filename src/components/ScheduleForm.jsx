@@ -1,9 +1,9 @@
 import React, { useState, useRef } from "react"
 
 import styled from "styled-components"
-import { animated, useChain, useSpring } from "react-spring"
+import { animated, useChain, useSpring, useTransition } from "react-spring"
 
-import { submitToAPI } from "../utils"
+import schedule from "../utils"
 
 import { H2, Input, OnColorP } from "../components/Shared"
 
@@ -52,38 +52,7 @@ const SchedulingSuccess = ({ result, handleClick }) => {
 
 const InnerTainr = styled(animated.div)``
 
-export default () => {
-  const [submitStatus, setSubmitStatus] = useState(null)
-  const [submitted, setSubmitted] = useState({})
-  const [errors, setErrors] = useState({})
-
-  const phoneRef = useRef()
-  const emailRef = useRef()
-
-  const { formHeight, formOpacity } = useSpring({
-    from: { formHeight: `0%`, formOpacity: 0 },
-    to: [{ formHeight: `100%` }, { formOpacity: 1 }],
-    delay: 2000, // testing obvs...
-  })
-
-  const handleSubmit = async e => {
-    e.preventDefault()
-    setSubmitStatus("pending")
-    try {
-      const result = await submitToAPI({
-        phone: phoneRef.current.value,
-        email: emailRef.current.value,
-      })
-      setSubmitted(result)
-      console.log("submitted", result)
-    } catch (err) {
-      console.log("errors", err)
-      setSubmitStatus(null)
-      setErrors(err)
-    }
-    setSubmitStatus("submitted")
-  }
-
+const TheForm = ({ submitStatus, handleSubmit }) => {
   const phoneInputProps = useSpring({
     from: {
       opacity: 0,
@@ -107,6 +76,95 @@ export default () => {
     to: { opacity: 1 },
   })
 
+  const phoneRef = useRef()
+  const emailRef = useRef()
+
+  return (
+    <Form
+      onSubmit={e => {
+        e.preventDefault()
+        handleSubmit({
+          phone: phoneRef.current.value,
+          email: emailRef.current.value,
+        })
+      }}
+    >
+      <H2>Interested in hiring me for that next dive job?</H2>
+      <OnColorP>Let me know your</OnColorP>
+      <InputSwitchTainr>
+        <Input
+          key="phone-input"
+          type="tel"
+          name="phone"
+          placeholder={phoneInputProps.opacity.interpolate(v =>
+            v > 0.5 ? `phone number` : ``
+          )}
+          autoComplete="tel"
+          style={phoneInputProps}
+          ref={phoneRef}
+        />
+        <OnColorP
+          style={{
+            marginLeft: `auto`,
+            marginRight: `auto`,
+            marginTop: `16px`,
+            marginBottom: `16px`,
+          }}
+        >
+          or
+        </OnColorP>
+        <Input
+          key="email-input"
+          type="email"
+          name="email"
+          placeholder={emailInputProps.opacity.interpolate(v =>
+            v > 0.5 ? `email address` : ``
+          )}
+          autoComplete="email"
+          style={emailInputProps}
+          ref={emailRef}
+        />
+      </InputSwitchTainr>
+      <OnColorP>so we can schedule a chat.</OnColorP>
+      <Input
+        value={submitStatus === "pending" ? `scheduling...` : `schedule`}
+        type="submit"
+        style={{
+          ...submitProps,
+        }}
+      />
+    </Form>
+  )
+}
+
+export default () => {
+  const [submitStatus, setSubmitStatus] = useState(null)
+  const [submitted, setSubmitted] = useState({})
+  const [errors, setErrors] = useState({})
+
+  const phoneRef = useRef()
+  const emailRef = useRef()
+
+  const { formHeight, formOpacity } = useSpring({
+    from: { formHeight: `0%`, formOpacity: 0 },
+    to: [{ formHeight: `100%` }, { formOpacity: 1 }],
+    delay: 2000, // testing obvs...
+  })
+
+  const handleSubmit = async ({ phone, email }) => {
+    setSubmitStatus("pending")
+    try {
+      const result = await schedule({ phone, email })
+      setSubmitted(result)
+      console.log("submitted", result)
+    } catch (err) {
+      console.log("errors", err)
+      setSubmitStatus(null)
+      setErrors(err)
+    }
+    setSubmitStatus("submitted")
+  }
+
   return (
     <Tainr>
       <InnerTainr
@@ -116,52 +174,7 @@ export default () => {
           opacity: formOpacity,
         }}
       >
-        <Form onSubmit={handleSubmit}>
-          <H2>Interested in hiring me for that next dive job?</H2>
-          <OnColorP>Let me know your</OnColorP>
-          <InputSwitchTainr>
-            <Input
-              key="phone-input"
-              type="tel"
-              name="phone"
-              placeholder={phoneInputProps.opacity.interpolate(v =>
-                v > 0.5 ? `phone number` : ``
-              )}
-              autoComplete="tel"
-              style={phoneInputProps}
-              ref={phoneRef}
-            />
-            <OnColorP
-              style={{
-                marginLeft: `auto`,
-                marginRight: `auto`,
-                marginTop: `16px`,
-                marginBottom: `16px`,
-              }}
-            >
-              or
-            </OnColorP>
-            <Input
-              key="email-input"
-              type="email"
-              name="email"
-              placeholder={emailInputProps.opacity.interpolate(v =>
-                v > 0.5 ? `email address` : ``
-              )}
-              autoComplete="email"
-              style={emailInputProps}
-              ref={emailRef}
-            />
-          </InputSwitchTainr>
-          <OnColorP>so we can schedule a chat.</OnColorP>
-          <Input
-            value={submitStatus === "pending" ? `scheduling...` : `schedule`}
-            type="submit"
-            style={{
-              ...submitProps,
-            }}
-          />
-        </Form>
+        <TheForm submitStatus={submitStatus} handleSubmit={handleSubmit} />
       </InnerTainr>
     </Tainr>
   )
