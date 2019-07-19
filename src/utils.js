@@ -9,40 +9,61 @@ export const isValidEmail = email => {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 }
 
-export const validateEmail = email => {
-  if (isValidEmail(email)) {
-    return { valid: true, message: "" }
-  } else {
-    return { valid: false, message: `Please enter a valid email address.` }
-  }
+export const isEmptyString = str => {
+  return !/\S/.test(str)
 }
 
+/**
+ * isValidPhone() validates phone number
+ *
+ * @param{String} phone
+ *
+ * only validates a very specific format
+ * because we only accept us numbers and
+ * rely on the input for formatting
+ */
 export const isValidPhone = phone => {
-  return /^1?\s?\(([0-9]{3}\)|[0-9]{3})[0-9]{7}$/.test(phone)
+  return /^1?[0-9]{10}$/.test(phone)
 }
 
-export const validatePhone = phone => {
-  if (isValidPhone(phone)) {
-    return { valid: true, message: "" }
+export default async (phone, email) => {
+  const errors = {}
+  let submitted // we will override later based on validation/api results...
+
+  if (isEmptyString(phone)) {
+    errors.phone = `Phone number appears to be empty.`
+  }
+
+  if (isEmptyString(email)) {
+    errors.email = `Email address appears to be empty.`
+  }
+
+  if (!errors.phone && !isValidPhone(phone)) {
+    errors.phone = `Phone number appears to be invalid.`
+  }
+
+  if (!errors.email && !isValidEmail(email)) {
+    errors.email = `Email address apears to be invalid.`
+  }
+
+  if (!errors.phone || !errors.email) {
+    const { errors: apiErrors, submitted: submittedToAPI } = await submitToAPI(
+      !errors.phone ? phone : null,
+      !errors.email ? email : null
+    )
+
+    if (!errors.phone && apiErrors.phone) {
+      errors.phone = apiErrors.phone
+    }
+
+    if (!errors.email && apiErrors.email) {
+      errors.email = apiErrors.email
+    }
+
+    submitted = { ...submittedToAPI }
   } else {
-    return { valid: false, message: `Please enter a valid phone number.` }
-  }
-}
-
-export default async ({ phone, email }) => {
-  const result = {
-    validation: {
-      phone: validatePhone(phone),
-      email: validateEmail(email),
-    },
+    submitted = { phone: false, email: false }
   }
 
-  if (result.validation.phone.valid || result.validation.email.valid) {
-    result.api = await submitToAPI({
-      phone,
-      email,
-    })
-  }
-
-  return result
+  return { errors, submitted }
 }

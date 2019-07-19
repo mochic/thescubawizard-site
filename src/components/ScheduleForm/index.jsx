@@ -5,17 +5,11 @@ import { animated, useChain, useSpring, useTransition } from "react-spring"
 
 import schedule from "../utils"
 
-import { H2, Input, OnColorP, SuccessP, ErrorP } from "./Shared"
+import { H2, Input, OnColorP, SuccessP, ErrorP } from "../components/Shared"
 
 import { StateProvider, useStateValue } from "./State"
 
-import devices from "../devices"
-
-const SCHEDULING_STATES = {
-  UNSUBMITED: `UNSUBMITTED`,
-  SUBMITTING: `SUBMITTING`,
-  SUBMITTED: `SUBMITTED`,
-}
+import devices from "../utils"
 
 const Form = styled(animated.form)`
   display: flex;
@@ -44,22 +38,15 @@ const Tainr = styled(animated.div)`
 
 const OffColorButton = styled(animated.button)``
 
-const SchedulingSuccess = () => {
-  const [formState, dispatch] = useStateValue()
-
+const SchedulingSuccess = ({ result, handleClick }) => {
   const phoneProps = useSpring({ from: { opacity: 0 }, to: { opacity: 1 } })
   const emailProps = useSpring({ from: { opacity: 0 }, to: { opacity: 1 } })
   const resubmitProps = useSpring({ from: { opacity: 0 }, to: { opacity: 1 } })
 
-  const handleClick = e => {
-    e.preventDefault()
-    dispatch({ type: `RESET` })
-  }
-
   return (
     <>
-      <OnColorP style={phoneProps}>{formState.submitted.phone}</OnColorP>
-      <OnColorP style={emailProps}>{formState.submitted.email}</OnColorP>
+      <OnColorP style={phoneProps}>{result.phone}</OnColorP>
+      <OnColorP style={emailProps}>{result.email}</OnColorP>
       <OffColorButton onClick={handleClick} style={resubmitProps}>
         resubmit
       </OffColorButton>
@@ -69,14 +56,7 @@ const SchedulingSuccess = () => {
 
 const InnerTainr = styled(animated.div)``
 
-// only supports one error at this time...-.-!
-// const SchedulingFormInput = ({ value, error, ...props }) => {
-//     return <><Input></>
-// }
-
-const PhoneInput = ({ ref, errors, ...props }) => {}
-
-const TheForm = () => {
+const TheForm = ({ submitStatus }) => {
   const [formState, dispatch] = useStateValue()
   const phoneInputProps = useSpring({
     from: {
@@ -104,54 +84,26 @@ const TheForm = () => {
   const phoneRef = useRef()
   const emailRef = useRef()
 
-  const phoneErrorTransition = useTransition(formState.errors.phone, null, {
+  const phoneErrorTransition = useTransition(formState.phone, null, {
     from: { opacity: 0 },
     enter: { opacity: 1 },
     leave: { opacity: 0 },
   })
 
-  const emailErrorTransition = useTransition(formState.errors.email, null, {
+  const emailErrorTransition = useTransition(formState.email, null, {
     from: { opacity: 0 },
     enter: { opacity: 1 },
     leave: { opacity: 0 },
   })
 
-  const formErrorTransition = useTransition(
-    formState.errors.email &&
-      formState.errors.phone &&
-      `Please enter a valid phone number or email address.`,
-    null,
-    {
-      from: { opacity: 0 },
-      enter: { opacity: 1 },
-      leave: { opacity: 0 },
-    }
-  )
-
-  const handleSubmit = async (phone, email) => {
-    dispatch({
-      type: `UPDATE`,
-      value: { status: SCHEDULING_STATES.SUBMITTING },
-    })
+  const handleSubmit = async ({ phone, email }) => {
+    dispatch({ type: `SUBMITTING` })
     try {
-      let result = await schedule(phone, email)
-      console.log(`%capi result`, `color: teal`, result)
-      dispatch({
-        type: `UPDATE`,
-        value: {
-          ...result,
-          status:
-            result.submitted.phone || result.submitted.email
-              ? SCHEDULING_STATES.SUBMITTED
-              : SCHEDULING_STATES.UNSUBMITED,
-        },
-      })
+      const result = await schedule({ phone, email })
+      dispatch({ type: `API`, value: result })
     } catch (err) {
-      console.log(`%capi error`, `color: red`, err)
-      dispatch({
-        type: `UPDATE`,
-        value: { ...err, status: SCHEDULING_STATES.UNSUBMITED },
-      })
+      console.log("errors", err)
+      dispatch({ type: `ERROR`, value: err })
     }
   }
 
@@ -159,7 +111,10 @@ const TheForm = () => {
     <Form
       onSubmit={e => {
         e.preventDefault()
-        handleSubmit(phoneRef.current.value, emailRef.current.value)
+        handleSubmit({
+          phone: phoneRef.current.value,
+          email: emailRef.current.value,
+        })
       }}
     >
       <H2>Interested in hiring me for that next dive job?</H2>
@@ -176,8 +131,8 @@ const TheForm = () => {
           style={phoneInputProps}
           ref={phoneRef}
         />
-        {phoneErrorTransition.map(({ item, props }) => {
-          return item && <ErrorP style={props}>{item}</ErrorP>
+        {phoneErrorTransition.map(({ item, key, props }) => {
+          return item.message && <ErrorP style={props}>{item.message}</ErrorP>
         })}
         <OnColorP
           style={{
@@ -200,32 +155,25 @@ const TheForm = () => {
           style={emailInputProps}
           ref={emailRef}
         />
-        {emailErrorTransition.map(({ item, props }) => {
-          return item && <ErrorP style={props}>{item}</ErrorP>
+        {emailErrorTransition.map(({ item, key, props }) => {
+          return item.message && <ErrorP style={props}>{item.message}</ErrorP>
         })}
       </InputSwitchTainr>
       <OnColorP>so we can schedule a chat.</OnColorP>
       <Input
-        value={
-          formState.status === SCHEDULING_STATES.SUBMITTING
-            ? `scheduling...`
-            : `schedule`
-        }
+        value={submitStatus === "pending" ? `scheduling...` : `schedule`}
         type="submit"
         style={{
           ...submitProps,
         }}
       />
-      {formErrorTransition.map(({ item, props }) => {
-        return item && <ErrorP style={props}>{item}</ErrorP>
-      })}
     </Form>
   )
 }
 
 const FormSwitch = () => {
-  const [{ submitted }] = useStateValue()
-  return submitted.phone || submitted.email ? (
+  const [formState, dispatch] = useStateValue()
+  return formState.phone.isValid || formState.email.isValid ? (
     <SchedulingSuccess />
   ) : (
     <TheForm />
@@ -233,26 +181,43 @@ const FormSwitch = () => {
 }
 
 export default () => {
+  const phoneRef = useRef()
+  const emailRef = useRef()
+
+  const { formHeight, formOpacity } = useSpring({
+    from: { formHeight: `0%`, formOpacity: 0 },
+    to: [{ formHeight: `100%` }, { formOpacity: 1 }],
+    delay: 2000, // testing obvs...
+  })
+
+  //   const { notesHeight } = useSpring({
+  //     from: { height: `0%`, opacity: 0 },
+  //     to: { height: `100%`, opacity: 1 },
+  //   })
+
+  const SCHEDULING_STATES = {
+    UNSUBMITED: `UNSUBMITTED`,
+    SUBMITTING: `SUBMITTING`,
+    SUBMITTED: `SUBMITTED`,
+  }
+
   const initialState = {
-    status: SCHEDULING_STATES.UNSUBMITED,
-    errors: {},
-    submitted: {},
+    status: `UNSUBMITTED`,
+    phone: {},
+    email: {},
   }
 
   const reducer = (state, action) => {
     switch (action.type) {
       case "RESET":
-        console.log(`%cform state reset`, `color: blue`)
         return { ...initialState }
       case "UPDATE": {
-        console.log(`%cform state update`, `color: blue`, {
-          ...state,
-          ...action.value,
-        })
         return { ...state, ...action.value }
       }
+      case "SUBMITTING": {
+        return { ...state, status: `SUBMITTING` }
+      }
       default:
-        console.log(`%cunknown action`, `color: blue`, action)
         return state
     }
   }
@@ -260,10 +225,31 @@ export default () => {
   return (
     <StateProvider initialState={initialState} reducer={reducer}>
       <Tainr>
-        <InnerTainr>
+        <InnerTainr
+          height={formHeight}
+          style={{
+            overflow: "hidden",
+            opacity: formOpacity,
+          }}
+        >
           <FormSwitch />
         </InnerTainr>
       </Tainr>
     </StateProvider>
   )
 }
+
+// const FTainr = styled(animated.div)``
+
+// const FormInput = () => {
+//   const [errors, useState] = useState([])
+//   return (
+//     <FTainr>
+//       <Input />
+//       {errorTransitions.map(({ key, item, props }) => {
+//         return <ErrorP></ErrorP>
+//       })}
+//       <ErrorP>wut</ErrorP>
+//     </FTainr>
+//   )
+// }

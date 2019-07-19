@@ -1,7 +1,11 @@
-export default async ({ phone, email }) => {
+export default async (phone, email) => {
+  console.log(`%csubmitting to mock api...`, "color: orange", {
+    phone: phone,
+    email: email,
+  })
   await new Promise(resolve => setTimeout(resolve, 3000))
   return {
-    phone: { message: "success", errors: [] },
-    email: { message: "success", errors: [] },
+    submitted: { phone: phone !== null, email: email !== null },
+    errors: {},
   }
 }

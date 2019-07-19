@@ -7,15 +7,17 @@ import Particles from "react-particles-js"
 
 import devices from "./src/devices"
 
+// based on: https://css-tricks.com/books/volume-i/scale-typography-screen-size/
 const GlobalStyle = createGlobalStyle`
     html, body {
     }
     body {
-        margin: 0;
-        padding: 0;
-        background: #2f2f2f; 
-        font-family: inconsolata, sans serif;
-        font-size: 20px;
+      margin: 0;
+      padding: 0;
+      background: #2f2f2f; 
+      font-family: inconsolata, sans serif;
+      font-size: calc(14px + (26 - 14) * ((100vw - 300px) / (1600 - 300)));
+      line-height: calc(1.3em + (1.5 - 1.2) * ((100vw - 300px)/(1600 - 300)));
     }
 `
 

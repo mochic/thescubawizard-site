@@ -1,21 +1,18 @@
-export default async ({ phone, email }) => {
-  const result = {
-    validation: {
-      email: validateEmail(email),
-      phone: validatePhone(phone),
-    },
-    api: {},
+export default async (phone, email) => {
+  const result = {}
+
+  if (phone) {
+    result.phone = { submitted: true, errors: [] }
+    console.log("submitted phone to api")
+  } else {
+    result.phone = { submitted: false, errors: [] }
   }
 
-  if (result.validation.email.valid || result.validation.phone.valid) {
-    if (result.validation.email.valid) {
-      console.log("submitted email to api")
-      result.api.phone = {}
-    }
-    if (result.validation.phone.valid) {
-      console.log("submitted phone to api")
-      result.api.email = {}
-    }
+  if (email) {
+    result.email = { submitted: true, errors: [] }
+    console.log("submitted email to api")
+  } else {
+    result.email = { submitted: false, errors: [] }
   }
 
   return result

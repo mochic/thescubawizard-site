@@ -27,7 +27,7 @@ export const H2 = styled(animated.h2)`
   padding: 0px;
   font-family: roboto;
   font-weight: 100;
-  font-size: 30px;
+  font-size: 130%;
   color: #ffe9c9;
   line-height: 1;
   margin-bottom: 30px;
@@ -37,23 +37,35 @@ export const OnColorP = styled(animated.p)`
   line-height: 1;
   font-family: montserrat alternates;
   font-weight: 300;
-  font-size: 20px;
   color: #c4c4c4;
   margin: 0;
   padding: 0;
 `
 
+export const SuccessP = styled(animated.p)`
+  color: #00ffab;
+  font-size: 70%;
+`
+
+export const ErrorP = styled(animated.p)`
+  color: #ff3333;
+  font-size: 70%;
+`
+
+export const Button = styled(animated.button)``
+
+// -placeholder-shown wont work on edge
+// but we dont reallllly care that much?
 export const Input = styled(animated.input)`
-  border: 0;
   outline: 0;
+  border: 0;
   background: transparent;
   border-bottom: 1px solid #656565;
   text-align: center;
   font-family: montserrat alternates;
   font-weight: 400;
-  font-size: 20px;
-  color: #656565;
-  padding: 5px 5px 10px 5px;
+  color: #c4c4c4;
+  padding: 5px 5px 5px 5px;
 
   &[type="submit"] {
     padding: 6px;
@@ -61,5 +73,34 @@ export const Input = styled(animated.input)`
     color: #0a0a0a;
     border-radius: 5px;
     margin-top: 16%;
+  }
+
+  input:not(:placeholder-shown) {
+    border-bottom: 1px solid #c4c4c4;
+  }
+
+  &::placeholder {
+    color: #656565;
+  }
+  &::-webkit-input-placeholder {
+    color: #656565;
+  }
+  &:-ms-input-placeholder {
+    color: #656565;
+  }
+
+  &:not([type="submit"]):focus {
+    color: #c4c4c4;
+    border-bottom: 1px solid #c4c4c4;
+  }
+
+  &:focus::placeholder {
+    opacity: 0;
+  }
+  &:focus::-webkit-input-placeholder {
+    opacity: 0;
+  }
+  &:focus:-ms-input-placeholder {
+    opacity: 0;
   }
 `
