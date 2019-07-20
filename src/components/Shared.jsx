@@ -33,7 +33,7 @@ export const H2 = styled(animated.h2)`
   margin-bottom: 30px;
 `
 
-export const OnColorP = styled(animated.p)`
+export const P = styled(animated.p)`
   line-height: 1;
   font-family: montserrat alternates;
   font-weight: 300;
@@ -52,7 +52,33 @@ export const ErrorP = styled(animated.p)`
   font-size: 70%;
 `
 
-export const Button = styled(animated.button)``
+const ButtonColors = {
+  onColor: {
+    background: `#ffe7d0`,
+    color: `#0a0a0a`,
+  },
+  offColor: {
+    background: `#656565`,
+    color: `#0a0a0a`,
+  },
+}
+
+export const Button = styled(animated.button)`
+  padding: 6px;
+  background: ${props =>
+    props.offColor
+      ? ButtonColors.offColor.background
+      : ButtonColors.onColor.background};
+  color: ${props =>
+    props.offColor ? ButtonColors.offColor.color : ButtonColors.onColor.color};
+  border-radius: 5px;
+  border: 1px solid
+    ${props =>
+      props.offColor
+        ? ButtonColors.offColor.color
+        : ButtonColors.onColor.color};
+  margin-top: 16%;
+`
 
 // -placeholder-shown wont work on edge
 // but we dont reallllly care that much?

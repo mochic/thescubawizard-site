@@ -5,7 +5,7 @@ import { animated, useChain, useSpring, useTransition } from "react-spring"
 
 import schedule from "../utils"
 
-import { H2, Input, OnColorP, SuccessP, ErrorP } from "./Shared"
+import { H2, Input, P, SuccessP, ErrorP, Button } from "./Shared"
 
 import { StateProvider, useStateValue } from "./State"
 
@@ -42,14 +42,12 @@ const Tainr = styled(animated.div)`
   }
 `
 
-const OffColorButton = styled(animated.button)``
-
 const SchedulingSuccess = () => {
   const [formState, dispatch] = useStateValue()
 
-  const phoneProps = useSpring({ from: { opacity: 0 }, to: { opacity: 1 } })
-  const emailProps = useSpring({ from: { opacity: 0 }, to: { opacity: 1 } })
-  const resubmitProps = useSpring({ from: { opacity: 0 }, to: { opacity: 1 } })
+  // const phoneProps = useSpring({ from: { opacity: 0 }, to: { opacity: 1 } })
+  // const emailProps = useSpring({ from: { opacity: 0 }, to: { opacity: 1 } })
+  // const resubmitProps = useSpring({ from: { opacity: 0 }, to: { opacity: 1 } })
 
   const handleClick = e => {
     e.preventDefault()
@@ -57,13 +55,13 @@ const SchedulingSuccess = () => {
   }
 
   return (
-    <>
-      <OnColorP style={phoneProps}>{formState.submitted.phone}</OnColorP>
-      <OnColorP style={emailProps}>{formState.submitted.email}</OnColorP>
-      <OffColorButton onClick={handleClick} style={resubmitProps}>
+    <div>
+      <P>{formState.submitted.phone}</P>
+      <P>{formState.submitted.email}</P>
+      <Button offColor onClick={handleClick}>
         resubmit
-      </OffColorButton>
-    </>
+      </Button>
+    </div>
   )
 }
 
@@ -163,7 +161,7 @@ const TheForm = () => {
       }}
     >
       <H2>Interested in hiring me for that next dive job?</H2>
-      <OnColorP>Let me know your</OnColorP>
+      <P>Let me know your</P>
       <InputSwitchTainr>
         <Input
           key="phone-input"
@@ -179,7 +177,7 @@ const TheForm = () => {
         {phoneErrorTransition.map(({ item, props }) => {
           return item && <ErrorP style={props}>{item}</ErrorP>
         })}
-        <OnColorP
+        <P
           style={{
             marginLeft: `auto`,
             marginRight: `auto`,
@@ -188,7 +186,7 @@ const TheForm = () => {
           }}
         >
           or
-        </OnColorP>
+        </P>
         <Input
           key="email-input"
           type="email"
@@ -204,7 +202,7 @@ const TheForm = () => {
           return item && <ErrorP style={props}>{item}</ErrorP>
         })}
       </InputSwitchTainr>
-      <OnColorP>so we can schedule a chat.</OnColorP>
+      <P>so we can schedule a chat.</P>
       <Input
         value={
           formState.status === SCHEDULING_STATES.SUBMITTING
