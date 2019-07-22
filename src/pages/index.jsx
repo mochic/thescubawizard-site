@@ -1,17 +1,11 @@
 import React, { useRef, useState, useEffect, useCallback } from "react"
 
 import styled, { keyframes } from "styled-components"
-import {
-  animated,
-  useSpring,
-  useChain,
-  useTransition,
-  config,
-} from "react-spring"
+import { animated, useSpring } from "react-spring"
 
-import Schedule from "../chunks/Schedule"
+import Scheduler from "../components/Scheduler"
 import Hero from "../chunks/Hero"
-import Footer from "../chunks/Footer"
+import Footer from "../components/Footer"
 
 import SEO from "../components/SEO"
 
@@ -67,8 +61,8 @@ const Water = styled(animated.div)`
 const ScheduleContainr = styled(animated.div)`
   grid-area: schedule;
   padding: 0;
-  padding-top: 80px;
-  padding-bottom: 40px;
+  padding-top: auto;
+  padding-bottom: auto;
   z-index: 1;
   background: black;
   display: flex;
@@ -80,38 +74,12 @@ const FooterContainr = styled(animated.div)`
   padding: 10px;
   text-align: center;
   background: black;
-  max-height: 300px;
   z-index: 1;
-
-  @media ${devices.mobileS} {
-    max-height: 300px;
-  }
 `
 
 export default () => {
   const [{ percent }, set] = useSpring(() => ({ percent: 0 }))
-
   const [percentRevealed, setPercentRevealed] = useState(0)
-
-  const logoProps = useSpring({
-    from: { filter: `blur(20px)` },
-    to: { filter: `blur(2px)` },
-    config: { ...config.wobbly, duration: 1500 },
-    delay: 500,
-  })
-
-  const [hVis, setHVis] = useState(false)
-  const onHVisChange = useCallback(e => {
-    if (e) {
-      setHVis(true)
-    }
-  }, [])
-
-  const scheduleHeaderProps = useSpring({
-    from: { opacity: 0, filter: `blur(20px)` },
-    to: { opacity: 1, filter: hVis ? `blur(0px)` : `blur(20px)` },
-    config: { ...config.wobbly, friction: 1, duration: 1000 },
-  })
 
   const onScroll = useCallback(e => {
     console.log(window.scrollY / document.documentElement.clientHeight)
@@ -134,7 +102,7 @@ export default () => {
         <Hero />
       </HeroContainr>
       <ScheduleContainr>
-        <Schedule />
+        <Scheduler />
       </ScheduleContainr>
       <FooterContainr>
         <Footer />

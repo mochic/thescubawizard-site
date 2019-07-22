@@ -53,11 +53,11 @@ export const ErrorP = styled(animated.p)`
 `
 
 const ButtonColors = {
-  onColor: {
+  oncolor: {
     background: `#ffe7d0`,
     color: `#0a0a0a`,
   },
-  offColor: {
+  offcolor: {
     background: `#656565`,
     color: `#0a0a0a`,
   },
@@ -66,18 +66,31 @@ const ButtonColors = {
 export const Button = styled(animated.button)`
   padding: 6px;
   background: ${props =>
-    props.offColor
-      ? ButtonColors.offColor.background
-      : ButtonColors.onColor.background};
+    props.offcolor
+      ? ButtonColors.offcolor.background
+      : ButtonColors.oncolor.background};
   color: ${props =>
-    props.offColor ? ButtonColors.offColor.color : ButtonColors.onColor.color};
+    props.offcolor ? ButtonColors.offcolor.color : ButtonColors.oncolor.color};
   border-radius: 5px;
   border: 1px solid
     ${props =>
-      props.offColor
-        ? ButtonColors.offColor.color
-        : ButtonColors.onColor.color};
+      props.offcolor
+        ? ButtonColors.offcolor.color
+        : ButtonColors.oncolor.color};
   margin-top: 16%;
+`
+
+export const TextButton = styled(animated.button)`
+  border: 0;
+  outline: 0;
+  background: none;
+  color: #656565;
+  line-height: 1;
+  font-family: montserrat alternates;
+  font-weight: 300;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
 `
 
 // -placeholder-shown wont work on edge
@@ -89,6 +102,7 @@ export const Input = styled(animated.input)`
   border-bottom: 1px solid #656565;
   text-align: center;
   font-family: montserrat alternates;
+  font-size: 16px;
   font-weight: 400;
   color: #c4c4c4;
   padding: 5px 5px 5px 5px;
