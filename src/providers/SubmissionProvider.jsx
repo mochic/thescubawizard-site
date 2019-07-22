@@ -1,9 +1,9 @@
 import React, { useState } from "react"
 
-import SubmissionContext from "./contexts/submission.context"
-import submitToAPI from "../../utils"
+import SubmissionContext from "../contexts/submission.context"
+import submitToAPI from "../utils"
 
-export const SubmissionProvider = ({ children }) => {
+export default ({ children }) => {
   const submit = async (phone, email) => {
     setSubmission(prevState => ({
       ...prevState,

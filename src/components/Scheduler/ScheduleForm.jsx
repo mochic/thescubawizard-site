@@ -5,7 +5,7 @@ import { animated, useChain, useSpring, useTransition } from "react-spring"
 
 import { H2, Input, P, ErrorP } from "../Shared"
 
-import SubmissionContext from "./contexts/submission.context"
+import SubmissionContext from "../../contexts/submission.context"
 
 const Form = styled(animated.form)`
   display: flex;

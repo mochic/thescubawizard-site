@@ -1,15 +1,26 @@
-import React, { useRef, useState, useEffect, useCallback } from "react"
+import React, { useState, useEffect, useCallback } from "react"
 
-import styled, { keyframes } from "styled-components"
+import styled from "styled-components"
 import { animated, useSpring } from "react-spring"
 
 import Scheduler from "../components/Scheduler"
-import Hero from "../chunks/Hero"
+import Hero from "../components/Hero"
 import Footer from "../components/Footer"
+
+import SubmissionProvider from "../providers/SubmissionProvider"
 
 import SEO from "../components/SEO"
 
 import devices from "../devices"
+
+/*
+ * z-index is used to create some kinda of an underwater feel
+ * -4 is app-background layer
+ * -3 is water background layer
+ * -2 is logo layer
+ * -1 is water foreground layer
+ * 0 is page layer
+ */
 
 const MainTainr = styled.div`
   overflow: hidden;
@@ -60,13 +71,10 @@ const Water = styled(animated.div)`
 
 const ScheduleContainr = styled(animated.div)`
   grid-area: schedule;
-  padding: 0;
-  padding-top: auto;
-  padding-bottom: auto;
+  padding: 10% 10% 15% 10%;
   z-index: 1;
-  background: black;
-  display: flex;
-  align-items: flex-end;
+  background: #0a0a0a;
+  box-sizing: border-box;
 `
 
 const FooterContainr = styled(animated.div)`
@@ -101,9 +109,11 @@ export default () => {
         <Water />
         <Hero />
       </HeroContainr>
-      <ScheduleContainr>
-        <Scheduler />
-      </ScheduleContainr>
+      <SubmissionProvider>
+        <ScheduleContainr>
+          <Scheduler />
+        </ScheduleContainr>
+      </SubmissionProvider>
       <FooterContainr>
         <Footer />
       </FooterContainr>

@@ -5,7 +5,7 @@ import { animated, useChain, useSpring } from "react-spring"
 
 import { P, H2, TextButton } from "../Shared"
 
-import SubmissionContext from "./contexts/submission.context"
+import SubmissionContext from "../../contexts/submission.context"
 
 const Containr = styled(animated.div)``
 
