@@ -3,7 +3,7 @@ import React, { useContext, useRef } from "react"
 import styled from "styled-components"
 import { animated, useChain, useSpring, useTransition } from "react-spring"
 
-import { H2, Input, P, ErrorP } from "../Shared"
+import { H2, Input, P } from "../Shared"
 
 import SubmissionContext from "../../contexts/submission.context"
 
@@ -21,6 +21,11 @@ const InputsTainr = styled(animated.div)`
   padding-right: 16px;
   justify-content: space-around;
   flex-direction: column;
+`
+
+const ErrorP = styled(animated.p)`
+  color: #e20000;
+  font-size: 14px;
 `
 
 export default () => {
@@ -54,30 +59,6 @@ export default () => {
     to: { opacity: 1 },
   })
 
-  const phoneErrorTransition = useTransition(errors.phone, null, {
-    from: { opacity: 0 },
-    enter: { opacity: 1 },
-    leave: { opacity: 0 },
-  })
-
-  const emailErrorTransition = useTransition(errors.email, null, {
-    from: { opacity: 0 },
-    enter: { opacity: 1 },
-    leave: { opacity: 0 },
-  })
-
-  const formErrorTransition = useTransition(
-    errors.email &&
-      errors.phone &&
-      `Please enter a valid phone number or email address.`,
-    null,
-    {
-      from: { opacity: 0 },
-      enter: { opacity: 1 },
-      leave: { opacity: 0 },
-    }
-  )
-
   const handleSubmit = async (phone, email) => {
     try {
       let result = await submit(phone, email)
@@ -105,13 +86,14 @@ export default () => {
             v > 0.5 ? `phone number` : ``
           )}
           autoComplete="tel"
-          style={phoneInputProps}
+          style={{
+            ...phoneInputProps,
+            borderBottom: errors.phone ? `1px solid #e20000` : null,
+          }}
+          valid={false}
           ref={phoneRef}
           disabled={isSubmitting}
         />
-        {phoneErrorTransition.map(({ item, props }) => {
-          return item && <ErrorP style={props}>{item}</ErrorP>
-        })}
         <P
           style={{
             marginLeft: `auto`,
@@ -130,15 +112,23 @@ export default () => {
             v > 0.5 ? `email address` : ``
           )}
           autoComplete="email"
-          style={emailInputProps}
+          style={{
+            ...emailInputProps,
+            borderBottom: errors.email ? `1px solid #e20000` : null,
+          }}
           ref={emailRef}
           disabled={isSubmitting}
+          valid={false}
         />
-        {emailErrorTransition.map(({ item, props }) => {
-          return item && <ErrorP style={props}>{item}</ErrorP>
-        })}
       </InputsTainr>
       <P>so we can schedule a chat.</P>
+      <ErrorP
+        style={{
+          visibility: errors.email || errors.phone ? `visible` : `hidden`,
+        }}
+      >
+        Please enter a valid phone number or email address.
+      </ErrorP>
       <Input
         value={isSubmitting ? `scheduling...` : `schedule`}
         type="submit"
@@ -146,9 +136,6 @@ export default () => {
           ...submitProps,
         }}
       />
-      {formErrorTransition.map(({ item, props }) => {
-        return item && <ErrorP style={props}>{item}</ErrorP>
-      })}
     </Form>
   )
 }

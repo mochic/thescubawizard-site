@@ -47,11 +47,6 @@ export const SuccessP = styled(animated.p)`
   font-size: 70%;
 `
 
-export const ErrorP = styled(animated.p)`
-  color: #ff3333;
-  font-size: 70%;
-`
-
 const ButtonColors = {
   oncolor: {
     background: `#ffe7d0`,
@@ -112,10 +107,10 @@ export const Input = styled(animated.input)`
     background: #ffe7d0;
     color: #0a0a0a;
     border-radius: 5px;
-    margin-top: 16%;
+    margin-top: 12%;
   }
 
-  input:not(:placeholder-shown) {
+  &:not(:placeholder-shown) {
     border-bottom: 1px solid #c4c4c4;
   }
 

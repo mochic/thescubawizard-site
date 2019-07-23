@@ -78,7 +78,16 @@ export default () => {
         }}
       >
         or
-        <TextButton onClick={handleClick}>reschedule</TextButton>
+        <TextButton
+          style={{
+            marginLeft: `8px`,
+            marginRight: `10px`,
+            borderBotton: `1px solid #656565`,
+          }}
+          onClick={handleClick}
+        >
+          reschedule
+        </TextButton>
       </P>
     </Containr>
   )

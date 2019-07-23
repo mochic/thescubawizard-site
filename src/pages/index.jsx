@@ -75,6 +75,7 @@ const ScheduleContainr = styled(animated.div)`
   z-index: 1;
   background: #0a0a0a;
   box-sizing: border-box;
+  min-height: 540px;
 `
 
 const FooterContainr = styled(animated.div)`
