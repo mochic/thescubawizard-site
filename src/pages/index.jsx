@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useCallback } from "react"
 
 import styled from "styled-components"
-import { animated, useSpring } from "react-spring"
+import { animated } from "react-spring"
 
-import Scheduler from "../components/Scheduler"
-import Hero from "../components/Hero"
+import BubbleParticles from "../components/BubbleParticles"
 import Footer from "../components/Footer"
+import Hero from "../components/Hero"
+import SEO from "../components/SEO"
+import Scheduler from "../components/Scheduler"
 
 import SubmissionProvider from "../providers/SubmissionProvider"
-
-import SEO from "../components/SEO"
 
 import devices from "../devices"
 
@@ -31,6 +31,7 @@ const MainTainr = styled.div`
     "schedule"
     "footer";
   margin: auto;
+  background: black;
 
   @media ${devices.tablet} {
     grid-template-columns: auto 48%;
@@ -56,6 +57,13 @@ const HeroContainr = styled(animated.div)`
   grid-area: hero;
 `
 
+// const HeroContainr = styled(animated.div)`
+//   overflow: hidden;
+//   height: 100vh;
+//   width: 100vw;
+//   grid-area: hero;
+// `
+
 const Water = styled(animated.div)`
   height: 100%;
   width: 100%;
@@ -67,33 +75,38 @@ const Water = styled(animated.div)`
   );
   top: 0;
   left: 0;
+  z-index: 2;
+`
+
+const ParticlesContainr = styled(animated.div)`
+  position: absolute;
+  top: 0;
+  z-index: 1;
 `
 
 const ScheduleContainr = styled(animated.div)`
   grid-area: schedule;
   padding: 10% 10% 15% 10%;
-  z-index: 1;
+  z-index: 2;
   background: #0a0a0a;
   box-sizing: border-box;
-  min-height: 540px;
+  min-height: 560px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 `
 
 const FooterContainr = styled(animated.div)`
   grid-area: footer;
   padding: 10px;
   text-align: center;
+  z-index: 2;
   background: black;
-  z-index: 1;
 `
 
 export default () => {
-  const [{ percent }, set] = useSpring(() => ({ percent: 0 }))
-  const [percentRevealed, setPercentRevealed] = useState(0)
-
   const onScroll = useCallback(e => {
     console.log(window.scrollY / document.documentElement.clientHeight)
-    set({ percent: window.scrollY / document.documentElement.clientHeight })
-    setPercentRevealed(window.scrollY / document.documentElement.clientHeight)
   }, [])
 
   useEffect(() => {
@@ -104,10 +117,13 @@ export default () => {
   })
 
   return (
-    <MainTainr onScroll={onScroll}>
+    <MainTainr>
       <SEO title={`home`} />
       <HeroContainr>
         <Water />
+        <ParticlesContainr>
+          <BubbleParticles height={`100vh`} width={`100vw`} />
+        </ParticlesContainr>
         <Hero />
       </HeroContainr>
       <SubmissionProvider>

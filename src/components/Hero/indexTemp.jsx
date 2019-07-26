@@ -4,7 +4,7 @@ import styled from "styled-components"
 import { animated, useSpring, config } from "react-spring"
 
 import HeroImage from "./HeroImage"
-import BubbleParticles from "../BubbleParticles"
+
 import devices from "../../devices"
 
 const TitleTainr = styled(animated.div)`
@@ -19,24 +19,11 @@ const TitleTainr = styled(animated.div)`
   }
 `
 
-const Water = styled(animated.div)`
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  background: linear-gradient(
-    180deg,
-    rgba(39, 167, 125, 0.9) 0%,
-    rgba(1, 0, 0, 0.9) 86%
-  );
-  top: 0;
-  left: 0;
-  z-index: 2;
-`
-
 // inner outer container to have a large
 // hero image based on our screen size that
 // doesn't stretch the rest of our content weirdly...
 const OuterHeroImageTainr = styled(animated.div)`
+  position: absolute;
   height: 100%;
   width: 100%;
   top: 0;
@@ -55,11 +42,6 @@ const InnerHeroImageTainr = styled(animated.div)`
     width: 100%;
   }
 `
-
-// const InnerHeroImageTainr = styled(animated.div)`
-//   height: 100%;
-//   width: 200%;
-// `
 
 const TitleChar = styled(animated.p)`
   color: #ffe9c9;

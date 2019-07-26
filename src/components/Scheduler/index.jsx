@@ -16,8 +16,10 @@ const HTainr = styled(animated.div)`
   background: none;
   overflow: hidden;
   min-width: 50px;
+  min-height: 50px;
   text-align: right;
-  margin-bottom: 40px;
+  margin-bottom: 25%;
+  padding-right: 25px;
 `
 
 const SwitchTainr = styled(animated.div)`

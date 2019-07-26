@@ -1,3 +1,5 @@
+import devices from "./devices"
+
 let submitToAPI
 if (process.env.NODE_ENV === "production") {
   submitToAPI = require("./api.prod.js").default
@@ -24,6 +26,18 @@ export const isEmptyString = str => {
  */
 export const isValidPhone = phone => {
   return /^1?[0-9]{10}$/.test(phone)
+}
+
+export const validatePhone = phone => {
+  return !isEmptyString(phone) && !isValidPhone(phone)
+    ? `Phone number appears to be invalid.`
+    : null
+}
+
+export const validateEmail = email => {
+  return !isEmptyString(email) && !isValidEmail(email)
+    ? `Email address appears to be invalid.`
+    : null
 }
 
 export default async (phone, email) => {

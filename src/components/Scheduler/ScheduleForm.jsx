@@ -28,6 +28,14 @@ const ErrorP = styled(animated.p)`
   font-size: 14px;
 `
 
+const ErrorSpan = styled(animated.span)``
+
+const Tainr = styled(animated.div)``
+
+const ValidatingFormInput = ({ formatter, validator, ...props }) => {
+  return <Tainr></Tainr>
+}
+
 export default () => {
   const { errors, submit, isSubmitting } = useContext(SubmissionContext)
 
@@ -82,15 +90,12 @@ export default () => {
           key="phone-input"
           type="tel"
           name="phone"
-          placeholder={phoneInputProps.opacity.interpolate(v =>
-            v > 0.5 ? `phone number` : ``
-          )}
+          placeholder={`Phone number`}
           autoComplete="tel"
           style={{
             ...phoneInputProps,
             borderBottom: errors.phone ? `1px solid #e20000` : null,
           }}
-          valid={false}
           ref={phoneRef}
           disabled={isSubmitting}
         />
@@ -108,9 +113,7 @@ export default () => {
           key="email-input"
           type="email"
           name="email"
-          placeholder={emailInputProps.opacity.interpolate(v =>
-            v > 0.5 ? `email address` : ``
-          )}
+          placeholder={`Email address`}
           autoComplete="email"
           style={{
             ...emailInputProps,
@@ -118,7 +121,6 @@ export default () => {
           }}
           ref={emailRef}
           disabled={isSubmitting}
-          valid={false}
         />
       </InputsTainr>
       <P>so we can schedule a chat.</P>

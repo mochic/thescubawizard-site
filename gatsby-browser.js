@@ -1,13 +1,10 @@
 import React from "react"
 
-import styled, { createGlobalStyle, keyframes } from "styled-components"
-import { animated, useSpring } from "react-spring"
-
-import Particles from "react-particles-js"
+import styled, { createGlobalStyle } from "styled-components"
+import { animated } from "react-spring"
 
 import devices from "./src/devices"
 
-// based on: https://css-tricks.com/books/volume-i/scale-typography-screen-size/
 const GlobalStyle = createGlobalStyle`
     html, body {
     }
@@ -21,58 +18,22 @@ const GlobalStyle = createGlobalStyle`
     }
 `
 
-const ParticlesContainr = styled(animated.div)`
-  position: absolute;
-  top: 0;
-  z-index: -1;
+const Containr = styled(animated.div)`
+  background: black;
+  z-index: 3;
 `
 
-const ParticlesOrSomething = () => {
-  return (
-    <ParticlesContainr>
-      <Particles
-        height="100vh"
-        width="100vw"
-        params={{
-          particles: {
-            number: {
-              value: 120,
-              density: {
-                enable: false,
-              },
-            },
-            size: {
-              value: 6,
-              random: true,
-              anim: {
-                speed: 4,
-                size_min: 0.3,
-              },
-            },
-            color: {
-              value: [`#27a77d`, `#1eff61`, `#222826`, `#ffffff`],
-              random: true,
-            },
-            line_linked: {
-              enable: false,
-            },
-            move: {
-              random: true,
-              speed: 0.6,
-              direction: "top",
-              out_mode: "out",
-            },
-          },
-        }}
-      />
-    </ParticlesContainr>
-  )
-}
+const PageTainr = styled(animated.div)`
+  max-width: 1440px;
+  margin: auto;
+  overflow: hidden;
+`
 
 export const replaceComponentRenderer = ({ props, ...other }) => (
-  <>
+  <Containr>
     <GlobalStyle />
-    <ParticlesOrSomething />
-    {React.createElement(props.pageResources.component, props)}
-  </>
+    <PageTainr>
+      {React.createElement(props.pageResources.component, props)}
+    </PageTainr>
+  </Containr>
 )

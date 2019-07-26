@@ -7,7 +7,9 @@ import { P, H2, TextButton } from "../Shared"
 
 import SubmissionContext from "../../contexts/submission.context"
 
-const Containr = styled(animated.div)``
+const Containr = styled(animated.div)`
+  padding-top: 35%;
+`
 
 export default () => {
   const { submitted, resetSubmission } = useContext(SubmissionContext)
@@ -38,10 +40,10 @@ export default () => {
   const messageSpringRef = useRef()
   const messageProps = useSpring({
     from: {
-      innerHeight: 0,
+      opacity: 0,
     },
     to: {
-      innerHeight: 100,
+      opacity: 1,
     },
     ref: messageSpringRef,
   })
@@ -57,23 +59,14 @@ export default () => {
 
   return (
     <Containr>
-      <H2 style={headerProps}>Scheduled!</H2>
-      <P
-        style={{
-          visbility: messageProps.innerHeight.interpolate(v =>
-            v === 100 ? `visible` : `hidden`
-          ),
-        }}
-        height={messageProps.innerHeight.interpolate(v => `${v}%`)}
-      >
-        {message}
-      </P>
+      <H2 style={headerProps}>Success</H2>
+      <P style={messageProps}>{message}</P>
       <P
         style={{
           width: `100%`,
           display: `flex`,
           justifyContent: `flex-end`,
-          marginTop: `10%`,
+          marginTop: `22%`,
           ...rescheduleProps,
         }}
       >
