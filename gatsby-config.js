@@ -45,6 +45,7 @@ module.exports = {
           `montserrat\:100,300,400,500,600,900`,
           `roboto mono\:100,300,400,600,900`,
           `montserrat alternates\:100,300,400,600,900`,
+          `gilda display`,
         ],
       },
     },

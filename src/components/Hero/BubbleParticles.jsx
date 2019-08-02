@@ -2,11 +2,10 @@ import React from "react"
 
 import Particles from "react-particles-js"
 
-export default ({ height, width }) => {
+export default props => {
   return (
     <Particles
-      height={height}
-      width={width}
+      {...props}
       params={{
         particles: {
           number: {

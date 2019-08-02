@@ -4,12 +4,54 @@ import styled from "styled-components"
 import { animated, useSpring, config } from "react-spring"
 
 import HeroImage from "./HeroImage"
-import BubbleParticles from "../BubbleParticles"
+import BubbleParticles from "./BubbleParticles"
 import devices from "../../devices"
+
+const ParticlesContainr = styled(animated.div)`
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  height: 100%;
+  width: 100%;
+
+  /* styling BubbleParticles requires css classNames */
+  .bubbles {
+    height: 100%;
+  }
+`
+
+// inner outer container to have a large
+// hero image based on our screen size that
+// doesn't stretch the rest of our content weirdly...
+const OuterHeroImageTainr = styled(animated.div)`
+  width: 100%;
+  max-height: 100vh !important; /* looks wrong but is very impotant we never want hero to be bigger than screen */
+  top: 0;
+  left: 0;
+  z-index: 0;
+  overflow: hidden;
+`
+
+// const InnerHeroImageTainr = styled(animated.div)`
+//   height: 100%;
+//   width: 200%;
+
+//   @media ${devices.tablet} {
+//     height: 100%;
+//     width: 100%;
+//   }
+// `
+
+const InnerHeroImageTainr = styled(animated.div)`
+  height: 100%;
+  width: 200%;
+  max-width: 1600px;
+`
 
 const TitleTainr = styled(animated.div)`
   display: grid;
-  height: 100vh;
+  height: 100%;
   grid-template-rows: 3fr 1fr 1fr 1fr 2fr;
   grid-template-areas: "." "titleChunk0" "titleChunk1" "titleChunk2" ".";
   padding-left: 10%;
@@ -18,48 +60,6 @@ const TitleTainr = styled(animated.div)`
     padding-left: 20%;
   }
 `
-
-const Water = styled(animated.div)`
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  background: linear-gradient(
-    180deg,
-    rgba(39, 167, 125, 0.9) 0%,
-    rgba(1, 0, 0, 0.9) 86%
-  );
-  top: 0;
-  left: 0;
-  z-index: 2;
-`
-
-// inner outer container to have a large
-// hero image based on our screen size that
-// doesn't stretch the rest of our content weirdly...
-const OuterHeroImageTainr = styled(animated.div)`
-  height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
-  z-index: 0;
-  overflow: hidden;
-  max-width: 1440px;
-`
-
-const InnerHeroImageTainr = styled(animated.div)`
-  height: 100%;
-  width: 200%;
-
-  @media ${devices.tablet} {
-    height: 100%;
-    width: 100%;
-  }
-`
-
-// const InnerHeroImageTainr = styled(animated.div)`
-//   height: 100%;
-//   width: 200%;
-// `
 
 const TitleChar = styled(animated.p)`
   color: #ffe9c9;
@@ -86,6 +86,20 @@ const TitleChar = styled(animated.p)`
 const ChunkTainer = styled(animated.div)`
   display: flex;
   line-height: 1;
+`
+
+const Water = styled(animated.div)`
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background: linear-gradient(
+    180deg,
+    rgba(39, 167, 125, 0.9) 0%,
+    rgba(1, 0, 0, 0.9) 86%
+  );
+  top: 0;
+  left: 0;
+  z-index: 2;
 `
 
 export default () => {
@@ -239,12 +253,16 @@ export default () => {
 
   return (
     <>
+      <ParticlesContainr>
+        <BubbleParticles className={`bubbles`} />
+      </ParticlesContainr>
+      <Water />
       <OuterHeroImageTainr>
         <InnerHeroImageTainr style={heroProps}>
           <HeroImage />
         </InnerHeroImageTainr>
       </OuterHeroImageTainr>
-      <TitleTainr>
+      {/* <TitleTainr>
         <ChunkTainer style={{ gridArea: `titleChunk0` }}>
           <TitleChar style={tc00Props}>t</TitleChar>
           <TitleChar style={tc01Props}>h</TitleChar>
@@ -265,7 +283,7 @@ export default () => {
           <TitleChar style={c24Props}>r</TitleChar>
           <TitleChar style={c25Props}>d</TitleChar>
         </ChunkTainer>
-      </TitleTainr>
+      </TitleTainr> */}
     </>
   )
 }

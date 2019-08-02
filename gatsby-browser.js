@@ -24,7 +24,6 @@ const Containr = styled(animated.div)`
 `
 
 const PageTainr = styled(animated.div)`
-  max-width: 1440px;
   margin: auto;
   overflow: hidden;
 `

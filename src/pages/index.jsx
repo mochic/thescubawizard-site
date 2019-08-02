@@ -3,7 +3,6 @@ import React, { useState, useEffect, useCallback } from "react"
 import styled from "styled-components"
 import { animated } from "react-spring"
 
-import BubbleParticles from "../components/BubbleParticles"
 import Footer from "../components/Footer"
 import Hero from "../components/Hero"
 import SEO from "../components/SEO"
@@ -50,38 +49,15 @@ const MainTainr = styled.div`
   }
 `
 
+// max-width, overflow, position are very
+// important for making sure the hero doesn't
+// leak past the bounds we want
 const HeroContainr = styled(animated.div)`
   overflow: hidden;
   height: 100%;
   width: 100%;
   grid-area: hero;
-`
-
-// const HeroContainr = styled(animated.div)`
-//   overflow: hidden;
-//   height: 100vh;
-//   width: 100vw;
-//   grid-area: hero;
-// `
-
-const Water = styled(animated.div)`
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  background: linear-gradient(
-    180deg,
-    rgba(39, 167, 125, 0.9) 0%,
-    rgba(1, 0, 0, 0.9) 86%
-  );
-  top: 0;
-  left: 0;
-  z-index: 2;
-`
-
-const ParticlesContainr = styled(animated.div)`
-  position: absolute;
-  top: 0;
-  z-index: 1;
+  position: relative;
 `
 
 const ScheduleContainr = styled(animated.div)`
@@ -120,10 +96,6 @@ export default () => {
     <MainTainr>
       <SEO title={`home`} />
       <HeroContainr>
-        <Water />
-        <ParticlesContainr>
-          <BubbleParticles height={`100vh`} width={`100vw`} />
-        </ParticlesContainr>
         <Hero />
       </HeroContainr>
       <SubmissionProvider>

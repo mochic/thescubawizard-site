@@ -107,7 +107,6 @@ export const Input = styled(animated.input)`
     background: #ffe7d0;
     color: #0a0a0a;
     border-radius: 5px;
-    margin-top: 12%;
   }
 
   &:not(:placeholder-shown) {
