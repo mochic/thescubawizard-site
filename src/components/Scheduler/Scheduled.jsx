@@ -5,14 +5,14 @@ import { animated, useChain, useSpring } from "react-spring"
 
 import { P, H2, TextButton } from "../Shared"
 
-import SubmissionContext from "../../contexts/submission.context"
+import SchedulingContext from "../../contexts/scheduling.context"
 
 const Containr = styled(animated.div)`
-  padding-top: 35%;
+  padding-top: 9%;
 `
 
 export default () => {
-  const { submitted, resetSubmission } = useContext(SubmissionContext)
+  const { submitted, resetSubmission } = useContext(SchedulingContext)
 
   const handleClick = e => {
     e.preventDefault()
@@ -25,7 +25,7 @@ export default () => {
   } else if (submitted.phone) {
     message = `Great! I'll try to call you at: ${submitted.phone.value} between 9 am to 5pm PDT the next business day.`
   } else {
-    message = `Somehow we got here without submitting your information.
+    message = `Somehow we got here without submitting any of your information...
     This is probably a bug and not your fault at all :(.
     Please resubmit if you want try again.`
   }

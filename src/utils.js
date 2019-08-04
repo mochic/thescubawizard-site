@@ -7,8 +7,13 @@ if (process.env.NODE_ENV === "production") {
   submitToAPI = require("./api.dev.js").default
 }
 
-export const isValidEmail = email => {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+export const parsePhoneNumber = phoneNumber => {
+  const pattern = /^\(?(?<area>[0-9]{0,3})\)?(?: )?(?<prefix>[0-9]{0,3})-?(?<line>[0-9]{0,4})/
+  return phoneNumber.match(pattern).groups
+}
+
+export const isValidEmail = emailAddress => {
+  return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(emailAddress)
 }
 
 export const isEmptyString = str => {
@@ -24,60 +29,60 @@ export const isEmptyString = str => {
  * because we only accept us numbers and
  * rely on the input for formatting
  */
-export const isValidPhone = phone => {
-  return /^1?[0-9]{10}$/.test(phone)
+export const isValidPhone = phoneNumber => {
+  const { area, prefix, line } = parsePhoneNumber(phoneNumber)
+  return (
+    phoneNumber.length === 0 ||
+    (area &&
+      area.length === 3 &&
+      (prefix && prefix.length === 3) &&
+      (line && line.length === 4))
+  )
 }
 
-export const validatePhone = phone => {
-  return !isEmptyString(phone) && !isValidPhone(phone)
-    ? `Phone number appears to be invalid.`
-    : null
-}
-
-export const validateEmail = email => {
-  return !isEmptyString(email) && !isValidEmail(email)
-    ? `Email address appears to be invalid.`
-    : null
-}
-
-export default async (phone, email) => {
-  const errors = {}
-  let submitted // we will override later based on validation/api results...
-
-  if (isEmptyString(phone)) {
-    errors.phone = `Phone number appears to be empty.`
-  }
-
-  if (isEmptyString(email)) {
-    errors.email = `Email address appears to be empty.`
-  }
-
-  if (!errors.phone && !isValidPhone(phone)) {
-    errors.phone = `Phone number appears to be invalid.`
-  }
-
-  if (!errors.email && !isValidEmail(email)) {
-    errors.email = `Email address apears to be invalid.`
-  }
-
-  if (!errors.phone || !errors.email) {
-    const { errors: apiErrors, submitted: submittedToAPI } = await submitToAPI(
-      !errors.phone ? phone : null,
-      !errors.email ? email : null
-    )
-
-    if (!errors.phone && apiErrors.phone) {
-      errors.phone = apiErrors.phone
-    }
-
-    if (!errors.email && apiErrors.email) {
-      errors.email = apiErrors.email
-    }
-
-    submitted = { ...submittedToAPI }
+export const validatePhone = phoneNumber => {
+  if (isEmptyString(phoneNumber)) {
+    return `Phone number appears to be empty.`
+  } else if (!isValidPhone(phoneNumber)) {
+    return `Please enter a valid phone number.`
   } else {
-    submitted = { phone: false, email: false }
+    return
+  }
+}
+
+export const validateEmail = emailAddress => {
+  if (isEmptyString(emailAddress)) {
+    return `Email address appears to be empty.`
+  } else if (!isValidEmail(emailAddress)) {
+    return `Please enter a valid email address.`
+  } else {
+    return
+  }
+}
+
+export const phoneFormatter = (current, previous) => {
+  if (current.length < previous.length) {
+    return current
   }
 
-  return { errors, submitted }
+  const { area, prefix, line } = parsePhoneNumber(current)
+
+  let formattedPhoneNumber
+  if (area) {
+    formattedPhoneNumber = `(${area}${area.length === 3 ? `) ` : ``}`
+  }
+
+  if (prefix) {
+    formattedPhoneNumber += `${prefix}${prefix.length === 3 ? `-` : ``}`
+  }
+
+  if (line) {
+    formattedPhoneNumber += line
+  }
+
+  if (!formattedPhoneNumber && current === "(") {
+    return current
+  }
+
+  return formattedPhoneNumber
 }

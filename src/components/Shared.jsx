@@ -97,7 +97,7 @@ export const Input = styled(animated.input)`
   border-bottom: 1px solid #656565;
   text-align: center;
   font-family: montserrat alternates;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
   color: #c4c4c4;
   padding: 5px 5px 5px 5px;

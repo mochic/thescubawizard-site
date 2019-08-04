@@ -1,13 +1,13 @@
-export default async (phone, email) => {
+export default async (phoneNumber, emailAddress) => {
   console.log(`%csubmitting to mock api...`, "color: orange", {
-    phone: phone,
-    email: email,
+    phoneNumber,
+    emailAddress,
   })
   await new Promise(resolve => setTimeout(resolve, 3000))
   return {
     submitted: {
-      phone: { value: phone ? phone : null },
-      email: { value: email ? email : null },
+      phoneNumber: { value: phoneNumber ? phoneNumber : null },
+      emailAddress: { value: emailAddress ? emailAddress : null },
     },
     errors: {},
   }

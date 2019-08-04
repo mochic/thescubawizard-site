@@ -6,9 +6,6 @@ import { animated } from "react-spring"
 import Footer from "../components/Footer"
 import Hero from "../components/Hero"
 import SEO from "../components/SEO"
-import Scheduler from "../components/Scheduler"
-
-import SubmissionProvider from "../providers/SubmissionProvider"
 
 import devices from "../devices"
 
@@ -98,11 +95,6 @@ export default () => {
       <HeroContainr>
         <Hero />
       </HeroContainr>
-      <SubmissionProvider>
-        <ScheduleContainr>
-          <Scheduler />
-        </ScheduleContainr>
-      </SubmissionProvider>
       <FooterContainr>
         <Footer />
       </FooterContainr>

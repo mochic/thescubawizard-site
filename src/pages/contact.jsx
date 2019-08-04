@@ -4,9 +4,9 @@ import { Link } from "gatsby"
 import styled from "styled-components"
 import { animated } from "react-spring"
 
-import SchedulingForm from "../components/SchedulingForm"
+import Scheduler from "../components/Scheduler"
 
-import SubmissionProvider from "../providers/SubmissionProvider"
+import SchedulingProvider from "../providers/SchedulingProvider"
 
 import devices from "../devices"
 
@@ -103,9 +103,9 @@ export default () => {
           <P style={{ color: `#FFE9C9` }}>dive job.</P>
         </StatementChunk>
       </Statement>
-      <SubmissionProvider>
-        <SchedulingForm />
-      </SubmissionProvider>
+      <SchedulingProvider>
+        <Scheduler />
+      </SchedulingProvider>
     </Containr>
   )
 }
