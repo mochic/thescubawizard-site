@@ -6,8 +6,8 @@ export default async (phoneNumber, emailAddress) => {
   await new Promise(resolve => setTimeout(resolve, 3000))
   return {
     submitted: {
-      phoneNumber: { value: phoneNumber ? phoneNumber : null },
-      emailAddress: { value: emailAddress ? emailAddress : null },
+      phoneNumber: phoneNumber ? phoneNumber : null,
+      emailAddress: emailAddress ? emailAddress : null,
     },
     errors: {},
   }

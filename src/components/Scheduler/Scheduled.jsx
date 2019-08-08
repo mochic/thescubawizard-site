@@ -12,7 +12,10 @@ const Containr = styled(animated.div)`
 `
 
 export default () => {
-  const { submitted, resetSubmission } = useContext(SchedulingContext)
+  const {
+    submitted: { emailAddress, phoneNumber },
+    resetSubmission,
+  } = useContext(SchedulingContext)
 
   const handleClick = e => {
     e.preventDefault()
@@ -20,14 +23,20 @@ export default () => {
   }
 
   let message
-  if (submitted.email) {
-    message = `Great! I'll send you an email at ${submitted.email.value} in ~ one to two business days.`
-  } else if (submitted.phone) {
-    message = `Great! I'll try to call you at: ${submitted.phone.value} between 9 am to 5pm PDT the next business day.`
+  if (emailAddress) {
+    message = `Great! I'll send you an email at ${emailAddress} in ~ one to two business days.`
+    console.log("%cemail success", "color: seagreen", { emailAddress })
+  } else if (phoneNumber) {
+    message = `Great! I'll try to call you at ${phoneNumber} between 9 am to 5pm PDT the next business day.`
+    console.log("%cphone success", "color: seagreen", { phoneNumber })
   } else {
     message = `Somehow we got here without submitting any of your information...
     This is probably a bug and not your fault at all :(.
     Please resubmit if you want try again.`
+    console.log("%cscheduling failure", "color: red", {
+      phoneNumber,
+      emailAddress,
+    })
   }
 
   const headerSpringRef = useRef()
@@ -58,7 +67,7 @@ export default () => {
   useChain([headerSpringRef, messageSpringRef, rescheduleSpringRef])
 
   return (
-    <Containr>
+    <>
       <H2 style={headerProps}>Success</H2>
       <P style={messageProps}>{message}</P>
       <P
@@ -82,6 +91,6 @@ export default () => {
           reschedule
         </TextButton>
       </P>
-    </Containr>
+    </>
   )
 }

@@ -17,17 +17,24 @@ const SwitchTainr = styled(animated.div)`
   justify-content: center;
 `
 
+const Containr = styled.div`
+  max-width: 300px;
+  width: 100%;
+`
+
 export default () => {
   const { submitted } = useContext(SchedulingContext)
 
   return (
     <>
       <SwitchTainr>
-        {submitted.phoneNumber || submitted.emailAddress ? (
-          <Scheduled />
-        ) : (
-          <SchedulingForm />
-        )}
+        <Containr>
+          {submitted.phoneNumber || submitted.emailAddress ? (
+            <Scheduled />
+          ) : (
+            <SchedulingForm />
+          )}
+        </Containr>
       </SwitchTainr>
     </>
   )

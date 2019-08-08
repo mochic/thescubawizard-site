@@ -1,12 +1,3 @@
-import devices from "./devices"
-
-let submitToAPI
-if (process.env.NODE_ENV === "production") {
-  submitToAPI = require("./api.prod.js").default
-} else {
-  submitToAPI = require("./api.dev.js").default
-}
-
 export const parsePhoneNumber = phoneNumber => {
   const pattern = /^\(?(?<area>[0-9]{0,3})\)?(?: )?(?<prefix>[0-9]{0,3})-?(?<line>[0-9]{0,4})/
   return phoneNumber.match(pattern).groups
@@ -67,7 +58,7 @@ export const phoneFormatter = (current, previous) => {
 
   const { area, prefix, line } = parsePhoneNumber(current)
 
-  let formattedPhoneNumber
+  let formattedPhoneNumber = ""
   if (area) {
     formattedPhoneNumber = `(${area}${area.length === 3 ? `) ` : ``}`
   }

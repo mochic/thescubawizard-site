@@ -58,6 +58,7 @@ const Statement = styled(animated.div)`
   flex-direction: column;
   align-content: center;
   font-size: 160%;
+  font-style: italic;
   margin-left: 5%;
   max-width: 60%;
   min-width: 250px;
@@ -99,7 +100,7 @@ export default () => {
           <P>{`Let's talk about`}</P>
         </StatementChunk>
         <StatementChunk style={{ alignSelf: `flex-end` }}>
-          <P style={{ paddingRight: `10px` }}>{`that next `}</P>
+          <P style={{ paddingRight: `7px` }}>{`that next `}</P>
           <P style={{ color: `#FFE9C9` }}>dive job.</P>
         </StatementChunk>
       </Statement>

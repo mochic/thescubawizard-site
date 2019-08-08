@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 
 import SchedulingContext from "../contexts/scheduling.context"
-import submitToAPI from "../utils"
+import submitToAPI from "../api"
 
 export default ({ children }) => {
   const submit = async (phoneNumber, emailAddress) => {
@@ -24,6 +24,7 @@ export default ({ children }) => {
 
   const resetSubmission = () => {
     setScheduling(schedulingState)
+    console.log("reset su")
   }
 
   const schedulingState = {

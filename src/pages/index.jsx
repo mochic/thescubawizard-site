@@ -6,6 +6,7 @@ import { animated } from "react-spring"
 import Footer from "../components/Footer"
 import Hero from "../components/Hero"
 import SEO from "../components/SEO"
+import InContentInternalLink from "../components/InContentInternalLink"
 
 import devices from "../devices"
 
@@ -24,7 +25,7 @@ const MainTainr = styled.div`
   display: grid;
   grid-template-areas:
     "hero"
-    "schedule"
+    "schedule-link"
     "footer";
   margin: auto;
   background: black;
@@ -51,7 +52,7 @@ const MainTainr = styled.div`
 // leak past the bounds we want
 const HeroContainr = styled(animated.div)`
   overflow: hidden;
-  height: 100%;
+  height: 100vh;
   width: 100%;
   grid-area: hero;
   position: relative;
@@ -77,6 +78,8 @@ const FooterContainr = styled(animated.div)`
   background: black;
 `
 
+const InlineLinkTainr = styled.div``
+
 export default () => {
   const onScroll = useCallback(e => {
     console.log(window.scrollY / document.documentElement.clientHeight)
@@ -95,6 +98,13 @@ export default () => {
       <HeroContainr>
         <Hero />
       </HeroContainr>
+      <InlineLinkTainr style={{ gridArea: `schedule-link` }}>
+        <InContentInternalLink
+          heading="Need help with a dive job?"
+          statement="Let's talk about it."
+          link={{ to: `/contact`, label: `Schedule a chat. ---->` }}
+        />
+      </InlineLinkTainr>
       <FooterContainr>
         <Footer />
       </FooterContainr>

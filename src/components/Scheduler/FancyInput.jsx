@@ -1,14 +1,13 @@
-import React, { useState, useCallback } from "react"
+import React, { useState, useCallback, useRef } from "react"
 
 import styled from "styled-components"
-import { animated } from "react-spring"
-
-import { Input } from "../Shared"
+import { animated, useTransition, useSpring } from "react-spring"
 
 const Containr = styled(animated.div)`
   display: flex;
   flex-direction: column;
-  min-height: 85px;
+  justify-content: flex-end;
+  min-height: 100px;
 `
 
 const filledColor = `#ffe9c9`
@@ -25,6 +24,7 @@ const ErrorLabel = styled(animated.label)`
   margin-bottom: 5px;
   margin-top: 13px;
   align-self: left;
+  min-height: 13px;
 `
 
 const PlaceholderLabel = styled(animated.label)`
@@ -35,26 +35,57 @@ const PlaceholderLabel = styled(animated.label)`
   align-self: left;
 `
 
-export default ({ value, error, onChange, tainrStyle, ...props }) => {
+const Input = styled.input`
+  outline: 0;
+  border: 0;
+  background: transparent;
+  border-bottom: 1px solid
+    ${({ value, error }) => {
+      if (error) {
+        return `red`
+      } else if (value) {
+        return "#c4c4c4"
+      } else {
+        return `#656565`
+      }
+    }};
+  text-align: center;
+  font-family: montserrat alternates;
+  font-size: 14px;
+  font-weight: 400;
+  color: ${props => (props.error ? "red" : "#c4c4c4")};
+  padding: 5px 5px 5px 5px;
+`
+
+export default ({
+  value,
+  error,
+  onChange,
+  tainrStyle,
+  placeholder,
+  ...props
+}) => {
+  const inputRef = useRef()
   const [focused, setFocused] = useState(false)
 
-  const handleFocus = useCallback(
-    e => {
-      setFocused(true)
-      console.log("%cinput focused", "color: blue")
-      props.onFocus && props.onFocus()
-    },
-    [focused]
-  )
+  const handleFocus = e => {
+    setFocused(true)
+    console.log("%cinput focused", "color: blue")
+    props.onFocus && props.onFocus()
+  }
 
-  const handleBlur = useCallback(
-    e => {
-      setFocused(false)
-      console.log("%cinput blurred", "color: blue")
-      props.onBlur && props.onBlur()
-    },
-    [focused]
-  )
+  const handleBlur = e => {
+    setFocused(false)
+    console.log("%cinput blurred", "color: blue")
+    props.onBlur && props.onBlur()
+  }
+
+  const handleLabelClick = e => {
+    // clicking the pseudo-placeholder label should give focus to the input
+    e.preventDefault()
+    console.log("%clabel focused", "color: pink")
+    inputRef.current.focus()
+  }
 
   let placeholderLabelColor
   if (error) {
@@ -65,26 +96,45 @@ export default ({ value, error, onChange, tainrStyle, ...props }) => {
     placeholderLabelColor = unfilledColor
   }
 
+  const placeholderLabelProps = useSpring({
+    from: { transform: `translate3d(0,-40px,0)` },
+    to: {
+      transform:
+        focused || value ? `translate3d(0,-65px,0)` : `translate3d(0,-40px,0)`,
+    },
+  })
+
   return (
     <Containr style={tainrStyle}>
-      {props.placeholder && (
-        <PlaceholderLabel style={{ color: placeholderLabelColor }}>
-          {props.placeholder}
-        </PlaceholderLabel>
-      )}
+      <PlaceholderLabel
+        onClick={handleLabelClick}
+        style={{
+          position: `absolute`,
+          color: placeholderLabelColor,
+          ...placeholderLabelProps,
+        }}
+      >
+        {placeholder}
+      </PlaceholderLabel>
       <Input
         {...props}
+        ref={inputRef}
         value={value}
         onBlur={handleBlur}
         onChange={onChange}
         onFocus={handleFocus}
+        error={error !== null}
         style={{
           ...props.style,
           color: placeholderLabelColor,
           borderColor: placeholderLabelColor,
         }}
       />
-      <ErrorLabel style={{ visibility: error ? `visible` : `hidden` }}>
+
+      <ErrorLabel
+        style={{ visibility: error ? `visible` : `hidden` }}
+        onClick={handleLabelClick}
+      >
         {error}
       </ErrorLabel>
     </Containr>

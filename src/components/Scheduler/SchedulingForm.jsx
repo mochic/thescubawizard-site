@@ -10,7 +10,7 @@ import SchedulingContext from "../../contexts/scheduling.context"
 
 import { validateEmail, validatePhone, phoneFormatter } from "../../utils"
 
-const Form = styled(animated.div)`
+const Form = styled(animated.form)`
   grid-area: form;
   display: flex;
   flex-direction: column;
@@ -39,63 +39,48 @@ export default () => {
     phoneNumber: ``,
   })
 
-  const handleEmailBlur = useCallback(
-    e => {
-      setErrors({ ...errors, emailAddress: validateEmail(values.emailAddress) })
-      console.log("%cEmail blur handled.", "color: orange")
-    },
-    [values, errors]
-  )
+  const handleEmailBlur = e => {
+    setErrors({ ...errors, emailAddress: validateEmail(values.emailAddress) })
+    console.log("%cEmail blur handled.", "color: orange", { values, errors })
+  }
 
-  const handleEmailChange = useCallback(
-    e => {
-      setValues({
-        ...values,
-        emailAddress: e.target.value,
-      })
-      console.log("%cEmail change handled.", "color: orange")
-    },
-    [values]
-  )
+  const handleEmailChange = e => {
+    setValues({
+      ...values,
+      emailAddress: e.target.value,
+    })
+    console.log("%cEmail change handled.", "color: orange", { values })
+  }
 
-  const handlePhoneBlur = useCallback(
-    e => {
-      setErrors({ ...errors, phoneNumber: validatePhone(values.phoneNumber) })
-      console.log("%cPhone blur handled.", "color: orange")
-    },
-    [values, errors]
-  )
+  const handlePhoneBlur = e => {
+    setErrors({ ...errors, phoneNumber: validatePhone(values.phoneNumber) })
+    console.log("%cPhone blur handled.", "color: orange", { values, errors })
+  }
 
-  const handlePhoneChange = useCallback(
-    e => {
-      setValues({
-        ...values,
-        phoneNumber: phoneFormatter(e.target.value, values.phoneNumber),
-      })
-      console.log("%cPhone change handled.", "color: orange")
-    },
-    [values]
-  )
+  const handlePhoneChange = e => {
+    setValues({
+      ...values,
+      phoneNumber: phoneFormatter(e.target.value, values.phoneNumber),
+    })
+    console.log("%cPhone change handled.", "color: orange", { values })
+  }
 
-  const handleSubmit = useCallback(
-    async e => {
-      console.log("%csubmitting...", "color: green")
-      e.preventDefault()
-      // dont submit again if we're already submitting
-      if (isSubmitting) {
-        console.log("%calready submitting...", "color: red")
-        return
-      }
+  const handleSubmit = async e => {
+    console.log("%csubmitting...", "color: green")
+    e.preventDefault()
+    // dont submit again if we're already submitting
+    if (isSubmitting) {
+      console.log("%calready submitting...", "color: red")
+      return
+    }
 
-      try {
-        const result = await submit(values.phoneNumber, values.emailAddress)
-        console.log(`%capi success`, `color: teal`)
-      } catch (err) {
-        console.log(`%capi error`, `color: red`, err)
-      }
-    },
-    [values, errors, isSubmitting]
-  )
+    try {
+      await submit(values.phoneNumber, values.emailAddress)
+      console.log(`%capi success`, `color: teal`)
+    } catch (err) {
+      console.log(`%capi error`, `color: red`, err)
+    }
+  }
 
   return (
     <Form onSubmit={handleSubmit} noValidate>

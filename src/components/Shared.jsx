@@ -90,7 +90,7 @@ export const TextButton = styled(animated.button)`
 
 // -placeholder-shown wont work on edge
 // but we dont reallllly care that much?
-export const Input = styled(animated.input)`
+export const Input = styled.input`
   outline: 0;
   border: 0;
   background: transparent;
@@ -99,7 +99,7 @@ export const Input = styled(animated.input)`
   font-family: montserrat alternates;
   font-size: 14px;
   font-weight: 400;
-  color: #c4c4c4;
+  color: ${props => (props.error ? "red" : "#c4c4c4")};
   padding: 5px 5px 5px 5px;
 
   &[type="submit"] {
@@ -114,13 +114,13 @@ export const Input = styled(animated.input)`
   }
 
   &::placeholder {
-    color: #656565;
+    color: ${props => (props.error ? "red" : "#656565")};
   }
   &::-webkit-input-placeholder {
-    color: #656565;
+    color: ${props => (props.error ? "red" : "#656565")};
   }
   &:-ms-input-placeholder {
-    color: #656565;
+    color: ${props => (props.error ? "red" : "#656565")};
   }
 
   &:not([type="submit"]):focus {
