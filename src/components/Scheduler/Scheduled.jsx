@@ -7,10 +7,6 @@ import { P, H2, TextButton } from "../Shared"
 
 import SchedulingContext from "../../contexts/scheduling.context"
 
-const Containr = styled(animated.div)`
-  padding-top: 9%;
-`
-
 export default () => {
   const {
     submitted: { emailAddress, phoneNumber },

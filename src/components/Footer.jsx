@@ -29,7 +29,8 @@ export default () => {
     <>
       {/* helps us remember/not remove the space at the end */}
       <Statement>
-        <StatementChunk>
+        {/* lets put our name on it in a different way */}
+        {/* <StatementChunk>
           {`site by `}
           <Link
             href="https://github.com/mochic"
@@ -39,7 +40,7 @@ export default () => {
           >
             mochic
           </Link>
-        </StatementChunk>
+        </StatementChunk> */}
       </Statement>
     </>
   )

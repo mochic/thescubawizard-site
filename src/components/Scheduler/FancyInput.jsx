@@ -1,7 +1,8 @@
 import React, { useState, useCallback, useRef } from "react"
 
-import styled from "styled-components"
+import PropTypes from "prop-types"
 import { animated, useTransition, useSpring } from "react-spring"
+import styled from "styled-components"
 
 const Containr = styled(animated.div)`
   display: flex;
@@ -57,7 +58,7 @@ const Input = styled.input`
   padding: 5px 5px 5px 5px;
 `
 
-export default ({
+const FancyInput = ({
   value,
   error,
   onChange,
@@ -140,3 +141,13 @@ export default ({
     </Containr>
   )
 }
+
+FancyInput.propTypes = {
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  error: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  tainrStyle: PropTypes.object,
+  placeholder: PropTypes.string,
+}
+
+export default FancyInput

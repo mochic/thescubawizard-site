@@ -1,6 +1,6 @@
 # thescubawizard-site
 
-Mobile first dive website built with [gatsbyjs](https://github.com/gatsbyjs/gatsby), [styled-components](https://www.styled-components.com/docs/basics), [react-spring](https://github.com/react-spring/react-spring), and many more!
+Mobile first dive website built with [gatsbyjs](https://github.com/gatsbyjs/gatsby), [styled-components](https://www.styled-components.com/docs/basics), [react-spring](https://github.com/react-spring/react-spring), and many more.
 
 ## notes
 

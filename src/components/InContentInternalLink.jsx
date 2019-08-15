@@ -37,7 +37,7 @@ export default ({ heading, statement, link: { label, to } }) => {
       <H1>{heading}</H1>
       <P>{statement}</P>
       <Link to={to}>
-        <p>{`${label} `}&rarr</p>
+        <p>{`${label} &rarr`}</p>
       </Link>
     </>
   )

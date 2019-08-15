@@ -1,4 +1,9 @@
-import { isValidEmail, isValidPhone, isEmptyString } from "./utils"
+import {
+  isValidEmail,
+  isValidPhone,
+  isEmptyString,
+  processPhoneNumber,
+} from "./utils"
 
 describe(`isValidEmail`, () => {
   it(`valiates email #0`, () => {
@@ -43,10 +48,16 @@ describe(`isValidPhone`, () => {
   it(`validates phone #1`, () => {
     expect(isValidPhone(`8082235545`)).toBe(true)
   })
-  it(`validates phone #1`, () => {
+  it(`validates phone #2`, () => {
     expect(isValidPhone(`082235545`)).toBe(false)
   })
-  it(`validates phone #1`, () => {
+  it(`validates phone #3`, () => {
     expect(isValidPhone(`118082235545`)).toBe(false)
+  })
+})
+
+describe("processPhoneNumber", () => {
+  it(`processes phone #0`, () => {
+    expect(processPhoneNumber("(808) 223-5545")).toEqual("18082235545")
   })
 })

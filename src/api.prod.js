@@ -1,17 +1,23 @@
-const axios = require("axios")
+import axios from "axios"
 
-const postEndpoint = null
+const postEndpoint = process.env.GATSBY_CONTACT_INFO_ENDPOINT
 
-export default async (phoneNumber, emailAddress) => {
+if (!postEndpoint) {
+  throw new Error("Contact info post endpoint not configured.")
+}
+
+export default async (emailAddress, phoneNumber) => {
+  let response
   try {
-    const response = await axios.post(postEndpoint, {
+    response = await axios.post(postEndpoint, {
       phoneNumber,
       emailAddress,
     })
-    console.log("%capi succes", "color: teal", response)
+    console.log("%capi success", "color: teal", response)
   } catch (err) {
     console.log("%capi error", "color: red", err)
+    return {}, true
   }
 
-  return response
+  return response.data, false
 }
