@@ -104,6 +104,12 @@ const FancyInput = ({
         focused || value ? `translate3d(0,-65px,0)` : `translate3d(0,-40px,0)`,
     },
   })
+  // const placeholderLabelProps = useSpring({
+  //   from: { fontSize: `14px` },
+  //   to: {
+  //     fontSize: focused || value ? `8px` : `14px`,
+  //   },
+  // })
 
   return (
     <Containr style={tainrStyle}>

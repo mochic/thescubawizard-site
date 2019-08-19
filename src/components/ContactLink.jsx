@@ -34,10 +34,11 @@ const Link = styled(_Link)`
 export default ({ heading, statement, link: { label, to } }) => {
   return (
     <>
-      <H1>{heading}</H1>
-      <P>{statement}</P>
+      <P>{`Need help with a `}</P>
+      <P style={{ color: `green` }}>dive job</P>
+      <P>{` ?`}</P>
       <Link to={to}>
-        <p>{`${label} ` + String.fromCharCode(8594)}</p>
+        <p>{`contact ` + String.fromCharCode(8594)}</p>
       </Link>
     </>
   )

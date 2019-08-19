@@ -29,6 +29,28 @@ export default () => {
     <>
       {/* helps us remember/not remove the space at the end */}
       <Statement>
+        <StatementChunk>the scuba wizard</StatementChunk>
+        <div>
+          {`Icons made by `}
+          <a
+            href="https://www.flaticon.com/authors/flat-icons"
+            title="Flat Icons"
+          >
+            Flat Icons
+          </a>
+          {` from `}
+          <a href="https://www.flaticon.com/" title="Flaticon">
+            www.flaticon.com
+          </a>
+          {` is licensed by `}
+          <a
+            href="http://creativecommons.org/licenses/by/3.0/"
+            title="Creative Commons BY 3.0"
+            target="_blank"
+          >
+            CC 3.0 BY
+          </a>
+        </div>
         {/* lets put our name on it in a different way */}
         {/* <StatementChunk>
           {`site by `}

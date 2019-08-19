@@ -2,6 +2,7 @@ import React, { useState } from "react"
 
 import SchedulingContext from "../contexts/scheduling.context"
 import submitToAPI from "../api"
+import { processPhoneNumber } from "../utils"
 
 export default ({ children }) => {
   const submit = async (phoneNumber, emailAddress) => {
@@ -11,12 +12,18 @@ export default ({ children }) => {
     }))
     console.log("submitting to api:", { phoneNumber, emailAddress })
 
-    let apiResponse = await submitToAPI(phoneNumber, emailAddress)
-    console.log("api response:", apiResponse)
+    let [submittedToAPI, apiErrored] = await submitToAPI(
+      processPhoneNumber(phoneNumber),
+      emailAddress
+    )
+    console.log("api response:", submittedToAPI, apiErrored)
 
     setScheduling(prevState => ({
       ...prevState,
-      ...apiResponse,
+      submitted: { ...submittedToAPI },
+      errors: {
+        api: `An expected error occurred when submitting your values to our api.`,
+      },
       isSubmitting: false,
     }))
     console.log("submitted!")

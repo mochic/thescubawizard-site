@@ -75,7 +75,7 @@ export default () => {
     }
 
     try {
-      await submit(values.emailAddress, values.phoneNumber)
+      await submit(values.phoneNumber, values.emailAddress)
       console.log(`%capi success`, `color: teal`)
     } catch (err) {
       console.log(`%capi error`, `color: red`, err)

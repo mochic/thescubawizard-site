@@ -33,6 +33,17 @@ export const H2 = styled(animated.h2)`
   margin-bottom: 30px;
 `
 
+export const H3 = styled(animated.h3)`
+  margin: 0px;
+  padding: 0px;
+  font-family: roboto;
+  font-weight: 100;
+  font-size: 130%;
+  color: #ffe9c9;
+  line-height: 1;
+  margin-bottom: 30px;
+`
+
 export const P = styled(animated.p)`
   line-height: 1;
   font-family: montserrat alternates;

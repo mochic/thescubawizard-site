@@ -106,7 +106,8 @@ export default () => {
   const delay = 1000
   const heroProps = useSpring({
     from: { filter: `blur(20px)` },
-    to: [{ filter: `blur(0px)` }, { filter: `blur(5px)` }],
+    // to: [{ filter: `blur(0px)` }, { filter: `blur(5px)` }],
+    to: { filter: `blur(5px)` },
     config: { ...config.stiff, duration: 1500 },
     // delay: 1800,
   })

@@ -5,6 +5,7 @@ import { animated } from "react-spring"
 
 import Footer from "../components/Footer"
 import Hero from "../components/Hero"
+import Services from "../components/Services"
 import SEO from "../components/SEO"
 import InContentInternalLink from "../components/InContentInternalLink"
 
@@ -34,7 +35,7 @@ const MainTainr = styled.div`
     grid-template-columns: auto 48%;
     grid-template-rows: auto 10%;
     grid-template-areas:
-      "hero schedule"
+      "hero services"
       "hero footer";
   }
 
@@ -42,7 +43,7 @@ const MainTainr = styled.div`
     grid-template-columns: auto 432px;
     grid-template-rows: auto 10%;
     grid-template-areas:
-      "hero schedule"
+      "hero services"
       "hero footer";
   }
 `
@@ -70,6 +71,11 @@ const ScheduleContainr = styled(animated.div)`
   justify-content: flex-end;
 `
 
+const ServicesContainr = styled(animated.div)`
+  grid-area: services;
+  background: green;
+`
+
 const FooterContainr = styled(animated.div)`
   grid-area: footer;
   padding: 10px;
@@ -79,6 +85,17 @@ const FooterContainr = styled(animated.div)`
 `
 
 const InlineLinkTainr = styled.div``
+
+const Page = styled.div``
+
+const H2 = styled(animated.h2)`
+  font-family: gilda display;
+  grid-area: heading;
+  color: #506a61;
+  font-size: 450%;
+  margin: 0;
+  padding: 0;
+`
 
 export default () => {
   const onScroll = useCallback(e => {
@@ -98,11 +115,15 @@ export default () => {
       <HeroContainr>
         <Hero />
       </HeroContainr>
+      <ServicesContainr>
+        <H2>services</H2>
+        <Services />
+      </ServicesContainr>
       <InlineLinkTainr style={{ gridArea: `schedule-link` }}>
         <InContentInternalLink
           heading="Need help with a dive job?"
           statement="Let's talk about it."
-          link={{ to: `/contact`, label: `Schedule a chat. ---->` }}
+          link={{ to: `/contact`, label: `Schedule a chat.` }}
         />
       </InlineLinkTainr>
       <FooterContainr>

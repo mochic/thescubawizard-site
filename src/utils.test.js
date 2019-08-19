@@ -2,6 +2,7 @@ import {
   isValidEmail,
   isValidPhone,
   isEmptyString,
+  phoneFormatter,
   processPhoneNumber,
 } from "./utils"
 
@@ -43,16 +44,51 @@ describe(`isEmptyString`, () => {
 
 describe(`isValidPhone`, () => {
   it(`validates phone #0`, () => {
-    expect(isValidPhone(`18082235545`)).toBe(true)
+    expect(isValidPhone(`8082235545`)).toBe(true)
   })
   it(`validates phone #1`, () => {
-    expect(isValidPhone(`8082235545`)).toBe(true)
+    expect(isValidPhone(`(808) 223-5545`)).toBe(true)
   })
   it(`validates phone #2`, () => {
     expect(isValidPhone(`082235545`)).toBe(false)
   })
   it(`validates phone #3`, () => {
     expect(isValidPhone(`118082235545`)).toBe(false)
+  })
+})
+
+describe("phoneFormatter", () => {
+  it(`formats phone #0`, () => {
+    expect(phoneFormatter("8", "")).toEqual("(8")
+  })
+  it(`formats phone #1`, () => {
+    expect(phoneFormatter("(808", "(80")).toEqual("(808) ")
+  })
+  it(`formats phone #2`, () => {
+    expect(phoneFormatter("(808) 223", "(808) 22")).toEqual("(808) 223-")
+  })
+  it(`formats phone #3`, () => {
+    expect(phoneFormatter("(808) 223-5545", "(808) 223-554")).toEqual(
+      "(808) 223-5545"
+    )
+  })
+  it(`formats phone #4`, () => {
+    expect(phoneFormatter("(808) 223-55455", "(808) 223-5545")).toEqual(
+      "(808) 223-5545"
+    )
+  })
+  it(`formats phone #5`, () => {
+    expect(phoneFormatter("", "(")).toEqual("")
+  })
+  it(`formats phone #6`, () => {
+    expect(phoneFormatter("(800", "(800)")).toEqual("(800")
+  })
+  /**
+   * no idea how this situation would occur, but its
+   * good to not completely break incase it happens
+   */
+  it(`formats phone #7`, () => {
+    expect(phoneFormatter("(800", "(800) ")).toEqual("(800")
   })
 })
 

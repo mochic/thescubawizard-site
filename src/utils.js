@@ -1,5 +1,5 @@
 export const parsePhoneNumber = phoneNumber => {
-  const pattern = /^1?\(?(?<area>[0-9]{0,3})\)?(?: )?(?<prefix>[0-9]{0,3})-?(?<line>[0-9]{0,4})$/
+  const pattern = /^\(?(?<area>[0-9]{0,3})\)?(?: )?(?<prefix>[0-9]{0,3})-?(?<line>[0-9]{0,4})$/
   const matched = phoneNumber.match(pattern)
   return matched ? matched.groups : {}
 }
@@ -23,15 +23,12 @@ export const isEmptyString = str => {
  */
 export const isValidPhone = phoneNumber => {
   const { area, prefix, line } = parsePhoneNumber(phoneNumber)
-  return (
-    phoneNumber.length === 0 ||
-    !!(
-      area &&
-      area.length === 3 &&
-      (prefix && prefix.length === 3) &&
-      (line && line.length === 4)
-    ) // !! converts truthy values to true and falsey values to false (ie: null, undefined, etc.)
-  )
+  return !!(
+    area &&
+    area.length === 3 &&
+    (prefix && prefix.length === 3) &&
+    (line && line.length === 4)
+  ) // !! converts truthy values to true and falsey values to false (ie: null, undefined, etc.)
 }
 
 export const validatePhone = phoneNumber => {
@@ -54,6 +51,12 @@ export const validateEmail = emailAddress => {
   }
 }
 
+/**
+ * formats a phone number
+ * @param {string} current - current input value
+ * @param {string} previous - previous input value
+ * TODO: this is getting really complicated, refactor...
+ */
 export const phoneFormatter = (current, previous) => {
   if (current.length < previous.length) {
     return current
@@ -76,6 +79,18 @@ export const phoneFormatter = (current, previous) => {
 
   if (!formattedPhoneNumber && current === "(") {
     return current
+  }
+
+  /**
+   * exclusively handles the case:
+   * (808) 223-55455 -> (808) 223-5545
+   */
+  if (
+    !formattedPhoneNumber &&
+    current.length > previous.length &&
+    isValidPhone(previous)
+  ) {
+    return previous
   }
 
   return formattedPhoneNumber
