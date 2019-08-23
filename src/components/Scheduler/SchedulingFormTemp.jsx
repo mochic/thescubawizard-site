@@ -6,8 +6,6 @@ import { animated } from "react-spring"
 import { Input } from "../Shared"
 import FancyInput from "./FancyInput"
 
-import ScheduleArrow from "./ScheduleArrow"
-
 import SchedulingContext from "../../contexts/scheduling.context"
 
 import { validateEmail, validatePhone, phoneFormatter } from "../../utils"
@@ -121,7 +119,6 @@ export default () => {
           width: `80%`,
         }}
       />
-      <ScheduleArrow />
     </Form>
   )
 }

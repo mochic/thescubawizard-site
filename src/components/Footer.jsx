@@ -24,46 +24,78 @@ const StatementChunk = styled(animated.p)`
   font-size: 14px;
 `
 
+const FooterText = styled.p`
+  margin: 0;
+  padding: 0;
+  color: #505050;
+  font-size: 14px;
+  text-align: center;
+`
+
+const FooterLink = styled.a`
+  color: rgba(255, 255, 255, 0.55);
+  text-decoration: none;
+
+  &:visited {
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  &:hover {
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  &:active {
+    color: rgba(255, 255, 255, 1);
+  }
+`
+
+const PlugTainr = styled.div`
+  color: #505050;
+  font-family: inconsolata;
+  font-weight: 600;
+  font-style: bold;
+  font-size: 14px;
+  text-align: center;
+  padding: 20px 50px 0 50px;
+`
+
+const FlatIconsPlug = () => (
+  <PlugTainr>
+    {`Icons made by `}
+    <FooterLink
+      href="https://www.flaticon.com/authors/flat-icons"
+      title="Flat Icons"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      Flat Icons
+    </FooterLink>
+    {` from `}
+    <FooterLink
+      href="https://www.flaticon.com/"
+      title="Flaticon"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      www.flaticon.com
+    </FooterLink>
+    {` is licensed by `}
+    <FooterLink
+      href="http://creativecommons.org/licenses/by/3.0/"
+      title="Creative Commons BY 3.0"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      CC BY 3.0
+    </FooterLink>
+  </PlugTainr>
+)
+
 export default () => {
   return (
     <>
-      {/* helps us remember/not remove the space at the end */}
-      <Statement>
-        <StatementChunk>the scuba wizard</StatementChunk>
-        <div>
-          {`Icons made by `}
-          <a
-            href="https://www.flaticon.com/authors/flat-icons"
-            title="Flat Icons"
-          >
-            Flat Icons
-          </a>
-          {` from `}
-          <a href="https://www.flaticon.com/" title="Flaticon">
-            www.flaticon.com
-          </a>
-          {` is licensed by `}
-          <a
-            href="http://creativecommons.org/licenses/by/3.0/"
-            title="Creative Commons BY 3.0"
-            target="_blank"
-          >
-            CC 3.0 BY
-          </a>
-        </div>
-        {/* lets put our name on it in a different way */}
-        {/* <StatementChunk>
-          {`site by `}
-          <Link
-            href="https://github.com/mochic"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ color: `#505050` }}
-          >
-            mochic
-          </Link>
-        </StatementChunk> */}
-      </Statement>
+      <FooterText>the scuba wizard</FooterText>
+      <FlatIconsPlug />
     </>
   )
 }

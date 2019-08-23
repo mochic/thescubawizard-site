@@ -13,9 +13,10 @@ const IconTainr = styled(animated.div)`
   overflow: hidden;
   display: flex;
   background: #ffe9c9;
-  border-radius: 50px;
+  border-radius: 100%;
   align-items: center;
   justify-content: center;
+  margin: auto auto 28px auto;
 `
 
 const Service = ({
@@ -29,8 +30,19 @@ const Service = ({
   return (
     <>
       <IconTainr style={{ ...iconProps }}>{children}</IconTainr>
-      <H3 style={{ textAlign: `center`, ...nameProps }}>{name}</H3>
-      <P style={{ textAlign: `center`, ...descriptionProps }}>{description}</P>
+      <H3 style={{ fontWeight: 600, textAlign: `center`, ...nameProps }}>
+        {name}
+      </H3>
+      <P
+        style={{
+          fontFamily: `roboto`,
+          fontWeight: 300,
+          textAlign: `center`,
+          ...descriptionProps,
+        }}
+      >
+        {description}
+      </P>
     </>
   )
 }

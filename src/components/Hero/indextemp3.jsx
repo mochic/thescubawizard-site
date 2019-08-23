@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react"
+import React, { useRef, useState } from "react"
 
 import styled from "styled-components"
 import { animated, useSpring, useChain, config } from "react-spring"
@@ -6,11 +6,7 @@ import { animated, useSpring, useChain, config } from "react-spring"
 import HeroImage from "./HeroImage"
 import BubbleParticles from "./BubbleParticles"
 // import Title from "./TitleSVG"
-import VisibilitySensor from "react-visibility-sensor"
 import devices from "../../devices"
-
-// import ScrollContext from "../../contexts/scroll.context"
-import VisibilityContext from "../../contexts/visibility.context"
 
 const ParticlesContainr = styled(animated.div)`
   position: absolute;
@@ -52,10 +48,6 @@ const InnerHeroImageTainr = styled(animated.div)`
   height: 100%;
   width: 200%;
   max-width: 1600px;
-
-  @media ${devices.mobileS} {
-    max-width: 700px;
-  }
 `
 
 // const TitleTainr = styled(animated.div)`
@@ -82,55 +74,25 @@ const InnerHeroImageTainr = styled(animated.div)`
 
 const TitleTainr = styled(animated.div)`
   position: absolute;
-  bottom: 100px;
+  bottom: 250px;
   left: 50px;
   z-index: 2;
 `
 
 // we're chunking our title so using an h1 might be really bad for SEO
-// const Title = styled(animated.div)`
-//   font-size: 4.5em;
-//   font-family: inconsolata;
-//   font-weight: 900;
-//   color: #ffe9c9;
-//   margin: 0 0 12px 0;
-// `
-
 const Title = styled(animated.div)`
   font-size: 4.5em;
   font-family: inconsolata;
   font-weight: 900;
+  color: #ffe9c9;
   margin: 0 0 12px 0;
-  background: linear-gradient(
-    137.86deg,
-    #ffe9c9 0%,
-    rgba(255, 233, 201, 0) 100%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 `
-
-// const Title = styled(animated.div)`
-//   font-size: 4.5em;
-//   font-family: inconsolata;
-//   font-weight: 900;
-//   margin: 0 0 12px 0;
-//   -webkit-background-clip: text;
-//   -webkit-text-fill-color: transparent;
-// `
 
 const SubTitle = styled(animated.div)`
   font-size: 2.35em;
   font-family: inconsolata;
   font-weight: 900;
   color: white;
-  background: linear-gradient(
-    102.13deg,
-    #ffffff 0%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 `
 
 const Water = styled(animated.div)`
@@ -148,8 +110,7 @@ const Water = styled(animated.div)`
 `
 
 export default () => {
-  // const { pos } = useContext(ScrollContext)
-  // console.log("pos", pos)
+  const delay = 1000
   const heroProps = useSpring({
     from: { filter: `blur(20px)` },
     // to: [{ filter: `blur(0px)` }, { filter: `blur(5px)` }],
@@ -161,44 +122,12 @@ export default () => {
   const titleProps = useSpring({
     from: {
       opacity: 0,
-      transform: `translate3d(0,20px,0)`,
+      transform: `translate3d(0,50px,0)`,
       overflow: `hidden`,
     },
     to: { opacity: 1, transform: `translate3d(0,0px,0)` },
+    config: config.wobbly,
   })
-
-  // const titleProps = useSpring({
-  //   from: {
-  //     opacity: 0,
-  //     transform: `translate3d(0,20px,0)`,
-  //     overflow: `hidden`,
-  //   },
-  //   to: { opacity: 1, transform: `translate3d(0,0px,0)` },
-  // })
-
-  // const titleProps = useSpring({
-  //   from: {
-  //     opacity: 0,
-  //     overflow: `hidden`,
-  //   },
-  //   to: { opacity: 1 },
-  // })
-
-  const subTitleProps = useSpring({
-    from: {
-      opacity: 0,
-      overflow: `hidden`,
-    },
-    to: { opacity: 1 },
-    delay: 800,
-  })
-
-  // const titleProps = useSpring({
-  //   from: { gradientPercent: 0 },
-  //   to: { gradientPercent: 100 },
-  // })
-
-  const { updateVisibility } = useContext(VisibilityContext)
 
   return (
     <>
@@ -211,18 +140,12 @@ export default () => {
           <HeroImage />
         </InnerHeroImageTainr>
       </OuterHeroImageTainr>
-      <VisibilitySensor
-        onChange={v => {
-          console.log("%cheader visibility updated: ", "color: pink", v)
-          updateVisibility({ headerTitle: v })
-        }}
-        partialVisibility
-      >
-        <TitleTainr>
-          <Title style={titleProps}>the scuba wizard</Title>
-          <SubTitle style={subTitleProps}>dive expert.</SubTitle>
-        </TitleTainr>
-      </VisibilitySensor>
+      <TitleTainr style={titleProps}>
+        <Title>the</Title>
+        <Title>scuba</Title>
+        <Title>wizard</Title>
+        <SubTitle>dive expert.</SubTitle>
+      </TitleTainr>
     </>
   )
 }

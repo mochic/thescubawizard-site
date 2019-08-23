@@ -55,6 +55,21 @@ describe(`isValidPhone`, () => {
   it(`validates phone #3`, () => {
     expect(isValidPhone(`118082235545`)).toBe(false)
   })
+  it(`validates phone #4`, () => {
+    expect(isValidPhone(`18082235545`)).toBe(true)
+  })
+  it(`validates phone #5`, () => {
+    expect(isValidPhone(`+18082235545`)).toBe(true)
+  })
+  it(`validates phone #6`, () => {
+    expect(isValidPhone(`1 (808) 223-5545`)).toBe(true)
+  })
+  it(`validates phone #7`, () => {
+    expect(isValidPhone(`+1 (808) 223-5545`)).toBe(true)
+  })
+  it(`validates phone #8`, () => {
+    expect(isValidPhone(`+18082235545` + String.fromCharCode(32))).toBe(true)
+  })
 })
 
 describe("phoneFormatter", () => {

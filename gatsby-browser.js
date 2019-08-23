@@ -1,8 +1,16 @@
-import React from "react"
+import React, { useContext } from "react"
 
 import styled, { createGlobalStyle } from "styled-components"
 import { animated } from "react-spring"
+import { Link } from "gatsby"
 
+import ScrollProvider from "./src/providers/ScrollProvider"
+import ScrollContext from "./src/contexts/scroll.context"
+
+import VisibilityProvider from "./src/providers/VisibilityProvider"
+import VisibilityContext from "./src/contexts/visibility.context"
+
+import Footer from "./src/components/Footer"
 import devices from "./src/devices"
 
 const GlobalStyle = createGlobalStyle`
@@ -28,11 +36,64 @@ const PageTainr = styled(animated.div)`
   overflow: hidden;
 `
 
-export const replaceComponentRenderer = ({ props, ...other }) => (
-  <Containr>
-    <GlobalStyle />
-    <PageTainr>
-      {React.createElement(props.pageResources.component, props)}
-    </PageTainr>
-  </Containr>
-)
+const HomeLink = styled(Link)`
+  color: #ffe9c9;
+  font-family: inconsolata;
+  font-weight: 900;
+  text-decoration: none;
+
+  &:focus {
+    color: #ffeed6;
+  }
+`
+
+// const NavBar = ({ linkProps, tainrProps }) => {
+//   const { pos } = useContext(ScrollContext)
+//   return (
+//     pos > 50 && (
+//       <HomeLink to="/" style={linkProps}>
+//         the scuba wizard
+//       </HomeLink>
+//     )
+//   )
+// }
+
+const NavBar = ({ linkProps, tainrProps, atHome }) => {
+  return (
+    !atHome && (
+      <HomeLink to="/" style={linkProps}>
+        the scuba wizard
+      </HomeLink>
+    )
+  )
+}
+
+const HeaderContainr = styled(animated.div)`
+  position: fixed;
+  top: 50px;
+  left: 10px;
+  z-index: 4;
+`
+
+const FooterContainr = styled.div`
+  padding: 20px;
+  border-top: 1px solid #505050;
+`
+
+export const replaceComponentRenderer = ({ props, ...other }) => {
+  return (
+    <Containr>
+      <GlobalStyle />
+      <VisibilityProvider>
+        <ScrollProvider>
+          <PageTainr>
+            {React.createElement(props.pageResources.component, props)}
+          </PageTainr>
+          <FooterContainr>
+            <Footer />
+          </FooterContainr>
+        </ScrollProvider>
+      </VisibilityProvider>
+    </Containr>
+  )
+}

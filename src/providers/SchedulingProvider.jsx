@@ -31,7 +31,7 @@ export default ({ children }) => {
 
   const resetSubmission = () => {
     setScheduling(schedulingState)
-    console.log("reset su")
+    console.log("reset submission")
   }
 
   const schedulingState = {

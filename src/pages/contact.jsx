@@ -74,7 +74,6 @@ const StatementChunk = styled(animated.div)`
 
 const Containr = styled(animated.div)`
   display: grid;
-  height: 100vh;
   width: 100vw;
   box-sizing: border-box;
 

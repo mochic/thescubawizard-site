@@ -108,7 +108,7 @@ export const Input = styled.input`
   border-bottom: 1px solid #656565;
   text-align: center;
   font-family: montserrat alternates;
-  font-size: 14px;
+  font-size: 16px !important; /* less than 16px will trigger terrible safari zoom */
   font-weight: 400;
   color: ${props => (props.error ? "red" : "#c4c4c4")};
   padding: 5px 5px 5px 5px;

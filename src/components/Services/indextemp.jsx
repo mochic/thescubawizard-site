@@ -1,7 +1,7 @@
-import React, { useRef, useState } from "react"
+import React, { useState } from "react"
 
 import styled from "styled-components"
-import { animated, useChain, useSpring, config } from "react-spring"
+import { animated, useTransition, useSpring } from "react-spring"
 import VisibilitySensor from "react-visibility-sensor"
 
 import Service from "./Service"
@@ -17,51 +17,43 @@ import ZincReplacement from "./Icons/ZincReplacement"
 // `
 
 const ServiceTainr = styled(animated.div)`
-  padding: 50px 50px 50px 50px;
+  padding: 50px 50px 20px 50px;
   font-family: roboto;
 `
 
 export default () => {
-  const [revealed, setRevealed] = useState(false)
+  const [revealed, setRevealed] = useState({
+    0: false,
+    1: false,
+    2: false,
+  })
 
   const service0Props = useSpring({
     from: { opacity: 0 },
-    to: {
-      opacity: revealed ? 1 : 0,
-      transform: revealed ? `translate3d(0,0px,0)` : `translate3d(0,20px,0)`,
-    },
-    config: config.wobbly,
+    to: { opacity: revealed[0] ? 1 : 0 },
   })
 
   const service1Props = useSpring({
     from: { opacity: 0 },
-    to: {
-      opacity: revealed ? 1 : 0,
-      transform: revealed ? `translate3d(0,0px,0)` : `translate3d(0,20px,0)`,
-    },
-    config: config.wobbly,
+    to: { opacity: revealed[1] ? 1 : 0 },
   })
 
   const service2Props = useSpring({
     from: { opacity: 0 },
-    to: {
-      opacity: revealed ? 1 : 0,
-      transform: revealed ? `translate3d(0,0px,0)` : `translate3d(0,20px,0)`,
-    },
-    config: config.wobbly,
+    to: { opacity: revealed[2] ? 1 : 0 },
   })
 
   console.log("%cservices revealed state: ", "color: yellow", revealed)
 
   return (
-    <VisibilitySensor
-      onChange={visible => {
-        if (visible) {
-          setRevealed(visible)
-        }
-      }}
-    >
-      <>
+    <>
+      <VisibilitySensor
+        onChange={v => {
+          if (v) {
+            setRevealed({ ...revealed, 0: true })
+          }
+        }}
+      >
         <ServiceTainr style={service0Props}>
           <Service
             name={`Hull Cleaning`}
@@ -70,6 +62,14 @@ export default () => {
             <HullCleaning />
           </Service>
         </ServiceTainr>
+      </VisibilitySensor>
+      <VisibilitySensor
+        onChange={v => {
+          if (v) {
+            setRevealed({ ...revealed, 1: true })
+          }
+        }}
+      >
         <ServiceTainr style={service1Props}>
           <Service
             name={`Zinc Replacement`}
@@ -78,6 +78,14 @@ export default () => {
             <ZincReplacement />
           </Service>
         </ServiceTainr>
+      </VisibilitySensor>
+      <VisibilitySensor
+        onChange={v => {
+          if (v) {
+            setRevealed({ ...revealed, 2: true })
+          }
+        }}
+      >
         <ServiceTainr style={service2Props}>
           <Service
             name={`Lost Item Recovery`}
@@ -86,7 +94,7 @@ export default () => {
             <LostRecovery />
           </Service>
         </ServiceTainr>
-      </>
-    </VisibilitySensor>
+      </VisibilitySensor>
+    </>
   )
 }

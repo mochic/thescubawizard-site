@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react"
+import React, { useContext, useState, useEffect, useCallback } from "react"
 
 import styled from "styled-components"
 import { animated } from "react-spring"
@@ -9,6 +9,8 @@ import Services from "../components/Services"
 import SEO from "../components/SEO"
 import InContentInternalLink from "../components/InContentInternalLink"
 
+import VisibilityProvider from "../providers/VisibilityProvider"
+import VisibilityContext from "../contexts/visibility.context"
 import devices from "../devices"
 
 /*
@@ -20,32 +22,34 @@ import devices from "../devices"
  * 0 is page layer
  */
 
+// const MainTainr = styled.div`
+//   overflow: hidden;
+//   width: 100vw;
+//   margin: auto;
+//   background: black;
+
+//   @media ${devices.tablet} {
+//     grid-template-columns: auto 48%;
+//     grid-template-rows: auto 10%;
+//     grid-template-areas:
+//       "hero services"
+//       "hero footer";
+//   }
+
+//   @media ${devices.laptop} {
+//     grid-template-columns: auto 432px;
+//     grid-template-rows: auto 10%;
+//     grid-template-areas:
+//       "hero services"
+//       "hero footer";
+//   }
+// `
+
 const MainTainr = styled.div`
   overflow: hidden;
   width: 100vw;
-  display: grid;
-  grid-template-areas:
-    "hero"
-    "schedule-link"
-    "footer";
   margin: auto;
   background: black;
-
-  @media ${devices.tablet} {
-    grid-template-columns: auto 48%;
-    grid-template-rows: auto 10%;
-    grid-template-areas:
-      "hero services"
-      "hero footer";
-  }
-
-  @media ${devices.laptop} {
-    grid-template-columns: auto 432px;
-    grid-template-rows: auto 10%;
-    grid-template-areas:
-      "hero services"
-      "hero footer";
-  }
 `
 
 // max-width, overflow, position are very
@@ -53,14 +57,11 @@ const MainTainr = styled.div`
 // leak past the bounds we want
 const HeroContainr = styled(animated.div)`
   overflow: hidden;
-  height: 100vh;
   width: 100%;
-  grid-area: hero;
   position: relative;
 `
 
 const ScheduleContainr = styled(animated.div)`
-  grid-area: schedule;
   padding: 10% 10% 15% 10%;
   z-index: 2;
   background: #0a0a0a;
@@ -71,13 +72,18 @@ const ScheduleContainr = styled(animated.div)`
   justify-content: flex-end;
 `
 
+// const ServicesContainr = styled(animated.div)`
+//   background: #1d2523;
+//   padding: 15px;
+// `
+
 const ServicesContainr = styled(animated.div)`
-  grid-area: services;
-  background: green;
+  background: black;
+  padding: 15px;
+  box-sizing: border-box;
 `
 
 const FooterContainr = styled(animated.div)`
-  grid-area: footer;
   padding: 10px;
   text-align: center;
   z-index: 2;
@@ -95,11 +101,15 @@ const H2 = styled(animated.h2)`
   font-size: 450%;
   margin: 0;
   padding: 0;
+  font-weight: 100;
 `
 
 export default () => {
+  //   const { updateScroll } = useContext(ScrollContext)
+
   const onScroll = useCallback(e => {
-    console.log(window.scrollY / document.documentElement.clientHeight)
+    // console.log(window.scrollY / document.documentElement.clientHeight)
+    // updateScroll(window.scrollY)
   }, [])
 
   useEffect(() => {
@@ -109,26 +119,49 @@ export default () => {
     }
   })
 
+  //   return (
+  //     <ScrollProvider>
+  //       <MainTainr>
+  //         <SEO title={`home`} />
+  //         <HeroContainr>
+  //           <Hero />
+  //         </HeroContainr>
+  //         <ServicesContainr>
+  //           <H2>services</H2>
+  //           <Services />
+  //         </ServicesContainr>
+  //         <InlineLinkTainr style={{ gridArea: `schedule-link` }}>
+  //           <InContentInternalLink
+  //             heading="Need help with a dive job?"
+  //             statement="Let's talk about it."
+  //             link={{ to: `/contact`, label: `Schedule a chat.` }}
+  //           />
+  //         </InlineLinkTainr>
+  //         <FooterContainr>
+  //           <Footer />
+  //         </FooterContainr>
+  //       </MainTainr>
+  //     </ScrollProvider>
+  //   )
   return (
-    <MainTainr>
-      <SEO title={`home`} />
-      <HeroContainr>
-        <Hero />
-      </HeroContainr>
-      <ServicesContainr>
-        <H2>services</H2>
-        <Services />
-      </ServicesContainr>
-      <InlineLinkTainr style={{ gridArea: `schedule-link` }}>
-        <InContentInternalLink
-          heading="Need help with a dive job?"
-          statement="Let's talk about it."
-          link={{ to: `/contact`, label: `Schedule a chat.` }}
-        />
-      </InlineLinkTainr>
-      <FooterContainr>
-        <Footer />
-      </FooterContainr>
-    </MainTainr>
+    <VisibilityProvider>
+      <MainTainr>
+        <SEO title={`home`} />
+        <HeroContainr>
+          <Hero />
+        </HeroContainr>
+        <ServicesContainr>
+          <H2 style={{ paddingBottom: `50px` }}>services</H2>
+          <Services />
+        </ServicesContainr>
+        <InlineLinkTainr style={{ gridArea: `schedule-link` }}>
+          <InContentInternalLink
+            heading="Need help with a dive job?"
+            statement="Let's talk about it."
+            link={{ to: `/contact`, label: `Schedule a chat.` }}
+          />
+        </InlineLinkTainr>
+      </MainTainr>
+    </VisibilityProvider>
   )
 }
