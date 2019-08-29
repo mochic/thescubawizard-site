@@ -24,14 +24,14 @@ export default async (emailAddress, phoneNumber) => {
     (blacklist.emailAddress.includes(emailAddress) ||
       blacklist.phoneNumber.includes(phoneNumber))
   ) {
-    return {}, true
+    return [{}, true]
   }
 
-  return (
+  return [
     {
       phoneNumber: phoneNumber ? phoneNumber : null,
       emailAddress: emailAddress ? emailAddress : null,
     },
-    false
-  )
+    false,
+  ]
 }

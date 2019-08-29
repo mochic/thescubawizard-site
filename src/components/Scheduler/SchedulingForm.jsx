@@ -77,7 +77,7 @@ export default () => {
     }
 
     try {
-      await submit(values.phoneNumber, values.emailAddress)
+      await submit(values.emailAddress, values.phoneNumber)
       console.log(`%capi success`, `color: teal`)
     } catch (err) {
       console.log(`%capi error`, `color: red`, err)
@@ -97,7 +97,25 @@ export default () => {
         disabled={isSubmitting}
         tainrStyle={{ width: `80%` }}
       />
-      <P style={{ marginTop: `7%`, marginBottom: `5%` }}>or</P>
+      {/* <P
+        style={{
+          fontFamily: `roboto`,
+          fontWeight: 300,
+          marginTop: `7%`,
+          marginBottom: `5%`,
+        }}
+      >
+        or
+      </P> */}
+      <P
+        style={{
+          fontFamily: `roboto`,
+          fontWeight: 300,
+          margin: 0,
+        }}
+      >
+        or
+      </P>
       <FancyInput
         type="email"
         autoComplete="email"
@@ -114,11 +132,13 @@ export default () => {
         value={isSubmitting ? "Scheduling..." : "Schedule a chat"}
         style={{
           marginTop: `25px`,
-          padding: `20px`,
-          border: `1px solid #27A77D`,
-          background: `#97ffbe17`,
-          color: `white`,
+          padding: `16px 0 8px 0`,
+          border: `none`,
+          background: `none`,
+          color: `#FFE9C9`,
           width: `80%`,
+          fontFamily: `roboto`,
+          fontWeight: 300,
         }}
       />
       <ScheduleArrow />

@@ -5,7 +5,7 @@ import submitToAPI from "../api"
 import { processPhoneNumber } from "../utils"
 
 export default ({ children }) => {
-  const submit = async (phoneNumber, emailAddress) => {
+  const submit = async (emailAddress, phoneNumber) => {
     setScheduling(prevState => ({
       ...prevState,
       isSubmitting: true,
@@ -13,8 +13,8 @@ export default ({ children }) => {
     console.log("submitting to api:", { phoneNumber, emailAddress })
 
     let [submittedToAPI, apiErrored] = await submitToAPI(
-      processPhoneNumber(phoneNumber),
-      emailAddress
+      emailAddress,
+      processPhoneNumber(phoneNumber)
     )
     console.log("api response:", submittedToAPI, apiErrored)
 

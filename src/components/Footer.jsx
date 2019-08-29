@@ -79,7 +79,7 @@ const FlatIconsPlug = () => (
     >
       www.flaticon.com
     </FooterLink>
-    {` is licensed by `}
+    {` are licensed by `}
     <FooterLink
       href="http://creativecommons.org/licenses/by/3.0/"
       title="Creative Commons BY 3.0"

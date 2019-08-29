@@ -89,9 +89,9 @@ export const replaceComponentRenderer = ({ props, ...other }) => {
           <PageTainr>
             {React.createElement(props.pageResources.component, props)}
           </PageTainr>
-          <FooterContainr>
+          {/* <FooterContainr>
             <Footer />
-          </FooterContainr>
+          </FooterContainr> */}
         </ScrollProvider>
       </VisibilityProvider>
     </Containr>

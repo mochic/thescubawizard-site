@@ -90,7 +90,9 @@ const FooterContainr = styled(animated.div)`
   background: black;
 `
 
-const InlineLinkTainr = styled.div``
+const InlineLinkTainr = styled.div`
+  padding: 50px 50px 50px 36px;
+`
 
 const Page = styled.div``
 

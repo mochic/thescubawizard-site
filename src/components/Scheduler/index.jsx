@@ -5,7 +5,7 @@ import { animated } from "react-spring"
 
 import SchedulingContext from "../../contexts/scheduling.context"
 
-import Scheduled from "./Scheduled"
+import Scheduled from "./Scheduled.temp"
 import SchedulingForm from "./SchedulingForm"
 
 import devices from "../../devices"

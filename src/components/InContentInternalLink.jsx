@@ -1,17 +1,22 @@
-import React from "react"
+import React, { useState } from "react"
 
 import { Link as _Link } from "gatsby"
 import styled from "styled-components"
-import { animated } from "react-spring"
+import { animated, useSpring, config } from "react-spring"
+import VisibilitySensor from "react-visibility-sensor"
 
-const H1 = styled(animated.h1)`
+const H3 = styled(animated.h3)`
   color: #ffe9c9;
-  text-align: center;
+  text-align: left;
+  font-family: gilda display;
+  font-weight: 900;
+  font-size: 32px;
+  margin-bottom: 8px;
 `
 
 const P = styled(animated.p)`
   color: white;
-  text-align: center;
+  text-align: left;
 `
 
 // const Link = styled(_Link)`
@@ -25,20 +30,45 @@ const P = styled(animated.p)`
 
 const Link = styled(_Link)`
   color: #7cad9f;
-  text-align: center;
+  text-align: left;
   text-decoration: none;
   width: 100%;
 `
 
 // didnt really kno wut to call this...:/...TODO figure out a better name?
 export default ({ heading, statement, link: { label, to } }) => {
+  const [visible, setVisible] = useState(false)
+  console.log(`%crendered incontent internal link`, "color: #fcba03", {
+    to,
+    visible,
+  })
+  const linkChildProps = useSpring({
+    from: { transform: `translate3d(-${window.innerWidth / 2}px,0,0)` },
+    to: {
+      transform: visible
+        ? `translate3d(0px,0,0)`
+        : `translate3d(-${window.innerWidth / 2}px,0,0)`,
+    },
+  })
+
   return (
-    <>
-      <H1>{heading}</H1>
-      <P>{statement}</P>
-      <Link to={to}>
-        <p>{`${label} ` + String.fromCharCode(8594)}</p>
-      </Link>
-    </>
+    <VisibilitySensor
+      onChange={visible_ => {
+        if (visible_) {
+          setVisible(true)
+        }
+      }}
+      partialVisibility={`bottom`}
+    >
+      <>
+        <H3>{heading}</H3>
+        {/* <P>{statement}</P> */}
+        <Link to={to}>
+          <P style={linkChildProps}>
+            {`${label} ` + String.fromCharCode(8594)}
+          </P>
+        </Link>
+      </>
+    </VisibilitySensor>
   )
 }
