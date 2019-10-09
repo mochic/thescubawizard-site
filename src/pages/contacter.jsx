@@ -4,7 +4,7 @@ import { Link } from "gatsby"
 import styled from "styled-components"
 import { animated } from "react-spring"
 
-import Scheduler from "../components/Scheduler"
+import SchedulerAll from "../components/SchedulerAll"
 
 import SchedulingProvider from "../providers/SchedulingProvider"
 
@@ -73,39 +73,18 @@ const StatementChunk = styled(animated.div)`
 `
 
 const Containr = styled(animated.div)`
-  display: grid;
   width: 100vw;
-  box-sizing: border-box;
-
-  grid-template-areas:
-    "nav"
-    "heading"
-    "statement"
-    "form";
-
-  grid-template-rows: 1fr 2fr 1.5fr 5.5fr;
-
+  overflow-x: hidden;
   padding: 5% 8% 8% 8%;
   background: #191f1d;
 `
 
 export default () => {
   return (
-    <Containr>
-      <NavBar />
-      <H2 style={{ paddingTop: `6%`, paddingBottom: `13%` }}>contact</H2>
-      <Statement>
-        <StatementChunk style={{ alignSelf: `flex-start` }}>
-          <P>{`Let's talk about`}</P>
-        </StatementChunk>
-        <StatementChunk style={{ alignSelf: `flex-end` }}>
-          <P style={{ paddingRight: `7px` }}>{`that next `}</P>
-          <P style={{ color: `#FFE9C9` }}>dive job.</P>
-        </StatementChunk>
-      </Statement>
-      <SchedulingProvider>
-        <Scheduler />
-      </SchedulingProvider>
-    </Containr>
+    <SchedulingProvider>
+      <Containr>
+        <SchedulerAll />
+      </Containr>
+    </SchedulingProvider>
   )
 }

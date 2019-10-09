@@ -19,17 +19,14 @@ const GlobalStyle = createGlobalStyle`
     body {
       margin: 0;
       padding: 0;
-      background: #2f2f2f; 
+      background: #191f1d; 
       font-family: inconsolata, sans serif;
       font-size: 16px;
       line-height: 1;
     }
 `
 
-const Containr = styled(animated.div)`
-  background: black;
-  z-index: 3;
-`
+const Containr = styled(animated.div)``
 
 const PageTainr = styled(animated.div)`
   margin: auto;
@@ -46,17 +43,6 @@ const HomeLink = styled(Link)`
     color: #ffeed6;
   }
 `
-
-// const NavBar = ({ linkProps, tainrProps }) => {
-//   const { pos } = useContext(ScrollContext)
-//   return (
-//     pos > 50 && (
-//       <HomeLink to="/" style={linkProps}>
-//         the scuba wizard
-//       </HomeLink>
-//     )
-//   )
-// }
 
 const NavBar = ({ linkProps, tainrProps, atHome }) => {
   return (
