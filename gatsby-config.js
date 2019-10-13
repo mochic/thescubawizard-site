@@ -54,7 +54,7 @@ module.exports = {
           `montserrat alternates\:100,300,400,600,900`,
           `gilda display`,
           `open sans`,
-          `playfair display`,
+          `playfair display\:100,300,400,500,700,900`,
         ],
       },
     },

@@ -23,9 +23,10 @@
     "react-helmet": "^5.2.1",
     "react-icons": "^3.7.0",
     "react-particles-js": "^2.6.0",
-    "react-spring": "^8.0.25",
+    "react-spring": "^8.0.27",
     "react-visibility-sensor": "^5.0.2",
     "react-with-gesture": "^4.0.8",
+    "smoothscroll-polyfill": "^0.4.4",
     "styled-components": "^4.3.2",
     "styled-system": "^5.0.12"
   },

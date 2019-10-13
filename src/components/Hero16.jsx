@@ -166,11 +166,12 @@ export default () => {
       { arrowTransform: `translate3d(0px,0,0)`, arrowOpacity: 1 },
     ],
     leave: { textOpacity: 0, arrowOpacity: 0 },
-    config: config.stiff,
+    config: config.slow,
     ref: linkTransitionRef,
   })
 
-  useChain([linkTransitionRef], [0.5])
+  // https://github.com/react-spring/react-spring/issues/574
+  useChain([{ current: linkTransitionRef.current }], [0.8], 1000)
 
   const showHint = () => {
     console.log("%chero visibility: ", "color: green", visibility)
@@ -203,7 +204,8 @@ export default () => {
   return (
     <>
       <VisibilitySensor
-        partialVisibility="top"
+        partialVisibility
+        offset={{ top: 10 }}
         onChange={visible => {
           if (visible !== visibility.page) {
             console.log("%chero visibility changed: ", "color: orange", visible)
@@ -234,6 +236,7 @@ export default () => {
                   return (
                     item && (
                       <FancyLink
+                        key={key}
                         to={"/contact"}
                         textStyle={{ color: "#c3c3c3", opacity: textOpacity }}
                         arrowProps={{
