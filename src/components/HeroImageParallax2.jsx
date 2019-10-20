@@ -68,6 +68,11 @@ const Image = () => (
 )
 
 export default ({ outerProps, imageProps, gradientProps }) => {
+  console.log("%chero image props", "color: orange", {
+    outerProps,
+    imageProps,
+    gradientProps,
+  })
   return (
     <Containr {...outerProps}>
       <ImageTainr {...imageProps}>
