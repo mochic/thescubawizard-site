@@ -5,22 +5,26 @@ import { animated } from "react-spring"
 
 import debounce from "lodash/debounce"
 
-import HeroImage from "../components/HeroImageParallax"
+import HeroImage from "../components/HeroImageParallax2"
 // import AboutImage from "../components/AboutImageParallax5"
-import AboutImageParallax5 from "../components/AboutImageParallax5"
+// import AboutImageParallax5 from "../components/AboutImageParallax5"
+
+import About from "../components/AnotherAbout4"
 
 import TitleSVG from "../components/TitleSVG"
 
 import device from "../devices"
 
+import VisibilitySensor from "react-visibility-sensor"
+
 const ADiv = styled(animated.div)``
 
 // for media queries primarily
 const HeroTainr = styled(animated.div)`
-  height: 100vh;
   overflow: hidden;
   background: yellow;
   position: relative;
+  height: 70vh;
 `
 
 const AboutTainr = styled(animated.div)`
@@ -31,13 +35,6 @@ const AboutTainr = styled(animated.div)`
 
 const MainTainr = styled(animated.div)`
   position: relative;
-  background: red;
-`
-
-// for auto webkit stuff
-const AH1 = styled(animated.h1)`
-  position: sticky;
-  top: 0;
 `
 
 const TitleTainr = styled(animated.div)`
@@ -53,68 +50,15 @@ const BlurringDiv = styled(animated.div)`
   width: 100%;
 `
 
-// const Depths = styled(animated.div)`
-//   position: absolute;
-//   background: radial-gradient(
-//     122.67% 58.87% at 50.13% 31.34%,
-//     rgba(25, 31, 29, 0) 0%,
-//     #191f1d 100%
-//   );
-//   min-height: 500px;
-//   width: 100%;
-// `
-
-// const Depths = styled(animated.div)`
-//   position: absolute;
-//   background: #191f1d;
-//   min-height: 500px;
-//   width: 100%;
-// `
-
+// intelligently scale with js :/
+const AboutHeight = 900
 const AboutTainr2 = styled(animated.div)`
-  background: #191f1d;
-  min-height: 900px;
+  min-height: ${AboutHeight}px;
   width: 100%;
   position: relative;
+  z-index: 1;
 `
-
-const AH3 = styled(animated.h3)`
-  font-family: playfair display;
-  font-size: 36px;
-  font-weight: 700;
-  color: #ffe9c9;
-  line-height: 150%;
-  backdrop-filter: blur(4px);
-`
-
-const AP = styled(animated.p)`
-  font-family: open sans;
-  font-size: 18px;
-  font-weight: 600;
-  color: white;
-  line-height: 200%;
-`
-
-const AboutContentTainr = styled(animated.div)`
-  padding: 0;
-  margin: auto;
-  width: 250px;
-  display: flex;
-  flex-direction: column;
-
-  @media (${device.tablet}) {
-    flex-direction: row;
-  }
-`
-
-const AboutImageTainr = styled(animated.div)`
-  min-height: 850px;
-  z-index: 1000;
-  width: 100%;
-  height: 100%;
-  top: 0px;
-  position: absolute;
-`
+// z-index 1 so that our header doesnt get cut off...TODO: fix this so we dont need this hack solution
 
 export default () => {
   const [pos, setPos] = useState()
@@ -139,10 +83,11 @@ export default () => {
   }, [pos]) // if we dont do this handleScroll will only evaluate pos.current to its initial 0 from each render
 
   const heroImageProps = {
-    style: {
-      opacity: 1 - pos / 300, // scroll 300px before fading out
+    gradientProps: {
+      gv: Math.max(80 - (pos * 80) / 150, 1), // gradient breaks / looks strange when it goes lower than 1...
     },
   }
+
   const finalHeaderTop = 0
   const headerTopPadding = 300
 
@@ -153,7 +98,7 @@ export default () => {
     transform: `translate3d(0,-${
       pos > headerTopPadding ? headerTopPadding : Math.ceil(pos)
     }px,0px)`,
-    background: atTop ? `blue` : `none`,
+    background: atTop ? `none` : `none`,
     padding: `10px 0 10px 0`,
   }
 
@@ -167,30 +112,12 @@ export default () => {
       <TitleTainr style={titleStyle}>
         <TitleSVG style={tSVGStyle} />
       </TitleTainr>
-      <HeroTainr>
-        <HeroImage imageProps={heroImageProps} />
+      <HeroTainr className="hero-tainr">
+        <HeroImage {...heroImageProps} />
       </HeroTainr>
       <AboutTainr2>
-        <AboutContentTainr style={{ opacity: Math.ceil(pos / 70) }}>
-          <AH3>
-            Not your everyday
-            <br />
-            dive service.
-          </AH3>
-          <AP>
-            We’re dedicated to delivering a quality dive service to the Pacific
-            Northwest area. With us you wont have to worry about stuff? You
-            shouldnt need to take time out of your busy work schedule.
-          </AP>
-        </AboutContentTainr>
-        <AboutImageTainr>
-          <AboutImageParallax5 />
-        </AboutImageTainr>
+        <About scrollPos={pos} />
       </AboutTainr2>
-
-      {/* <AboutTainr>
-        <AboutImageParallax5 />
-      </AboutTainr> */}
     </MainTainr>
   )
 }

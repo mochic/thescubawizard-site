@@ -6,12 +6,16 @@ import { animated } from "react-spring"
 import debounce from "lodash/debounce"
 
 import HeroImage from "../components/HeroImageParallax2"
-import AboutImage from "../components/AboutImageParallax5"
+// import AboutImage from "../components/AboutImageParallax5"
 import AboutImageParallax5 from "../components/AboutImageParallax5"
+
+import About from "../components/AnotherAbout"
 
 import TitleSVG from "../components/TitleSVG"
 
 import device from "../devices"
+
+import VisibilitySensor from "react-visibility-sensor"
 
 const ADiv = styled(animated.div)``
 

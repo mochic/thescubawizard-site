@@ -6,7 +6,7 @@ import { animated } from "react-spring"
 import debounce from "lodash/debounce"
 
 import HeroImage from "../components/HeroImageParallax"
-import AboutImage from "../components/AboutImageParallax5"
+// import AboutImage from "../components/AboutImageParallax5"
 import AboutImageParallax5 from "../components/AboutImageParallax5"
 
 const ADiv = styled(animated.div)``
