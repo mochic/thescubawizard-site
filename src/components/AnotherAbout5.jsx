@@ -123,6 +123,7 @@ export default ({ scrollPos }) => {
             zIndex: -1,
             opacity: revealProps.h2Opacity,
             transform: `translate3d(0,${scrollPos * 0.4}px,0)`,
+            width: `100%`,
           }}
         >
           <AH2

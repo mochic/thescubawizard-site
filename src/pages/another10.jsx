@@ -9,9 +9,15 @@ import HeroImage from "../components/HeroImageParallax2"
 // import AboutImage from "../components/AboutImageParallax5"
 // import AboutImageParallax5 from "../components/AboutImageParallax5"
 
-import About from "../components/AnotherAbout4"
+import About from "../components/AnotherAbout5"
+
+import Promise from "../components/PromiseThang2"
+
+import Interested from "../components/InterestedParallax2"
 
 import TitleSVG from "../components/TitleSVG"
+
+import FancyLink from "../components/FancyLink"
 
 import device from "../devices"
 
@@ -22,37 +28,74 @@ const ADiv = styled(animated.div)``
 // for media queries primarily
 const HeroTainr = styled(animated.div)`
   overflow: hidden;
-  background: yellow;
   position: relative;
   height: 70vh;
-`
-
-const AboutTainr = styled(animated.div)`
-  min-height: 800px;
-  overflow: hidden;
-  background: blue;
 `
 
 const MainTainr = styled(animated.div)`
   position: relative;
 `
 
+// const TitleTainr = styled(animated.div)`
+//   z-index: 1000;
+//   width: 100%;
+//   text-align: center;
+//   padding: 0;
+//   margin: auto;
+// `
+
 const TitleTainr = styled(animated.div)`
   z-index: 1000;
   width: 100%;
-  position: fixed;
   text-align: center;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 50%;
 `
 
-const BlurringDiv = styled(animated.div)`
-  background: linear-gradient(180deg, rgba(25, 31, 29, 0) 0%, #191f1d 128.99%);
-  height: 194px;
-  width: 100%;
-`
+const Hero = ({ pos }) => {
+  const [visible, setVisible] = useState(false)
+
+  const heroImageProps = {
+    gradientProps: {
+      gv: Math.max(80 - (pos * 80) / 150, 1), // gradient breaks / looks strange when it goes lower than 1...
+    },
+  }
+
+  const titleStyle = {}
+
+  const tSVGStyle = {
+    transform: `scale(${1.5})`,
+  }
+
+  const linkProps = {}
+
+  return (
+    <VisibilitySensor
+      partialVisibility
+      offset={{ top: 50 }}
+      onChange={v => {
+        console.log("%chero visibility changed!", v)
+        setVisible(v)
+      }}
+    >
+      <>
+        <TitleTainr style={titleStyle}>
+          <TitleSVG style={tSVGStyle} />
+        </TitleTainr>
+        <FancyLink to="/contact" {...linkProps}>
+          Schedule a chat.
+        </FancyLink>
+        <HeroImage {...heroImageProps} />
+      </>
+    </VisibilitySensor>
+  )
+}
 
 // intelligently scale with js :/
 const AboutHeight = 900
-const AboutTainr2 = styled(animated.div)`
+const AboutTainr = styled(animated.div)`
   min-height: ${AboutHeight}px;
   width: 100%;
   position: relative;
@@ -60,13 +103,20 @@ const AboutTainr2 = styled(animated.div)`
 `
 // z-index 1 so that our header doesnt get cut off...TODO: fix this so we dont need this hack solution
 
+const PromiseHeight = 700
+const PromiseTainr = styled.div`
+  min-height: ${PromiseHeight}px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+`
+
 export default () => {
   const [pos, setPos] = useState()
 
   // maybe use different based on browser support, etc....
   const rawHandler = () => {
     setPos(window.pageYOffset)
-    console.log("%cscrolling!", "color: red", window.pageYOffset) // window.scrollTop() doesnt work on safari?
   }
 
   const handleScroll = e => {
@@ -82,42 +132,20 @@ export default () => {
     return () => window.removeEventListener("scroll", debouncedHandle)
   }, [pos]) // if we dont do this handleScroll will only evaluate pos.current to its initial 0 from each render
 
-  const heroImageProps = {
-    gradientProps: {
-      gv: Math.max(80 - (pos * 80) / 150, 1), // gradient breaks / looks strange when it goes lower than 1...
-    },
-  }
-
-  const finalHeaderTop = 0
-  const headerTopPadding = 300
-
-  const atTop = true
-
-  const titleStyle = {
-    top: `${headerTopPadding + finalHeaderTop}px`,
-    transform: `translate3d(0,-${
-      pos > headerTopPadding ? headerTopPadding : Math.ceil(pos)
-    }px,0px)`,
-    background: atTop ? `none` : `none`,
-    padding: `10px 0 10px 0`,
-  }
-
-  const tSVGStyle = {
-    transform: `scale(${1.5})`,
-  }
-
-  console.log(heroImageProps)
   return (
     <MainTainr>
-      <TitleTainr style={titleStyle}>
-        <TitleSVG style={tSVGStyle} />
-      </TitleTainr>
       <HeroTainr className="hero-tainr">
-        <HeroImage {...heroImageProps} />
+        <Hero pos={pos} />
       </HeroTainr>
-      <AboutTainr2>
+      <AboutTainr>
         <About scrollPos={pos} />
-      </AboutTainr2>
+      </AboutTainr>
+      <PromiseTainr>
+        <Promise scrollPos={pos} />
+      </PromiseTainr>
+      <div>
+        <Interested />
+      </div>
     </MainTainr>
   )
 }
