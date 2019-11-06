@@ -166,8 +166,9 @@ export default () => {
   })
 
   useChain(
-    [headerSpringRef, contentSpringRef, imageSpringRef, homeLinkSpringRef],
-    [0, 0.5, 0.7, 0.9]
+    [headerSpringRef, imageSpringRef, contentSpringRef, homeLinkSpringRef],
+    [0.5, 0.55, 0.8, 0.9],
+    2000
   )
   // keep it simple for now...maybs just get something pretty that works...thematically...
   return (
