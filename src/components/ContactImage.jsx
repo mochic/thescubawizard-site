@@ -44,7 +44,7 @@ const Image = () => (
     `}
     render={data => (
       <Img
-        imgStyle={{ objectFit: "cover", objectPosition: "50% 50%" }}
+        imgStyle={{ objectFit: "cover", objectPosition: "top left" }}
         style={{ minHeight: `800px`, minWidth: `1180px` }}
         fluid={data.placeholderImage.childImageSharp.fluid}
       />
