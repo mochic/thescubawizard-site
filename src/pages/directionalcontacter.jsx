@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react"
 
 import { Link } from "gatsby"
 import styled, { keyframes } from "styled-components"
-import { animated, useSpring, useChain } from "react-spring"
+import { animated, useSpring, useChain, config } from "react-spring"
 
 import Scheduler from "../components/Scheduler"
 
@@ -82,6 +82,10 @@ const StatementChunk = styled(animated.div)`
   display: flex;
 `
 
+const SchedulerTainr = styled(animated.div)`
+  grid-area: form;
+`
+
 const Containr = styled(animated.div)`
   display: grid;
   width: 100vw;
@@ -90,12 +94,10 @@ const Containr = styled(animated.div)`
   box-sizing: border-box;
   grid-template-areas:
     "nav"
-    "heading"
     "statement"
     "form";
 
-  grid-template-rows: 1fr 2fr 1.5fr 5.5fr;
-
+  grid-template-rows: 1fr 3.5fr 5.5fr;
   padding: 5% 8% 8% 8%;
 `
 
@@ -105,13 +107,18 @@ const ImageTainr = styled(animated.div)`
   left: 0px;
   height: 100%;
   width: 100%;
+  z-index: -2;
 `
 
 const AH3 = styled(animated.h3)`
   position: absolute;
   font-family: playfair display;
   font-weight: bold;
+  font-size: 72px;
   color: #2d2d2d;
+  top: 0px;
+  right: 0px;
+  z-index: -1;
 `
 
 const ContentTainr = styled(animated.div)``
@@ -131,8 +138,9 @@ export default () => {
   const headerSpringRef = useRef()
   const headerProps = useSpring({
     ref: headerSpringRef,
-    from: { opacity: 0 },
-    to: { opacity: 1 },
+    from: { opacity: 1, transform: `translate3d(50px,0,0)` },
+    to: { opacity: 1, transform: `translate3d(-2px,0,0)` },
+    config: { ...config.slow, duration: 20000 },
   })
 
   const contentSpringRef = useRef()
@@ -154,15 +162,14 @@ export default () => {
     ref: homeLinkSpringRef,
     from: { opacity: 0 },
     to: { opacity: 1 },
+    delay: 2000,
   })
 
-  useChain([
-    headerSpringRef,
-    contentSpringRef,
-    imageSpringRef,
-    homeLinkSpringRef,
-  ])
-
+  useChain(
+    [headerSpringRef, contentSpringRef, imageSpringRef, homeLinkSpringRef],
+    [0, 0.5, 0.7, 0.9]
+  )
+  // keep it simple for now...maybs just get something pretty that works...thematically...
   return (
     <Containr>
       <OtherNavBar style={homeLinkProps} />
@@ -177,10 +184,13 @@ export default () => {
             <P style={{ color: `#FFE9C9` }}>dive job.</P>
           </StatementChunk>
         </Statement>
-        <SchedulingProvider>
-          <Scheduler />
-        </SchedulingProvider>
       </ContentTainr>
+      <SchedulingProvider>
+        {/* we need separated from contentTainr to be sibilings for grid layout to work!*/}
+        <SchedulerTainr style={contentProps}>
+          <Scheduler />
+        </SchedulerTainr>
+      </SchedulingProvider>
       <ImageTainr style={imageProps}>
         <Image
           containrProps={{ style: { maxHeight: `800px`, maxWidth: `1180px` } }}
