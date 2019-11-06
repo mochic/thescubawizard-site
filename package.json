@@ -24,6 +24,7 @@
     "react-icons": "^3.7.0",
     "react-particles-js": "^2.6.0",
     "react-spring": "^8.0.27",
+    "react-swipeable": "^5.4.0",
     "react-visibility-sensor": "^5.0.2",
     "react-with-gesture": "^4.0.8",
     "smoothscroll-polyfill": "^0.4.4",

@@ -1,8 +1,8 @@
-import React, { useRef } from "react"
+import React from "react"
 
 import { Link } from "gatsby"
 import styled from "styled-components"
-import { animated, useSpring, useChain } from "react-spring"
+import { animated, useSpring } from "react-spring"
 
 import Scheduler from "../components/Scheduler"
 
@@ -90,35 +90,15 @@ const Containr = styled(animated.div)`
 `
 
 export default () => {
-  const springRef0 = useRef()
-  const statementChunk0Props = useSpring({
-    ref: springRef0,
-    from: { opacity: 0 },
-    to: { opacity: 1 },
-  })
-
-  const springRef1 = useRef()
-  const statementChunk1Props = useSpring({
-    ref: springRef1,
-    from: { opacity: 0 },
-    to: { opacity: 1 },
-  })
-
-  useChain([springRef0, springRef1])
-
   return (
     <Containr>
       <NavBar />
       <H2 style={{ paddingTop: `6%`, paddingBottom: `13%` }}>contact</H2>
       <Statement>
-        <StatementChunk
-          style={{ alignSelf: `flex-start`, ...statementChunk0Props }}
-        >
+        <StatementChunk style={{ alignSelf: `flex-start` }}>
           <P>{`Let's talk about`}</P>
         </StatementChunk>
-        <StatementChunk
-          style={{ alignSelf: `flex-end`, ...statementChunk1Props }}
-        >
+        <StatementChunk style={{ alignSelf: `flex-end` }}>
           <P style={{ paddingRight: `7px` }}>{`that next `}</P>
           <P style={{ color: `#FFE9C9` }}>dive job.</P>
         </StatementChunk>

@@ -9,11 +9,15 @@ import HeroImage from "../components/HeroImageParallax2"
 // import AboutImage from "../components/AboutImageParallax5"
 // import AboutImageParallax5 from "../components/AboutImageParallax5"
 
-import About from "../components/AnotherAbout5"
+import About from "../components/AnotherAbout6"
 
 import Promise from "../components/PromiseThang2"
 
-import Interested from "../components/InterestedParallax2"
+import Interested from "../components/InterestedParallax6"
+
+import Footer from "../components/AnotherFooter"
+
+import Statements from "../components/Statements3"
 
 import TitleSVG from "../components/TitleSVG"
 
@@ -35,14 +39,6 @@ const HeroTainr = styled(animated.div)`
 const MainTainr = styled(animated.div)`
   position: relative;
 `
-
-// const TitleTainr = styled(animated.div)`
-//   z-index: 1000;
-//   width: 100%;
-//   text-align: center;
-//   padding: 0;
-//   margin: auto;
-// `
 
 const TitleTainr = styled(animated.div)`
   z-index: 1000;
@@ -103,6 +99,14 @@ const AboutTainr = styled(animated.div)`
 `
 // z-index 1 so that our header doesnt get cut off...TODO: fix this so we dont need this hack solution
 
+const StatementsHeight = 600
+const StatementsTainr = styled.div`
+  height: ${StatementsHeight}px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+`
+
 const PromiseHeight = 700
 const PromiseTainr = styled.div`
   min-height: ${PromiseHeight}px;
@@ -132,6 +136,8 @@ export default () => {
     return () => window.removeEventListener("scroll", debouncedHandle)
   }, [pos]) // if we dont do this handleScroll will only evaluate pos.current to its initial 0 from each render
 
+  console.log("%cmain page rendered!", "color: blue")
+
   return (
     <MainTainr>
       <HeroTainr className="hero-tainr">
@@ -140,11 +146,17 @@ export default () => {
       <AboutTainr>
         <About scrollPos={pos} />
       </AboutTainr>
+      {/* <StatementsTainr>
+        <Statements />
+      </StatementsTainr> */}
       <PromiseTainr>
         <Promise scrollPos={pos} />
       </PromiseTainr>
       <div>
         <Interested />
+      </div>
+      <div>
+        <Footer />
       </div>
     </MainTainr>
   )
