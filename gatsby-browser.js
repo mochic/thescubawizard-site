@@ -7,6 +7,8 @@ import { Link } from "gatsby"
 import ScrollProvider from "./src/providers/ScrollProvider"
 import ScrollContext from "./src/contexts/scroll.context"
 
+import SchedulingProvider from "./src/providers/SchedulingProvider"
+
 import VisibilityProvider from "./src/providers/VisibilityProvider"
 import VisibilityContext from "./src/contexts/visibility.context"
 
@@ -66,18 +68,20 @@ const FooterContainr = styled.div`
   border-top: 1px solid #505050;
 `
 
+// use this with a provider + react spring to create "transition" effect?
+const TransitionCover = styled(animated.div)``
+
 export const replaceComponentRenderer = ({ props, ...other }) => {
   return (
     <Containr>
       <GlobalStyle />
       <VisibilityProvider>
         <ScrollProvider>
-          <PageTainr>
-            {React.createElement(props.pageResources.component, props)}
-          </PageTainr>
-          {/* <FooterContainr>
-            <Footer />
-          </FooterContainr> */}
+          <SchedulingProvider>
+            <PageTainr>
+              {React.createElement(props.pageResources.component, props)}
+            </PageTainr>
+          </SchedulingProvider>
         </ScrollProvider>
       </VisibilityProvider>
     </Containr>
