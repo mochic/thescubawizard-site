@@ -16,7 +16,7 @@ const Form = styled(animated.form)`
   grid-area: form;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: left;
   width: 100%;
 `
 
@@ -26,6 +26,10 @@ const P = styled(animated.p)`
   margin: 0;
   border: 0;
   margin-bottom: 8%;
+`
+
+const SubmitTainr = styled(animated.div)`
+  align-self: center;
 `
 
 export default () => {
@@ -95,7 +99,7 @@ export default () => {
         onBlur={handlePhoneBlur}
         onChange={handlePhoneChange}
         disabled={isSubmitting}
-        tainrStyle={{ width: `80%` }}
+        tainrStyle={{ width: `100%` }}
       />
       {/* <P
         style={{
@@ -107,7 +111,7 @@ export default () => {
       >
         or
       </P> */}
-      <P
+      {/* <P
         style={{
           fontFamily: `roboto`,
           fontWeight: 300,
@@ -115,7 +119,7 @@ export default () => {
         }}
       >
         or
-      </P>
+      </P> */}
       <FancyInput
         type="email"
         autoComplete="email"
@@ -125,23 +129,25 @@ export default () => {
         onBlur={handleEmailBlur}
         onChange={handleEmailChange}
         disabled={isSubmitting}
-        tainrStyle={{ width: `80%` }}
+        tainrStyle={{ width: `100%` }}
       />
-      <Input
-        type="submit"
-        value={isSubmitting ? "Scheduling..." : "Schedule a chat"}
-        style={{
-          marginTop: `25px`,
-          padding: `16px 0 8px 0`,
-          border: `none`,
-          background: `none`,
-          color: `#FFE9C9`,
-          width: `80%`,
-          fontFamily: `roboto`,
-          fontWeight: 300,
-        }}
-      />
-      <ScheduleArrow />
+      <SubmitTainr>
+        <Input
+          type="submit"
+          value={isSubmitting ? "Scheduling..." : "Schedule a chat"}
+          style={{
+            marginTop: `25px`,
+            padding: `16px 0 8px 0`,
+            border: `none`,
+            background: `none`,
+            color: `#FFE9C9`,
+            width: `80%`,
+            fontFamily: `roboto`,
+            fontWeight: 300,
+          }}
+        />
+        <ScheduleArrow />
+      </SubmitTainr>
     </Form>
   )
 }

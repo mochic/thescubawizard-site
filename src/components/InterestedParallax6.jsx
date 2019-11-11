@@ -230,7 +230,7 @@ export default () => {
           </PTainer>
           <LinkTainr>
             <FancyLink
-              to={"/contact"}
+              to={"/memcontacter3"}
               textStyle={{ opacity: linkProps.textOpacity }}
               buttonStyle={{
                 opacity: linkProps.arrowOpacity,

@@ -10,12 +10,16 @@ import SchedulingProvider from "../providers/SchedulingProvider"
 
 import SchedulingContext from "../contexts/scheduling.context"
 
-import Image from "../components/ContactImage2"
+import Image from "../components/ContactImage4"
 
 import devices from "../devices"
 
+import TitleSVG from "../components/TitleSVG"
+
 const NavTainr = styled(animated.div)`
   grid-area: nav;
+  width: 100%;
+  text-align: center;
 `
 
 const HomeLink = styled(Link)`
@@ -27,6 +31,16 @@ const HomeLink = styled(Link)`
   &:focus {
     color: #ffeed6;
   }
+`
+
+const TitleTainr = styled(animated.div)`
+  z-index: 1000;
+  width: 100%;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 50%;
 `
 
 const NavBar = ({ linkProps, tainrProps }) => {
@@ -42,7 +56,7 @@ const NavBar = ({ linkProps, tainrProps }) => {
 const OtherNavBar = props => {
   return (
     <NavTainr {...props}>
-      <HomeLink to="/">the scuba wizard</HomeLink>
+      <TitleSVG />
     </NavTainr>
   )
 }
@@ -57,11 +71,14 @@ const H2 = styled(animated.h2)`
 `
 
 const P = styled(animated.p)`
-  font-family: gilda display;
+  font-family: playfair display;
   color: white;
   margin: 0;
   border: 0;
   margin-bottom: 5%;
+  font-size: 36px;
+  line-height: 110.3%;
+  font-weight: normal;
 `
 
 const Statement = styled(animated.div)`
@@ -70,10 +87,12 @@ const Statement = styled(animated.div)`
   flex-direction: column;
   align-content: center;
   font-size: 160%;
-  font-style: italic;
   margin-left: 5%;
   max-width: 60%;
   min-width: 250px;
+  width: 250px;
+
+  margin-top: 60px;
 
   @media ${devices.laptop} {
     flex-direction: row;
@@ -106,21 +125,10 @@ const Containr = styled(animated.div)`
 const ImageTainr = styled(animated.div)`
   position: absolute;
   top: 0px;
-  left: 0px;
+  left: -146px;
   height: 100%;
   width: 100%;
   z-index: -2;
-`
-
-const AH3 = styled(animated.h3)`
-  position: absolute;
-  font-family: playfair display;
-  font-weight: bold;
-  font-size: 72px;
-  color: #2d2d2d;
-  top: 0px;
-  right: 0px;
-  z-index: -1;
 `
 
 const ContentTainr = styled(animated.div)``
@@ -144,17 +152,47 @@ export default () => {
     phoneNumber,
   })
 
+  //   const headerSpringRef = useRef()
+  //   const headerProps = useSpring({
+  //     ref: headerSpringRef,
+  //     from: { opacity: 1, transform: `translate3d(50px,0,0)` },
+  //     to: {
+  //       opacity: emailAddress || phoneNumber ? 0 : 1,
+  //       transform: `translate3d(${emailAddress || phoneNumber ? -70 : -2}px,0,0)`,
+  //     },
+  //     config: {
+  //       ...config.slow,
+  //       duration: emailAddress || phoneNumber ? 1000 : 20000,
+  //     },
+  //     reset: emailAddress || phoneNumber,
+  //   })
+
+  //   const headerSpringRef = useRef()
+  //   const headerProps = useSpring({
+  //     ref: headerSpringRef,
+  //     from: { opacity: 1, transform: `translate3d(0px,0,0)` },
+  //     to: {
+  //       opacity: emailAddress || phoneNumber ? 0 : 1,
+  //       //   transform: `translate3d(${emailAddress || phoneNumber ? -70 : -2}px,0,0)`,
+  //       transform: `translate3d(${100}px,0,0)`,
+  //     },
+  //     config: {
+  //       ...config.slow,
+  //       duration: emailAddress || phoneNumber ? 1000 : 200000,
+  //     },
+  //     reset: emailAddress || phoneNumber,
+  //   })
+
   const headerSpringRef = useRef()
   const headerProps = useSpring({
     ref: headerSpringRef,
-    from: { opacity: 1, transform: `translate3d(50px,0,0)` },
+    from: { opacity: 0.5 },
     to: {
       opacity: emailAddress || phoneNumber ? 0 : 1,
-      transform: `translate3d(${emailAddress || phoneNumber ? -70 : -2}px,0,0)`,
     },
     config: {
       ...config.slow,
-      duration: emailAddress || phoneNumber ? 1000 : 20000,
+      duration: emailAddress || phoneNumber ? 1000 : 2000,
     },
     reset: emailAddress || phoneNumber,
   })
@@ -173,11 +211,29 @@ export default () => {
     to: { opacity: 1 },
   })
 
+  //-1096.03 to 37.97
   const imageSpringRef = useRef()
   const imageProps = useSpring({
     ref: imageSpringRef,
-    from: { opacity: 0 },
+    from: { opacity: 1 },
     to: { opacity: 1 },
+  })
+
+  //-1096.03 to 37.97
+  //   const gradientSpringRef = useRef()
+  //   const gradientProps = useSpring({
+  //     ref: gradientSpringRef,
+  //     from: { lg0percent: -1096.03 },
+  //     to: { lg0Percent: 37.97 },
+  //     config: { ...config.wobbly, duration: 2000 },
+  //   })
+
+  const gradientSpringRef = useRef()
+  const gradientProps = useSpring({
+    ref: gradientSpringRef,
+    from: { lg0percent: -1096.03 },
+    to: { lg0percent: 37.97 },
+    config: { ...config.molasses, duration: 1000 },
   })
 
   const homeLinkSpringRef = useRef()
@@ -185,27 +241,56 @@ export default () => {
     ref: homeLinkSpringRef,
     from: { opacity: 0 },
     to: { opacity: 1 },
-    delay: 2000,
+    config: { ...config.slow, duration: 2000 },
   })
 
+  //   const statementSpringRef = useRef()
+  //   const statementProps = useSpring({
+  //     ref: statementSpringRef,
+  //     from: { opacity: 0, transform: `translate3d(20px,0,0)` },
+  //     to: { opacity: 1, transform: `translate3d(0px,0,0)` },
+  //     config: { ...config.slow, duration: 1000 },
+  //   })
+
+  const statementSpringRef = useRef()
+  const statementProps = useSpring({
+    ref: statementSpringRef,
+    from: { opacity: 0 },
+    to: { opacity: 1 },
+    config: { ...config.stiff, duration: 1000 },
+  })
+
+  //   useChain(
+  //     [
+  //       headerSpringRef,
+  //       imageSpringRef,
+  //       statementSpringRef,
+  //       contentSpringRef,
+  //       homeLinkSpringRef,
+  //     ],
+  //     [0.5, 0.55, 0.6, 0.8, 0.9],
+  //     2000
+  //   )
   useChain(
-    [headerSpringRef, imageSpringRef, contentSpringRef, homeLinkSpringRef],
-    [0.5, 0.55, 0.8, 0.9],
-    2000
+    [
+      imageSpringRef,
+      gradientSpringRef,
+      homeLinkSpringRef,
+      headerSpringRef,
+      statementSpringRef,
+      contentSpringRef,
+    ],
+    [0, 0, 0, 0.3, 0.3, 0.4],
+    3000
   )
   // keep it simple for now...maybs just get something pretty that works...thematically...
   return (
     <Containr>
       <OtherNavBar style={homeLinkProps} />
-      <AH3 style={headerProps}>schedule</AH3>
-      <ContentTainr style={contentProps}>
-        <Statement>
-          <StatementChunk style={{ alignSelf: `flex-start` }}>
-            <P>{`Let's talk about`}</P>
-          </StatementChunk>
-          <StatementChunk style={{ alignSelf: `flex-end` }}>
-            <P style={{ paddingRight: `7px` }}>{`that next `}</P>
-            <P style={{ color: `#FFE9C9` }}>dive job.</P>
+      <ContentTainr>
+        <Statement style={statementProps}>
+          <StatementChunk>
+            <P>{`How would you like us to get in contact with you?`}</P>
           </StatementChunk>
         </Statement>
       </ContentTainr>
@@ -216,8 +301,17 @@ export default () => {
       <ImageTainr style={imageProps}>
         <Image
           containrProps={{ style: { maxHeight: `800px`, maxWidth: `1180px` } }}
-          gradientProps={{ style: { maxHeight: `800px`, maxWidth: `1180px` } }}
-          headerProps={{}}
+          gradientProps={{
+            style: {
+              maxHeight: `800px`,
+              maxWidth: `1180px`,
+              //   background: `linear-gradient(254.29deg, rgba(46, 144, 111, 0.3) ${gradientProps.lg0percent.interpolate(
+              //     v => v
+              //   )}%, #191f1d 75.64%)`,
+            },
+            ...gradientProps,
+          }}
+          headerProps={{ style: headerProps }}
         />
       </ImageTainr>
     </Containr>

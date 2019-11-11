@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useRef } from "react"
 
 import PropTypes from "prop-types"
-import { animated, useTransition, useSpring } from "react-spring"
+import { animated, useSpring, config } from "react-spring"
 import styled from "styled-components"
 
 const Containr = styled(animated.div)`
@@ -26,6 +26,7 @@ const ErrorLabel = styled(animated.label)`
   margin-top: 13px;
   align-self: left;
   min-height: 13px;
+  margin-left: 3px; /* ios inputs again :( */
 `
 
 const PlaceholderLabel = styled(animated.label)`
@@ -33,12 +34,14 @@ const PlaceholderLabel = styled(animated.label)`
   font-family: roboto;
   font-weight: 300;
   margin-bottom: 5px;
+  margin-left: 3px; /* ios inputs again :( */
   align-self: left;
 `
 
 const Input = styled.input`
   outline: 0;
   border: 0;
+  border-radius: 0; /* ios inputs :( */
   background: transparent;
   border-bottom: 1px solid
     ${({ value, error }) => {
@@ -97,19 +100,31 @@ const FancyInput = ({
     placeholderLabelColor = unfilledColor
   }
 
-  const placeholderLabelProps = useSpring({
-    from: { transform: `translate3d(0,-40px,0)` },
-    to: {
-      transform:
-        focused || value ? `translate3d(0,-65px,0)` : `translate3d(0,-40px,0)`,
-    },
-  })
   // const placeholderLabelProps = useSpring({
-  //   from: { fontSize: `14px` },
+  //   from: { transform: `translate3d(0,-40px,0)` },
   //   to: {
-  //     fontSize: focused || value ? `8px` : `14px`,
+  //     transform:
+  //       focused || value
+  //         ? `translate3d(0,-65px,0) scale(0.7)`
+  //         : `translate3d(0,-40px,0) scale(1.0)`,
   //   },
   // })
+
+  const placeholderLabelProps = useSpring({
+    from: {
+      transform: `translate3d(0px,-40px,0) scale(1.0)`,
+      transformOrigin: `left top`,
+    },
+    to: {
+      transform:
+        focused || value
+          ? `translate3d(0px,-65px,0) scale(0.7)`
+          : `translate3d(0px,-40px,0) scale(1.0)`,
+    },
+    config: { ...config.molasses, duration: 500 },
+  })
+
+  // const errorLabelProps = useSpring({})
 
   return (
     <Containr style={tainrStyle}>
