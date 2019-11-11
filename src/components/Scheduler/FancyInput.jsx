@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useRef } from "react"
 
 import PropTypes from "prop-types"
-import { animated, useSpring, config } from "react-spring"
+import { animated, useSpring, config, useChain } from "react-spring"
 import styled from "styled-components"
 
 const Containr = styled(animated.div)`
@@ -17,10 +17,22 @@ const unfilledColor = `#656565`
 
 const errorColor = `#d20000`
 
+const colors = {
+  filled: {
+    rgb: [255, 233, 201],
+  },
+  unfilled: {
+    rgb: [101, 101, 101],
+  },
+  error: {
+    rgb: [210, 0, 0],
+  },
+}
+
 const ErrorLabel = styled(animated.label)`
   color: ${errorColor};
-  font-family: roboto;
-  font-weight: 300;
+  font-family: open sans;
+  font-weight: normal;
   font-size: 13px;
   margin-bottom: 5px;
   margin-top: 13px;
@@ -38,6 +50,29 @@ const PlaceholderLabel = styled(animated.label)`
   align-self: left;
 `
 
+// const Input = styled.input`
+//   outline: 0;
+//   border: 0;
+//   border-radius: 0; /* ios inputs :( */
+//   background: transparent;
+//   border-bottom: 1px solid
+//     ${({ value, error }) => {
+//       if (error) {
+//         return `red`
+//       } else if (value) {
+//         return "#c4c4c4"
+//       } else {
+//         return `#656565`
+//       }
+//     }};
+//   text-align: center;
+//   font-family: montserrat alternates;
+//   font-size: 16px !important; /* less than 16px will trigger terrible safari zoom */
+//   font-weight: 400;
+//   color: ${props => (props.error ? "red" : "#c4c4c4")};
+//   padding: 5px 5px 5px 5px;
+// `
+
 const Input = styled.input`
   outline: 0;
   border: 0;
@@ -53,12 +88,12 @@ const Input = styled.input`
         return `#656565`
       }
     }};
-  text-align: center;
-  font-family: montserrat alternates;
+  text-align: left;
+  font-family: open sans;
   font-size: 16px !important; /* less than 16px will trigger terrible safari zoom */
-  font-weight: 400;
+  font-weight: normal;
   color: ${props => (props.error ? "red" : "#c4c4c4")};
-  padding: 5px 5px 5px 5px;
+  padding: 5px 5px 5px 14px;
 `
 
 const FancyInput = ({
@@ -92,12 +127,22 @@ const FancyInput = ({
   }
 
   let placeholderLabelColor
+  let inputColorTemplate
   if (error) {
     placeholderLabelColor = errorColor
+    inputColorTemplate = `rgba(${colors.error.rgb[0]},${colors.error.rgb[1]},${
+      colors.error.rgb[2]
+    },`
   } else if (focused || value) {
     placeholderLabelColor = filledColor
+    inputColorTemplate = `rgba(${colors.filled.rgb[0]},${
+      colors.filled.rgb[1]
+    },${colors.filled.rgb[2]},`
   } else {
     placeholderLabelColor = unfilledColor
+    inputColorTemplate = `rgba(${colors.unfilled.rgb[0]},${
+      colors.unfilled.rgb[1]
+    },${colors.unfilled.rgb[2]},`
   }
 
   // const placeholderLabelProps = useSpring({
@@ -109,8 +154,9 @@ const FancyInput = ({
   //         : `translate3d(0,-40px,0) scale(1.0)`,
   //   },
   // })
-
+  const placeholderLabelRef = useRef()
   const placeholderLabelProps = useSpring({
+    ref: placeholderLabelRef,
     from: {
       transform: `translate3d(0px,-40px,0) scale(1.0)`,
       transformOrigin: `left top`,
@@ -124,7 +170,21 @@ const FancyInput = ({
     config: { ...config.molasses, duration: 500 },
   })
 
-  // const errorLabelProps = useSpring({})
+  const inputSpringRef = useRef()
+  const inputProps = useSpring({
+    ref: inputSpringRef,
+    from: { colorAlpha: 0 },
+    to: { colorAlpha: 1.0 },
+  })
+
+  const errorLabelRef = useRef()
+  const errorLabelProps = useSpring({
+    ref: errorLabelRef,
+    from: { opacity: 0 },
+    to: { opacity: error ? 1 : 0 },
+  })
+
+  useChain([placeholderLabelRef, inputSpringRef, errorLabelRef])
 
   return (
     <Containr style={tainrStyle}>
@@ -148,15 +208,14 @@ const FancyInput = ({
         error={error !== null}
         style={{
           ...props.style,
-          color: placeholderLabelColor,
+          color: inputProps.colorAlpha.interpolate(
+            v => inputColorTemplate + `${v})`
+          ),
           borderColor: placeholderLabelColor,
         }}
       />
 
-      <ErrorLabel
-        style={{ visibility: error ? `visible` : `hidden` }}
-        onClick={handleLabelClick}
-      >
+      <ErrorLabel style={errorLabelProps} onClick={handleLabelClick}>
         {error}
       </ErrorLabel>
     </Containr>

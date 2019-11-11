@@ -30,6 +30,7 @@ const P = styled(animated.p)`
 
 const SubmitTainr = styled(animated.div)`
   align-self: center;
+  text-align: center;
 `
 
 export default () => {
