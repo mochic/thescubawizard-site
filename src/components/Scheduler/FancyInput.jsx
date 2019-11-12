@@ -93,7 +93,7 @@ const Input = styled.input`
   font-size: 16px !important; /* less than 16px will trigger terrible safari zoom */
   font-weight: normal;
   color: ${props => (props.error ? "red" : "#c4c4c4")};
-  padding: 5px 5px 5px 14px;
+  padding: 5px 5px 5px 10px;
 `
 
 const FancyInput = ({
