@@ -53,7 +53,7 @@ module.exports = {
           `roboto mono\:100,300,400,600,900`,
           `montserrat alternates\:100,300,400,600,900`,
           `gilda display`,
-          `open sans`,
+          `open sans\:100,300,400,500,700,900`,
           `playfair display\:100,300,400,500,700,900`,
         ],
       },

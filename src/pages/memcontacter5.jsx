@@ -91,14 +91,13 @@ const H2 = styled(animated.h2)`
 
 const P = styled(animated.p)`
   font-family: open sans;
-  color: #537964;
+  color: #cecece;
   margin: 0;
   border: 0;
-  margin-top: 56px;
   margin-bottom: 5%;
-  font-size: 26px;
+  font-size: 22px;
   line-height: 110.3%;
-  font-weight: normal;
+  font-weight: 300;
 `
 
 // const Statement = styled(animated.div)`
@@ -123,7 +122,6 @@ const StatementTainr = styled(animated.div)`
   display: flex;
   flex-direction: column;
   align-content: center;
-  font-size: 160%;
   max-width: 60%;
   min-width: 250px;
   width: 250px;
@@ -155,8 +153,8 @@ const Containr = styled(animated.div)`
     "statement"
     "form";
 
-  grid-template-rows: 1fr 3.5fr 5.5fr;
-  padding: 5% 8% 8% 8%;
+  grid-template-rows: 1fr 2fr 5.5fr;
+  padding: 5% 8% 46% 8%;
 `
 
 const ImageTainr = styled(animated.div)`
@@ -192,6 +190,18 @@ const AH3 = styled(animated.h3)`
   color: #ffe9c9;
   animation: ${DriftRight} 6s ease-out;
   animation-fill-mode: forwards;
+`
+
+// needs to be z-index bellow inputs but z-index above rest.
+const Curtain = styled(animated.div)`
+  height: 100vh;
+  width: 100vh;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  background: red;
+  z-index: 1000;
+  opacity: 0;
 `
 
 export default () => {
@@ -290,14 +300,6 @@ export default () => {
     config: { ...config.stiff, duration: 1000 },
   })
 
-  //   const statements = [
-  //     {
-  //       key: `statement-0`,
-  //       text: `How would you like us to get in contact with you?`,
-  //     },
-  //     { key: `statement-1`, text: `Great! We'll try to contact you soon-ish.` },
-  //   ]
-
   const statements = [
     props => (
       <Statement {...props}>
@@ -306,16 +308,15 @@ export default () => {
     ),
     props => (
       <Statement {...props}>
-        <P>{`Great! We'll try to contact you soon-ish.`}</P>
+        <P>{`Great! We'll try to contact you in the next two business days.`}</P>
+      </Statement>
+    ),
+    props => (
+      <Statement {...props}>
+        <P>{`Great! We'll try.`}</P>
       </Statement>
     ),
   ]
-
-  //   const statementsTrailRef = useRef()
-  //   const statementsTrail = useTrail(statements.length, {
-  //     ref: statementsTrailRef,
-  //     opacity: 1,
-  //   })
 
   // this is a dumb-ish way to do it for now...
   const statementIndex = emailAddress || phoneNumber ? 1 : 0
@@ -410,6 +411,7 @@ export default () => {
           })}
         </Image>
       </ImageTainr>
+      {/* <Curtain className="curtain" /> */}
     </Containr>
   )
 }

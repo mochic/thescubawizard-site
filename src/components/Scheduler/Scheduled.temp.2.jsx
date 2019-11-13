@@ -9,13 +9,7 @@ import SchedulingContext from "../../contexts/scheduling.context"
 
 import { phoneFormatter } from "../../utils"
 
-const P = styled(animated.p)`
-  color: white;
-  font-size: 20px;
-  font-family: playfair display;
-  margin: 0px;
-  line-height: 200%;
-`
+const P = styled(animated.p)``
 
 const H2 = styled(animated.h2)``
 
@@ -42,8 +36,17 @@ const Scheduled = () => {
 
   return (
     <>
+      <H2
+        style={{
+          textDecoration:
+            formattedPhoneNumber || emailAddress ? `none` : `line-through`,
+        }}
+      >
+        scheduled
+      </H2>
       {formattedPhoneNumber || emailAddress ? (
         <StatementTainr>
+          <P>Great!</P>
           <P>I'll try to contact you at</P>
           <P>{formattedPhoneNumber || emailAddress}</P>
           <P>in the next two to three business days.</P>
