@@ -1,11 +1,89 @@
-import React, { useRef, useContext } from "react"
+import React, { useContext } from "react"
+
+import { Link as Link_ } from "gatsby"
 
 import styled from "styled-components"
-import { animated, useChain, useSpring } from "react-spring"
+import { animated, useSpring } from "react-spring"
 
-import { P, H2, TextButton } from "../Shared"
+import PropTypes from "prop-types"
 
 import SchedulingContext from "../../contexts/scheduling.context"
+
+import { phoneFormatter } from "../../utils"
+
+const P = styled(animated.p)`
+  color: white;
+  font-size: 20px;
+  font-family open sans;
+  line-height: 200%;
+  margin: 0 0 8px 0;
+  padding: 0;
+`
+
+const H2 = styled(animated.h2)``
+
+const Button = styled(animated.button)`
+  color: #979797;
+  font-size: 14px;
+  font-family open sans;
+  margin: 0px;
+  font-weight: 300;
+  margin: 0 0 8px 0;
+  padding: 0;
+`
+
+const StatementTainr = styled(animated.div)``
+
+const Link = styled(Link_)`
+  font-family: open sans;
+  font-weight: 300;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+`
+
+// const Scheduled = () => {
+//   const {
+//     submitted: { emailAddress, phoneNumber },
+//     resetSubmission,
+//   } = useContext(SchedulingContext)
+
+//   let formattedPhoneNumber
+//   if (phoneNumber) {
+//     formattedPhoneNumber = phoneFormatter(phoneNumber, ``)
+//   }
+
+//   console.log("rendering scheduled with: ", {
+//     emailAddress,
+//     phoneNumber,
+//     formattedPhoneNumber,
+//   })
+
+//   return (
+//     <>
+//       {formattedPhoneNumber || emailAddress ? (
+//         <StatementTainr>
+//           <P>I'll try to contact you at</P>
+//           <P>{formattedPhoneNumber || emailAddress}</P>
+//           <P>in the next two to three business days.</P>
+//         </StatementTainr>
+//       ) : (
+//         <StatementTainr>
+//           <P>There was an issue scheduling a chat.</P>
+//         </StatementTainr>
+//       )}
+//       <Link>Home.</Link>
+//       <Button
+//         onClick={e => {
+//           e.preventDefault()
+//           resetSubmission()
+//         }}
+//       >
+//         reschedule
+//       </Button>
+//     </>
+//   )
+// }
 
 export default () => {
   const {
@@ -13,80 +91,28 @@ export default () => {
     resetSubmission,
   } = useContext(SchedulingContext)
 
-  const handleClick = e => {
-    e.preventDefault()
-    resetSubmission()
+  let formattedPhoneNumber
+  if (phoneNumber) {
+    formattedPhoneNumber = phoneFormatter(phoneNumber, ``)
   }
 
-  let message
-  if (emailAddress) {
-    message = `Great! I'll send you an email at ${emailAddress} in ~ one to two business days.`
-    console.log("%cemail success", "color: seagreen", { emailAddress })
-  } else if (phoneNumber) {
-    message = `Great! I'll try to call you at ${phoneNumber} between 9 am to 5pm PDT the next business day.`
-    console.log("%cphone success", "color: seagreen", { phoneNumber })
-  } else {
-    message = `Somehow we got here without submitting any of your information...
-    This is probably a bug and not your fault at all :(.
-    Please resubmit if you want try again.`
-    console.log("%cscheduling failure", "color: red", {
-      phoneNumber,
-      emailAddress,
-    })
-  }
-
-  const headerSpringRef = useRef()
-  const headerProps = useSpring({
-    from: { opacity: 0 },
-    to: { opacity: 1 },
-    ref: headerSpringRef,
+  console.log("rendering scheduled with: ", {
+    emailAddress,
+    phoneNumber,
+    formattedPhoneNumber,
   })
-
-  const messageSpringRef = useRef()
-  const messageProps = useSpring({
-    from: {
-      opacity: 0,
-    },
-    to: {
-      opacity: 1,
-    },
-    ref: messageSpringRef,
-  })
-
-  const rescheduleSpringRef = useRef()
-  const rescheduleProps = useSpring({
-    from: { opacity: 0 },
-    to: { opacity: 1 },
-    ref: rescheduleSpringRef,
-  })
-
-  useChain([headerSpringRef, messageSpringRef, rescheduleSpringRef])
 
   return (
     <>
-      <H2 style={headerProps}>Success</H2>
-      <P style={messageProps}>{message}</P>
-      <P
-        style={{
-          width: `100%`,
-          display: `flex`,
-          justifyContent: `flex-end`,
-          marginTop: `22%`,
-          ...rescheduleProps,
+      <Link to="/another10">Home.</Link>
+      <Button
+        onClick={e => {
+          e.preventDefault()
+          resetSubmission()
         }}
       >
-        or
-        <TextButton
-          style={{
-            marginLeft: `8px`,
-            marginRight: `10px`,
-            borderBotton: `1px solid #656565`,
-          }}
-          onClick={handleClick}
-        >
-          reschedule
-        </TextButton>
-      </P>
+        Reschedule.
+      </Button>
     </>
   )
 }

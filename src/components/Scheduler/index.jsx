@@ -1,11 +1,11 @@
 import React, { useContext } from "react"
 
 import styled from "styled-components"
-import { animated } from "react-spring"
+import { animated, useTransition } from "react-spring"
 
 import SchedulingContext from "../../contexts/scheduling.context"
 
-import Scheduled from "./Scheduled.temp"
+import Scheduled from "./Scheduled"
 import SchedulingForm from "./SchedulingForm"
 
 import devices from "../../devices"
@@ -22,15 +22,25 @@ const Containr = styled.div`
   width: 100%;
 `
 
+const FormTainr = styled(animated.div)`
+  background: red;
+`
+const ScheduledTainr = styled(animated.div)`
+  display: flex;
+  flex-direction: column;
+  margin: 100px 0 0 0;
+`
 export default () => {
   const { submitted } = useContext(SchedulingContext)
-
+  // const formTransition = useTransition(submitted.emailAddress || submitted.phoneNumber, i => i, {})
   return (
     <>
       <SwitchTainr>
         <Containr>
           {submitted.phoneNumber || submitted.emailAddress ? (
-            <Scheduled />
+            <ScheduledTainr>
+              <Scheduled />
+            </ScheduledTainr>
           ) : (
             <SchedulingForm />
           )}

@@ -18,9 +18,20 @@ export default ({ children }) => {
     )
     console.log("api response:", submittedToAPI, apiErrored)
 
+    // setScheduling(prevState => ({
+    //   ...prevState,
+    //   submitted: { ...submittedToAPI },
+    //   errors: {
+    //     api: `An expected error occurred when submitting your values to our api.`,
+    //   },
+    //   isSubmitting: false,
+    // }))
+
     setScheduling(prevState => ({
       ...prevState,
       submitted: { ...submittedToAPI },
+      // status: 1,
+      // prevStatus: 0,
       errors: {
         api: `An expected error occurred when submitting your values to our api.`,
       },
@@ -30,7 +41,7 @@ export default ({ children }) => {
   }
 
   const resetSubmission = () => {
-    setScheduling(schedulingState)
+    setScheduling(({ prevStatus }) => ({ ...schedulingState, prevStatus }))
     console.log("reset submission")
   }
 
@@ -38,6 +49,8 @@ export default ({ children }) => {
     isSubmitting: false,
     submitted: {},
     errors: {},
+    // status: 0, // 0 unsubmitted, 1 submitting, 2 submitted
+    // prevStatus: null,
     submit,
     resetSubmission,
   }

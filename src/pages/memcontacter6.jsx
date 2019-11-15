@@ -358,8 +358,8 @@ export default () => {
     ref: unsubmittedStatementSpringRef,
     from: { opacity: 0 },
     to: {
-      opacity: 1,
-      transform: `translate3d(${statementIndex === 1 ? -100 : 0}px,0,0)`,
+      opacity: statementIndex === 0 ? 1 : 0,
+      transform: `translate3d(${statementIndex === 0 ? 0 : -100}px,0,0)`,
     },
   })
 
@@ -368,7 +368,7 @@ export default () => {
     ref: submittedStatementSpringRef,
     from: { opacity: 0, transform: `translate3d(100px,0,0)` },
     to: {
-      opacity: 1,
+      opacity: statementIndex === 1 ? 1 : 0,
       transform: `translate3d(${statementIndex === 1 ? 0 : 100}px,0,0)`,
     },
   })
@@ -445,10 +445,10 @@ export default () => {
             const StatementThing = statements[item]
             return <StatementThing key={key} style={props} />
           })} */}
-          <Statement {...unsubmittedStatementProps}>
+          <Statement style={{ ...unsubmittedStatementProps }}>
             <P>{`All we need is a phone number or email address.`}</P>
           </Statement>
-          <Statement {...submittedStatementProps}>
+          <Statement style={{ ...submittedStatementProps }}>
             <P>{`Great! We'll try to contact you in the next two business days.`}</P>
           </Statement>
         </StatementTainr>

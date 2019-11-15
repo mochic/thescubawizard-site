@@ -12,7 +12,7 @@ import { phoneFormatter } from "../../utils"
 const P = styled(animated.p)`
   color: white;
   font-size: 20px;
-  font-family: playfair display;
+  font-family open sans;
   margin: 0px;
   line-height: 200%;
 `
