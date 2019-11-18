@@ -13,7 +13,7 @@ import About from "../components/AnotherAbout6"
 
 import Promise from "../components/PromiseThang2"
 
-import Interested from "../components/InterestedParallax6"
+import Interested from "../components/InterestedParallax7"
 
 import Footer from "../components/AnotherFooter"
 

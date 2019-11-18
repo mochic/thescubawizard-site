@@ -102,25 +102,6 @@ export default () => {
         disabled={isSubmitting}
         tainrStyle={{ width: `100%` }}
       />
-      {/* <P
-        style={{
-          fontFamily: `roboto`,
-          fontWeight: 300,
-          marginTop: `7%`,
-          marginBottom: `5%`,
-        }}
-      >
-        or
-      </P> */}
-      {/* <P
-        style={{
-          fontFamily: `roboto`,
-          fontWeight: 300,
-          margin: 0,
-        }}
-      >
-        or
-      </P> */}
       <FancyInput
         type="email"
         autoComplete="email"

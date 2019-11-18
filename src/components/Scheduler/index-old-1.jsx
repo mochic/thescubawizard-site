@@ -39,12 +39,13 @@ const P = styled(animated.p)`
 // `
 
 const SwitchTainr = styled(animated.div)`
+  overflow: hidden;
   position: relative;
-  height: 100%;
-  width: 200%;
+  height: 300px;
+  grid-area: switch;
   display: flex;
+  align-items: center;
   background: blue;
-  flex-direction: column;
 `
 
 // const Containr = styled.div`
@@ -82,18 +83,21 @@ const SubmitTainr = styled(animated.div)`
 
 const StatementTainr = styled(animated.div)`
   position: relative;
-  background: orange;
+  grid-area: statement;
 `
 
-// const Statement = styled(animated.div)`
-//   position: absolute;
-//   display: flex;
-// `
-
-const Statement = styled(animated.div)``
+const Statement = styled(animated.div)`
+  position: absolute;
+  display: flex;
+`
 
 const Containr = styled(animated.div)`
-  background: pink;
+  display: grid;
+  grid-template-areas:
+    "statement"
+    "switch"
+    "submit";
+  grid-template-rows: 1fr 2fr 1fr;
 `
 
 const Statements = ({ style0, style1 }) => {
@@ -133,12 +137,6 @@ const Submit = ({ style }) => {
     </SubmitTainr>
   )
 }
-
-const SubPages = styled(animated.div)``
-
-const SubPageTainr = styled(animated.div)`
-  background: yellow;
-`
 
 export default () => {
   const {
@@ -194,26 +192,27 @@ export default () => {
   // submit arrow goes right...success text comes from left...home button and stuff fades in...one after the other...
   return (
     <Containr>
+      <StatementTainr>
+        {/* {statementTransitions.map(({ key, item, props }) => {
+          const StatementThang = StatementStuffs[item]
+          return <StatementThang key={key} style={props} />
+        })} */}
+        <Statement style={{ opacity: opacity0, transform: transform0 }}>
+          <P>All we need is a phone number or email address.</P>
+        </Statement>
+        <Statement style={{ opacity: opacity1, transform: transform1 }}>
+          <P>Great! We'll try to contact you in the next two business days.</P>
+        </Statement>
+      </StatementTainr>
       <SwitchTainr>
-        <SubPageTainr style={{ background: "black" }}>
-          <Statement style={{ opacity: opacity0, transform: transform0 }}>
-            <P>All we need is a phone number or email address.</P>
-          </Statement>
-          <FormTainr>
-            <SchedulingForm />
-          </FormTainr>
-        </SubPageTainr>
-        <SubPageTainr style={{ background: "white" }}>
-          <Statement style={{ opacity: opacity1, transform: transform1 }}>
-            <P>
-              Great! We'll try to contact you in the next two business days.
-            </P>
-          </Statement>
-          <ScheduledTainr>
-            <Scheduled />
-          </ScheduledTainr>
-        </SubPageTainr>
+        <ScheduledTainr>
+          <Scheduled />
+        </ScheduledTainr>
+        <FormTainr>
+          <SchedulingForm />
+        </FormTainr>
       </SwitchTainr>
+      <Submit />
     </Containr>
   )
 }

@@ -151,10 +151,9 @@ const Containr = styled(animated.div)`
   box-sizing: border-box;
   grid-template-areas:
     "nav"
-    "statement"
     "form";
 
-  grid-template-rows: 1fr 2fr 5.5fr;
+  grid-template-rows: 1fr 7fr;
   padding: 5% 8% 46% 8%;
 `
 
@@ -431,29 +430,6 @@ export default () => {
   return (
     <Containr>
       <OtherNavBar style={homeLinkProps} />
-      <ContentTainr>
-        <StatementTainr>
-          {/* {statementTransitions.map(({ key, props, item }) => {
-            const { text } = item
-
-            return (
-              <Statement key={key} style={props}>
-                <P>{text}</P>
-              </Statement>
-            )
-          })} */}
-          {/* {statementTransitions.map(({ key, props, item }) => {
-            const StatementThing = statements[item]
-            return <StatementThing key={key} style={props} />
-          })} */}
-          <Statement style={{ ...unsubmittedStatementProps }}>
-            <P>{`All we need is a phone number or email address.`}</P>
-          </Statement>
-          <Statement style={{ ...submittedStatementProps }}>
-            <P>{`Great! We'll try to contact you in the next two business days.`}</P>
-          </Statement>
-        </StatementTainr>
-      </ContentTainr>
       {/* we need separated from contentTainr to be sibilings for grid layout to work!*/}
       <SchedulerTainr style={contentProps}>
         <Scheduler />
