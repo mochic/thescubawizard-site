@@ -39,12 +39,13 @@ const P = styled(animated.p)`
 // `
 
 const SwitchTainr = styled(animated.div)`
+  overflow: hidden;
   position: relative;
-  height: 100%;
-  width: 200%;
+  height: 300px;
+  grid-area: switch;
   display: flex;
+  align-items: center;
   background: blue;
-  flex-direction: column;
 `
 
 // const Containr = styled.div`
@@ -55,7 +56,6 @@ const SwitchTainr = styled(animated.div)`
 const FormTainr = styled(animated.div)`
   position: absolute;
   width: 100%;
-  background: red;
 `
 // const ScheduledTainr = styled(animated.div)`
 //   display: flex;
@@ -82,18 +82,21 @@ const SubmitTainr = styled(animated.div)`
 
 const StatementTainr = styled(animated.div)`
   position: relative;
-  background: orange;
+  grid-area: statement;
 `
 
-// const Statement = styled(animated.div)`
-//   position: absolute;
-//   display: flex;
-// `
-
-const Statement = styled(animated.div)``
+const Statement = styled(animated.div)`
+  position: absolute;
+  display: flex;
+`
 
 const Containr = styled(animated.div)`
-  background: pink;
+  display: grid;
+  grid-template-areas:
+    "statement"
+    "switch"
+    "submit";
+  grid-template-rows: 1fr 2fr 1fr;
 `
 
 const Statements = ({ style0, style1 }) => {
@@ -134,12 +137,6 @@ const Submit = ({ style }) => {
   )
 }
 
-const SubPages = styled(animated.div)``
-
-const SubPageTainr = styled(animated.div)`
-  background: yellow;
-`
-
 export default () => {
   const {
     submitted: { phoneNumber, emailAddress },
@@ -159,61 +156,62 @@ export default () => {
     ),
   ]
 
-  // const statementTransitionsRef = useRef()
-  // const statementIndex = phoneNumber || emailAddress ? 1 : 0
-  // const statementTransitions = useTransition(statementIndex, p => p, {
-  //   ref: statementTransitionsRef,
-  //   from: { opacity: 0 },
-  //   enter: { opacity: 1 },
-  //   leave: { opacity: 0 },
-  //   config: { ...config.slow, duration: 3000 },
-  // })
+  const statementTransitionsRef = useRef()
+  const statementIndex = phoneNumber || emailAddress ? 1 : 0
+  const statementTransitions = useTransition(statementIndex, p => p, {
+    ref: statementTransitionsRef,
+    from: {
+      opacity: 0,
+      transform: `translate3d(${statementIndex === 1 ? 100 : 0}px,0,0)`,
+    },
+    enter: { opacity: 1, transform: `translate3d(${0}px,0,0)` },
+    leave: {
+      opacity: 0,
+      transform: `translate3d(${statementIndex === 1 ? -100 : -100}px,0,0)`,
+    },
+    config: { ...config.slow, duration: 500 },
+  })
 
   // let animationOrder
   // if (phoneNumber || emailAddress) {
   // }
 
-  const statementSpringRef = useRef()
-  const { opacity0, opacity1, transform0, transform1 } = useSpring({
-    from: {
-      opacity0: 0,
-      opacity1: 0,
-      transform0: `translate3d(0px,0,0)`,
-      transform1: `translate3d(0px,0,0)`,
-    },
-    to: [
-      { opacity0: 1, transform: `translate3d(0px,0,0)` },
-      { opacity1: 0, transform: `translate3d(0px,0,0)` },
-    ],
-    reset: phoneNumber || emailAddress,
-  })
+  // const statementSpringRef = useRef()
+  // const { opacity0, opacity1, transform0, transform1 } = useSpring({
+  //   from: {
+  //     opacity0: 0,
+  //     opacity1: 0,
+  //     transform0: `translate3d(0px,0,0)`,
+  //     transform1: `translate3d(0px,0,0)`,
+  //   },
+  //   to: [
+  //     { opacity0: 1, transform: `translate3d(0px,0,0)` },
+  //     { opacity1: 0, transform: `translate3d(0px,0,0)` },
+  //   ],
+  //   reset: phoneNumber || emailAddress,
+  // })
 
   // useChain([{ current: statementTransitionsRef.current }])
-  // useChain([statementTransitionsRef])
-  useChain([statementSpringRef])
+  useChain([statementTransitionsRef])
+  // useChain([statementSpringRef])
   // submit arrow goes right...success text comes from left...home button and stuff fades in...one after the other...
   return (
     <Containr>
+      <StatementTainr>
+        {statementTransitions.map(({ key, item, props }) => {
+          const StatementThang = StatementStuffs[item]
+          return <StatementThang key={key} style={props} />
+        })}
+      </StatementTainr>
       <SwitchTainr>
-        <SubPageTainr style={{ background: "black" }}>
-          <Statement style={{ opacity: opacity0, transform: transform0 }}>
-            <P>All we need is a phone number or email address.</P>
-          </Statement>
-          <FormTainr>
-            <SchedulingForm />
-          </FormTainr>
-        </SubPageTainr>
-        <SubPageTainr style={{ background: "white" }}>
-          <Statement style={{ opacity: opacity1, transform: transform1 }}>
-            <P>
-              Great! We'll try to contact you in the next two business days.
-            </P>
-          </Statement>
-          <ScheduledTainr>
-            <Scheduled />
-          </ScheduledTainr>
-        </SubPageTainr>
+        <ScheduledTainr>
+          <Scheduled />
+        </ScheduledTainr>
+        <FormTainr>
+          <SchedulingForm />
+        </FormTainr>
       </SwitchTainr>
+      <Submit />
     </Containr>
   )
 }
