@@ -1,6 +1,8 @@
 import React, { useRef, useState, useContext } from "react"
 
 import { Link } from "gatsby"
+import { navigate } from "gatsby-link"
+
 import styled, { keyframes } from "styled-components"
 import {
   animated,
@@ -17,18 +19,17 @@ import SchedulingProvider from "../providers/SchedulingProvider"
 
 import SchedulingContext from "../contexts/scheduling.context"
 
-import Image from "../components/ContactImage5"
+import Image from "../components/ContactImage8"
 
 import devices from "../devices"
 
 import TitleSVG from "../components/TitleSVG"
-import { statement } from "@babel/template"
 
-const NavTainr = styled(animated.div)`
-  grid-area: nav;
-  width: 100%;
-  text-align: center;
-`
+// const NavTainr = styled(animated.div)`
+//   grid-area: nav;
+//   width: 100%;
+//   text-align: center;
+// `
 
 const HomeLink = styled(Link)`
   color: #ffe9c9;
@@ -51,23 +52,23 @@ const TitleTainr = styled(animated.div)`
   top: 50%;
 `
 
-const NavBar = ({ linkProps, tainrProps }) => {
-  return (
-    <NavTainr style={tainrProps}>
-      <HomeLink to="/" style={linkProps}>
-        the scuba wizard
-      </HomeLink>
-    </NavTainr>
-  )
-}
+// const NavBar = ({ linkProps, tainrProps }) => {
+//   return (
+//     <NavTainr style={tainrProps}>
+//       <HomeLink to="/" style={linkProps}>
+//         the scuba wizard
+//       </HomeLink>
+//     </NavTainr>
+//   )
+// }
 
-const OtherNavBar = props => {
-  return (
-    <NavTainr {...props}>
-      <TitleSVG />
-    </NavTainr>
-  )
-}
+// const OtherNavBar = props => {
+//   return (
+//     <NavTainr {...props}>
+//       <TitleSVG />
+//     </NavTainr>
+//   )
+// }
 
 const H2 = styled(animated.h2)`
   font-family: gilda display;
@@ -181,13 +182,37 @@ const ImageTainr = styled(animated.div)`
 
 const ContentTainr = styled(animated.div)``
 
-const DriftRight = keyframes`
+// const DriftRight = keyframes`
+//     from {
+//         transform: translate3d(-60px,0,0);
+//     }
+
+//     to {
+//         transform: translate3d(0px,0,0);
+//     }
+// `
+
+// const AH3 = styled(animated.h3)`
+//   font-family: playfair display;
+//   font-weight: bold;
+//   font-size: 72px;
+//   line-height: 164.3%;
+//   z-index: -1;
+//   position: absolute;
+//   top: 0px;
+//   right: -166px;
+//   color: #ffe9c9;
+//   animation: ${DriftRight} 60s ease-out;
+//   animation-fill-mode: forwards;
+// `
+
+const Drift = keyframes`
     from {
-        transform: translate3d(0px,0,0);
+        transform: translate3d(40px,0,0);
     }
 
     to {
-        transform: translate3d(40px,0,0);
+        transform: translate3d(0px,0,0);
     }
 `
 
@@ -199,9 +224,9 @@ const AH3 = styled(animated.h3)`
   z-index: -1;
   position: absolute;
   top: 0px;
-  right: -110px;
+  right: -140px;
   color: #ffe9c9;
-  animation: ${DriftRight} 6s ease-out;
+  animation: ${Drift} 55s ease-out;
   animation-fill-mode: forwards;
 `
 
@@ -216,6 +241,37 @@ const Curtain = styled(animated.div)`
   z-index: 1000;
   opacity: 0;
 `
+
+// position absolute for ios scrolling and other reasons...:/....
+const NavTainr = styled(animated.div)`
+  position: absolute;
+  z-index: 1000;
+  width: 100%;
+  text-align: center;
+  top: 18px;
+`
+
+// need animated for react-spring values!
+// TODO maybs make it an animated svg
+const SVGTainr = styled(animated.div)``
+
+// own fade in animations with spring built in...override with external props?
+const NavBar = ({ handleClick, svgProps, ...rest }) => {
+  console.log("%cnavbar with: ", "color: red", svgProps, rest)
+
+  const _handleClick = e => {
+    e.preventDefault()
+    handleClick()
+  }
+
+  return (
+    <NavTainr {...rest}>
+      <SVGTainr onClick={_handleClick} {...svgProps}>
+        <TitleSVG />
+      </SVGTainr>
+    </NavTainr>
+  )
+}
 
 export default () => {
   /* simple state for now...fix later
@@ -236,27 +292,6 @@ export default () => {
     phoneNumber,
   })
 
-  const headerSpringRef = useRef()
-  const headerProps = useSpring({
-    ref: headerSpringRef,
-    from: { opacity: 0.5 },
-    to: {
-      opacity: emailAddress || phoneNumber ? 0 : 1,
-    },
-    config: {
-      ...config.slow,
-      duration: emailAddress || phoneNumber ? 1000 : 2000,
-    },
-    reset: emailAddress || phoneNumber,
-  })
-
-  const headerSpring2Ref = useRef()
-  const header2Props = useSpring({
-    ref: headerSpring2Ref,
-    from: { opacity: 0 },
-    to: { opacity: 1 },
-  })
-
   const contentSpringRef = useRef()
   const contentProps = useSpring({
     ref: contentSpringRef,
@@ -264,12 +299,13 @@ export default () => {
     to: { opacity: 1 },
   })
 
-  //-1096.03 to 37.97
   const imageSpringRef = useRef()
   const imageProps = useSpring({
     ref: imageSpringRef,
     from: { opacity: 1 },
-    to: { opacity: 1 },
+    to: {
+      opacity: 1,
+    },
   })
 
   //-1096.03 to 37.97
@@ -292,157 +328,59 @@ export default () => {
   const homeLinkSpringRef = useRef()
   const homeLinkProps = useSpring({
     ref: homeLinkSpringRef,
-    from: { opacity: 0 },
-    to: { opacity: 1 },
+    from: { svgOpacity: 0, svgBlurRadius: 10 },
+    to: { svgOpacity: 1, svgBlurRadius: 0 },
     config: { ...config.slow, duration: 2000 },
   })
 
-  //   const statementSpringRef = useRef()
-  //   const statementProps = useSpring({
-  //     ref: statementSpringRef,
-  //     from: { opacity: 0, transform: `translate3d(20px,0,0)` },
-  //     to: { opacity: 1, transform: `translate3d(0px,0,0)` },
-  //     config: { ...config.slow, duration: 1000 },
-  //   })
-
-  //   const statementSpringRef = useRef()
-  //   const statementProps = useSpring({
-  //     ref: statementSpringRef,
-  //     from: { opacity: 0 },
-  //     to: { opacity: 1 },
-  //     config: { ...config.stiff, duration: 1000 },
-  //   })
-
-  const statements = [
-    // props => (
-    //   <Statement {...props}>
-    //     <P>{`How would you like us to get in contact with you?`}</P>
-    //   </Statement>
-    // ),
-    props => (
-      <Statement {...props}>
-        <P>{`All we need is a phone number or email address.`}</P>
-      </Statement>
-    ),
-    props => (
-      <Statement {...props}>
-        <P>{`Great! We'll try to contact you in the next two business days.`}</P>
-      </Statement>
-    ),
-    props => (
-      <Statement {...props}>
-        <P>{`Great! We'll try.`}</P>
-      </Statement>
-    ),
-  ]
-
-  // this is a dumb-ish way to do it for now...
-  const statementIndex = emailAddress || phoneNumber ? 1 : 0
-  // const statementTransitionsRef = useRef()
-
-  // we need a persistent store
-  //   const schedulingState = useRef(0)
-
-  // const sDiff = {}
-  // if (statementIndex === 0) {
-  //   sDiff.from = 0
-  //   sDiff.enter = 0
-  //   sDiff.leave = -100
-  // } else if (statementIndex === 1) {
-  //   sDiff.from = 100
-  //   sDiff.enter = 0
-  //   sDiff.leave = -100
-  // } else {
-  //   console.log("%cunknown statementIndex", "color: green", statementIndex)
-  // }
-
-  // const statementTransitions = useTransition(statementIndex, i => i, {
-  //   ref: statementTransitionsRef,
-  //   from: { opacity: 0, transform: `translate3d(${sDiff.from}px,0,0)` },
-  //   enter: { opacity: 1, transform: `translate3d(${sDiff.enter}px,0,0)` },
-  //   leave: { opacity: 0, transform: `translate3d(${sDiff.leave}px,0,0)` },
-  //   config: { ...config.stiff, duration: 1000 },
-  //   delay: statementIndex === 1 ? 1000 : 1000,
-  // })
-
-  // we hardcode the shculder transition to be -100px as well to give the illusion of moving the same...
-  const unsubmittedStatementSpringRef = useRef()
-  const unsubmittedStatementProps = useSpring({
-    ref: unsubmittedStatementSpringRef,
+  const headerSpringRef = useRef()
+  const headerProps = useSpring({
+    ref: headerSpringRef,
     from: { opacity: 0 },
-    to: {
-      opacity: statementIndex === 0 ? 1 : 0,
-      transform: `translate3d(${statementIndex === 0 ? 0 : -100}px,0,0)`,
-    },
+    to: { opacity: 1 },
   })
 
-  const submittedStatementSpringRef = useRef()
-  const submittedStatementProps = useSpring({
-    ref: submittedStatementSpringRef,
-    from: { opacity: 0, transform: `translate3d(100px,0,0)` },
-    to: {
-      opacity: statementIndex === 1 ? 1 : 0,
-      transform: `translate3d(${statementIndex === 1 ? 0 : 100}px,0,0)`,
-    },
-  })
-
-  // gotta make image thing render children so we can feed them our headers etc...
-  const headers = [
-    // unscheduled state
-    props => <AH3 {...props}>schedule</AH3>,
-    // scheduled success
-    props => <AH3 {...props}>scheduled</AH3>,
-    // scheduled failure
-    props => <AH3 {...props}>scheduled</AH3>,
-  ]
-  const headerIndex = emailAddress || phoneNumber ? 1 : 0
-  const headerTransitionsRef = useRef()
-  const headerTransitions = useTransition(headerIndex, i => i, {
-    ref: headerTransitionsRef,
-    from: { opacity: 0 },
-    enter: { opacity: 1 },
-    leave: { opacity: 0 },
-  })
-  //   const statement = emailAddress || phoneNumber ? statements[1] : statements[0]
-  //   const statementTransitionsRef = useRef()
-  //   const statementTransitions = useTransition(statement, item => item.key, {
-  //     ref: statementTransitionsRef,
-  //     from: { opacity: 0 },
-  //     enter: { opacity: 1 },
-  //     leave: { opacity: 0 },
-  //   })
-
-  // useChain(
-  //   [
-  //     imageSpringRef,
-  //     gradientSpringRef,
-  //     homeLinkSpringRef,
-  //     headerTransitionsRef,
-  //     statementTransitionsRef,
-  //     contentSpringRef,
-  //   ],
-  //   [0, 0, 0, 0.3, 0.3, 0.4],
-  //   3000
-  // )
-
+  //   useChain(
+  //     [
+  //       imageSpringRef,
+  //       gradientSpringRef,
+  //       headerSpringRef,
+  //       contentSpringRef,
+  //       homeLinkSpringRef,
+  //     ],
+  //     [0, 0, 0.3, 0.4, 0.6],
+  //     3000
+  //   )
   useChain(
     [
+      homeLinkSpringRef,
       imageSpringRef,
       gradientSpringRef,
-      homeLinkSpringRef,
-      headerTransitionsRef,
-      unsubmittedStatementSpringRef,
-      submittedStatementSpringRef,
+      headerSpringRef,
       contentSpringRef,
     ],
-    [0, 0, 0, 0.3, 0.3, 0.3, 0.4],
-    3000
+    [0, 0.2, 0.2, 0.2, 0.2],
+    1000
   )
 
   // keep it simple for now...maybs just get something pretty that works...thematically...
   return (
     <Containr>
-      <OtherNavBar style={homeLinkProps} />
+      <NavBar
+        handleClick={() => {
+          console.log("%cnavbar clicked!", "color: teal")
+          navigate("/another10")
+        }}
+        svgProps={{
+          style: {
+            opacity: homeLinkProps.svgOpacity,
+            filter: homeLinkProps.svgBlurRadius.interpolate(
+              v => `blur(${v}px)`
+            ),
+            // filter: `blur(${homeLinkProps.svgBlurRadius}px)`,
+          },
+        }}
+      />
       {/* we need separated from contentTainr to be sibilings for grid layout to work!*/}
       <SchedulerTainr style={contentProps}>
         <Scheduler />
@@ -461,10 +399,7 @@ export default () => {
             ...gradientProps,
           }}
         >
-          {headerTransitions.map(({ key, item, props }) => {
-            const Header = headers[item]
-            return <Header key={key} style={props} />
-          })}
+          <AH3 style={headerProps}>schedule</AH3>
         </Image>
       </ImageTainr>
       {/* <Curtain className="curtain" /> */}

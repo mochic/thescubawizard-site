@@ -38,14 +38,35 @@ const P = styled(animated.p)`
 //   justify-content: center;
 // `
 
+// const SwitchTainr = styled(animated.div)`
+//   overflow: hidden;
+//   position: relative;
+//   height: 300px;
+//   grid-area: switch;
+//   display: flex;
+//   align-items: center;
+//   background: blue;
+// `
+
+// const SwitchTainr = styled(animated.div)`
+//   overflow: hidden;
+//   position: relative;
+//   height: 100%;
+//   width; 100%;
+//   grid-area: switch;
+//   display: flex;
+//   flex-direction: row;
+//   background: blue;
+// `
+
 const SwitchTainr = styled(animated.div)`
   overflow: hidden;
   position: relative;
-  height: 300px;
+  height: 100%;
+  width: 200%;
   grid-area: switch;
   display: flex;
-  align-items: center;
-  background: blue;
+  flex-direction: row;
 `
 
 // const Containr = styled.div`
@@ -53,10 +74,15 @@ const SwitchTainr = styled(animated.div)`
 //   width: 100%;
 // `
 
+// const FormTainr = styled(animated.div)`
+//   position: absolute;
+//   width: 100%;
+// `
+
 const FormTainr = styled(animated.div)`
-  position: absolute;
   width: 100%;
 `
+
 // const ScheduledTainr = styled(animated.div)`
 //   display: flex;
 //   flex-direction: column;
@@ -69,8 +95,6 @@ const FormTainr = styled(animated.div)`
 const ScheduledTainr = styled(animated.div)`
   display: flex;
   flex-direction: column;
-  position: absolute;
-  background: green;
   width: 100%;
 `
 
@@ -85,9 +109,18 @@ const StatementTainr = styled(animated.div)`
   grid-area: statement;
 `
 
-const Statement = styled(animated.div)`
-  position: absolute;
-  display: flex;
+const Statement = styled(animated.div)``
+
+// const PageTainr = styled(animated.div)`
+//   height: 100%;
+//   width: 100%;
+//   width: 400px;
+// `
+
+const PageTainr = styled(animated.div)`
+  height: 100%;
+  width: 100%;
+  padding: 16px 16px 0 16px;
 `
 
 const Containr = styled(animated.div)`
@@ -112,27 +145,48 @@ const Statements = ({ style0, style1 }) => {
   )
 }
 
-const Submit = ({ style }) => {
-  const { submit, isSubmitting } = useContext(SchedulingContext)
+// Input is not an animated component
+const SubmitInputTainr = styled(animated.div)``
+
+const SubmitArrowTainr = styled(animated.div)``
+
+const Submit = ({ outerputProps, arrowTainrProps }) => {
+  const {
+    submitted: { phoneNumber, emailAddress },
+    isSubmitting,
+  } = useContext(SchedulingContext)
+
+  let text
+  if (phoneNumber || emailAddress) {
+    text = "Scheduled."
+  } else if (isSubmitting) {
+    text = "Scheduling..."
+  } else {
+    text = "Schedule a chat."
+  }
+
   return (
     <SubmitTainr>
-      <Input
-        form="scheduling-form"
-        type="submit"
-        value={isSubmitting ? "Scheduling..." : "Schedule a chat"}
-        style={{
-          marginTop: `25px`,
-          padding: `16px 0 8px 0`,
-          border: `none`,
-          background: `none`,
-          color: `#FFE9C9`,
-          width: `80%`,
-          fontFamily: `roboto`,
-          fontWeight: 300,
-          ...style,
-        }}
-      />
-      <ScheduleArrow />
+      <SubmitInputTainr {...outerputProps}>
+        <Input
+          form="scheduling-form"
+          type="submit"
+          value={text}
+          style={{
+            marginTop: `25px`,
+            padding: `16px 0 8px 0`,
+            border: `none`,
+            background: `none`,
+            color: `#FFE9C9`,
+            width: `80%`,
+            fontFamily: `roboto`,
+            fontWeight: 300,
+          }}
+        />
+      </SubmitInputTainr>
+      <SubmitArrowTainr {...arrowTainrProps}>
+        <ScheduleArrow />
+      </SubmitArrowTainr>
     </SubmitTainr>
   )
 }
@@ -156,21 +210,21 @@ export default () => {
     ),
   ]
 
-  const statementTransitionsRef = useRef()
-  const statementIndex = phoneNumber || emailAddress ? 1 : 0
-  const statementTransitions = useTransition(statementIndex, p => p, {
-    ref: statementTransitionsRef,
-    from: {
-      opacity: 0,
-      transform: `translate3d(${statementIndex === 1 ? 100 : 0}px,0,0)`,
-    },
-    enter: { opacity: 1, transform: `translate3d(${0}px,0,0)` },
-    leave: {
-      opacity: 0,
-      transform: `translate3d(${statementIndex === 1 ? -100 : -100}px,0,0)`,
-    },
-    config: { ...config.slow, duration: 500 },
-  })
+  // const statementTransitionsRef = useRef()
+  // const statementIndex = phoneNumber || emailAddress ? 1 : 0
+  // const statementTransitions = useTransition(statementIndex, p => p, {
+  //   ref: statementTransitionsRef,
+  //   from: {
+  //     opacity: 0,
+  //     transform: `translate3d(${statementIndex === 1 ? 100 : 0}px,0,0)`,
+  //   },
+  //   enter: { opacity: 1, transform: `translate3d(${0}px,0,0)` },
+  //   leave: {
+  //     opacity: 0,
+  //     transform: `translate3d(${statementIndex === 1 ? -100 : -100}px,0,0)`,
+  //   },
+  //   config: { ...config.slow, duration: 500 },
+  // })
 
   // let animationOrder
   // if (phoneNumber || emailAddress) {
@@ -191,27 +245,106 @@ export default () => {
   //   reset: phoneNumber || emailAddress,
   // })
 
+  // const isScheduled = phoneNumber || emailAddress
+
+  const switchSpringRef = useRef()
+  const switchProps = useSpring({
+    ref: switchSpringRef,
+    from: {
+      transform: `translate3d(0%,0,0)`,
+    },
+    to: {
+      transform: `translate3d(${phoneNumber || emailAddress ? -50 : 0}%,0,0)`,
+    },
+    config: { ...config.slow, duration: 500 },
+  })
+
+  const page0SpringRef = useRef()
+  const page0Props = useSpring({
+    ref: page0SpringRef,
+    from: { opacity: 1 },
+    to: { opacity: phoneNumber || emailAddress ? 0 : 1 },
+    config: { ...config.slow, duration: 500 },
+  })
+
+  const page1SpringRef = useRef()
+  const page1Props = useSpring({
+    ref: page1SpringRef,
+    from: { opacity: 0 },
+    to: { opacity: phoneNumber || emailAddress ? 1 : 0 },
+    config: { ...config.slow, duration: 500 },
+  })
+
+  const scheduleSpringRef = useRef()
+  const scheduleProps = useSpring({
+    ref: scheduleSpringRef,
+    from: {
+      textOpacity: 1,
+      arrowOpacity: 1,
+      textTransform: `translate3d(0px,0,0)`,
+      arrowTransform: `translate3d(0px,0,0)`,
+    },
+    to: {
+      textOpacity: phoneNumber || emailAddress ? 0 : 1,
+      arrowOpacity: phoneNumber || emailAddress ? 0 : 1,
+      textTransform: `translate3d(${
+        phoneNumber || emailAddress ? -70 : 0
+      }px,0,0)`,
+      arrowTransform: `translate3d(${
+        phoneNumber || emailAddress ? 70 : 0
+      }px,0,0)`,
+    },
+    config: { ...config.stiff, duration: 500 },
+    reset: !(phoneNumber || emailAddress),
+    delay: !(phoneNumber || emailAddress) ? 0 : 0,
+  })
+
+  useChain(
+    [scheduleSpringRef, switchSpringRef, page0SpringRef, page1SpringRef],
+    [0, 0.2, 0.5, 0.7],
+    1000
+  )
+
   // useChain([{ current: statementTransitionsRef.current }])
-  useChain([statementTransitionsRef])
+  // useChain([statementTransitionsRef])
   // useChain([statementSpringRef])
   // submit arrow goes right...success text comes from left...home button and stuff fades in...one after the other...
   return (
     <Containr>
-      <StatementTainr>
-        {statementTransitions.map(({ key, item, props }) => {
-          const StatementThang = StatementStuffs[item]
-          return <StatementThang key={key} style={props} />
-        })}
-      </StatementTainr>
-      <SwitchTainr>
-        <ScheduledTainr>
-          <Scheduled />
-        </ScheduledTainr>
-        <FormTainr>
-          <SchedulingForm />
-        </FormTainr>
+      <SwitchTainr style={{ ...switchProps }}>
+        <PageTainr className="page-tainr" style={{ ...page0Props }}>
+          <Statement>
+            <P>All we need is a phone number or email address.</P>
+          </Statement>
+          <FormTainr>
+            <SchedulingForm />
+          </FormTainr>
+        </PageTainr>
+        <PageTainr style={{ ...page1Props }}>
+          <Statement>
+            <P>
+              Great! We'll try to contact you in the next two business days.
+            </P>
+          </Statement>
+          <ScheduledTainr>
+            <Scheduled />
+          </ScheduledTainr>
+        </PageTainr>
       </SwitchTainr>
-      <Submit />
+      <Submit
+        outerputProps={{
+          style: {
+            opacity: scheduleProps.textOpacity,
+            transform: scheduleProps.textTransform,
+          },
+        }}
+        arrowTainrProps={{
+          style: {
+            opacity: scheduleProps.arrowOpacity,
+            transform: scheduleProps.arrowTransform,
+          },
+        }}
+      />
     </Containr>
   )
 }

@@ -17,12 +17,11 @@ import SchedulingProvider from "../providers/SchedulingProvider"
 
 import SchedulingContext from "../contexts/scheduling.context"
 
-import Image from "../components/ContactImage5"
+import Image from "../components/ContactImage6"
 
 import devices from "../devices"
 
 import TitleSVG from "../components/TitleSVG"
-import { statement } from "@babel/template"
 
 const NavTainr = styled(animated.div)`
   grid-area: nav;
@@ -181,13 +180,37 @@ const ImageTainr = styled(animated.div)`
 
 const ContentTainr = styled(animated.div)``
 
+// const DriftRight = keyframes`
+//     from {
+//         transform: translate3d(0px,0,0);
+//     }
+
+//     to {
+//         transform: translate3d(40px,0,0);
+//     }
+// `
+
+// const AH3 = styled(animated.h3)`
+//   font-family: playfair display;
+//   font-weight: bold;
+//   font-size: 72px;
+//   line-height: 164.3%;
+//   z-index: -1;
+//   position: absolute;
+//   top: 0px;
+//   right: -110px;
+//   color: #ffe9c9;
+//   animation: ${DriftRight} 6s ease-out;
+//   animation-fill-mode: forwards;
+// `
+
 const DriftRight = keyframes`
     from {
-        transform: translate3d(0px,0,0);
+        transform: translate3d(-60px,0,0);
     }
 
     to {
-        transform: translate3d(40px,0,0);
+        transform: translate3d(0px,0,0);
     }
 `
 
@@ -199,9 +222,9 @@ const AH3 = styled(animated.h3)`
   z-index: -1;
   position: absolute;
   top: 0px;
-  right: -110px;
+  right: -166px;
   color: #ffe9c9;
-  animation: ${DriftRight} 6s ease-out;
+  animation: ${DriftRight} 60s ease-out;
   animation-fill-mode: forwards;
 `
 
@@ -236,26 +259,26 @@ export default () => {
     phoneNumber,
   })
 
-  const headerSpringRef = useRef()
-  const headerProps = useSpring({
-    ref: headerSpringRef,
-    from: { opacity: 0.5 },
-    to: {
-      opacity: emailAddress || phoneNumber ? 0 : 1,
-    },
-    config: {
-      ...config.slow,
-      duration: emailAddress || phoneNumber ? 1000 : 2000,
-    },
-    reset: emailAddress || phoneNumber,
-  })
+  //   const headerSpringRef = useRef()
+  //   const headerProps = useSpring({
+  //     ref: headerSpringRef,
+  //     from: { opacity: 0.5 },
+  //     to: {
+  //       opacity: emailAddress || phoneNumber ? 0 : 1,
+  //     },
+  //     config: {
+  //       ...config.slow,
+  //       duration: emailAddress || phoneNumber ? 1000 : 2000,
+  //     },
+  //     reset: emailAddress || phoneNumber,
+  //   })
 
-  const headerSpring2Ref = useRef()
-  const header2Props = useSpring({
-    ref: headerSpring2Ref,
-    from: { opacity: 0 },
-    to: { opacity: 1 },
-  })
+  //   const headerSpring2Ref = useRef()
+  //   const header2Props = useSpring({
+  //     ref: headerSpring2Ref,
+  //     from: { opacity: 0 },
+  //     to: { opacity: 1 },
+  //   })
 
   const contentSpringRef = useRef()
   const contentProps = useSpring({
@@ -265,11 +288,32 @@ export default () => {
   })
 
   //-1096.03 to 37.97
+  //   const imageSpringRef = useRef()
+  //   const imageProps = useSpring({
+  //     ref: imageSpringRef,
+  //     from: { opacity: 1 },
+  //     to: { opacity: 1 },
+  //   })
+
+  //   const imageSpringRef = useRef()
+  //   const imageProps = useSpring({
+  //     ref: imageSpringRef,
+  //     from: { opacity: 1 },
+  //     to: {
+  //       opacity: 1,
+  //       transform: `translate3d(${phoneNumber || emailAddress ? -50 : 0}px,0,0)`,
+  //       // add pertubing drift animation?
+  //     },
+  //     config: { ...config.stiff, duration: 4000 },
+  //   })
+
   const imageSpringRef = useRef()
   const imageProps = useSpring({
     ref: imageSpringRef,
     from: { opacity: 1 },
-    to: { opacity: 1 },
+    to: {
+      opacity: 1,
+    },
   })
 
   //-1096.03 to 37.97
@@ -313,31 +357,31 @@ export default () => {
   //     config: { ...config.stiff, duration: 1000 },
   //   })
 
-  const statements = [
-    // props => (
-    //   <Statement {...props}>
-    //     <P>{`How would you like us to get in contact with you?`}</P>
-    //   </Statement>
-    // ),
-    props => (
-      <Statement {...props}>
-        <P>{`All we need is a phone number or email address.`}</P>
-      </Statement>
-    ),
-    props => (
-      <Statement {...props}>
-        <P>{`Great! We'll try to contact you in the next two business days.`}</P>
-      </Statement>
-    ),
-    props => (
-      <Statement {...props}>
-        <P>{`Great! We'll try.`}</P>
-      </Statement>
-    ),
-  ]
+  //   const statements = [
+  //     // props => (
+  //     //   <Statement {...props}>
+  //     //     <P>{`How would you like us to get in contact with you?`}</P>
+  //     //   </Statement>
+  //     // ),
+  //     props => (
+  //       <Statement {...props}>
+  //         <P>{`All we need is a phone number or email address.`}</P>
+  //       </Statement>
+  //     ),
+  //     props => (
+  //       <Statement {...props}>
+  //         <P>{`Great! We'll try to contact you in the next two business days.`}</P>
+  //       </Statement>
+  //     ),
+  //     props => (
+  //       <Statement {...props}>
+  //         <P>{`Great! We'll try.`}</P>
+  //       </Statement>
+  //     ),
+  //   ]
 
   // this is a dumb-ish way to do it for now...
-  const statementIndex = emailAddress || phoneNumber ? 1 : 0
+  //   const statementIndex = emailAddress || phoneNumber ? 1 : 0
   // const statementTransitionsRef = useRef()
 
   // we need a persistent store
@@ -366,42 +410,49 @@ export default () => {
   // })
 
   // we hardcode the shculder transition to be -100px as well to give the illusion of moving the same...
-  const unsubmittedStatementSpringRef = useRef()
-  const unsubmittedStatementProps = useSpring({
-    ref: unsubmittedStatementSpringRef,
-    from: { opacity: 0 },
-    to: {
-      opacity: statementIndex === 0 ? 1 : 0,
-      transform: `translate3d(${statementIndex === 0 ? 0 : -100}px,0,0)`,
-    },
-  })
+  //   const unsubmittedStatementSpringRef = useRef()
+  //   const unsubmittedStatementProps = useSpring({
+  //     ref: unsubmittedStatementSpringRef,
+  //     from: { opacity: 0 },
+  //     to: {
+  //       opacity: statementIndex === 0 ? 1 : 0,
+  //       transform: `translate3d(${statementIndex === 0 ? 0 : -100}px,0,0)`,
+  //     },
+  //   })
 
-  const submittedStatementSpringRef = useRef()
-  const submittedStatementProps = useSpring({
-    ref: submittedStatementSpringRef,
-    from: { opacity: 0, transform: `translate3d(100px,0,0)` },
-    to: {
-      opacity: statementIndex === 1 ? 1 : 0,
-      transform: `translate3d(${statementIndex === 1 ? 0 : 100}px,0,0)`,
-    },
-  })
+  //   const submittedStatementSpringRef = useRef()
+  //   const submittedStatementProps = useSpring({
+  //     ref: submittedStatementSpringRef,
+  //     from: { opacity: 0, transform: `translate3d(100px,0,0)` },
+  //     to: {
+  //       opacity: statementIndex === 1 ? 1 : 0,
+  //       transform: `translate3d(${statementIndex === 1 ? 0 : 100}px,0,0)`,
+  //     },
+  //   })
 
   // gotta make image thing render children so we can feed them our headers etc...
-  const headers = [
-    // unscheduled state
-    props => <AH3 {...props}>schedule</AH3>,
-    // scheduled success
-    props => <AH3 {...props}>scheduled</AH3>,
-    // scheduled failure
-    props => <AH3 {...props}>scheduled</AH3>,
-  ]
-  const headerIndex = emailAddress || phoneNumber ? 1 : 0
-  const headerTransitionsRef = useRef()
-  const headerTransitions = useTransition(headerIndex, i => i, {
-    ref: headerTransitionsRef,
+  //   const headers = [
+  //     // unscheduled state
+  //     props => <AH3 {...props}>schedule</AH3>,
+  //     // scheduled success
+  //     props => <AH3 {...props}>scheduled</AH3>,
+  //     // scheduled failure
+  //     props => <AH3 {...props}>scheduled</AH3>,
+  //   ]
+  //   const headerIndex = 0
+  //   const headerTransitionsRef = useRef()
+  //   const headerTransitions = useTransition(headerIndex, i => i, {
+  //     ref: headerTransitionsRef,
+  //     from: { opacity: 0 },
+  //     enter: { opacity: 1 },
+  //     leave: { opacity: 0 },
+  //   })
+
+  const headerSpringRef = useRef()
+  const headerProps = useSpring({
+    ref: headerSpringRef,
     from: { opacity: 0 },
-    enter: { opacity: 1 },
-    leave: { opacity: 0 },
+    to: { opacity: 1 },
   })
   //   const statement = emailAddress || phoneNumber ? statements[1] : statements[0]
   //   const statementTransitionsRef = useRef()
@@ -430,12 +481,10 @@ export default () => {
       imageSpringRef,
       gradientSpringRef,
       homeLinkSpringRef,
-      headerTransitionsRef,
-      unsubmittedStatementSpringRef,
-      submittedStatementSpringRef,
+      headerSpringRef,
       contentSpringRef,
     ],
-    [0, 0, 0, 0.3, 0.3, 0.3, 0.4],
+    [0, 0, 0, 0.3, 0.4],
     3000
   )
 
@@ -461,10 +510,7 @@ export default () => {
             ...gradientProps,
           }}
         >
-          {headerTransitions.map(({ key, item, props }) => {
-            const Header = headers[item]
-            return <Header key={key} style={props} />
-          })}
+          <AH3 style={headerProps}>schedule</AH3>
         </Image>
       </ImageTainr>
       {/* <Curtain className="curtain" /> */}
