@@ -2,7 +2,7 @@ import React, { useState, useCallback, useRef } from "react"
 
 import PropTypes from "prop-types"
 import { animated, useSpring, config, useChain } from "react-spring"
-import styled from "styled-components"
+import styled, { keyframes } from "styled-components"
 
 const Containr = styled(animated.div)`
   display: flex;
@@ -32,7 +32,7 @@ const colors = {
 const ErrorLabel = styled(animated.label)`
   color: ${errorColor};
   font-family: open sans;
-  font-weight: 300;
+  font-weight: normal;
   font-size: 13px;
   margin-bottom: 5px;
   margin-top: 13px;
@@ -81,7 +81,7 @@ const Input = styled.input`
   border-bottom: 1px solid
     ${({ value, error }) => {
       if (error) {
-        return `red`
+        return `rgb(${errorColor[0]},${errorColor[1]},${errorColor[2]})`
       } else if (value) {
         return "#c4c4c4"
       } else {
@@ -91,9 +91,37 @@ const Input = styled.input`
   text-align: left;
   font-family: open sans;
   font-size: 16px !important; /* less than 16px will trigger terrible safari zoom */
-  font-weight: 300;
+  font-weight: normal;
   color: ${props => (props.error ? "red" : "#c4c4c4")};
   padding: 5px 5px 5px 10px;
+`
+
+const FadeIn = keyframes`
+    from {
+        caret-color: rgba255,233,201,0)
+    } to {
+        caret-color: rgba(255,233,201,1)
+    }
+`
+
+const AInput = styled(animated.input)`
+  outline: 0;
+  border: 0;
+  border-radius: 0; /* ios inputs :( */
+  background: transparent;
+  border-style: solid;
+  text-align: left;
+  font-family: open sans;
+  font-size: 16px !important; /* less than 16px will trigger terrible safari zoom */
+  font-weight: normal;
+  padding: 5px 5px 5px 10px;
+
+  &:focus {
+    caret-color: rgba255,233,201,0)
+    animation: 2s ${FadeIn};
+    animation-delay: 0.5s;
+    animation-fill-mode: forwards;
+  }
 `
 
 const FancyInput = ({
@@ -168,14 +196,16 @@ const FancyInput = ({
           : `translate3d(0px,-40px,0) scale(1.0)`,
     },
     config: { ...config.molasses, duration: 500 },
+    reset: focused,
   })
 
   const inputSpringRef = useRef()
   const inputProps = useSpring({
     ref: inputSpringRef,
     from: { colorAlpha: 0 },
-    to: { colorAlpha: 0 },
-    reset: focused,
+    to: { colorAlpha: 1.0 },
+    // reset: focused,
+    delay: 500,
   })
 
   const errorLabelRef = useRef()
@@ -199,7 +229,7 @@ const FancyInput = ({
       >
         {placeholder}
       </PlaceholderLabel>
-      <Input
+      <AInput
         {...props}
         ref={inputRef}
         value={value}
@@ -212,10 +242,12 @@ const FancyInput = ({
           color: inputProps.colorAlpha.interpolate(
             v => inputColorTemplate + `${v})`
           ),
-          lineHeight: `0px`,
-          // caretColor: inputProps.colorAlpha.interpolate(
-          //   v => inputColorTemplate + `${0})`
-          // ),
+          borderBottom: inputProps.colorAlpha.interpolate(
+            v => `1px solid ` + inputColorTemplate + `${v})`
+          ),
+          //   caretColor: inputProps.colorAlpha.interpolate(
+          //     v => inputColorTemplate + `${v})`
+          //   ),
           // borderColor: placeholderLabelColor,
         }}
       />

@@ -98,6 +98,12 @@ const ScheduledTainr = styled(animated.div)`
   width: 100%;
 `
 
+const SubmitTainr = styled(animated.div)`
+  align-self: center;
+  text-align: center;
+  grid-area: submit;
+`
+
 const StatementTainr = styled(animated.div)`
   position: relative;
   grid-area: statement;
@@ -126,102 +132,42 @@ const Containr = styled(animated.div)`
   grid-template-rows: 1fr 2fr 1fr;
 `
 
-// const Statements = ({ style0, style1 }) => {
-//   return (
-//     <>
-//       <Statement style={{ ...style0 }}>
-//         <P>{`All we need is a phone number or email address.`}</P>
-//       </Statement>
-//       <Statement style={{ ...style1 }}>
-//         <P>{`Great! We'll try to contact you in the next two business days.`}</P>
-//       </Statement>
-//     </>
-//   )
-// }
-
-// Input is not an animated component
-
-// const Submit = ({ outerputProps, arrowTainrProps }) => {
-//   const {
-//     submitted: { phoneNumber, emailAddress },
-//     isSubmitting,
-//   } = useContext(SchedulingContext)
-
-//   let text
-//   if (phoneNumber || emailAddress) {
-//     text = "Scheduled."
-//   } else if (isSubmitting) {
-//     text = "Scheduling..."
-//   } else {
-//     text = "Schedule a chat."
-//   }
-
-//   return (
-//     <SubmitTainr>
-//       <SubmitInputTainr {...outerputProps}>
-//         <Input
-//           form="scheduling-form"
-//           type="submit"
-//           value={text}
-//           style={{
-//             marginTop: `25px`,
-//             padding: `16px 0 8px 0`,
-//             border: `none`,
-//             background: `none`,
-//             color: `#FFE9C9`,
-//             width: `80%`,
-//             fontFamily: `roboto`,
-//             fontWeight: 300,
-//           }}
-//         />
-//       </SubmitInputTainr>
-//       <SubmitArrowTainr {...arrowTainrProps}>
-//         <ScheduleArrow />
-//       </SubmitArrowTainr>
-//     </SubmitTainr>
-//   )
-// }
-
-const SubmitterTainr = styled(animated.div)`
-  grid-area: submit;
-  background: red;
-  display: flex;
-`
-
-const SubmittedTainr = styled(animated.div)`
-  background: yellow;
-  align-self: center;
-  text-align: center;
-  position: absolute;
-  width: 100%;
-  padding: 30px 0 20px 0;
-`
-
-const UnsubmittedTainr = styled(animated.div)`
-  background: blue;
-  align-self: center;
-  text-align: center;
-  position: absolute;
-  width: 100%;
-`
-
-const SubmitInputTainr = styled(animated.div)``
-
-const SubmitArrowTainr = styled(animated.div)``
-
-const Submitted = ({ homeProps, rescheduleProps }) => {
+const Statements = ({ style0, style1 }) => {
   return (
     <>
-      <animated.div {...homeProps}>Home.</animated.div>
-      <animated.div {...rescheduleProps}>reschedule.</animated.div>
+      <Statement style={{ ...style0 }}>
+        <P>{`All we need is a phone number or email address.`}</P>
+      </Statement>
+      <Statement style={{ ...style1 }}>
+        <P>{`Great! We'll try to contact you in the next two business days.`}</P>
+      </Statement>
     </>
   )
 }
 
-const Unsubmitted = ({ text, arrowProps, inputProps }) => {
+// Input is not an animated component
+const SubmitInputTainr = styled(animated.div)``
+
+const SubmitArrowTainr = styled(animated.div)``
+
+const Submit = ({ outerputProps, arrowTainrProps }) => {
+  const {
+    submitted: { phoneNumber, emailAddress },
+    isSubmitting,
+  } = useContext(SchedulingContext)
+
+  let text
+  if (phoneNumber || emailAddress) {
+    text = "Scheduled."
+  } else if (isSubmitting) {
+    text = "Scheduling..."
+  } else {
+    text = "Schedule a chat."
+  }
+
   return (
-    <>
-      <SubmitInputTainr {...inputProps}>
+    <SubmitTainr>
+      <SubmitInputTainr {...outerputProps}>
         <Input
           form="scheduling-form"
           type="submit"
@@ -238,94 +184,10 @@ const Unsubmitted = ({ text, arrowProps, inputProps }) => {
           }}
         />
       </SubmitInputTainr>
-      <SubmitArrowTainr {...arrowProps}>
+      <SubmitArrowTainr {...arrowTainrProps}>
         <ScheduleArrow />
       </SubmitArrowTainr>
-    </>
-  )
-}
-
-const Submitter = ({ reset }) => {
-  console.log("%cSubmit rendered!", "color: purple")
-  const {
-    submitted: { phoneNumber, emailAddress },
-    isSubmitting,
-  } = useContext(SchedulingContext)
-
-  let text
-  if (phoneNumber || emailAddress) {
-    text = "Scheduled."
-  } else if (isSubmitting) {
-    text = "Scheduling..."
-  } else {
-    text = "Schedule a chat."
-  }
-
-  const [scheduledProps, setScheduledProps] = useSpring(() => ({
-    homeOpacity: 0,
-    rescheduleOpacity: 0,
-  }))
-
-  const scheduleProps = useSpring({
-    from: {
-      textOpacity: 1,
-      arrowOpacity: 1,
-      textTransform: `translate3d(0px,0,0)`,
-      arrowTransform: `translate3d(0px,0,0)`,
-    },
-    to: {
-      textOpacity: phoneNumber || emailAddress ? 0 : 1,
-      arrowOpacity: phoneNumber || emailAddress ? 0 : 1,
-      textTransform: `translate3d(${
-        phoneNumber || emailAddress ? -70 : 0
-      }px,0,0)`,
-      arrowTransform: `translate3d(${
-        phoneNumber || emailAddress ? 70 : 0
-      }px,0,0)`,
-    },
-    config: { ...config.stiff, duration: 500 },
-    reset: !(phoneNumber || emailAddress),
-    delay: !(phoneNumber || emailAddress) ? 0 : 0,
-    onStart: () => {
-      console.log("%cSubmitter main spring starting...", "color: #34abeb")
-      setScheduledProps({
-        to: [
-          { homeOpacity: phoneNumber || emailAddress ? 1 : 0 },
-          { rescheduleOpacity: phoneNumber || emailAddress ? 1 : 0 },
-        ],
-        delay: 100,
-      })
-    },
-  })
-
-  return (
-    <SubmitterTainr>
-      <UnsubmittedTainr>
-        <Unsubmitted
-          text={text}
-          arrowProps={{
-            style: {
-              opacity: scheduleProps.arrowOpacity,
-              transform: scheduleProps.arrowTransform,
-            },
-          }}
-          inputProps={{
-            style: {
-              opacity: scheduleProps.textOpacity,
-              transform: scheduleProps.textTransform,
-            },
-          }}
-        />
-      </UnsubmittedTainr>
-      <SubmittedTainr>
-        <Submitted
-          homeProps={{ style: { opacity: scheduledProps.homeOpacity } }}
-          rescheduleProps={{
-            style: { opacity: scheduledProps.rescheduleOpacity },
-          }}
-        />
-      </SubmittedTainr>
-    </SubmitterTainr>
+    </SubmitTainr>
   )
 }
 
@@ -438,8 +300,8 @@ export default () => {
   })
 
   useChain(
-    [switchSpringRef, page0SpringRef, page1SpringRef],
-    [0, 0.5, 0.7],
+    [scheduleSpringRef, switchSpringRef, page0SpringRef, page1SpringRef],
+    [0, 0.2, 0.5, 0.7],
     1000
   )
 
@@ -469,7 +331,20 @@ export default () => {
           </ScheduledTainr>
         </PageTainr>
       </SwitchTainr>
-      <Submitter />
+      <Submit
+        outerputProps={{
+          style: {
+            opacity: scheduleProps.textOpacity,
+            transform: scheduleProps.textTransform,
+          },
+        }}
+        arrowTainrProps={{
+          style: {
+            opacity: scheduleProps.arrowOpacity,
+            transform: scheduleProps.arrowTransform,
+          },
+        }}
+      />
     </Containr>
   )
 }
