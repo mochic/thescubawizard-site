@@ -184,12 +184,10 @@ const Containr = styled(animated.div)`
 
 const SubmitterTainr = styled(animated.div)`
   grid-area: submit;
-  background: red;
   display: flex;
 `
 
 const SubmittedTainr = styled(animated.div)`
-  background: yellow;
   align-self: center;
   text-align: center;
   position: absolute;
@@ -198,7 +196,6 @@ const SubmittedTainr = styled(animated.div)`
 `
 
 const UnsubmittedTainr = styled(animated.div)`
-  background: blue;
   align-self: center;
   text-align: center;
   position: absolute;
@@ -261,10 +258,20 @@ const Submitter = ({ reset }) => {
     text = "Schedule a chat."
   }
 
+  // const [scheduledProps, setScheduledProps] = useSpring(() => ({
+  //   homeOpacity: 0,
+  //   rescheduleOpacity: 0,
+  // }))
+
   const [scheduledProps, setScheduledProps] = useSpring(() => ({
-    homeOpacity: 0,
-    rescheduleOpacity: 0,
+    homeOpacity: 1,
+    rescheduleOpacity: 1,
+    config: { ...config.stiff, duration: 1000 },
+    immediate: true,
   }))
+
+  // const [homeProps, setHomeProps] = useSpring(() => ({opacity: 0}))
+  // const [rescheduleProps, setRescheduleProps]
 
   const scheduleProps = useSpring({
     from: {
@@ -284,23 +291,40 @@ const Submitter = ({ reset }) => {
       }px,0,0)`,
     },
     config: { ...config.stiff, duration: 500 },
-    reset: !(phoneNumber || emailAddress),
-    delay: !(phoneNumber || emailAddress) ? 0 : 0,
+    // reset: !(phoneNumber || emailAddress),
+    // delay: !(phoneNumber || emailAddress) ? 0 : 0,
     onStart: () => {
-      console.log("%cSubmitter main spring starting...", "color: #34abeb")
-      setScheduledProps({
-        to: [
-          { homeOpacity: phoneNumber || emailAddress ? 1 : 0 },
-          { rescheduleOpacity: phoneNumber || emailAddress ? 1 : 0 },
-        ],
-        delay: 100,
-      })
+      const homeOpacity = phoneNumber || emailAddress ? 1 : 0
+      const rescheduleOpacity = phoneNumber || emailAddress ? 1 : 0
+
+      console.log(
+        "%cSubmitter main spring starting...",
+        "color: #34abeb",
+        phoneNumber,
+        emailAddress,
+        homeOpacity,
+        rescheduleOpacity
+      )
+      if (phoneNumber || emailAddress || !isSubmitting) {
+        console.log("%cSetting scheduled opacity...", "color: #34abeb", {
+          phoneNumber,
+          emailAddress,
+          isSubmitting,
+          homeOpacity,
+          rescheduleOpacity,
+        })
+        setScheduledProps({
+          homeOpacity,
+          rescheduleOpacity,
+          // delay: 100,
+        })
+      }
     },
   })
 
   return (
     <SubmitterTainr>
-      <UnsubmittedTainr>
+      <UnsubmittedTainr style={{ zIndex: 0 }}>
         <Unsubmitted
           text={text}
           arrowProps={{
@@ -317,7 +341,11 @@ const Submitter = ({ reset }) => {
           }}
         />
       </UnsubmittedTainr>
-      <SubmittedTainr>
+      <SubmittedTainr
+        style={{
+          zIndex: phoneNumber || emailAddress ? 1 : -1,
+        }}
+      >
         <Submitted
           homeProps={{ style: { opacity: scheduledProps.homeOpacity } }}
           rescheduleProps={{
@@ -335,18 +363,18 @@ export default () => {
   } = useContext(SchedulingContext)
   // const formTransition = useTransition(submitted.emailAddress || submitted.phoneNumber, i => i, {})
 
-  const StatementStuffs = [
-    props => (
-      <Statement {...props}>
-        <P>All we need is a phone number or email address.</P>
-      </Statement>
-    ),
-    props => (
-      <Statement {...props}>
-        <P>Great! We'll try to contact you in the next two business days.</P>
-      </Statement>
-    ),
-  ]
+  // const StatementStuffs = [
+  //   props => (
+  //     <Statement {...props}>
+  //       <P>All we need is a phone number or email address.</P>
+  //     </Statement>
+  //   ),
+  //   props => (
+  //     <Statement {...props}>
+  //       <P>Great! We'll try to contact you in the next two business days.</P>
+  //     </Statement>
+  //   ),
+  // ]
 
   // const statementTransitionsRef = useRef()
   // const statementIndex = phoneNumber || emailAddress ? 1 : 0

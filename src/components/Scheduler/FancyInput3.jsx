@@ -113,7 +113,7 @@ const AInput = styled(animated.input)`
   text-align: left;
   font-family: open sans;
   font-size: 16px !important; /* less than 16px will trigger terrible safari zoom */
-  font-weight: normal;
+  font-weight: 300;
   padding: 5px 5px 5px 10px;
 
   &:focus {
@@ -276,7 +276,7 @@ const FancyInput = ({
       console.log("%cplaceholder spring resting...", "color: red")
       setOtherInputProps({
         caretColor: inputColorTemplate + `${focused ? 1 : 0})`,
-        delay: 300,
+        delay: 200, // 300 felt too slow
       })
     },
   })
