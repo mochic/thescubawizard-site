@@ -1,6 +1,5 @@
 import React, { useContext, useRef } from "react"
 
-import { Link as Link_ } from "gatsby"
 import styled from "styled-components"
 import {
   animated,
@@ -206,79 +205,18 @@ const SubmitterTainr = styled(animated.div)`
 //   width: 100%;
 // `
 
-const Link = styled(Link_)`
-  font-family: open sans;
-  font-weight: 300;
-  color: white;
-  text-decoration: none;
-  text-align: center;
-  padding: 0 0 5px 0;
-`
-
-const RescheduleButton = styled(animated.button)`
-  color: #979797;
-  font-size: 14px;
-  font-family open sans;
-  margin: 0px;
-  font-weight: 300;
-  margin: 0 0 8px 0;
-  padding: 0;
-`
-
 const SubmitInputTainr = styled(animated.div)``
 
 const SubmitArrowTainr = styled(animated.div)``
 
-const Submitted = ({
-  homeProps: { style: homeStyle, ...homeRest },
-  rescheduleProps: { style: rescheduleStyle, ...rescheduleRest },
-  onRescheduleClick,
-}) => {
+const Submitted = ({ homeProps, rescheduleProps }) => {
   return (
     <>
-      <Link style={{ ...homeStyle, color: `#ffffff` }} {...homeRest}>
-        Home.
-      </Link>
-      <RescheduleButton
-        style={{ ...rescheduleStyle, color: `#979797` }}
-        {...rescheduleRest}
-        onClick={e => {
-          e.preventDefault()
-          onRescheduleClick()
-        }}
-      >
-        Reschedule.
-      </RescheduleButton>
+      <animated.div {...homeProps}>Home.</animated.div>
+      <animated.div {...rescheduleProps}>reschedule.</animated.div>
     </>
   )
 }
-
-// const Unsubmitted = ({ text, arrowProps, inputProps }) => {
-//   return (
-//     <>
-//       <SubmitInputTainr {...inputProps}>
-//         <Input
-//           form="scheduling-form"
-//           type="submit"
-//           value={text}
-//           style={{
-//             marginTop: `25px`,
-//             padding: `16px 0 8px 0`,
-//             border: `none`,
-//             background: `none`,
-//             color: `#FFE9C9`,
-//             width: `80%`,
-//             fontFamily: `roboto`,
-//             fontWeight: 300,
-//           }}
-//         />
-//       </SubmitInputTainr>
-//       <SubmitArrowTainr {...arrowProps}>
-//         <ScheduleArrow />
-//       </SubmitArrowTainr>
-//     </>
-//   )
-// }
 
 const Unsubmitted = ({ text, arrowProps, inputProps }) => {
   return (
@@ -295,7 +233,7 @@ const Unsubmitted = ({ text, arrowProps, inputProps }) => {
             background: `none`,
             color: `#FFE9C9`,
             width: `80%`,
-            fontFamily: `open sans`,
+            fontFamily: `roboto`,
             fontWeight: 300,
           }}
         />
@@ -318,7 +256,6 @@ const Submitter = ({ reset }) => {
   const {
     submitted: { phoneNumber, emailAddress },
     isSubmitting,
-    resetSubmission,
   } = useContext(SchedulingContext)
 
   let text
@@ -504,35 +441,20 @@ const Submitter = ({ reset }) => {
           }
         }
       >
-        <animated.div
-          style={{
-            marginTop: `25px`,
-            padding: `16px 0 8px 0`,
-            border: `none`,
-            background: `none`,
-            color: `#FFE9C9`,
-            width: `80%`,
-            fontFamily: `open sans`,
-            fontWeight: 300,
-            opacity: scheduleProps.submittingOpacity,
-          }}
-        >
-          Submitting...
-        </animated.div>
+        <animated.div>Submitting...</animated.div>
       </SubmitStateTainr>
       <SubmitStateTainr
-        style={{
-          // background: `green`,
-          display: `flex`,
-          flexDirection: `column`,
-        }}
+        style={
+          {
+            // background: `green`,
+          }
+        }
       >
         <Submitted
           homeProps={{ style: { opacity: scheduleProps.homeTextOpacity } }}
           rescheduleProps={{
             style: { opacity: scheduleProps.rescheduleTextOpacity },
           }}
-          onRescheduleClick={resetSubmission}
         />
       </SubmitStateTainr>
     </SubmitterTainr>
