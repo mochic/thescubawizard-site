@@ -7,8 +7,6 @@ import {
   useSpring,
   useChain,
   config,
-  useSprings,
-  useTrail,
 } from "react-spring"
 
 import SchedulingContext from "../../contexts/scheduling.context"
@@ -187,23 +185,22 @@ const Containr = styled(animated.div)`
 const SubmitterTainr = styled(animated.div)`
   grid-area: submit;
   display: flex;
-  width: 300%; /* 3 slider states */
 `
 
-// const SubmittedTainr = styled(animated.div)`
-//   align-self: center;
-//   text-align: center;
-//   position: absolute;
-//   width: 100%;
-//   padding: 30px 0 20px 0;
-// `
+const SubmittedTainr = styled(animated.div)`
+  align-self: center;
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  padding: 30px 0 20px 0;
+`
 
-// const UnsubmittedTainr = styled(animated.div)`
-//   align-self: center;
-//   text-align: center;
-//   position: absolute;
-//   width: 100%;
-// `
+const UnsubmittedTainr = styled(animated.div)`
+  align-self: center;
+  text-align: center;
+  position: absolute;
+  width: 100%;
+`
 
 const SubmitInputTainr = styled(animated.div)``
 
@@ -245,12 +242,6 @@ const Unsubmitted = ({ text, arrowProps, inputProps }) => {
   )
 }
 
-const SubmitStateTainr = styled(animated.div)`
-  width: 100%;
-  align-self: center;
-  text-align: center;
-`
-
 const Submitter = ({ reset }) => {
   console.log("%cSubmit rendered!", "color: purple")
   const {
@@ -272,152 +263,68 @@ const Submitter = ({ reset }) => {
   //   rescheduleOpacity: 0,
   // }))
 
-  // const [scheduledProps, setScheduledProps] = useSpring(() => ({
-  //   homeOpacity: 1,
-  //   rescheduleOpacity: 1,
-  //   config: { ...config.stiff, duration: 1000 },
-  //   immediate: true,
-  // }))
+  const [scheduledProps, setScheduledProps] = useSpring(() => ({
+    homeOpacity: 1,
+    rescheduleOpacity: 1,
+    config: { ...config.stiff, duration: 1000 },
+    immediate: true,
+  }))
 
   // const [homeProps, setHomeProps] = useSpring(() => ({opacity: 0}))
   // const [rescheduleProps, setRescheduleProps]
 
-  //   const scheduleProps = useSpring({
-  //     from: {
-  //       textOpacity: 1,
-  //       arrowOpacity: 1,
-  //       textTransform: `translate3d(0px,0,0)`,
-  //       arrowTransform: `translate3d(0px,0,0)`,
-  //     },
-  //     to: {
-  //       textOpacity: phoneNumber || emailAddress ? 0 : 1,
-  //       arrowOpacity: phoneNumber || emailAddress ? 0 : 1,
-  //       textTransform: `translate3d(${
-  //         phoneNumber || emailAddress ? -70 : 0
-  //       }px,0,0)`,
-  //       arrowTransform: `translate3d(${
-  //         phoneNumber || emailAddress ? 70 : 0
-  //       }px,0,0)`,
-  //     },
-  //     config: { ...config.stiff, duration: 500 },
-  //     // reset: !(phoneNumber || emailAddress),
-  //     // delay: !(phoneNumber || emailAddress) ? 0 : 0,
-  //     onStart: () => {
-  //       const homeOpacity = phoneNumber || emailAddress ? 1 : 0
-  //       const rescheduleOpacity = phoneNumber || emailAddress ? 1 : 0
-
-  //       console.log(
-  //         "%cSubmitter main spring starting...",
-  //         "color: #34abeb",
-  //         phoneNumber,
-  //         emailAddress,
-  //         homeOpacity,
-  //         rescheduleOpacity
-  //       )
-  //       if (phoneNumber || emailAddress || !isSubmitting) {
-  //         console.log("%cSetting scheduled opacity...", "color: #34abeb", {
-  //           phoneNumber,
-  //           emailAddress,
-  //           isSubmitting,
-  //           homeOpacity,
-  //           rescheduleOpacity,
-  //         })
-  //         setScheduledProps({
-  //           homeOpacity,
-  //           rescheduleOpacity,
-  //           // delay: 100,
-  //         })
-  //       }
-  //     },
-  //   })
-
-  //   const mainProps = useSprings(3, [
-  //     { key: "spring-0", opacity: phoneNumber || emailAddress ? 0 : 1 },
-  //     { key: "spring-1", opacity: isSubmitting ? 1 : 0 },
-  //     { key: "spring-2", opacity: phoneNumber || emailAddress ? 1 : 0 },
-  //   ])
-
-  let state
-  if (isSubmitting) {
-    state = 1
-  } else if (phoneNumber || emailAddress) {
-    state = 2
-  } else {
-    state = 0
-  }
-
-  const [scheduleProps, setScheduleProps] = useSpring(() => ({
-    arrowTransform: `translate3d(0px,0,0)`,
-    arrowOpacity: 0,
-    submitTextTransform: `translate3d(0px,0,0)`,
-    submitTextOpacity: 0,
-    submittingOpacity: 0,
-    homeTextOpacity: 0,
-    rescheduleTextOpacity: 0,
-    config: { ...config.stiff, duration: 1000 },
-  }))
-
-  // triggered via gesture...ie swiping...initial offsets r paged
-  const carouselProps = useSpring({
+  const scheduleProps = useSpring({
     from: {
-      transform: `translate3d(-${((state > 0 ? state - 1 : 2) * 100) /
-        3.0}%,0,0)`,
+      textOpacity: 1,
+      arrowOpacity: 1,
+      textTransform: `translate3d(0px,0,0)`,
+      arrowTransform: `translate3d(0px,0,0)`,
     },
-    to: { transform: `translate3d(-${(state * 100) / 3.0}%,0,0)` },
+    to: {
+      textOpacity: phoneNumber || emailAddress ? 0 : 1,
+      arrowOpacity: phoneNumber || emailAddress ? 0 : 1,
+      textTransform: `translate3d(${
+        phoneNumber || emailAddress ? -70 : 0
+      }px,0,0)`,
+      arrowTransform: `translate3d(${
+        phoneNumber || emailAddress ? 70 : 0
+      }px,0,0)`,
+    },
+    config: { ...config.stiff, duration: 500 },
+    // reset: !(phoneNumber || emailAddress),
+    // delay: !(phoneNumber || emailAddress) ? 0 : 0,
     onStart: () => {
-      console.log("%ccarousel spring started...", "color: pink")
-      setScheduleProps({
-        arrowOpacity: phoneNumber || emailAddress || isSubmitting ? 0 : 1,
-        submitTextOpacity: phoneNumber || emailAddress || isSubmitting ? 0 : 1,
-        submittingOpacity: isSubmitting ? 1 : 0,
-        homeTextOpacity: phoneNumber || emailAddress ? 1 : 0,
-        rescheduleTextOpacity: phoneNumber || emailAddress ? 1 : 0,
-        // delay: 1000,
-      })
+      const homeOpacity = phoneNumber || emailAddress ? 1 : 0
+      const rescheduleOpacity = phoneNumber || emailAddress ? 1 : 0
+
+      console.log(
+        "%cSubmitter main spring starting...",
+        "color: #34abeb",
+        phoneNumber,
+        emailAddress,
+        homeOpacity,
+        rescheduleOpacity
+      )
+      if (phoneNumber || emailAddress || !isSubmitting) {
+        console.log("%cSetting scheduled opacity...", "color: #34abeb", {
+          phoneNumber,
+          emailAddress,
+          isSubmitting,
+          homeOpacity,
+          rescheduleOpacity,
+        })
+        setScheduledProps({
+          homeOpacity,
+          rescheduleOpacity,
+          // delay: 100,
+        })
+      }
     },
-    reset: true,
   })
 
-  // const [mainProps, setMainProps, stop] = useSprings(3, ({ index }) => {
-  //   // it is ins the 'unscheduled' state, etc.
-  //   const isState = state === index
-  //   switch (index) {
-  //     // unscheduled
-  //     case 0:
-  //       return {
-  //         from: {
-  //           arrowOpacity: 0,
-  //           arrowTransform: `translate3d(${0}px,0,0)`,
-  //         },
-  //         to: {
-  //           arrowOpacity: isState ? 1 : 0,
-  //           arrowTransform: `translate3d(${isState ? 20 : 0}px,0,0)`,
-  //         },
-  //       }
-  //       break
-  //     // scheduling
-  //     case 1:
-  //       return {}
-  //       break
-  //     // scheduled
-  //     case 2:
-  //       return {}
-  //       break
-  //     // no idea
-  //     default:
-  //       return {}
-  //       break
-  //   }
-  // })
-
-  // const handleClick = e => {
-  //   e.preventDefault();
-  //   console.log('Scheduler clicked!')
-  // }
-
   return (
-    <SubmitterTainr style={carouselProps}>
-      <SubmitStateTainr style={{}}>
+    <SubmitterTainr>
+      <UnsubmittedTainr style={{ zIndex: 0 }}>
         <Unsubmitted
           text={text}
           arrowProps={{
@@ -428,35 +335,24 @@ const Submitter = ({ reset }) => {
           }}
           inputProps={{
             style: {
-              opacity: scheduleProps.submitTextOpacity,
-              transform: scheduleProps.submitTextTransform,
+              opacity: scheduleProps.textOpacity,
+              transform: scheduleProps.textTransform,
             },
           }}
         />
-      </SubmitStateTainr>
-      <SubmitStateTainr
-        style={
-          {
-            // background: `blue`,
-          }
-        }
-      >
-        <animated.div>Submitting...</animated.div>
-      </SubmitStateTainr>
-      <SubmitStateTainr
-        style={
-          {
-            // background: `green`,
-          }
-        }
+      </UnsubmittedTainr>
+      <SubmittedTainr
+        style={{
+          zIndex: phoneNumber || emailAddress ? 1 : -1,
+        }}
       >
         <Submitted
-          homeProps={{ style: { opacity: scheduleProps.homeTextOpacity } }}
+          homeProps={{ style: { opacity: scheduledProps.homeOpacity } }}
           rescheduleProps={{
-            style: { opacity: scheduleProps.rescheduleTextOpacity },
+            style: { opacity: scheduledProps.rescheduleOpacity },
           }}
         />
-      </SubmitStateTainr>
+      </SubmittedTainr>
     </SubmitterTainr>
   )
 }
