@@ -62,25 +62,17 @@ const P = styled(animated.p)`
 //   background: blue;
 // `
 
+const nPages = 3
+
 const SwitchTainr = styled(animated.div)`
   overflow: hidden;
   position: relative;
   height: 100%;
-  width: 200%;
+  width: ${nPages * 100}%;
   grid-area: switch;
   display: flex;
   flex-direction: row;
 `
-
-// const Containr = styled.div`
-//   max-width: 300px;
-//   width: 100%;
-// `
-
-// const FormTainr = styled(animated.div)`
-//   position: absolute;
-//   width: 100%;
-// `
 
 const FormTainr = styled(animated.div)`
   width: 100%;
@@ -321,14 +313,16 @@ const Submitter = ({ reset }) => {
     resetSubmission,
   } = useContext(SchedulingContext)
 
-  let text
-  if (phoneNumber || emailAddress) {
-    text = "Scheduled."
-  } else if (isSubmitting) {
-    text = "Scheduling..."
-  } else {
-    text = "Schedule a chat."
-  }
+  // let text
+  // if (phoneNumber || emailAddress) {
+  //   text = "Scheduled."
+  // } else if (isSubmitting) {
+  //   text = "Scheduling..."
+  // } else {
+  //   text = "Schedule a chat."
+  // }
+
+  const text = "Schedule a chat."
 
   // const [scheduledProps, setScheduledProps] = useSpring(() => ({
   //   homeOpacity: 0,
@@ -507,17 +501,17 @@ const Submitter = ({ reset }) => {
         <animated.div
           style={{
             marginTop: `25px`,
-            padding: `16px 0 8px 0`,
+            // padding: `16px 0 8px 0`,
             border: `none`,
             background: `none`,
             color: `#FFE9C9`,
-            width: `80%`,
+            width: `100%`,
             fontFamily: `open sans`,
             fontWeight: 300,
             opacity: scheduleProps.submittingOpacity,
           }}
         >
-          Submitting...
+          Scheduling...
         </animated.div>
       </SubmitStateTainr>
       <SubmitStateTainr
@@ -542,6 +536,7 @@ const Submitter = ({ reset }) => {
 export default () => {
   const {
     submitted: { phoneNumber, emailAddress },
+    isSubmitting,
   } = useContext(SchedulingContext)
   // const formTransition = useTransition(submitted.emailAddress || submitted.phoneNumber, i => i, {})
 
@@ -595,6 +590,17 @@ export default () => {
 
   // const isScheduled = phoneNumber || emailAddress
 
+  let state
+  if (isSubmitting) {
+    state = 1
+  } else if (phoneNumber || emailAddress) {
+    state = 2
+  } else {
+    state = 0
+  }
+
+  // const nPages = 3
+
   const switchSpringRef = useRef()
   const switchProps = useSpring({
     ref: switchSpringRef,
@@ -602,7 +608,7 @@ export default () => {
       transform: `translate3d(0%,0,0)`,
     },
     to: {
-      transform: `translate3d(${phoneNumber || emailAddress ? -50 : 0}%,0,0)`,
+      transform: `translate3d(${-(state * 100) / nPages}%,0,0)`,
     },
     config: { ...config.slow, duration: 500 },
   })
@@ -611,7 +617,7 @@ export default () => {
   const page0Props = useSpring({
     ref: page0SpringRef,
     from: { opacity: 1 },
-    to: { opacity: phoneNumber || emailAddress ? 0 : 1 },
+    to: { opacity: phoneNumber || emailAddress || isSubmitting ? 0 : 1 },
     config: { ...config.slow, duration: 500 },
   })
 
@@ -619,36 +625,44 @@ export default () => {
   const page1Props = useSpring({
     ref: page1SpringRef,
     from: { opacity: 0 },
-    to: { opacity: phoneNumber || emailAddress ? 1 : 0 },
+    to: { opacity: isSubmitting ? 1 : 0 },
     config: { ...config.slow, duration: 500 },
   })
 
-  const scheduleSpringRef = useRef()
-  const scheduleProps = useSpring({
-    ref: scheduleSpringRef,
-    from: {
-      textOpacity: 1,
-      arrowOpacity: 1,
-      textTransform: `translate3d(0px,0,0)`,
-      arrowTransform: `translate3d(0px,0,0)`,
-    },
-    to: {
-      textOpacity: phoneNumber || emailAddress ? 0 : 1,
-      arrowOpacity: phoneNumber || emailAddress ? 0 : 1,
-      textTransform: `translate3d(${
-        phoneNumber || emailAddress ? -70 : 0
-      }px,0,0)`,
-      arrowTransform: `translate3d(${
-        phoneNumber || emailAddress ? 70 : 0
-      }px,0,0)`,
-    },
-    config: { ...config.stiff, duration: 500 },
-    reset: !(phoneNumber || emailAddress),
-    delay: !(phoneNumber || emailAddress) ? 0 : 0,
+  const page2SpringRef = useRef()
+  const page2Props = useSpring({
+    ref: page2SpringRef,
+    from: { opacity: 0 },
+    to: { opacity: phoneNumber || emailAddress || !isSubmitting ? 1 : 0 },
+    config: { ...config.slow, duration: 500 },
   })
 
+  // const scheduleSpringRef = useRef()
+  // const scheduleProps = useSpring({
+  //   ref: scheduleSpringRef,
+  //   from: {
+  //     textOpacity: 1,
+  //     arrowOpacity: 1,
+  //     textTransform: `translate3d(0px,0,0)`,
+  //     arrowTransform: `translate3d(0px,0,0)`,
+  //   },
+  //   to: {
+  //     textOpacity: phoneNumber || emailAddress ? 0 : 1,
+  //     arrowOpacity: phoneNumber || emailAddress ? 0 : 1,
+  //     textTransform: `translate3d(${
+  //       phoneNumber || emailAddress ? -70 : 0
+  //     }px,0,0)`,
+  //     arrowTransform: `translate3d(${
+  //       phoneNumber || emailAddress ? 70 : 0
+  //     }px,0,0)`,
+  //   },
+  //   config: { ...config.stiff, duration: 500 },
+  //   reset: !(phoneNumber || emailAddress),
+  //   delay: !(phoneNumber || emailAddress) ? 0 : 0,
+  // })
+
   useChain(
-    [switchSpringRef, page0SpringRef, page1SpringRef],
+    [switchSpringRef, page0SpringRef, page1SpringRef, page2SpringRef],
     [0, 0.5, 0.7],
     1000
   )
@@ -660,7 +674,7 @@ export default () => {
   return (
     <Containr>
       <SwitchTainr style={{ ...switchProps }}>
-        <PageTainr className="page-tainr" style={{ ...page0Props }}>
+        <PageTainr className="page-tainr-0" style={{ ...page0Props }}>
           <Statement>
             <P>All we need is a phone number or email address.</P>
           </Statement>
@@ -668,15 +682,20 @@ export default () => {
             <SchedulingForm />
           </FormTainr>
         </PageTainr>
-        <PageTainr style={{ ...page1Props }}>
+        <PageTainr className="page-tainr-1" style={{ ...page1Props }}>
+          <Statement>
+            <P>Sending a bat signal to hq...</P>
+          </Statement>
+        </PageTainr>
+        <PageTainr className="page-tainr-2" style={{ ...page2Props }}>
           <Statement>
             <P>
               Great! We'll try to contact you in the next two business days.
             </P>
           </Statement>
-          <ScheduledTainr>
+          {/* <ScheduledTainr>
             <Scheduled />
-          </ScheduledTainr>
+          </ScheduledTainr> */}
         </PageTainr>
       </SwitchTainr>
       <Submitter />
