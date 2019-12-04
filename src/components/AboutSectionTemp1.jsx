@@ -31,7 +31,6 @@ const AP = styled(animated.p)`
 `
 
 const MainTainr = styled.div`
-  position: relative; /* very important for absolute positioned image */
   min-height: 700px;
   display: grid;
   grid-template-areas:
@@ -48,7 +47,7 @@ const MainTainr = styled.div`
 // we use absolute position because it works really well here
 const ContentTainr = styled.div`
   grid-area: content;
-  padding: 50px 0 0 0;
+  padding: 0;
   margin: auto;
   width: 250px;
   display: flex;
@@ -103,23 +102,26 @@ export default ({ scrollPos }) => {
         }
       }}
     >
-      <MainTainr>
-        <ContentTainr>
-          <AH3>Not your everyday dive service.</AH3>
-          <AHr style={{ width: `40%` }} />
-          <AP
-            style={{
-              textAlign: `center`,
-              fontFamily: `open sans`,
-              fontSize: `16px`,
-              fontWeight: 300,
-            }}
-          >
-            We’re dedicated to delivering a quality dive service to the Pacific
-            Northwest area. With us you wont have to worry about stuff? You
-            shouldnt need to take time out of your busy work schedule.
-          </AP>
-        </ContentTainr>
+      <>
+        <MainTainr>
+          <ContentTainr>
+            <AH3>Not your everyday dive service.</AH3>
+            <AHr style={{ width: `40%` }} />
+            <AP
+              style={{
+                textAlign: `center`,
+                fontFamily: `open sans`,
+                fontSize: `16px`,
+                fontWeight: 300,
+              }}
+            >
+              We’re dedicated to delivering a quality dive service to the
+              Pacific Northwest area. With us you wont have to worry about
+              stuff? You shouldnt need to take time out of your busy work
+              schedule.
+            </AP>
+          </ContentTainr>
+        </MainTainr>
         <ImageTainr>
           <AboutImage
             imageTainrProps={{
@@ -150,7 +152,7 @@ export default ({ scrollPos }) => {
             about
           </AH2>
         </div> */}
-      </MainTainr>
+      </>
     </VisibilitySensor>
   )
 }

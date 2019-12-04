@@ -9,9 +9,28 @@ import AboutImage from "./AboutImage"
 
 import devices from "../devices"
 
-import { AHr } from "./Shared"
-
 import VisibilitySensor from "react-visibility-sensor"
+
+// const mq = window.matchMediaQuery("(max-width: 320px)")
+// console.log(mq)
+
+const AH2 = styled(animated.h2)`
+  font-family: playfair display;
+  font-weight: bold;
+  padding: 0;
+  margin: 0;
+  color: #2d2d2d;
+  font-size: 150px;
+  z-index: -1;
+`
+
+// const AH3 = styled(animated.h3)`
+//   font-family: playfair display;
+//   font-size: 36px;
+//   font-weight: 700;
+//   color: #ffe9c9;
+//   line-height: 150%;
+// `
 
 const AH3 = styled(animated.h3)`
   font-family: playfair display;
@@ -30,24 +49,7 @@ const AP = styled(animated.p)`
   line-height: 200%;
 `
 
-const MainTainr = styled.div`
-  position: relative; /* very important for absolute positioned image */
-  min-height: 700px;
-  display: grid;
-  grid-template-areas:
-    ". . . "
-    ". content ."
-    ". . .";
-  grid-template-rows: auto auto auto;
-  grid-template-columns: auto 250px auto;
-
-  @media ${devices.laptop} {
-  }
-`
-
-// we use absolute position because it works really well here
-const ContentTainr = styled.div`
-  grid-area: content;
+const AboutContentTainr = styled(animated.div)`
   padding: 50px 0 0 0;
   margin: auto;
   width: 250px;
@@ -55,18 +57,34 @@ const ContentTainr = styled.div`
   flex-direction: column;
   align-items: center;
 
-  @media ${devices.tablet} {
+  @media (${devices.tablet}) {
     flex-direction: row;
   }
 `
 
-const ImageTainr = styled(animated.div)`
+const ContentTainr = styled.div``
+
+const TextTainr = styled.div``
+
+const AboutImageTainr = styled(animated.div)`
   min-height: 850px;
   z-index: -1;
   width: 100%;
   height: 100%;
   top: 0px;
   position: absolute;
+`
+
+// const Hr = styled(animated.hr)`
+//   width: 85%;
+//   border: 1px solid #ffe9c9;
+//   margin: auto 0 auto 0;
+// `
+
+const Hr = styled(animated.hr)`
+  width: 85%;
+  border: 0.5px solid #ffe9c9;
+  margin: 0 0 16px 0;
 `
 
 export default ({ scrollPos }) => {
@@ -94,19 +112,19 @@ export default ({ scrollPos }) => {
         console.log("about vis changed!", v)
         if (v) {
           setRevealProps({
-            // h2Opacity: 1,
+            h2Opacity: 1,
             contentOpacity: 1,
-            // h2Transform: `translate3d(0,0px,0)`,
+            h2Transform: `translate3d(0,0px,0)`,
           })
         } else {
           setRevealProps({ h2Opacity: 1, contentOpacity: 1 })
         }
       }}
     >
-      <MainTainr>
-        <ContentTainr>
+      <>
+        <AboutContentTainr style={{ opacity: revealProps.contentOpacity }}>
           <AH3>Not your everyday dive service.</AH3>
-          <AHr style={{ width: `40%` }} />
+          <Hr style={{ width: `40%` }} />
           <AP
             style={{
               textAlign: `center`,
@@ -119,8 +137,8 @@ export default ({ scrollPos }) => {
             Northwest area. With us you wont have to worry about stuff? You
             shouldnt need to take time out of your busy work schedule.
           </AP>
-        </ContentTainr>
-        <ImageTainr>
+        </AboutContentTainr>
+        <AboutImageTainr>
           <AboutImage
             imageTainrProps={{
               style: {
@@ -129,7 +147,7 @@ export default ({ scrollPos }) => {
               },
             }}
           />
-        </ImageTainr>
+        </AboutImageTainr>
         {/* <div
           style={{
             position: `absolute`,
@@ -150,7 +168,7 @@ export default ({ scrollPos }) => {
             about
           </AH2>
         </div> */}
-      </MainTainr>
+      </>
     </VisibilitySensor>
   )
 }
