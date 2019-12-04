@@ -149,3 +149,9 @@ export const Input = styled.input`
     opacity: 0;
   }
 `
+
+export const AHr = styled(animated.hr)`
+  width: 100%;
+  border: 0.5px solid #ffe9c9;
+  margin: 0 0 16px 0;
+`

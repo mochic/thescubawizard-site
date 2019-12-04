@@ -84,6 +84,7 @@ export default () => {
     try {
       await submit(values.emailAddress, values.phoneNumber)
       console.log(`%capi success`, `color: teal`)
+      setValues({ emailAddress: ``, phoneNumber: `` }) // reset form
     } catch (err) {
       console.log(`%capi error`, `color: red`, err)
     }

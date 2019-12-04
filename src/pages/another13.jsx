@@ -5,13 +5,14 @@ import { animated, config, useSpring } from "react-spring"
 
 import debounce from "lodash/debounce"
 
-import HeroImage from "../components/HeroImageParallax2"
+import HeroImage from "../components/HeroImage"
 // import AboutImage from "../components/AboutImageParallax5"
 // import AboutImageParallax5 from "../components/AboutImageParallax5"
 
 import About from "../components/AboutSection"
 
-import Promise from "../components/PromiseThang2"
+// import Promise from "../components/PromiseThang2"
+import Services from "../components/ServicesSection"
 
 import Interested from "../components/InterestedSection"
 
@@ -149,13 +150,29 @@ const StatementsTainr = styled.div`
   z-index: 1;
 `
 
-const PromiseHeight = 700
+// const PromiseHeight = 700
+// const PromiseTainr = styled.div`
+//   min-height: ${PromiseHeight}px;
+//   width: 100%;
+//   position: relative;
+//   z-index: 1;
+// `
+
+const PromiseHeight = 500
 const PromiseTainr = styled.div`
-  min-height: ${PromiseHeight}px;
+  height: ${PromiseHeight}px;
   width: 100%;
   position: relative;
   z-index: 1;
 `
+
+// const PromiseHeight = 700
+// const PromiseTainr = styled.div`
+//   min-height: ${PromiseHeight}px;
+//   width: 100%;
+//   position: relative;
+//   z-index: 1;
+// `
 
 export default () => {
   const [pos, setPos] = useState()
@@ -192,7 +209,7 @@ export default () => {
         <Statements />
       </StatementsTainr> */}
       <PromiseTainr>
-        <Promise scrollPos={pos} />
+        <Services scrollPos={pos} />
       </PromiseTainr>
       <div>
         <Interested />

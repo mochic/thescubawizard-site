@@ -2,7 +2,7 @@ import React from "react"
 import { StaticQuery, graphql } from "gatsby"
 import Img from "gatsby-image"
 
-import styled, { keyframes } from "styled-components"
+import styled from "styled-components"
 import { animated } from "react-spring"
 
 // const RevealingTainr = styled(animated.div)`
@@ -18,16 +18,6 @@ import { animated } from "react-spring"
 //   left: 0px;
 //   z-index: 0;
 // `
-
-const Drift = keyframes`
-from {
-    transform: translate3d(0,0px,0);
-}
-
-to {
-    transform: translate3d(0,-40px,0);
-}
-`
 
 const defaultGV = 80
 const RevealingTainr = styled.div`
@@ -46,7 +36,6 @@ const RevealingTainr = styled.div`
 
 const ImageTainr = styled(animated.div)`
   z-index: -1;
-  animation: ${Drift} 55s ease-out;
 `
 
 const Containr = styled(animated.div)``

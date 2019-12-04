@@ -11,6 +11,9 @@ import device from "../devices"
 
 import VisibilitySensor from "react-visibility-sensor"
 
+// const mq = window.matchMediaQuery("(max-width: 320px)")
+// console.log(mq)
+
 const AH2 = styled(animated.h2)`
   font-family: playfair display;
   font-weight: bold;
@@ -31,7 +34,7 @@ const AH2 = styled(animated.h2)`
 
 const AH3 = styled(animated.h3)`
   font-family: playfair display;
-  font-size: 36px;
+  font-size: 26px;
   font-weight: bold;
   color: #ffe9c9;
   line-height: 150%;
@@ -47,7 +50,7 @@ const AP = styled(animated.p)`
 `
 
 const AboutContentTainr = styled(animated.div)`
-  padding: 0;
+  padding: 50px 0 0 0;
   margin: auto;
   width: 250px;
   display: flex;
@@ -77,16 +80,16 @@ const AboutImageTainr = styled(animated.div)`
 const Hr = styled(animated.hr)`
   width: 85%;
   border: 0.5px solid #ffe9c9;
-  margin: auto 0 auto 0;
+  margin: 0 0 16px 0;
 `
 
 export default ({ scrollPos }) => {
   //   const [revealed, setRevealed] = useState(false)
 
   const [revealProps, setRevealProps] = useSpring(() => ({
-    h2Opacity: 0,
+    h2Opacity: 1,
     h2Transform: `translate3d(0,-100px,0)`,
-    contentOpacity: 0,
+    contentOpacity: 1,
   }))
 
   return (
@@ -102,7 +105,7 @@ export default ({ scrollPos }) => {
             h2Transform: `translate3d(0,0px,0)`,
           })
         } else {
-          setRevealProps({ h2Opacity: 0, contentOpacity: 0 })
+          setRevealProps({ h2Opacity: 1, contentOpacity: 1 })
         }
       }}
     >
