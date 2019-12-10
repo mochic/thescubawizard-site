@@ -155,3 +155,7 @@ export const AHr = styled(animated.hr)`
   border: 0.5px solid #ffe9c9;
   margin: 0 0 16px 0;
 `
+
+// export const Hr = styled.hr`
+
+// `

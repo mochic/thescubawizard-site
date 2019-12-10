@@ -5,8 +5,6 @@ import Img from "gatsby-image"
 import styled from "styled-components"
 import { animated } from "react-spring"
 
-import devices from "../devices"
-
 // const Gradient = styled(animated.div)`
 //   background: radial-gradient(
 //     50.92% 44.8% at 34.31% 51.18%,
@@ -148,13 +146,10 @@ const Image = ({ ...outerProps }) => (
           style={{
             // minWidth: `600px`,
             // maxWidth: `1095px`,
-            // zIndex: -1,
-            // position: `absolute`,
-            // top: `-30%`,
-            // left: `0px`,
-            height: `100%`,
-            width: `100%`,
-            boxShadow: `25px 25px 50px 0 white inset, -25px -25px 50px 0 white inset`,
+            zIndex: -1,
+            position: `absolute`,
+            top: `-30%`,
+            left: `0px`,
           }}
           // style={{ minWidth: `450px`, maxWidth: `1095px` }}
           fluid={data.placeholderImage.childImageSharp.fluid}
@@ -178,26 +173,14 @@ const Image = ({ ...outerProps }) => (
 
 // easiest media queries
 const ImageTainr = styled(animated.div)`
-  min-width: 600px;
-  z-index: -1;
-  position: absolute;
-  top: -30%;
-  left: 0px;
-
-  @media ${devices.laptop} {
-    min-width: 1000px;
-  }
-
-  box-shadow: 0 0 8px 8px white inset;
+  min-width: ;
 `
 
 export default ({ imageTainrProps, containrProps }) => {
   return (
     <Containr {...containrProps}>
       <Gradient>
-        <ImageTainr>
-          <Image outerProps={imageTainrProps} />
-        </ImageTainr>
+        <Image outerProps={imageTainrProps} />
       </Gradient>
     </Containr>
   )

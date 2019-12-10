@@ -30,23 +30,6 @@ const AP = styled(animated.p)`
   line-height: 200%;
 `
 
-// const MainTainr = styled.div`
-//   position: relative; /* very important for absolute positioned image */
-//   min-height: 700px;
-//   display: grid;
-//   grid-template-areas:
-//     ". . . "
-//     ". content ."
-//     ". . .";
-//   grid-template-rows: auto auto auto;
-//   grid-template-columns: auto 250px auto;
-
-//   @media ${devices.laptop} {
-//     grid-template-rows: auto 250px 100px;
-//     grid-template-columns: auto 800px auto;
-//   }
-// `
-
 const MainTainr = styled.div`
   position: relative; /* very important for absolute positioned image */
   min-height: 700px;
@@ -59,8 +42,8 @@ const MainTainr = styled.div`
   grid-template-columns: auto 250px auto;
 
   @media ${devices.laptop} {
-    grid-template-rows: auto 250px 100px;
-    grid-template-columns: 8% minmax(auto, 800px) minmax(8%, auto);
+    grid-template-rows: auto auto auto;
+    grid-template-columns: auto 250px auto;
   }
 `
 
@@ -83,27 +66,13 @@ const ContentTainr = styled.div`
   grid-area: content;
   padding: 0;
   margin: auto;
+  width: 250px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: red;
 
   @media ${devices.laptop} {
     flex-direction: row;
-  }
-`
-
-const AH2 = styled(animated.h2)`
-  font-family: playfair display;
-  font-weight: bold;
-  font-size: 260px;
-  margin: 0;
-  padding: 0;
-  color: rgba(94, 94, 94, 0.3);
-  backdrop-filter: blur(4px);
-
-  @media ${devices.laptop} {
-    font-size: 260px;
   }
 `
 
@@ -142,19 +111,6 @@ const AH2 = styled(animated.h2)`
 //   min-width: 2000px;
 // `
 
-// const ImageTainr = styled(animated.div)`
-//   z-index: -1;
-//   height: 700px;
-//   width: 100%;
-//   position: absolute;
-//   top: 0px;
-//   left: 0px;
-//   display: grid;
-//   grid-template-areas: ". image .";
-//   grid-template-columns: auto 700px minmax(auto, 25px);
-//   background: red;
-// `
-
 const ImageTainr = styled(animated.div)`
   z-index: -1;
   height: 700px;
@@ -164,15 +120,7 @@ const ImageTainr = styled(animated.div)`
   left: 0px;
   display: grid;
   grid-template-areas: ". image .";
-  grid-template-columns: auto 400px 100px;
-
-  @media ${devices.tablet} {
-    grid-template-columns: auto 600px 100px;
-  }
-
-  @media ${devices.laptop} {
-    grid-template-columns: auto 800px 100px;
-  }
+  grid-template-columns: auto auto minmax(auto, 25px);
 `
 
 // think about the images as modals moving along an axis
@@ -213,9 +161,6 @@ export default ({ scrollPos }) => {
       }}
     >
       <MainTainr>
-        <AH2 style={{ position: `absolute`, top: `5px`, left: `41px` }}>
-          about
-        </AH2>
         <ContentTainr>
           <AH3>Not your everyday dive service.</AH3>
           <AHr style={{ width: `40%` }} />
@@ -238,7 +183,7 @@ export default ({ scrollPos }) => {
             imageTainrProps={{
               style: {
                 opacity: revealProps.imageOpacity,
-                // transform: `translate3d(-${scrollDrift}px, 0, 0)`,
+                transform: `translate3d(-${scrollDrift}px, 0, 0)`,
               },
             }}
           />

@@ -5,7 +5,7 @@ import { animated, useSpring } from "react-spring"
 
 import VisibilitySensor from "react-visibility-sensor"
 
-import PromiseImage from "./PromiseImage"
+import ServicesImage from "./ServicesImage"
 
 import { AHr } from "./Shared"
 
@@ -27,19 +27,6 @@ const AP = styled(animated.p)`
   line-height: 200%;
 `
 
-// const ContentTainr = styled(animated.div)`
-//   padding: 0;
-//   margin: auto;
-//   width: 250px;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-
-//   @media (${devices.tablet}) {
-//     flex-direction: row;
-//   }
-// `
-
 const ContentTainr = styled(animated.div)`
   padding: 0;
   margin: 50px auto 0px auto;
@@ -53,6 +40,16 @@ const ContentTainr = styled(animated.div)`
   }
 `
 
+// use media queries to scale this
+const MainHeight = 500
+const MainTainr = styled.div`
+  height: ${MainHeight}px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+`
+
 // for media queries
 const ImageTainr = styled(animated.div)`
   min-width: 320px;
@@ -64,16 +61,16 @@ const ImageTainr = styled(animated.div)`
   z-index: -1;
 `
 
-const DriftKeys = keyframes`
-  from {
-      transform: translate3d(0px,0px,0)
-  }
-  to {
-      transform: translate3d(-10px,-10px,0)
-  }
-`
+// const DriftKeys = keyframes`
+//   from {
+//       transform: translate3d(0px,0px,0)
+//   }
+//   to {
+//       transform: translate3d(-10px,-10px,0)
+//   }
+// `
 
-export default () => {
+export default ({ scrollPos }) => {
   const [props, setProps, stop] = useSpring(() => ({
     contentOpacity: 0.3,
     imageOpacity: 0,
@@ -92,7 +89,7 @@ export default () => {
         }
       }}
     >
-      <div style={{ overflow: "hidden" }}>
+      <MainTainr>
         <ContentTainr style={{ opacity: props.contentOpacity }}>
           <AH3 style={{ textAlign: `center` }}>We've got your back.</AH3>
           <AHr style={{ width: `40%` }} />
@@ -112,67 +109,18 @@ export default () => {
         <ImageTainr
           style={{
             opacity: props.imageOpacity,
-            // animation: props.imageOpacity.interpolate(v =>
-            //   v === 1
-            //     ? css`
-            //         ${DriftKeys} 3s ease=in
-            //       `
-            //     : `none`
-            // ),
           }}
         >
-          <PromiseImage />
+          <ServicesImage
+            imageTainrProps={{
+              style: {
+                // opacity: scrollPos * 0.08,
+                transform: `translate3d(${scrollPos * 0.015}px, 0, 0)`,
+              },
+            }}
+          />
         </ImageTainr>
-      </div>
+      </MainTainr>
     </VisibilitySensor>
   )
 }
-
-// export default () => {
-//   const [props, setProps, stop] = useSpring(() => ({
-//     contentOpacity: 0.3,
-//     imageOpacity: 0,
-//   }))
-
-//   console.log("about rendered!")
-
-//   return (
-//     <VisibilitySensor
-//       partialVisibility
-//       top={{ offset: 100 }}
-//       onChange={v => {
-//         console.log("promise visibility changed!", v)
-//         if (v) {
-//           setProps({ contentOpacity: 1, imageOpacity: 1 })
-//         } else {
-//           setProps({ contentOpacity: 0.3, imageOpacity: 0 })
-//         }
-//       }}
-//     >
-//       <div style={{ overflow: "hidden" }}>
-//         <ContentTainr style={{ opacity: props.contentOpacity }}>
-//           <AH3>We've got your back.</AH3>
-//           <AP>
-//             We'll work with you to make sure the job gets done right the first
-//             time. If it takes longer than expected, we promise not the leave you
-//             high and dry with a half-finished job!
-//           </AP>
-//         </ContentTainr>
-//         <ImageTainr
-//           style={css`
-//             opacity: ${props.imageOpacity};
-//             animation: ${props.imageOpacity.interpolate(v =>
-//               v === 1
-//                 ? css`
-//                     ${DriftKeys} 3s ease-in
-//                   `
-//                 : `none`
-//             )};
-//           `}
-//         >
-//           <PromiseImage />
-//         </ImageTainr>
-//       </div>
-//     </VisibilitySensor>
-//   )
-// }

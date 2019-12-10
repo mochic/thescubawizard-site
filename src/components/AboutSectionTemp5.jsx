@@ -30,23 +30,6 @@ const AP = styled(animated.p)`
   line-height: 200%;
 `
 
-// const MainTainr = styled.div`
-//   position: relative; /* very important for absolute positioned image */
-//   min-height: 700px;
-//   display: grid;
-//   grid-template-areas:
-//     ". . . "
-//     ". content ."
-//     ". . .";
-//   grid-template-rows: auto auto auto;
-//   grid-template-columns: auto 250px auto;
-
-//   @media ${devices.laptop} {
-//     grid-template-rows: auto 250px 100px;
-//     grid-template-columns: auto 800px auto;
-//   }
-// `
-
 const MainTainr = styled.div`
   position: relative; /* very important for absolute positioned image */
   min-height: 700px;
@@ -60,7 +43,7 @@ const MainTainr = styled.div`
 
   @media ${devices.laptop} {
     grid-template-rows: auto 250px 100px;
-    grid-template-columns: 8% minmax(auto, 800px) minmax(8%, auto);
+    grid-template-columns: auto 800px auto;
   }
 `
 
@@ -94,16 +77,10 @@ const ContentTainr = styled.div`
 `
 
 const AH2 = styled(animated.h2)`
-  font-family: playfair display;
-  font-weight: bold;
-  font-size: 260px;
-  margin: 0;
-  padding: 0;
-  color: rgba(94, 94, 94, 0.3);
-  backdrop-filter: blur(4px);
+  font-size: 150px;
 
-  @media ${devices.laptop} {
-    font-size: 260px;
+  @media ${devices.tablet} {
+    font-size: 150px;
   }
 `
 
@@ -213,9 +190,6 @@ export default ({ scrollPos }) => {
       }}
     >
       <MainTainr>
-        <AH2 style={{ position: `absolute`, top: `5px`, left: `41px` }}>
-          about
-        </AH2>
         <ContentTainr>
           <AH3>Not your everyday dive service.</AH3>
           <AHr style={{ width: `40%` }} />

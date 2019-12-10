@@ -167,13 +167,13 @@ const AboutTainr = styled(animated.div)`
 //   z-index: 1;
 // `
 
-const PromiseHeight = 500
-const PromiseTainr = styled.div`
-  height: ${PromiseHeight}px;
-  width: 100%;
-  position: relative;
-  z-index: 1;
-`
+// const PromiseHeight = 500
+// const PromiseTainr = styled.div`
+//   height: ${PromiseHeight}px;
+//   width: 100%;
+//   position: relative;
+//   z-index: 1;
+// `
 
 // const PromiseHeight = 700
 // const PromiseTainr = styled.div`
@@ -212,15 +212,8 @@ export default () => {
         <Hero pos={pos} />
       </HeroTainr>
       <About scrollPos={pos} />
-      {/* <StatementsTainr>
-        <Statements />
-      </StatementsTainr> */}
-      <PromiseTainr>
-        <Services scrollPos={pos} />
-      </PromiseTainr>
-      <div>
-        <Interested />
-      </div>
+      <Services scrollPos={pos} />
+      <Interested />
       <div>
         <Footer />
       </div>
