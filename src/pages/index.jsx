@@ -187,8 +187,35 @@ export default () => {
   const [pos, setPos] = useState()
 
   // maybe use different based on browser support, etc....
+  // const rawHandler = () => {
+  //   setPos(window.pageYOffset)
+  // }
+  // velocities
+  const heroVelocity = 0.8
+  const aboutVelocity = 0.8
+  const servicesVelocity = 0.8
+
+  const [heroProps, setHeroProps] = useSpring(() => ({
+    transform: `translate3d(0px,0px,0)`,
+  }))
+  const [aboutProps, setHeroProps] = useSpring(() => ({
+    transform: `translate3d(0px,0px,0)`,
+  }))
+  const [servicesProps, setServicesProps] = useSpring(() => ({
+    transform: `translate3d(0px,0px,0)`,
+  }))
+
   const rawHandler = () => {
     setPos(window.pageYOffset)
+    setHeroProps({
+      transform: `translate3d(${heroVelocity * window.pageYOffset},0px,0)`,
+    })
+    setAboutProps({
+      transform: `translate3d(${aboutVelocity * window.pageYOffset},0px,0)`,
+    })
+    setServicesProps({
+      transform: `translate3d(${servicesVelocity * window.pageYOffset},0px,0)`,
+    })
   }
 
   const handleScroll = e => {

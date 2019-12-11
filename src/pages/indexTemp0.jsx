@@ -5,13 +5,14 @@ import { animated, config, useSpring } from "react-spring"
 
 import debounce from "lodash/debounce"
 
-import HeroImage from "../components/HeroImageParallax2"
+import HeroImage from "../components/HeroImage"
 // import AboutImage from "../components/AboutImageParallax5"
 // import AboutImageParallax5 from "../components/AboutImageParallax5"
 
 import About from "../components/AboutSection"
 
-import Promise from "../components/PromiseThang2"
+// import Promise from "../components/PromiseThang2"
+import Services from "../components/ServicesSection"
 
 import Interested from "../components/InterestedSection"
 
@@ -132,6 +133,14 @@ const Hero = ({ pos }) => {
 
 // intelligently scale with js :/
 // show header and extra stuff if in tablet/desktop view!
+// const AboutHeight = 900
+// const AboutTainr = styled(animated.div)`
+//   min-height: ${AboutHeight}px;
+//   width: 100%;
+//   position: relative;
+//   z-index: 1;
+// `
+
 const AboutHeight = 900
 const AboutTainr = styled(animated.div)`
   min-height: ${AboutHeight}px;
@@ -139,23 +148,40 @@ const AboutTainr = styled(animated.div)`
   position: relative;
   z-index: 1;
 `
+
 // z-index 1 so that our header doesnt get cut off...TODO: fix this so we dont need this hack solution
 
-const StatementsHeight = 600
-const StatementsTainr = styled.div`
-  height: ${StatementsHeight}px;
-  width: 100%;
-  position: relative;
-  z-index: 1;
-`
+// const StatementsHeight = 600
+// const StatementsTainr = styled.div`
+//   height: ${StatementsHeight}px;
+//   width: 100%;
+//   position: relative;
+//   z-index: 1;
+// `
 
-const PromiseHeight = 700
-const PromiseTainr = styled.div`
-  min-height: ${PromiseHeight}px;
-  width: 100%;
-  position: relative;
-  z-index: 1;
-`
+// const PromiseHeight = 700
+// const PromiseTainr = styled.div`
+//   min-height: ${PromiseHeight}px;
+//   width: 100%;
+//   position: relative;
+//   z-index: 1;
+// `
+
+// const PromiseHeight = 500
+// const PromiseTainr = styled.div`
+//   height: ${PromiseHeight}px;
+//   width: 100%;
+//   position: relative;
+//   z-index: 1;
+// `
+
+// const PromiseHeight = 700
+// const PromiseTainr = styled.div`
+//   min-height: ${PromiseHeight}px;
+//   width: 100%;
+//   position: relative;
+//   z-index: 1;
+// `
 
 export default () => {
   const [pos, setPos] = useState()
@@ -185,18 +211,9 @@ export default () => {
       <HeroTainr className="hero-tainr">
         <Hero pos={pos} />
       </HeroTainr>
-      <AboutTainr>
-        <About scrollPos={pos} />
-      </AboutTainr>
-      {/* <StatementsTainr>
-        <Statements />
-      </StatementsTainr> */}
-      <PromiseTainr>
-        <Promise scrollPos={pos} />
-      </PromiseTainr>
-      <div>
-        <Interested />
-      </div>
+      <About scrollPos={pos} />
+      <Services scrollPos={pos} />
+      <Interested />
       <div>
         <Footer />
       </div>
