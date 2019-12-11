@@ -9,7 +9,7 @@ import AboutImage from "./AboutImage"
 
 import devices from "../devices"
 
-import { AHr } from "./Shared"
+// import { AHr } from "./Shared"
 
 import VisibilitySensor from "react-visibility-sensor"
 
@@ -59,7 +59,7 @@ const MainTainr = styled.div`
   grid-template-columns: auto 250px auto;
 
   @media ${devices.laptop} {
-    grid-template-rows: auto 250px 100px;
+    grid-template-rows: auto auto 8%;
     grid-template-columns: 8% minmax(auto, 800px) minmax(8%, auto);
   }
 `
@@ -86,10 +86,11 @@ const ContentTainr = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: red;
+  background: none;
 
   @media ${devices.laptop} {
     flex-direction: row;
+    padding: 0 10px 0 10px;
   }
 `
 
@@ -99,11 +100,25 @@ const AH2 = styled(animated.h2)`
   font-size: 260px;
   margin: 0;
   padding: 0;
-  color: rgba(94, 94, 94, 0.3);
-  backdrop-filter: blur(4px);
+  color: rgba(255, 255, 255, 0.5);
+  mix-blend-mode: overlay;
 
   @media ${devices.laptop} {
     font-size: 260px;
+  }
+`
+
+// we needs teh queries!
+const AHr = styled(animated.hr)`
+  width: 40%;
+  border: 0.5px solid #ffe9c9;
+  margin: 0 0 16px 0;
+
+  @media ${devices.laptop} {
+    height: 300px;
+    width: 0.5px;
+    display: inline-block;
+    margin: auto 50px auto 50px;
   }
 `
 
@@ -155,6 +170,26 @@ const AH2 = styled(animated.h2)`
 //   background: red;
 // `
 
+// const ImageTainr = styled(animated.div)`
+//   z-index: -1;
+//   height: 700px;
+//   width: 100%;
+//   position: absolute;
+//   top: 0px;
+//   left: 0px;
+//   display: grid;
+//   grid-template-areas: ". image .";
+//   grid-template-columns: auto 400px 100px;
+
+//   @media ${devices.tablet} {
+//     grid-template-columns: auto 600px 100px;
+//   }
+
+//   @media ${devices.laptop} {
+//     grid-template-columns: auto 800px 100px;
+//   }
+// `
+
 const ImageTainr = styled(animated.div)`
   z-index: -1;
   height: 700px;
@@ -162,20 +197,23 @@ const ImageTainr = styled(animated.div)`
   position: absolute;
   top: 0px;
   left: 0px;
-  display: grid;
-  grid-template-areas: ". image .";
-  grid-template-columns: auto 400px 100px;
 
   @media ${devices.tablet} {
-    grid-template-columns: auto 600px 100px;
   }
 
   @media ${devices.laptop} {
-    grid-template-columns: auto 800px 100px;
   }
 `
 
 // think about the images as modals moving along an axis
+
+const OuterDiv = styled(animated.div)`
+  grid-area: image;
+  margin: -1px;
+  background: red;
+  overflow: hidden;
+  width: 100%;
+`
 
 export default ({ scrollPos }) => {
   //   const [revealed, setRevealed] = useState(false)
@@ -218,7 +256,7 @@ export default ({ scrollPos }) => {
         </AH2>
         <ContentTainr>
           <AH3>Not your everyday dive service.</AH3>
-          <AHr style={{ width: `40%` }} />
+          <AHr />
           <AP
             style={{
               textAlign: `center`,
@@ -234,7 +272,9 @@ export default ({ scrollPos }) => {
         </ContentTainr>
         <ImageTainr>
           <AboutImage
-            containrProps={{ style: { gridArea: `image`, overflow: `hidden` } }}
+            containrProps={{
+              style: { gridArea: `image`, overflow: `hidden`, margin: `-1px` },
+            }}
             imageTainrProps={{
               style: {
                 opacity: revealProps.imageOpacity,

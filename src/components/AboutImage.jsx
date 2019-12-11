@@ -177,18 +177,27 @@ const Image = ({ ...outerProps }) => (
 // }
 
 // easiest media queries
+// const ImageTainr = styled(animated.div)`
+//   min-width: 600px;
+//   z-index: -1;
+//   position: absolute;
+//   top: -30%;
+//   left: 0px;
+
+//   @media ${devices.laptop} {
+//     min-width: 1000px;
+//   }
+// `
+
 const ImageTainr = styled(animated.div)`
   min-width: 600px;
   z-index: -1;
   position: absolute;
   top: -30%;
   left: 0px;
-
+  width: 100%;
   @media ${devices.laptop} {
-    min-width: 1000px;
   }
-
-  box-shadow: 0 0 8px 8px white inset;
 `
 
 export default ({ imageTainrProps, containrProps }) => {
