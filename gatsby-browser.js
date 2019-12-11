@@ -15,6 +15,11 @@ import VisibilityContext from "./src/contexts/visibility.context"
 import Footer from "./src/components/Footer"
 import devices from "./src/devices"
 
+import smoothscroll from "smoothscroll-polyfill"
+
+// kick off the polyfill!
+smoothscroll.polyfill()
+
 const GlobalStyle = createGlobalStyle`
     html, body {
     }
