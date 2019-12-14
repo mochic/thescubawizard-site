@@ -73,6 +73,7 @@ const ImageTainr = styled(animated.div)`
 export default ({ scrollPos }) => {
   const [props, setProps, stop] = useSpring(() => ({
     contentOpacity: 0.3,
+    imageOpacity: 0,
   }))
 
   return (
@@ -82,9 +83,9 @@ export default ({ scrollPos }) => {
       onChange={v => {
         console.log("promise visibility changed!", v)
         if (v) {
-          setProps({ contentOpacity: 1 })
+          setProps({ contentOpacity: 1, imageOpacity: 1 })
         } else {
-          setProps({ contentOpacity: 0.3 })
+          setProps({ contentOpacity: 0.3, imageOpacity: 0 })
         }
       }}
     >
@@ -114,7 +115,7 @@ export default ({ scrollPos }) => {
             imageTainrProps={{
               style: {
                 // opacity: scrollPos * 0.08,
-                // transform: `translate3d(${scrollPos * 0.015}px, 0, 0)`,
+                transform: `translate3d(${scrollPos * 0.015}px, 0, 0)`,
               },
             }}
           />

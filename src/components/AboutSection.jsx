@@ -291,7 +291,7 @@ export default ({ scrollPos }) => {
             containrProps={{
               style: {
                 gridArea: `image`,
-                overflow: `hidden`,
+                // overflow: `hidden`, // no ideas why...it just screws up everything if an accidental zoom occurs
                 margin: `-1px`,
               },
             }}

@@ -29,10 +29,8 @@ const ImageTainr = styled(animated.div)`
   z-index: -1;
   position: absolute;
   height: 120%;
-  width: 100%;
-  top: 0px;
+  top: -10%;
   right: 0px;
-  min-height: 700px;
 `
 
 const Containr = styled(animated.div)`
@@ -40,13 +38,12 @@ const Containr = styled(animated.div)`
   width: 100%;
 `
 
-// it's actually important for us to use images that are wider than tall...for our weird scaling issues design stuffs...
 const Image = () => (
   <StaticQuery
     query={graphql`
       query {
         placeholderImage: file(
-          relativePath: { eq: "hires_110629-N-XD935-139.jpg" }
+          relativePath: { eq: "hires_110629-N-XD935-139-cropped-0.png" }
         ) {
           childImageSharp {
             fluid(grayscale: true) {
@@ -59,7 +56,7 @@ const Image = () => (
     render={data => (
       <Img
         imgStyle={{ objectPosition: "0% 0%" }}
-        style={{ minWidth: `450px` }}
+        style={{ minWidth: `450px`, maxWidth: `1095px` }}
         fluid={data.placeholderImage.childImageSharp.fluid}
       />
     )}
