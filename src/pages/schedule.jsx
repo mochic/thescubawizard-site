@@ -19,7 +19,7 @@ import SchedulingProvider from "../providers/SchedulingProvider"
 
 import SchedulingContext from "../contexts/scheduling.context"
 
-import Image from "../components/ContactImage8"
+import Image from "../components/ContactImage"
 
 import devices from "../devices"
 

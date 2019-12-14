@@ -56,7 +56,7 @@ const Gradient = styled(animated.div)`
   width: 100%;
   position: relative;
   overflow: hidden;
-  min-height: 1000px; /* height is the way...because height is the only fixed part of the element, width is for media queries */
+  max-width: 1000px;
 `
 
 // min-width, max-width might be bad due to absolute posited image that we would want to base off of

@@ -67,7 +67,12 @@ const AP = styled(animated.p)`
 const MainTainr = styled.div`
   position: relative; /* very important for absolute positioned image */
   height: 900px;
-
+  grid-template-areas:
+    ". . . "
+    ". content ."
+    ". . .";
+  grid-template-rows: auto auto auto;
+  grid-template-columns: auto 250px auto;
   @media ${devices.laptop} {
     grid-template-rows: auto auto 8%;
     grid-template-columns: 8% minmax(auto, 800px) minmax(8%, auto);
@@ -202,7 +207,7 @@ const AHr = styled(animated.hr)`
 
 const ImageTainr = styled(animated.div)`
   z-index: -1;
-  height: 700px;
+  height: 900px;
   width: 100%;
   position: absolute;
   top: 0px;
@@ -223,6 +228,7 @@ const OuterDiv = styled(animated.div)`
   background: red;
   overflow: hidden;
   width: 100%;
+  height: 898px;
 `
 
 export default ({ scrollPos }) => {
@@ -283,7 +289,11 @@ export default ({ scrollPos }) => {
         <ImageTainr>
           <AboutImage
             containrProps={{
-              style: { gridArea: `image`, overflow: `hidden`, margin: `-1px` },
+              style: {
+                gridArea: `image`,
+                overflow: `hidden`,
+                margin: `-1px`,
+              },
             }}
             imageTainrProps={{
               style: {

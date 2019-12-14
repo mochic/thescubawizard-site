@@ -198,7 +198,7 @@ export default () => {
   const [heroProps, setHeroProps] = useSpring(() => ({
     transform: `translate3d(0px,0px,0)`,
   }))
-  const [aboutProps, setHeroProps] = useSpring(() => ({
+  const [aboutProps, setAboutProps] = useSpring(() => ({
     transform: `translate3d(0px,0px,0)`,
   }))
   const [servicesProps, setServicesProps] = useSpring(() => ({
