@@ -16,20 +16,9 @@ import { animated } from "react-spring"
 //   position: relative;
 //   overflow: hidden;
 // `
-// const Gradient = styled(animated.div)`
-//   background: radial-gradient(
-//     42.92% 35.8% at 50.31% 38.18%,
-//     rgba(25, 31, 29, 0.7) 0%,
-//     #191f1d 100%
-//   );
-//   height: 100%;
-//   width: 100%;
-//   position: relative;
-//   overflow: hidden;
-// `
 const Gradient = styled(animated.div)`
   background: radial-gradient(
-    54.92% 32.8% at 63.31% 57.18%,
+    42.92% 32.8% at 50.31% 54.18%,
     rgba(25, 31, 29, 0.7) 0%,
     #191f1d 100%
   );

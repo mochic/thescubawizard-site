@@ -7,7 +7,7 @@ import VisibilitySensor from "react-visibility-sensor"
 
 import ServicesImage from "./ServicesImage"
 
-// import { AHr } from "./Shared"
+import { AHr } from "./Shared"
 
 import devices from "../devices"
 
@@ -27,83 +27,38 @@ const AP = styled(animated.p)`
   line-height: 200%;
 `
 
-const ContentTainr = styled.div`
-  grid-area: content;
+const ContentTainr = styled(animated.div)`
   padding: 0;
-  margin: auto;
+  margin: 50px auto 0px auto;
+  width: 250px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: none;
 
-  @media ${devices.laptop} {
+  @media (${devices.tablet}) {
     flex-direction: row;
-    padding: 0 10px 0 10px;
   }
 `
 
-// // use media queries to scale this
-// const MainHeight = 900
-// const MainTainr = styled.div`
-//   height: ${MainHeight}px;
-//   width: 100%;
-//   position: relative;
-//   z-index: 1;
-//   overflow: hidden;
-// `
-
+// use media queries to scale this
+const MainHeight = 500
 const MainTainr = styled.div`
-  display: grid;
-  position: relative; /* very important for absolute positioned image */
-  height: 900px;
-  grid-template-areas:
-    ". . . "
-    ". content ."
-    ". . .";
-  grid-template-rows: auto auto auto;
-  grid-template-columns: auto 250px auto;
-  @media ${devices.laptop} {
-    grid-template-rows: auto auto 150px;
-    grid-template-columns: 8% minmax(auto, 900px) minmax(8%, auto);
-  }
+  height: ${MainHeight}px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
 `
 
 // for media queries
 const ImageTainr = styled(animated.div)`
   min-width: 320px;
   width: 100%;
-  height: 900px;
+  height: 500px;
   position: absolute;
   top: 0px;
   right: 0px;
   z-index: -1;
-`
-
-const AH2 = styled(animated.h2)`
-  font-family: playfair display;
-  font-weight: bold;
-  font-size: 260px;
-  margin: 0;
-  padding: 0;
-  color: rgba(255, 255, 255, 0.5);
-  mix-blend-mode: overlay;
-
-  @media ${devices.laptop} {
-    font-size: 260px;
-  }
-`
-
-const AHr = styled(animated.hr)`
-  width: 40%;
-  border: 0.5px solid #ffe9c9;
-  margin: 0 0 16px 0;
-
-  @media ${devices.laptop} {
-    height: 300px;
-    width: 0.5px;
-    display: inline-block;
-    margin: auto 50px auto 50px;
-  }
 `
 
 // const DriftKeys = keyframes`
@@ -134,19 +89,9 @@ export default ({ scrollPos }) => {
       }}
     >
       <MainTainr>
-        <AH2
-          style={{
-            position: `absolute`,
-            top: `10%`,
-            left: `45%`,
-            fontSize: `200px`,
-          }}
-        >
-          services
-        </AH2>
         <ContentTainr style={{ opacity: props.contentOpacity }}>
           <AH3 style={{ textAlign: `center` }}>We've got your back.</AH3>
-          <AHr />
+          <AHr style={{ width: `40%` }} />
           <AP
             style={{
               textAlign: `center`,

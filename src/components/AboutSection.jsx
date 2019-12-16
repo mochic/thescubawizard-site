@@ -65,6 +65,7 @@ const AP = styled(animated.p)`
 // `
 
 const MainTainr = styled.div`
+  display: grid;
   position: relative; /* very important for absolute positioned image */
   height: 900px;
   grid-template-areas:
@@ -74,8 +75,8 @@ const MainTainr = styled.div`
   grid-template-rows: auto auto auto;
   grid-template-columns: auto 250px auto;
   @media ${devices.laptop} {
-    grid-template-rows: auto auto 8%;
-    grid-template-columns: 8% minmax(auto, 800px) minmax(8%, auto);
+    grid-template-rows: auto auto 150px;
+    grid-template-columns: 8% minmax(auto, 900px) minmax(8%, auto);
   }
 `
 

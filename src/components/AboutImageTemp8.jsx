@@ -46,21 +46,9 @@ import devices from "../devices"
 
 // min-width: 700px
 // min-height: 800px or something...
-// const Gradient = styled(animated.div)`
-//   background: radial-gradient(
-//     38.45% 38.02% at 50.05% 49.94%,
-//     rgba(25, 31, 29, 0.76) 0%,
-//     #191f1d 100%
-//   );
-//   height: 100%;
-//   width: 100%;
-//   position: relative;
-//   overflow: hidden;
-//   min-height: 1000px; /* height is the way...because height is the only fixed part of the element, width is for media queries */
-// `
 const Gradient = styled(animated.div)`
   background: radial-gradient(
-    47.45% 38.02% at 51.05% 49.94%,
+    38.45% 38.02% at 50.05% 49.94%,
     rgba(25, 31, 29, 0.76) 0%,
     #191f1d 100%
   );

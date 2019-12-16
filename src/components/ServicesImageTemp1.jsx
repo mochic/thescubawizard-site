@@ -39,7 +39,7 @@ const Containr = styled(animated.div)`
   width: 100%;
 `
 
-// it's actually important for us to use images that are wider than tall...for our weird layout stuffsss...
+// it's actually important for us to use images that are wider than tall...for ouyr
 const Image = () => (
   <StaticQuery
     query={graphql`
