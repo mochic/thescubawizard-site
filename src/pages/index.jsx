@@ -106,6 +106,9 @@ export default () => {
       content: -0.08,
       header: -0.04,
     },
+    services: {
+      content: -0.08,
+    },
   }
 
   const [heroProps, setHeroProps] = useSpring(() => ({
@@ -138,6 +141,7 @@ export default () => {
 
   const [revealProps, setRevealProps] = useSpring(() => ({
     aboutCurtainOpacity: 1,
+    servicesCurtainOpacity: 1,
     config: { ...config.stiff, duration: 2000 },
   }))
 
@@ -156,7 +160,8 @@ export default () => {
     //   transform: `translate3d(${aboutVelocity * window.pageYOffset},0px,0)`,
     // })
     setServicesProps({
-      transform: `translate3d(${servicesVelocity * window.pageYOffset},0px,0)`,
+      contentTransform: `translate3d(0px,${velocities.services.content *
+        window.pageYOffset}px,0px)`,
     })
     setAboutProps({
       contentTransform: `translate3d(0px,${velocities.about.content *
@@ -205,7 +210,21 @@ export default () => {
           curtainProps={{ opacity: revealProps.aboutCurtainOpacity }}
         />
       </VisibilitySensor>
-      <Services scrollPos={pos} />
+      <VisibilitySensor
+        partialVisibility
+        offset={{ bottom: 100 }}
+        onChange={v => {
+          console.log("Services Visibility Changed...", v)
+          setRevealProps({
+            servicesCurtainOpacity: v ? 0 : 1,
+          })
+        }}
+      >
+        <Services
+          contentProps={{ transform: servicesProps.contentTransform }}
+          curtainProps={{ opacity: revealProps.servicesCurtainOpacity }}
+        />
+      </VisibilitySensor>
       <Interested />
       <div>
         <Footer />

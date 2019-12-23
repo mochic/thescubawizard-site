@@ -27,7 +27,22 @@ const AP = styled(animated.p)`
   line-height: 200%;
 `
 
-const ContentTainr = styled.div`
+// const ContentTainr = styled.div`
+//   grid-area: content;
+//   padding: 0;
+//   margin: auto;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   background: none;
+
+//   @media ${devices.laptop} {
+//     flex-direction: row;
+//     padding: 0 10px 0 10px;
+//   }
+// `
+
+const ContentTainr = styled(animated.div)`
   grid-area: content;
   padding: 0;
   margin: auto;
