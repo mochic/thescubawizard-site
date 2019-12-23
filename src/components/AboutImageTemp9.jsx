@@ -58,7 +58,6 @@ import devices from "../devices"
 //   overflow: hidden;
 //   min-height: 1000px; /* height is the way...because height is the only fixed part of the element, width is for media queries */
 // `
-
 const Gradient = styled(animated.div)`
   background: radial-gradient(
     47.45% 38.02% at 51.05% 49.94%,
@@ -72,10 +71,73 @@ const Gradient = styled(animated.div)`
   min-height: 1000px; /* height is the way...because height is the only fixed part of the element, width is for media queries */
 `
 
+// min-width, max-width might be bad due to absolute posited image that we would want to base off of
+
+// const ImageTainr = styled(animated.div)`
+//   z-index: -1;
+//   max-width: 450px;
+//   position: absolute;
+//   top: 0px;
+//   right: 0px;
+// `
+
+/* 
+    The image container is bigger than the gradient and shoud 
+    always above the gradient. Looks supert awful if the top
+    edge of the image is visbile in the gradient so we want 
+    to avoid this at all costs with this strategy...
+*/
+// const ImageTainr = styled(animated.div)`
+//   z-index: -1;
+//   min-height: 120%;
+//   position: absolute;
+//   top: -10%;
+//   right: 0px;
+// `
+// const ImageTainr = styled(animated.div)`
+//   z-index: -1;
+//   position: absolute;
+//   top: -30%; /* this can be crazy due to scaling of image */
+//   left: 0px;
+// `
+
+// const ImageTainr = styled(animated.div)`
+//   z-index: -1;
+//   position: absolute;
+//   top: -30%; /* this can be crazy due to scaling of image */
+//   left: 0px;
+// `
+
 const Containr = styled(animated.div)`
   height: 100%;
   width: 100%;
 `
+
+// const Image = () => (
+//   <StaticQuery
+//     query={graphql`
+//       query {
+//         placeholderImage: file(
+//           relativePath: { eq: "diver-83508_1280-cropped-0.png" }
+//         ) {
+//           childImageSharp {
+//             fluid(grayscale: true) {
+//               ...GatsbyImageSharpFluid
+//             }
+//           }
+//         }
+//       }
+//     `}
+//     render={data => (
+//       <Img
+//         imgStyle={{ objectPosition: "0% 0%" }}
+//         style={{ minWidth: `600px`, maxWidth: `1095px` }}
+//         // style={{ minWidth: `450px`, maxWidth: `1095px` }}
+//         fluid={data.placeholderImage.childImageSharp.fluid}
+//       />
+//     )}
+//   />
+// )
 
 const Image = ({ ...outerProps }) => (
   <StaticQuery
@@ -95,11 +157,18 @@ const Image = ({ ...outerProps }) => (
     render={data => {
       return (
         <Img
-          imgStyle={{ objectFit: "cover", objectPosition: "50% 50%" }}
+          imgStyle={{ objectPosition: "0% 0%" }}
           style={{
+            // minWidth: `600px`,
+            // maxWidth: `1095px`,
+            // zIndex: -1,
+            // position: `absolute`,
+            // top: `-30%`,
+            // left: `0px`,
             height: `100%`,
             width: `100%`,
           }}
+          // style={{ minWidth: `450px`, maxWidth: `1095px` }}
           fluid={data.placeholderImage.childImageSharp.fluid}
         />
       )
@@ -107,22 +176,39 @@ const Image = ({ ...outerProps }) => (
   />
 )
 
+// export default ({ imageTainrProps, containrProps }) => {
+//   return (
+//     <Containr {...containrProps}>
+//       <Gradient>
+//         <ImageTainr {...imageTainrProps}>
+//           <Image />
+//         </ImageTainr>
+//       </Gradient>
+//     </Containr>
+//   )
+// }
+
+// easiest media queries
+// const ImageTainr = styled(animated.div)`
+//   min-width: 600px;
+//   z-index: -1;
+//   position: absolute;
+//   top: -30%;
+//   left: 0px;
+
+//   @media ${devices.laptop} {
+//     min-width: 1000px;
+//   }
+// `
+
 // don't set height to 100%, we're using a janky temp hack to make our image not look terrible...
-// we're going to crop our images eventually anyway....so this is fine for now...?
 const ImageTainr = styled(animated.div)`
+  min-width: 600px;
   z-index: -1;
   position: absolute;
-  width: 100%;
-  min-width: 600px;
-
   top: 0px;
   left: 0px;
-  left: -100px;
-
-  @media ${devices.tablet} {
-    left: 0px;
-  }
-
+  width: 100%;
   @media ${devices.laptop} {
     top: -30%;
   }

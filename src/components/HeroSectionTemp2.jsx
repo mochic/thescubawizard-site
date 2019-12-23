@@ -24,8 +24,8 @@ import devices from "../devices"
 const HeroTainr = styled(animated.div)`
   overflow: hidden;
   position: relative;
-  height: 80vh; /* 100vh felt wayyyy tooo long to scroll thru */
-
+  height: 70%; /* 100vh felt wayyyy tooo long to scroll thru */
+  background: red;
   @media ${devices.laptop} {
     height: 100vh;
   }
@@ -72,7 +72,19 @@ const ImageTainr = styled(animated.div)`
 `
 
 const Hero = ({ titleProps, linkTainrProps, curtainProps }) => {
+  // const [visible, setVisible] = useState(false)
+
+  //   const heroImageProps = {
+  //     gradientProps: {
+  //       gv: Math.max(80 - (pos * 80) / 150, 1), // gradient breaks / looks strange when it goes lower than 1...
+  //     },
+  //   }
+
   const heroImageProps = {}
+
+  // const tSVGStyle = {
+  //   margin
+  // }
 
   const linkProps = useSpring({
     from: {
@@ -98,36 +110,45 @@ const Hero = ({ titleProps, linkTainrProps, curtainProps }) => {
   console.log("%cHero Section rendered!", "color: red")
 
   return (
-    <HeroTainr>
-      <TitleTainr {...titleProps}>
-        <TitleSVG style={{ margin: `0 26px 0 26px`, maxWidth: `270px` }} />
-      </TitleTainr>
-      <HeroLinkTainr {...linkTainrProps}>
-        <FancyLink
-          to="/schedule"
-          textStyle={{ fontWeight: 300, opacity: linkProps.textOpacity }}
-          buttonStyle={{
-            transform: linkProps.arrowTransform,
-            opacity: linkProps.arrowOpacity,
-          }}
-          arrowProps={{
-            style: {},
-          }}
-          containrProps={{
-            style: {
-              margin: `0 26px 0 26px`,
-              maxWidth: `270px`,
-            },
-          }}
-        >
-          Schedule a chat.
-        </FancyLink>
-      </HeroLinkTainr>
-      <Curtain style={curtainProps} />
-      <ImageTainr>
-        <HeroImage {...heroImageProps} />
-      </ImageTainr>
-    </HeroTainr>
+    <VisibilitySensor
+      partialVisibility
+      offset={{ top: 50 }}
+      onChange={v => {
+        console.log("%chero visibility changed!", v)
+        // setVisible(v)
+      }}
+    >
+      <HeroTainr>
+        <TitleTainr {...titleProps}>
+          <TitleSVG style={{ margin: `0 26px 0 26px`, maxWidth: `270px` }} />
+        </TitleTainr>
+        <HeroLinkTainr {...linkTainrProps}>
+          <FancyLink
+            to="/schedule"
+            textStyle={{ fontWeight: 300, opacity: linkProps.textOpacity }}
+            buttonStyle={{
+              transform: linkProps.arrowTransform,
+              opacity: linkProps.arrowOpacity,
+            }}
+            arrowProps={{
+              style: {},
+            }}
+            containrProps={{
+              style: {
+                margin: `0 26px 0 26px`,
+                maxWidth: `270px`,
+              },
+            }}
+          >
+            Schedule a chat.
+          </FancyLink>
+        </HeroLinkTainr>
+        <Curtain style={curtainProps} />
+        <ImageTainr>
+          <HeroImage {...heroImageProps} />
+        </ImageTainr>
+      </HeroTainr>
+    </VisibilitySensor>
   )
 }
 

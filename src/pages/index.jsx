@@ -23,6 +23,8 @@ import Statements from "../components/Statements3"
 
 import device from "../devices"
 
+import VisibilitySensor from "react-visibility-sensor"
+
 const ADiv = styled(animated.div)``
 
 const MainTainr = styled(animated.div)`
@@ -109,7 +111,14 @@ export default () => {
     titleTransform: `translate3d(0px,0px,0)`,
     linkTransform: `translate3d(0px,0px,0)`,
     curtainOpacity: 0,
+    // config: { duration: 5000 },
   }))
+
+  const [heroLinkProps, setHeroLinkProps] = useSpring(() => ({
+    linkTransform: `translate3d(0px,0px,0px)`,
+    linkOpacity: 0,
+  }))
+
   // const [aboutProps, setAboutProps] = useSpring(() => ({
   //   transform: `translate3d(0px,0px,0)`,
   // }))
@@ -124,6 +133,15 @@ export default () => {
   const [aboutProps, setAboutProps] = useSpring(() => ({
     contentTransform: `translate3d(0px,0px,0px)`,
     headerTransform: `translate3d(0px,0px,0px)`,
+  }))
+
+  const [revealProps, setRevealProps] = useSpring(() => ({
+    aboutCurtainOpacity: 1,
+    config: { ...config.stiff, duration: 2000 },
+  }))
+
+  const [parallaxProps, setParallaxProps] = useSpring(() => ({
+    aboutTransform: `translate3d(0px,0px,0px)`,
   }))
 
   const rawHandler = () => {
@@ -164,14 +182,28 @@ export default () => {
 
   return (
     <MainTainr>
-      <Hero
-        titleProps={{ style: { transform: heroProps.titleTransform } }}
-        curtainProps={{ opacity: heroProps.curtainOpacity }}
-      />
-      <About
-        contentTainrProps={{ transform: aboutProps.contentTransform }}
-        headerProps={{ transform: aboutProps.headerTransform }}
-      />
+      <VisibilitySensor>
+        <Hero
+          titleProps={{ style: { transform: heroProps.titleTransform } }}
+          curtainProps={{ opacity: heroProps.curtainOpacity }}
+        />
+      </VisibilitySensor>
+      <VisibilitySensor
+        partialVisibility
+        offset={{ bottom: 100 }}
+        onChange={v => {
+          console.log("About Visibility Changed...", v)
+          setRevealProps({
+            aboutCurtainOpacity: v ? 0 : 1,
+          })
+        }}
+      >
+        <About
+          contentTainrProps={{ transform: aboutProps.contentTransform }}
+          headerProps={{ transform: aboutProps.headerTransform }}
+          curtainProps={{ opacity: revealProps.aboutCurtainOpacity }}
+        />
+      </VisibilitySensor>
       <Services scrollPos={pos} />
       <Interested />
       <div>

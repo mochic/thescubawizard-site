@@ -225,52 +225,99 @@ export default ({ contentTainrProps, headerProps, curtainProps }) => {
   console.log("%cAbout Section rendered!", "color: red")
 
   return (
-    <MainTainr>
-      <AH2
-        style={{
-          position: `absolute`,
-          top: `5px`,
-          // left: `41px`,
-          left: `100px`, // to account for animation
-          ...headerProps,
-        }}
-      >
-        about
-      </AH2>
-      <ContentTainr style={contentTainrProps}>
-        <AH3>Not your everyday dive service.</AH3>
-        <AHr />
-        <AP
+    <VisibilitySensor
+      partialVisibility
+      // offset={{ bottom: 500 }}
+      offset={{ bottom: 350 }}
+      onChange={v => {
+        console.log("about vis changed!", v)
+        if (v) {
+          setRevealProps({
+            // imageOpacity: 1,
+            curtainOpacity: 0,
+          })
+        } else {
+          // setRevealProps({ imageOpacity: 0.3, curtainOpacity: 1 })
+        }
+      }}
+    >
+      <MainTainr>
+        <AH2
           style={{
-            textAlign: `center`,
-            fontFamily: `open sans`,
-            fontSize: `16px`,
-            fontWeight: 300,
+            position: `absolute`,
+            top: `5px`,
+            // left: `41px`,
+            left: `100px`, // to account for animation
+            ...headerProps,
           }}
         >
-          We’re dedicated to delivering a quality dive service to the Pacific
-          Northwest area. With us you wont have to worry about stuff? You
-          shouldnt need to take time out of your busy work schedule.
-        </AP>
-      </ContentTainr>
-      <Curtain style={curtainProps} />
-      <ImageTainr>
-        <AboutImage
-          containrProps={{
-            style: {
-              gridArea: `image`,
-              // overflow: `hidden`, // no ideas why...it just screws up everything if an accidental zoom occurs
-              margin: `-1px`,
-            },
+          about
+        </AH2>
+        <ContentTainr style={contentTainrProps}>
+          <AH3>Not your everyday dive service.</AH3>
+          <AHr />
+          <AP
+            style={{
+              textAlign: `center`,
+              fontFamily: `open sans`,
+              fontSize: `16px`,
+              fontWeight: 300,
+            }}
+          >
+            We’re dedicated to delivering a quality dive service to the Pacific
+            Northwest area. With us you wont have to worry about stuff? You
+            shouldnt need to take time out of your busy work schedule.
+          </AP>
+        </ContentTainr>
+        <Curtain style={curtainProps} />
+        <ImageTainr>
+          <AboutImage
+            containrProps={{
+              style: {
+                gridArea: `image`,
+                // overflow: `hidden`, // no ideas why...it just screws up everything if an accidental zoom occurs
+                margin: `-1px`,
+              },
+            }}
+            imageTainrProps={{
+              style: {
+                opacity: revealProps.imageOpacity,
+                // transform: `translate3d(-${scrollDrift}px, 0, 0)`,
+              },
+            }}
+          />
+        </ImageTainr>
+        {/* <ImageTainr>
+          <AboutImage
+            imageTainrProps={{
+              style: {
+                // opacity: scrollPos * 0.08,
+                transform: `translate3d(${scrollPos * 0.05}px, 0, 0)`,
+              },
+            }}
+          />
+        </ImageTainr> */}
+        {/* <div
+          style={{
+            position: `absolute`,
+            left: `10%`,
+            top: `100px`,
+            zIndex: -1,
+            opacity: revealProps.h2Opacity,
+            transform: `translate3d(0,${scrollPos * 0.4}px,0)`,
+            width: `100%`,
           }}
-          imageTainrProps={{
-            style: {
-              opacity: revealProps.imageOpacity,
-              // transform: `translate3d(-${scrollDrift}px, 0, 0)`,
-            },
-          }}
-        />
-      </ImageTainr>
-    </MainTainr>
+        >
+          <AH2
+            style={{
+              transform: `rotate(-90deg)`,
+              opacity: revealProps.h2Opacity,
+            }}
+          >
+            about
+          </AH2>
+        </div> */}
+      </MainTainr>
+    </VisibilitySensor>
   )
 }
