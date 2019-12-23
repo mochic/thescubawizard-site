@@ -31,7 +31,14 @@ const ButtonTainr = styled(animated.div)`
   transform: translate3d(0, 17px, 0);
 `
 
-export default ({ to, children, buttonStyle, textStyle, arrowProps }) => {
+export default ({
+  to,
+  children,
+  buttonStyle,
+  textStyle,
+  arrowProps,
+  containrProps,
+}) => {
   const handleClick = e => {
     e.preventDefault()
     console.log("%cfancy link clicked! navigating to: ", "color: pink", to)
@@ -42,7 +49,7 @@ export default ({ to, children, buttonStyle, textStyle, arrowProps }) => {
   const buttonProps = {}
 
   return (
-    <Containr>
+    <Containr {...containrProps}>
       <P style={{ ...textProps, ...textStyle }}>{children}</P>
       <ButtonTainr>
         <Button

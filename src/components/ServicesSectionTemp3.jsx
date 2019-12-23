@@ -106,7 +106,7 @@ const AHr = styled(animated.hr)`
   }
 `
 
-export default () => {
+export default ({ scrollPos }) => {
   const [props, setProps, stop] = useSpring(() => ({
     contentOpacity: 0.3,
   }))

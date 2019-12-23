@@ -97,33 +97,22 @@ export default () => {
     hero: {
       title: -0.1,
       link: -0.08,
-      curtain: 0.01,
-    },
-    about: {
-      content: -0.08,
-      header: -0.04,
     },
   }
 
   const [heroProps, setHeroProps] = useSpring(() => ({
     titleTransform: `translate3d(0px,0px,0)`,
     linkTransform: `translate3d(0px,0px,0)`,
-    curtainOpacity: 0,
   }))
-  // const [aboutProps, setAboutProps] = useSpring(() => ({
-  //   transform: `translate3d(0px,0px,0)`,
-  // }))
+  const [aboutProps, setAboutProps] = useSpring(() => ({
+    transform: `translate3d(0px,0px,0)`,
+  }))
   const [servicesProps, setServicesProps] = useSpring(() => ({
     transform: `translate3d(0px,0px,0)`,
   }))
 
-  // const [aboutContentTainrProps, setAboutContentTainrProps] = useSpring(() => ({
-  //   transform: `translate3d(0px,0px,0)`,
-  // }))
-
-  const [aboutProps, setAboutProps] = useSpring(() => ({
-    contentTransform: `translate3d(0px,0px,0px)`,
-    headerTransform: `translate3d(0px,0px,0px)`,
+  const [aboutContentTainrProps, setAboutContentTainrProps] = useSpring(() => ({
+    transform: `translate3d(0px,0px,0)`,
   }))
 
   const rawHandler = () => {
@@ -131,19 +120,15 @@ export default () => {
     setHeroProps({
       titleTransform: `translate3d(0px,${velocities.hero.title *
         window.pageYOffset}px,0)`,
-      curtainOpacity: velocities.hero.curtain * window.pageYOffset,
     })
-    // setAboutProps({
-    //   transform: `translate3d(${aboutVelocity * window.pageYOffset},0px,0)`,
-    // })
+    setAboutProps({
+      transform: `translate3d(${aboutVelocity * window.pageYOffset},0px,0)`,
+    })
     setServicesProps({
       transform: `translate3d(${servicesVelocity * window.pageYOffset},0px,0)`,
     })
-    setAboutProps({
-      contentTransform: `translate3d(0px,${velocities.about.content *
-        window.pageYOffset}px,0px)`,
-      headerTransform: `translate3d(${velocities.about.header *
-        window.pageYOffset}px,0px,0px)`,
+    setAboutContentTainrProps({
+      transform: `translate3d(0px,${aboutVelocity * window.pageYOffset}px,0)`,
     })
   }
 
@@ -164,14 +149,8 @@ export default () => {
 
   return (
     <MainTainr>
-      <Hero
-        titleProps={{ style: { transform: heroProps.titleTransform } }}
-        curtainProps={{ opacity: heroProps.curtainOpacity }}
-      />
-      <About
-        contentTainrProps={{ transform: aboutProps.contentTransform }}
-        headerProps={{ transform: aboutProps.headerTransform }}
-      />
+      <Hero titleProps={{ style: { transform: heroProps.titleTransform } }} />
+      <About contentTainrProps={aboutContentTainrProps} />
       <Services scrollPos={pos} />
       <Interested />
       <div>

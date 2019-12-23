@@ -227,17 +227,16 @@ export default ({ contentTainrProps, headerProps }) => {
   return (
     <VisibilitySensor
       partialVisibility
-      // offset={{ bottom: 500 }}
-      offset={{ bottom: 350 }}
+      offset={{ bottom: 500 }}
       onChange={v => {
         console.log("about vis changed!", v)
         if (v) {
           setRevealProps({
-            // imageOpacity: 1,
+            imageOpacity: 1,
             curtainOpacity: 0,
           })
         } else {
-          // setRevealProps({ imageOpacity: 0.3, curtainOpacity: 1 })
+          setRevealProps({ imageOpacity: 0.3, curtainOpacity: 1 })
         }
       }}
     >

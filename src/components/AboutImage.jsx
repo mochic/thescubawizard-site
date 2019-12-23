@@ -167,7 +167,6 @@ const Image = ({ ...outerProps }) => (
             // left: `0px`,
             height: `100%`,
             width: `100%`,
-            boxShadow: `25px 25px 50px 0 white inset, -25px -25px 50px 0 white inset`,
           }}
           // style={{ minWidth: `450px`, maxWidth: `1095px` }}
           fluid={data.placeholderImage.childImageSharp.fluid}
@@ -202,14 +201,16 @@ const Image = ({ ...outerProps }) => (
 //   }
 // `
 
+// don't set height to 100%, we're using a janky temp hack to make our image not look terrible...
 const ImageTainr = styled(animated.div)`
   min-width: 600px;
   z-index: -1;
   position: absolute;
-  top: -30%;
+  top: 0px;
   left: 0px;
   width: 100%;
   @media ${devices.laptop} {
+    top: -30%;
   }
 `
 

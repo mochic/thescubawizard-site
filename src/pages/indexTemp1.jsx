@@ -6,7 +6,6 @@ import { animated, config, useSpring } from "react-spring"
 import debounce from "lodash/debounce"
 
 import HeroImage from "../components/HeroImage"
-import Hero from "../components/HeroSection"
 // import AboutImage from "../components/AboutImageParallax5"
 // import AboutImageParallax5 from "../components/AboutImageParallax5"
 
@@ -21,13 +20,116 @@ import Footer from "../components/AnotherFooter"
 
 import Statements from "../components/Statements3"
 
+import TitleSVG from "../components/TitleSVG"
+
+import FancyLink from "../components/FancyLink"
+
 import device from "../devices"
 
+import VisibilitySensor from "react-visibility-sensor"
+
 const ADiv = styled(animated.div)``
+
+// for media queries primarily
+// const HeroTainr = styled(animated.div)`
+//   overflow: hidden;
+//   position: relative;
+//   height: 70vh;
+// `
+
+const HeroTainr = styled(animated.div)`
+  overflow: hidden;
+  position: relative;
+  height: 100vh; /* it's the hero we want it to be the first thang u sees */
+`
 
 const MainTainr = styled(animated.div)`
   position: relative;
 `
+
+const TitleTainr = styled(animated.div)`
+  z-index: 1000;
+  width: 100%;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+`
+
+const HeroLinkTainr = styled(animated.div)`
+  z-index: 1000 !important; /* we want our scheduling link always clickable! no matter wut */
+  position: absolute;
+  top: 65%;
+  width: 70%;
+  padding: 0 45px 0 45px;
+`
+
+const Hero = ({ pos }) => {
+  const [visible, setVisible] = useState(false)
+
+  const heroImageProps = {
+    gradientProps: {
+      gv: Math.max(80 - (pos * 80) / 150, 1), // gradient breaks / looks strange when it goes lower than 1...
+    },
+  }
+
+  const titleStyle = {}
+
+  const tSVGStyle = {
+    transform: `scale(${1.5})`,
+  }
+
+  const linkProps = useSpring({
+    from: {
+      arrowTransform: `translate3d(-10px,0,0)`,
+      arrowOpacity: 0,
+      textOpacity: 0,
+    },
+    to: [
+      { textOpacity: 1 },
+      {
+        arrowTransform: `translate3d(0px,0,0)`,
+        arrowOpacity: 1,
+      },
+    ],
+    // reset: true,
+    config: { ...config.molasses, duration: 500 },
+  })
+
+  return (
+    <VisibilitySensor
+      partialVisibility
+      offset={{ top: 50 }}
+      onChange={v => {
+        console.log("%chero visibility changed!", v)
+        setVisible(v)
+      }}
+    >
+      <>
+        <TitleTainr style={titleStyle}>
+          <TitleSVG style={tSVGStyle} />
+        </TitleTainr>
+        <HeroLinkTainr>
+          <FancyLink
+            to="/schedule"
+            textStyle={{ fontWeight: 300, opacity: linkProps.textOpacity }}
+            buttonStyle={{
+              transform: linkProps.arrowTransform,
+              opacity: linkProps.arrowOpacity,
+            }}
+            arrowProps={{
+              style: {},
+            }}
+          >
+            Schedule a chat.
+          </FancyLink>
+        </HeroLinkTainr>
+        <HeroImage {...heroImageProps} />
+      </>
+    </VisibilitySensor>
+  )
+}
 
 // intelligently scale with js :/
 // show header and extra stuff if in tablet/desktop view!
@@ -93,57 +195,33 @@ export default () => {
   const aboutVelocity = -0.08
   const servicesVelocity = 0.8
 
-  const velocities = {
-    hero: {
-      title: -0.1,
-      link: -0.08,
-      curtain: 0.01,
-    },
-    about: {
-      content: -0.08,
-      header: -0.04,
-    },
-  }
-
   const [heroProps, setHeroProps] = useSpring(() => ({
-    titleTransform: `translate3d(0px,0px,0)`,
-    linkTransform: `translate3d(0px,0px,0)`,
-    curtainOpacity: 0,
+    transform: `translate3d(0px,0px,0)`,
   }))
-  // const [aboutProps, setAboutProps] = useSpring(() => ({
-  //   transform: `translate3d(0px,0px,0)`,
-  // }))
+  const [aboutProps, setAboutProps] = useSpring(() => ({
+    transform: `translate3d(0px,0px,0)`,
+  }))
   const [servicesProps, setServicesProps] = useSpring(() => ({
     transform: `translate3d(0px,0px,0)`,
   }))
 
-  // const [aboutContentTainrProps, setAboutContentTainrProps] = useSpring(() => ({
-  //   transform: `translate3d(0px,0px,0)`,
-  // }))
-
-  const [aboutProps, setAboutProps] = useSpring(() => ({
-    contentTransform: `translate3d(0px,0px,0px)`,
-    headerTransform: `translate3d(0px,0px,0px)`,
+  const [aboutContentTainrProps, setAboutContentTainrProps] = useSpring(() => ({
+    transform: `translate3d(0px,0px,0)`,
   }))
 
   const rawHandler = () => {
     // setPos(window.pageYOffset)
     setHeroProps({
-      titleTransform: `translate3d(0px,${velocities.hero.title *
-        window.pageYOffset}px,0)`,
-      curtainOpacity: velocities.hero.curtain * window.pageYOffset,
+      transform: `translate3d(${heroVelocity * window.pageYOffset},0px,0)`,
     })
-    // setAboutProps({
-    //   transform: `translate3d(${aboutVelocity * window.pageYOffset},0px,0)`,
-    // })
+    setAboutProps({
+      transform: `translate3d(${aboutVelocity * window.pageYOffset},0px,0)`,
+    })
     setServicesProps({
       transform: `translate3d(${servicesVelocity * window.pageYOffset},0px,0)`,
     })
-    setAboutProps({
-      contentTransform: `translate3d(0px,${velocities.about.content *
-        window.pageYOffset}px,0px)`,
-      headerTransform: `translate3d(${velocities.about.header *
-        window.pageYOffset}px,0px,0px)`,
+    setAboutContentTainrProps({
+      transform: `translate3d(0px,${aboutVelocity * window.pageYOffset}px,0)`,
     })
   }
 
@@ -164,14 +242,10 @@ export default () => {
 
   return (
     <MainTainr>
-      <Hero
-        titleProps={{ style: { transform: heroProps.titleTransform } }}
-        curtainProps={{ opacity: heroProps.curtainOpacity }}
-      />
-      <About
-        contentTainrProps={{ transform: aboutProps.contentTransform }}
-        headerProps={{ transform: aboutProps.headerTransform }}
-      />
+      <HeroTainr className="hero-tainr">
+        <Hero pos={pos} />
+      </HeroTainr>
+      <About contentTainrProps={aboutContentTainrProps} />
       <Services scrollPos={pos} />
       <Interested />
       <div>

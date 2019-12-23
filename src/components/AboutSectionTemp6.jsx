@@ -170,6 +170,74 @@ const AHr = styled(animated.hr)`
   }
 `
 
+// const ImageTainr = styled(animated.div)`
+//   min-height: 850px;
+//   z-index: -1;
+//   width: 100%;
+//   height: 100%;
+//   top: 0px;
+//   left: -100px; /* add padding after a certain media query breakpoint */
+//   position: absolute;
+// `
+
+// const ImageTainr = styled(animated.div)`
+//   z-index: -1;
+//   height: 700px;
+//   width: 100%;
+//   position: absolute;
+//   top: 0px;
+//   left: 35%; /* add padding after a certain media query breakpoint */
+//   display: grid;
+//   grid-template-areas: ". image .";
+//   grid-template-columns: auto 3fr 1fr;
+// `
+
+// const ImageTainr = styled(animated.div)`
+//   z-index: -1;
+//   height: 700px;
+//   width: 100%;
+//   position: absolute;
+//   top: 0px;
+//   left: 35%; /* add padding after a certain media query breakpoint */
+//   display: grid;
+//   grid-template-areas: ". image .";
+//   grid-template-columns: 1fr 1fr 1fr;
+//   min-width: 2000px;
+// `
+
+// const ImageTainr = styled(animated.div)`
+//   z-index: -1;
+//   height: 700px;
+//   width: 100%;
+//   position: absolute;
+//   top: 0px;
+//   left: 0px;
+//   display: grid;
+//   grid-template-areas: ". image .";
+//   grid-template-columns: auto 700px minmax(auto, 25px);
+//   background: red;
+// `
+
+// const ImageTainr = styled(animated.div)`
+//   z-index: -1;
+//   height: 700px;
+//   width: 100%;
+//   position: absolute;
+//   top: 0px;
+//   left: 0px;
+//   display: grid;
+//   grid-template-areas: ". image .";
+//   grid-template-columns: auto 400px 100px;
+
+//   @media ${devices.tablet} {
+//     grid-template-columns: auto 600px 100px;
+//   }
+
+//   @media ${devices.laptop} {
+//     grid-template-columns: auto 800px 100px;
+//   }
+// `
+
 const ImageTainr = styled(animated.div)`
   z-index: -1;
   height: 900px;
@@ -196,20 +264,11 @@ const OuterDiv = styled(animated.div)`
   height: 898px;
 `
 
-const Curtain = styled(animated.div)`
-  height: 100%;
-  width: 100%;
-  background: #191f1d;
-  position: absolute;
-  z-index: 0;
-`
-
 export default ({ contentTainrProps, headerProps }) => {
   //   const [revealed, setRevealed] = useState(false)
 
   const [revealProps, setRevealProps] = useSpring(() => ({
     imageOpacity: 0,
-    curtainOpacity: 1,
   }))
 
   // const atLeastTablet = window.matchMedia(devices.tablet)
@@ -220,24 +279,22 @@ export default ({ contentTainrProps, headerProps }) => {
   //   atLeastTablet
   // )
 
-  // const { style: headerStyle, ...headerPropsRest } = headerProps || {} // hacky default value
+  const { style: headerStyle, ...headerPropsRest } = headerProps || {} // hacky default value
 
   console.log("%cAbout Section rendered!", "color: red")
 
   return (
     <VisibilitySensor
       partialVisibility
-      // offset={{ bottom: 500 }}
-      offset={{ bottom: 350 }}
+      offset={{ bottom: 500 }}
       onChange={v => {
         console.log("about vis changed!", v)
         if (v) {
           setRevealProps({
-            // imageOpacity: 1,
-            curtainOpacity: 0,
+            imageOpacity: 1,
           })
         } else {
-          // setRevealProps({ imageOpacity: 0.3, curtainOpacity: 1 })
+          setRevealProps({ imageOpacity: 0.3 })
         }
       }}
     >
@@ -246,10 +303,10 @@ export default ({ contentTainrProps, headerProps }) => {
           style={{
             position: `absolute`,
             top: `5px`,
-            // left: `41px`,
-            left: `100px`, // to account for animation
-            ...headerProps,
+            left: `41px`,
+            ...headerStyle,
           }}
+          {...headerPropsRest}
         >
           about
         </AH2>
@@ -269,7 +326,6 @@ export default ({ contentTainrProps, headerProps }) => {
             shouldnt need to take time out of your busy work schedule.
           </AP>
         </ContentTainr>
-        <Curtain style={{ opacity: revealProps.curtainOpacity }} />
         <ImageTainr>
           <AboutImage
             containrProps={{
