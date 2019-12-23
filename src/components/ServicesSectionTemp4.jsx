@@ -106,48 +106,66 @@ const AHr = styled(animated.hr)`
   }
 `
 
-const Curtain = styled(animated.div)`
-  height: 100%;
-  width: 100%;
-  background: #191f1d;
-  position: absolute;
-  z-index: 0;
-`
+export default () => {
+  const [props, setProps, stop] = useSpring(() => ({
+    contentOpacity: 0.3,
+  }))
 
-export default ({ headerProps, contentProps, curtainProps }) => {
   return (
-    <MainTainr>
-      <ContentTainr style={{ ...contentProps }}>
-        <AH3 style={{ textAlign: `center` }}>We've got your back.</AH3>
-        <AHr />
-        <AP
+    <VisibilitySensor
+      partialVisibility
+      top={{ offset: 100 }}
+      onChange={v => {
+        console.log("promise visibility changed!", v)
+        if (v) {
+          setProps({ contentOpacity: 1 })
+        } else {
+          setProps({ contentOpacity: 0.3 })
+        }
+      }}
+    >
+      <MainTainr>
+        <AH2
           style={{
-            textAlign: `center`,
-            fontFamily: `open sans`,
-            fontSize: `16px`,
-            fontWeight: 300,
+            position: `absolute`,
+            top: `10%`,
+            left: `45%`,
+            fontSize: `200px`,
           }}
         >
-          We'll work with you to make sure the job gets done right the first
-          time. If it takes longer than expected, we promise not the leave you
-          high and dry with a half-finished job!
-        </AP>
-      </ContentTainr>
-      <Curtain style={{ ...curtainProps }} />
-      <AH2
-        style={{
-          position: `absolute`,
-          top: `10%`,
-          left: `45%`,
-          fontSize: `200px`,
-          ...headerProps,
-        }}
-      >
-        services
-      </AH2>
-      <ImageTainr>
-        <ServicesImage />
-      </ImageTainr>
-    </MainTainr>
+          services
+        </AH2>
+        <ContentTainr style={{ opacity: props.contentOpacity }}>
+          <AH3 style={{ textAlign: `center` }}>We've got your back.</AH3>
+          <AHr />
+          <AP
+            style={{
+              textAlign: `center`,
+              fontFamily: `open sans`,
+              fontSize: `16px`,
+              fontWeight: 300,
+            }}
+          >
+            We'll work with you to make sure the job gets done right the first
+            time. If it takes longer than expected, we promise not the leave you
+            high and dry with a half-finished job!
+          </AP>
+        </ContentTainr>
+        <ImageTainr
+          style={{
+            opacity: props.imageOpacity,
+          }}
+        >
+          <ServicesImage
+            imageTainrProps={{
+              style: {
+                // opacity: scrollPos * 0.08,
+                // transform: `translate3d(${scrollPos * 0.015}px, 0, 0)`,
+              },
+            }}
+          />
+        </ImageTainr>
+      </MainTainr>
+    </VisibilitySensor>
   )
 }

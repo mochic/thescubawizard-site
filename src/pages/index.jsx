@@ -47,6 +47,7 @@ const AboutTainr = styled(animated.div)`
   width: 100%;
   position: relative;
   z-index: 1;
+  background: red;
 `
 
 // z-index 1 so that our header doesnt get cut off...TODO: fix this so we dont need this hack solution
