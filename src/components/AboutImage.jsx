@@ -59,6 +59,19 @@ import devices from "../devices"
 //   min-height: 1000px; /* height is the way...because height is the only fixed part of the element, width is for media queries */
 // `
 
+// const Gradient = styled(animated.div)`
+//   background: radial-gradient(
+//     47.45% 38.02% at 51.05% 49.94%,
+//     rgba(25, 31, 29, 0.76) 0%,
+//     #191f1d 100%
+//   );
+//   height: 100%;
+//   width: 100%;
+//   position: relative;
+//   overflow: hidden;
+//   min-height: 1000px; /* height is the way...because height is the only fixed part of the element, width is for media queries */
+// `
+
 const Gradient = styled(animated.div)`
   background: radial-gradient(
     47.45% 38.02% at 51.05% 49.94%,
@@ -66,7 +79,7 @@ const Gradient = styled(animated.div)`
     #191f1d 100%
   );
   height: 100%;
-  width: 100%;
+  width: 101%; /* fixes weird white edge on right hand side on mobile */
   position: relative;
   overflow: hidden;
   min-height: 1000px; /* height is the way...because height is the only fixed part of the element, width is for media queries */

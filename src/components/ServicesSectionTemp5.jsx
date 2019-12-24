@@ -67,22 +67,6 @@ const ContentTainr = styled(animated.div)`
 //   overflow: hidden;
 // `
 
-// const MainTainr = styled.div`
-//   display: grid;
-//   position: relative; /* very important for absolute positioned image */
-//   height: 900px;
-//   grid-template-areas:
-//     ". . . "
-//     ". content ."
-//     ". . .";
-//   grid-template-rows: auto auto auto;
-//   grid-template-columns: auto 250px auto;
-//   @media ${devices.laptop} {
-//     grid-template-rows: auto auto 150px;
-//     grid-template-columns: 8% minmax(auto, 900px) minmax(8%, auto);
-//   }
-// `
-
 const MainTainr = styled.div`
   display: grid;
   position: relative; /* very important for absolute positioned image */
@@ -124,24 +108,6 @@ const AH2 = styled(animated.h2)`
   }
 `
 
-const BrokedAH2 = styled(animated.h2)`
-  font-family: playfair display;
-  font-weight: bold;
-  font-size: 260px;
-  margin: 0;
-  padding: 0;
-  color: rgba(255, 255, 255, 0.5);
-  mix-blend-mode: overlay;
-
-  @media ${devices.laptop} {
-    font-size: 260px;
-  }
-`
-
-const BrokedH2Tainr = styled(animated.div)`
-  background: red;
-`
-
 const AHr = styled(animated.hr)`
   width: 40%;
   border: 0.5px solid #ffe9c9;
@@ -163,13 +129,7 @@ const Curtain = styled(animated.div)`
   z-index: 0;
 `
 
-export default ({
-  headerProps,
-  contentProps,
-  curtainProps,
-  h2Props0,
-  h2Props1,
-}) => {
+export default ({ headerProps, contentProps, curtainProps }) => {
   return (
     <MainTainr>
       <ContentTainr style={{ ...contentProps }}>
@@ -200,17 +160,6 @@ export default ({
       >
         services
       </AH2>
-      <BrokedH2Tainr
-        style={{
-          position: `absolute`,
-          top: `10%`,
-          fontSize: `200px`,
-          width: `100%`,
-        }}
-      >
-        <BrokedAH2 style={h2Props0}>serv</BrokedAH2>
-        <BrokedAH2 style={h2Props1}>ices</BrokedAH2>
-      </BrokedH2Tainr>
       <ImageTainr>
         <ServicesImage />
       </ImageTainr>

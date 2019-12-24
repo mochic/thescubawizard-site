@@ -127,7 +127,9 @@ export default () => {
   //   transform: `translate3d(0px,0px,0)`,
   // }))
   const [servicesProps, setServicesProps] = useSpring(() => ({
-    transform: `translate3d(0px,0px,0)`,
+    contentTransform: `translate3d(0px,0px,0)`,
+    h0Transform: `translate3d(50px, 0px, 0px)`,
+    h1Transform: `translate3d(-50px, 0px, 0px)`,
   }))
 
   // const [aboutContentTainrProps, setAboutContentTainrProps] = useSpring(() => ({
@@ -161,6 +163,10 @@ export default () => {
     // })
     setServicesProps({
       contentTransform: `translate3d(0px,${velocities.services.content *
+        window.pageYOffset}px,0px)`,
+      h0Transform: `translate3d(0px,${velocities.services.content *
+        window.pageYOffset}px,0px)`,
+      h1Transform: `translate3d(0px,${velocities.services.content *
         window.pageYOffset}px,0px)`,
     })
     setAboutProps({
@@ -223,6 +229,8 @@ export default () => {
         <Services
           contentProps={{ transform: servicesProps.contentTransform }}
           curtainProps={{ opacity: revealProps.servicesCurtainOpacity }}
+          h2Props0={{ transform: servicesProps.h0Transform }}
+          h2Props1={{ transform: servicesProps.h1Transform }}
         />
       </VisibilitySensor>
       <Interested />
