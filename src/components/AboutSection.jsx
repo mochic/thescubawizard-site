@@ -11,8 +11,6 @@ import devices from "../devices"
 
 // import { AHr } from "./Shared"
 
-import VisibilitySensor from "react-visibility-sensor"
-
 const AH3 = styled(animated.h3)`
   font-family: playfair display;
   font-size: 26px;
@@ -30,40 +28,6 @@ const AP = styled(animated.p)`
   line-height: 200%;
 `
 
-// const MainTainr = styled.div`
-//   position: relative; /* very important for absolute positioned image */
-//   min-height: 700px;
-//   display: grid;
-//   grid-template-areas:
-//     ". . . "
-//     ". content ."
-//     ". . .";
-//   grid-template-rows: auto auto auto;
-//   grid-template-columns: auto 250px auto;
-
-//   @media ${devices.laptop} {
-//     grid-template-rows: auto 250px 100px;
-//     grid-template-columns: auto 800px auto;
-//   }
-// `
-
-// const MainTainr = styled.div`
-//   position: relative; /* very important for absolute positioned image */
-//   min-height: 700px;
-//   display: grid;
-//   grid-template-areas:
-//     ". . . "
-//     ". content ."
-//     ". . .";
-//   grid-template-rows: auto auto auto;
-//   grid-template-columns: auto 250px auto;
-
-//   @media ${devices.laptop} {
-//     grid-template-rows: auto auto 8%;
-//     grid-template-columns: 8% minmax(auto, 800px) minmax(8%, auto);
-//   }
-// `
-
 const MainTainr = styled.div`
   display: grid;
   position: relative; /* very important for absolute positioned image */
@@ -80,36 +44,6 @@ const MainTainr = styled.div`
   }
 `
 
-// we use absolute position because it works really well here
-// const ContentTainr = styled.div`
-//   grid-area: content;
-//   padding: 50px 0 0 0;
-//   margin: auto;
-//   width: 250px;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-
-//   @media ${devices.tablet} {
-//     flex-direction: row;
-//   }
-// `
-
-// const ContentTainr = styled.div`
-//   grid-area: content;
-//   padding: 0;
-//   margin: auto;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   background: none;
-
-//   @media ${devices.laptop} {
-//     flex-direction: row;
-//     padding: 0 10px 0 10px;
-//   }
-// `
-
 const ContentTainr = styled(animated.div)`
   grid-area: content;
   padding: 0;
@@ -124,20 +58,6 @@ const ContentTainr = styled(animated.div)`
     padding: 0 10px 0 10px;
   }
 `
-
-// const AH2 = styled(animated.h2)`
-//   font-family: playfair display;
-//   font-weight: bold;
-//   font-size: 260px;
-//   margin: 0;
-//   padding: 0;
-//   color: rgba(255, 255, 255, 0.5);
-//   mix-blend-mode: overlay;
-
-//   @media ${devices.laptop} {
-//     font-size: 260px;
-//   }
-// `
 
 // make chunks go in different directions as u scroll?
 const AH2 = styled(animated.h2)`
@@ -170,12 +90,27 @@ const AHr = styled(animated.hr)`
   }
 `
 
+// const ImageTainr = styled(animated.div)`
+//   z-index: -1;
+//   height: 900px;
+//   width: 100%;
+//   position: absolute;
+//   top: 0px;
+//   left: 0px;
+
+//   @media ${devices.tablet} {
+//   }
+
+//   @media ${devices.laptop} {
+//   }
+// `
+
 const ImageTainr = styled(animated.div)`
   z-index: -1;
   height: 900px;
   width: 100%;
   position: absolute;
-  top: 0px;
+  top: -1px; /* fixes weird break in space on mobile S */
   left: 0px;
 
   @media ${devices.tablet} {
@@ -187,15 +122,6 @@ const ImageTainr = styled(animated.div)`
 
 // think about the images as modals moving along an axis
 
-const OuterDiv = styled(animated.div)`
-  grid-area: image;
-  margin: -1px;
-  background: red;
-  overflow: hidden;
-  width: 100%;
-  height: 898px;
-`
-
 const Curtain = styled(animated.div)`
   height: 100%;
   width: 100%;
@@ -205,8 +131,6 @@ const Curtain = styled(animated.div)`
 `
 
 export default ({ contentTainrProps, headerProps, curtainProps }) => {
-  //   const [revealed, setRevealed] = useState(false)
-
   const [revealProps, setRevealProps] = useSpring(() => ({
     imageOpacity: 0,
     curtainOpacity: 1,

@@ -99,7 +99,7 @@ export default () => {
   const velocities = {
     hero: {
       title: -0.1,
-      link: -0.08,
+      link: -0.1,
       curtain: 0.01,
     },
     about: {
@@ -107,7 +107,7 @@ export default () => {
       header: -0.04,
     },
     services: {
-      content: -0.08,
+      content: -0.03,
     },
   }
 
@@ -129,8 +129,8 @@ export default () => {
   // }))
   const [servicesProps, setServicesProps] = useSpring(() => ({
     contentTransform: `translate3d(0px,0px,0)`,
-    h0Transform: `translate3d(50px, 0px, 0px)`,
-    h1Transform: `translate3d(-50px, 0px, 0px)`,
+    h0Transform: `translate3d(200px, 0px, 0px)`,
+    h1Transform: `translate3d(-200px, 0px, 0px)`,
   }))
 
   const [aboutProps, setAboutProps] = useSpring(() => ({
@@ -154,22 +154,22 @@ export default () => {
       titleTransform: `translate3d(0px,${velocities.hero.title *
         window.pageYOffset}px,0)`,
       curtainOpacity: velocities.hero.curtain * window.pageYOffset,
+      linkTransform: `translate3d(0px,${velocities.hero.link}px,0)`,
     })
-    // setAboutProps({
-    //   transform: `translate3d(${aboutVelocity * window.pageYOffset},0px,0)`,
-    // })
-    setServicesProps({
-      contentTransform: `translate3d(0px,${velocities.services.content *
-        window.pageYOffset}px,0px)`,
-      h0Transform: `translate3d(0px,${velocities.services.content *
-        window.pageYOffset}px,0px)`,
-      h1Transform: `translate3d(0px,${velocities.services.content *
-        window.pageYOffset}px,0px)`,
-    })
+
     setAboutProps({
       contentTransform: `translate3d(0px,${velocities.about.content *
         window.pageYOffset}px,0px)`,
       headerTransform: `translate3d(${velocities.about.header *
+        window.pageYOffset}px,0px,0px)`,
+    })
+
+    setServicesProps({
+      contentTransform: `translate3d(0px,${velocities.services.content *
+        window.pageYOffset}px,0px)`,
+      h0Transform: `translate3d(${velocities.services.content *
+        window.pageYOffset}px,0px,0px)`,
+      h1Transform: `translate3d(${-velocities.services.content *
         window.pageYOffset}px,0px,0px)`,
     })
   }
@@ -202,7 +202,10 @@ export default () => {
         <Hero
           titleProps={{ style: { transform: heroProps.titleTransform } }}
           curtainProps={{ opacity: heroProps.curtainOpacity }}
-          linkTainrProps={{ opacity: heroProps.linkOpacity }}
+          linkTainrProps={{
+            opacity: heroProps.linkOpacity,
+            transform: heroProps.linkTransform,
+          }}
         />
       </VisibilitySensor>
       <VisibilitySensor

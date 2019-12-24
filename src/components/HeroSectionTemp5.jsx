@@ -11,21 +11,14 @@ import FancyLink from "../components/FancyLink"
 
 import HeroImage from "../components/HeroImage"
 
+import VisibilitySensor from "react-visibility-sensor"
+
 import devices from "../devices"
 
 const MainTainr = styled(animated.div)`
   overflow: hidden;
   position: relative;
   height: 80vh; /* 100vh felt wayyyy tooo long to scroll thru */
-
-  display: grid;
-  grid-template-areas:
-    ". . ."
-    ". title ."
-    ". link ."
-    ". . .";
-  grid-template-columns: 8% auto 8%;
-  grid-template-rows: 250px auto auto auto;
 
   @media ${devices.laptop} {
     height: 100vh;
@@ -45,6 +38,19 @@ const TitleTainr = styled(animated.div)`
   padding: 0;
   margin: 0;
   grid-area: title;
+`
+
+const ContentTainr = styled(animated.div)`
+  display: grid;
+  grid-template-areas:
+    ". . ."
+    ". title ."
+    ". link ."
+    ". . .";
+  grid-template-columns: auto 250px auto;
+  grid-template-rows: 250px auto auto auto;
+  height: 100%;
+  width: 100%;
 `
 
 const Curtain = styled(animated.div)`
@@ -87,30 +93,32 @@ const Hero = ({ titleProps, linkTainrProps, curtainProps }) => {
 
   return (
     <MainTainr>
-      <TitleTainr {...titleProps}>
-        <TitleSVG style={{ margin: `0 26px 0 26px`, maxWidth: `270px` }} />
-      </TitleTainr>
-      <HeroLinkTainr style={{ ...linkTainrProps }}>
-        <FancyLink
-          to="/schedule"
-          textStyle={{ fontWeight: 300, opacity: linkProps.textOpacity }}
-          buttonStyle={{
-            transform: linkProps.arrowTransform,
-            opacity: linkProps.arrowOpacity,
-          }}
-          arrowProps={{
-            style: {},
-          }}
-          containrProps={{
-            style: {
-              margin: `0 26px 0 26px`,
-              maxWidth: `270px`,
-            },
-          }}
-        >
-          Schedule a chat.
-        </FancyLink>
-      </HeroLinkTainr>
+      <ContentTainr>
+        <TitleTainr {...titleProps}>
+          <TitleSVG style={{ margin: `0 26px 0 26px`, maxWidth: `270px` }} />
+        </TitleTainr>
+        <HeroLinkTainr style={{ ...linkTainrProps }}>
+          <FancyLink
+            to="/schedule"
+            textStyle={{ fontWeight: 300, opacity: linkProps.textOpacity }}
+            buttonStyle={{
+              transform: linkProps.arrowTransform,
+              opacity: linkProps.arrowOpacity,
+            }}
+            arrowProps={{
+              style: {},
+            }}
+            containrProps={{
+              style: {
+                margin: `0 26px 0 26px`,
+                maxWidth: `270px`,
+              },
+            }}
+          >
+            Schedule a chat.
+          </FancyLink>
+        </HeroLinkTainr>
+      </ContentTainr>
       <Curtain style={curtainProps} />
       <ImageTainr>
         <HeroImage {...heroImageProps} />

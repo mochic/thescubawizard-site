@@ -61,6 +61,7 @@ const MainTainr = styled.div`
   display: grid;
   position: relative; /* very important for absolute positioned image */
   height: 900px;
+  background: blue;
   grid-template-areas:
     ". . . "
     ". content ."
@@ -102,8 +103,7 @@ const AH2 = styled(animated.h2)`
 const BrokedAH2 = styled(animated.h2)`
   font-family: playfair display;
   font-weight: bold;
-  font-size: 200px;
-  line-height: 120%;
+  font-size: 260px;
   margin: 0;
   padding: 0;
   color: rgba(255, 255, 255, 0.5);
@@ -114,7 +114,9 @@ const BrokedAH2 = styled(animated.h2)`
   }
 `
 
-const BrokedH2Tainr = styled(animated.div)``
+const BrokedH2Tainr = styled(animated.div)`
+  background: red;
+`
 
 const AHr = styled(animated.hr)`
   width: 40%;
@@ -163,7 +165,7 @@ export default ({
         </AP>
       </ContentTainr>
       <Curtain style={{ ...curtainProps }} />
-      {/* <AH2
+      <AH2
         style={{
           position: `absolute`,
           top: `10%`,
@@ -173,11 +175,11 @@ export default ({
         }}
       >
         services
-      </AH2> */}
+      </AH2>
       <BrokedH2Tainr
         style={{
           position: `absolute`,
-          top: `20%`,
+          top: `10%`,
           fontSize: `200px`,
           width: `100%`,
         }}
