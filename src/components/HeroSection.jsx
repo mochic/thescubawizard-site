@@ -88,7 +88,7 @@ const Hero = ({ titleProps, linkTainrProps, curtainProps }) => {
   return (
     <MainTainr>
       <TitleTainr {...titleProps}>
-        <TitleSVG style={{ margin: `0 26px 0 26px`, maxWidth: `270px` }} />
+        <TitleSVG style={{ margin: `auto`, maxWidth: `270px` }} />
       </TitleTainr>
       <HeroLinkTainr style={{ ...linkTainrProps }}>
         <FancyLink
@@ -103,7 +103,7 @@ const Hero = ({ titleProps, linkTainrProps, curtainProps }) => {
           }}
           containrProps={{
             style: {
-              margin: `0 26px 0 26px`,
+              margin: `auto`,
               maxWidth: `270px`,
             },
           }}

@@ -3,17 +3,23 @@ import React, { useLayoutEffect, useState, useRef } from "react"
 import styled from "styled-components"
 import { animated, config, useSpring } from "react-spring"
 
-import Hero from "../components/HeroSection"
-
 import debounce from "lodash/debounce"
+
+import HeroImage from "../components/HeroImage"
+import Hero from "../components/HeroSection"
+// import AboutImage from "../components/AboutImageParallax5"
+// import AboutImageParallax5 from "../components/AboutImageParallax5"
 
 import About from "../components/AboutSection"
 
+// import Promise from "../components/PromiseThang2"
 import Services from "../components/ServicesSection"
 
 import Interested from "../components/InterestedSection"
 
 import Footer from "../components/AnotherFooter"
+
+import Statements from "../components/Statements3"
 
 import device from "../devices"
 
@@ -46,6 +52,38 @@ const AboutTainr = styled(animated.div)`
 
 // z-index 1 so that our header doesnt get cut off...TODO: fix this so we dont need this hack solution
 
+// const StatementsHeight = 600
+// const StatementsTainr = styled.div`
+//   height: ${StatementsHeight}px;
+//   width: 100%;
+//   position: relative;
+//   z-index: 1;
+// `
+
+// const PromiseHeight = 700
+// const PromiseTainr = styled.div`
+//   min-height: ${PromiseHeight}px;
+//   width: 100%;
+//   position: relative;
+//   z-index: 1;
+// `
+
+// const PromiseHeight = 500
+// const PromiseTainr = styled.div`
+//   height: ${PromiseHeight}px;
+//   width: 100%;
+//   position: relative;
+//   z-index: 1;
+// `
+
+// const PromiseHeight = 700
+// const PromiseTainr = styled.div`
+//   min-height: ${PromiseHeight}px;
+//   width: 100%;
+//   position: relative;
+//   z-index: 1;
+// `
+
 export default () => {
   const [pos, setPos] = useState()
 
@@ -58,13 +96,6 @@ export default () => {
   const aboutVelocity = -0.08
   const servicesVelocity = 0.8
 
-  const [revealed, setRevealed] = useState({
-    hero: false,
-    about: false,
-    services: false,
-    interested: false,
-  })
-
   const velocities = {
     hero: {
       title: -0.1,
@@ -76,24 +107,22 @@ export default () => {
       header: -0.04,
     },
     services: {
-      content: -0.08,
-      header: -0.07,
+      content: -0.03,
     },
   }
 
   const [heroProps, setHeroProps] = useSpring(() => ({
     titleTransform: `translate3d(0px,0px,0)`,
-    // titleOpacity: 1,
     linkTransform: `translate3d(0px,0px,0)`,
     linkOpacity: 1,
     curtainOpacity: 0,
     // config: { duration: 5000 },
   }))
 
-  // const [heroLinkProps, setHeroLinkProps] = useSpring(() => ({
-  //   linkTransform: `translate3d(0px,0px,0px)`,
-  //   linkOpacity: 0,
-  // }))
+  const [heroLinkProps, setHeroLinkProps] = useSpring(() => ({
+    linkTransform: `translate3d(0px,0px,0px)`,
+    linkOpacity: 0,
+  }))
 
   // const [aboutProps, setAboutProps] = useSpring(() => ({
   //   transform: `translate3d(0px,0px,0)`,
@@ -102,7 +131,6 @@ export default () => {
     contentTransform: `translate3d(0px,0px,0)`,
     h0Transform: `translate3d(200px, 0px, 0px)`,
     h1Transform: `translate3d(-200px, 0px, 0px)`,
-    headerTransform: `translate3d(-200px,0px,0px)`,
   }))
 
   const [aboutProps, setAboutProps] = useSpring(() => ({
@@ -116,9 +144,9 @@ export default () => {
     config: { ...config.stiff, duration: 2000 },
   }))
 
-  // const [parallaxProps, setParallaxProps] = useSpring(() => ({
-  //   aboutTransform: `translate3d(0px,0px,0px)`,
-  // }))
+  const [parallaxProps, setParallaxProps] = useSpring(() => ({
+    aboutTransform: `translate3d(0px,0px,0px)`,
+  }))
 
   const rawHandler = () => {
     // setPos(window.pageYOffset)
@@ -143,8 +171,6 @@ export default () => {
         window.pageYOffset}px,0px,0px)`,
       h1Transform: `translate3d(${-velocities.services.content *
         window.pageYOffset}px,0px,0px)`,
-      headerTransform: `translate3d(${-velocities.services.header *
-        window.pageYOffset}px,0px,0px)`,
     })
   }
 
@@ -152,7 +178,7 @@ export default () => {
     window.requestAnimationFrame(rawHandler)
   }
 
-  // const debouncedHandle = debounce(handleScroll, 20)
+  //   const debouncedHandle = debounce(handleScroll, 20)
   const debouncedHandle = handleScroll
 
   useLayoutEffect(() => {
@@ -168,9 +194,6 @@ export default () => {
       <VisibilitySensor
         onChange={v => {
           console.log("Hero visibility changed...", v)
-          // setRevealed({
-          //   hero: v,
-          // })
           setHeroProps({
             linkOpacity: v ? 1 : 0,
           })
@@ -214,7 +237,6 @@ export default () => {
         <Services
           contentProps={{ transform: servicesProps.contentTransform }}
           curtainProps={{ opacity: revealProps.servicesCurtainOpacity }}
-          headerProps={{ transform: servicesProps.headerTransform }}
           h2Props0={{ transform: servicesProps.h0Transform }}
           h2Props1={{ transform: servicesProps.h1Transform }}
         />

@@ -5,28 +5,8 @@ import Img from "gatsby-image"
 import styled from "styled-components"
 import { animated } from "react-spring"
 
-// const Gradient = styled(animated.div)`
-//   background: radial-gradient(
-//     131.92% 30.8% at 30.31% 34.18%,
-//     rgba(25, 31, 29, 0.7) 0%,
-//     #191f1d 100%
-//   );
-//   height: 667px;
-//   width: 100%;
-//   position: relative;
-//   overflow: hidden;
-// `
-// const Gradient = styled(animated.div)`
-//   background: radial-gradient(
-//     42.92% 35.8% at 50.31% 38.18%,
-//     rgba(25, 31, 29, 0.7) 0%,
-//     #191f1d 100%
-//   );
-//   height: 100%;
-//   width: 100%;
-//   position: relative;
-//   overflow: hidden;
-// `
+import devices from "../devices"
+
 const Gradient = styled(animated.div)`
   background: radial-gradient(
     54.92% 32.8% at 63.31% 57.18%,
@@ -39,22 +19,18 @@ const Gradient = styled(animated.div)`
   overflow: hidden;
 `
 
-// const ImageTainr = styled(animated.div)`
-//   z-index: -1;
-//   max-width: 450px;
-//   position: absolute;
-//   top: 0px;
-//   right: 0px;
-// `
-
 const ImageTainr = styled(animated.div)`
   z-index: -1;
   position: absolute;
   height: 120%;
   width: 100%;
-  top: 0px;
-  right: 0px;
   min-height: 700px;
+  top: 0px;
+  left: 0px;
+
+  @media ${devices.laptop} {
+    left: 0px;
+  }
 `
 
 const Containr = styled(animated.div)`
@@ -80,7 +56,7 @@ const Image = () => (
     `}
     render={data => (
       <Img
-        imgStyle={{ objectPosition: "0% 0%" }}
+        imgStyle={{ objectPosition: "50% 50%" }}
         style={{ minWidth: `450px`, height: `100%` }}
         fluid={data.placeholderImage.childImageSharp.fluid}
       />

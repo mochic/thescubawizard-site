@@ -80,7 +80,7 @@ const ImageTainr = styled(animated.div)`
   width: 100%;
   height: 900px;
   position: absolute;
-  top: 0px;
+  top: -200px;
   right: 0px;
   z-index: -1;
 `
@@ -88,11 +88,13 @@ const ImageTainr = styled(animated.div)`
 const AH2 = styled(animated.h2)`
   font-family: playfair display;
   font-weight: bold;
-  font-size: 260px;
+  font-size: 200px;
   margin: 0;
   padding: 0;
   color: rgba(255, 255, 255, 0.5);
   mix-blend-mode: overlay;
+  width: 100%;
+  word-break: break-all;
 
   @media ${devices.laptop} {
     font-size: 260px;
@@ -163,18 +165,19 @@ export default ({
         </AP>
       </ContentTainr>
       <Curtain style={{ ...curtainProps }} />
-      {/* <AH2
+      <AH2
         style={{
           position: `absolute`,
-          top: `10%`,
-          left: `45%`,
+          // top: `5%`,
+          // right: `-200px`,
           fontSize: `200px`,
+          width: `300px`,
           ...headerProps,
         }}
       >
         services
-      </AH2> */}
-      <BrokedH2Tainr
+      </AH2>
+      {/* <BrokedH2Tainr
         style={{
           position: `absolute`,
           top: `20%`,
@@ -184,7 +187,7 @@ export default ({
       >
         <BrokedAH2 style={h2Props0}>serv</BrokedAH2>
         <BrokedAH2 style={h2Props1}>ices</BrokedAH2>
-      </BrokedH2Tainr>
+      </BrokedH2Tainr> */}
       <ImageTainr>
         <ServicesImage />
       </ImageTainr>
