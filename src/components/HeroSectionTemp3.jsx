@@ -21,7 +21,7 @@ import devices from "../devices"
 //   height: 100vh; /* it's the hero we want it to be the first thang u sees */
 // `
 
-const MainTainr = styled(animated.div)`
+const HeroTainr = styled(animated.div)`
   overflow: hidden;
   position: relative;
   height: 80vh; /* 100vh felt wayyyy tooo long to scroll thru */
@@ -29,13 +29,13 @@ const MainTainr = styled(animated.div)`
   @media ${devices.laptop} {
     height: 100vh;
   }
-  background: red;
 `
 
 const HeroLinkTainr = styled(animated.div)`
   z-index: 1000 !important; /* we want our scheduling link always clickable! no matter wut */
+  position: absolute;
+  top: 65%;
   width: 100%;
-  grid-area: link;
 `
 
 const TitleTainr = styled(animated.div)`
@@ -44,20 +44,18 @@ const TitleTainr = styled(animated.div)`
   text-align: center;
   padding: 0;
   margin: 0;
-  grid-area: title;
+  position: absolute;
+  top: 50%;
 `
 
 const ContentTainr = styled(animated.div)`
+  background: red;
   display: grid;
   grid-template-areas:
-    ". title ."
-    ". . ."
-    ". link ."
-    ". . .";
-  grid-template-columns: auto 250px auto;
-  grid-template-rows: 250px auto auto auto;
-  height: 100%;
-  width: 100%;
+    "title"
+    "link";
+  grid-template-columns: auto;
+  grid-template-rows: auto auto;
 `
 
 const Curtain = styled(animated.div)`
@@ -93,41 +91,43 @@ const Hero = ({ titleProps, linkTainrProps, curtainProps }) => {
     config: { ...config.molasses, duration: 500 },
   })
 
+  const [revealProps, setRevealProps] = useSpring(() => ({
+    linkOpacity: 0,
+  }))
+
   console.log("%cHero Section rendered!", "color: red")
 
   return (
-    <MainTainr>
-      <ContentTainr>
-        <TitleTainr {...titleProps}>
-          <TitleSVG style={{ margin: `0 26px 0 26px`, maxWidth: `270px` }} />
-        </TitleTainr>
-        <HeroLinkTainr style={{ ...linkTainrProps }}>
-          <FancyLink
-            to="/schedule"
-            textStyle={{ fontWeight: 300, opacity: linkProps.textOpacity }}
-            buttonStyle={{
-              transform: linkProps.arrowTransform,
-              opacity: linkProps.arrowOpacity,
-            }}
-            arrowProps={{
-              style: {},
-            }}
-            containrProps={{
-              style: {
-                margin: `0 26px 0 26px`,
-                maxWidth: `270px`,
-              },
-            }}
-          >
-            Schedule a chat.
-          </FancyLink>
-        </HeroLinkTainr>
-      </ContentTainr>
+    <HeroTainr>
+      <TitleTainr {...titleProps}>
+        <TitleSVG style={{ margin: `0 26px 0 26px`, maxWidth: `270px` }} />
+      </TitleTainr>
+      <HeroLinkTainr {...linkTainrProps}>
+        <FancyLink
+          to="/schedule"
+          textStyle={{ fontWeight: 300, opacity: linkProps.textOpacity }}
+          buttonStyle={{
+            transform: linkProps.arrowTransform,
+            opacity: linkProps.arrowOpacity,
+          }}
+          arrowProps={{
+            style: {},
+          }}
+          containrProps={{
+            style: {
+              margin: `0 26px 0 26px`,
+              maxWidth: `270px`,
+            },
+          }}
+        >
+          Schedule a chat.
+        </FancyLink>
+      </HeroLinkTainr>
       <Curtain style={curtainProps} />
       <ImageTainr>
         <HeroImage {...heroImageProps} />
       </ImageTainr>
-    </MainTainr>
+    </HeroTainr>
   )
 }
 

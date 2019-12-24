@@ -114,6 +114,7 @@ export default () => {
   const [heroProps, setHeroProps] = useSpring(() => ({
     titleTransform: `translate3d(0px,0px,0)`,
     linkTransform: `translate3d(0px,0px,0)`,
+    linkOpacity: 1,
     curtainOpacity: 0,
     // config: { duration: 5000 },
   }))
@@ -131,10 +132,6 @@ export default () => {
     h0Transform: `translate3d(50px, 0px, 0px)`,
     h1Transform: `translate3d(-50px, 0px, 0px)`,
   }))
-
-  // const [aboutContentTainrProps, setAboutContentTainrProps] = useSpring(() => ({
-  //   transform: `translate3d(0px,0px,0)`,
-  // }))
 
   const [aboutProps, setAboutProps] = useSpring(() => ({
     contentTransform: `translate3d(0px,0px,0px)`,
@@ -194,17 +191,25 @@ export default () => {
 
   return (
     <MainTainr>
-      <VisibilitySensor>
+      <VisibilitySensor
+        onChange={v => {
+          console.log("Hero visibility changed...", v)
+          setHeroProps({
+            linkOpacity: v ? 1 : 0,
+          })
+        }}
+      >
         <Hero
           titleProps={{ style: { transform: heroProps.titleTransform } }}
           curtainProps={{ opacity: heroProps.curtainOpacity }}
+          linkTainrProps={{ opacity: heroProps.linkOpacity }}
         />
       </VisibilitySensor>
       <VisibilitySensor
         partialVisibility
         offset={{ bottom: 100 }}
         onChange={v => {
-          console.log("About Visibility Changed...", v)
+          console.log("About visibility changed...", v)
           setRevealProps({
             aboutCurtainOpacity: v ? 0 : 1,
           })
@@ -220,7 +225,7 @@ export default () => {
         partialVisibility
         offset={{ bottom: 100 }}
         onChange={v => {
-          console.log("Services Visibility Changed...", v)
+          console.log("Services visibility changed...", v)
           setRevealProps({
             servicesCurtainOpacity: v ? 0 : 1,
           })

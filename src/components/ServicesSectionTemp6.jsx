@@ -87,7 +87,6 @@ const MainTainr = styled.div`
   display: grid;
   position: relative; /* very important for absolute positioned image */
   height: 900px;
-  background: blue;
   grid-template-areas:
     ". . . "
     ". content ."
