@@ -68,6 +68,7 @@ const AH2 = styled(animated.h2)`
   padding: 0;
   color: rgba(255, 255, 255, 0.5);
   mix-blend-mode: overlay;
+  width: 100%;
   min-width: 300px;
   word-break: break-word;
 
@@ -89,21 +90,6 @@ const AHr = styled(animated.hr)`
     margin: auto 50px auto 50px;
   }
 `
-
-// const ImageTainr = styled(animated.div)`
-//   z-index: -1;
-//   height: 900px;
-//   width: 100%;
-//   position: absolute;
-//   top: 0px;
-//   left: 0px;
-
-//   @media ${devices.tablet} {
-//   }
-
-//   @media ${devices.laptop} {
-//   }
-// `
 
 const ImageTainr = styled(animated.div)`
   z-index: -1;

@@ -27,6 +27,21 @@ const AP = styled(animated.p)`
   line-height: 200%;
 `
 
+// const ContentTainr = styled.div`
+//   grid-area: content;
+//   padding: 0;
+//   margin: auto;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   background: none;
+
+//   @media ${devices.laptop} {
+//     flex-direction: row;
+//     padding: 0 10px 0 10px;
+//   }
+// `
+
 const ContentTainr = styled(animated.div)`
   grid-area: content;
   padding: 0;
@@ -45,7 +60,7 @@ const ContentTainr = styled(animated.div)`
 const MainTainr = styled.div`
   display: grid;
   position: relative; /* very important for absolute positioned image */
-  height: 700px;
+  height: 900px;
   grid-template-areas:
     ". . . "
     ". content ."
@@ -86,6 +101,23 @@ const AH2 = styled(animated.h2)`
   }
 `
 
+const BrokedAH2 = styled(animated.h2)`
+  font-family: playfair display;
+  font-weight: bold;
+  font-size: 200px;
+  line-height: 120%;
+  margin: 0;
+  padding: 0;
+  color: rgba(255, 255, 255, 0.5);
+  mix-blend-mode: overlay;
+
+  @media ${devices.laptop} {
+    font-size: 260px;
+  }
+`
+
+const BrokedH2Tainr = styled(animated.div)``
+
 const AHr = styled(animated.hr)`
   width: 40%;
   border: 0.5px solid #ffe9c9;
@@ -106,50 +138,6 @@ const Curtain = styled(animated.div)`
   position: absolute;
   z-index: 0;
 `
-
-// services list
-const WeirdLiLabel = styled(animated.p)`
-  font-size: 50px;
-  font-family: playfair display;
-  color: #ffffff;
-  mix-blend-mode: overlay;
-  position: absolute;
-  margin: 0;
-  padding: 0;
-  opacity: 0.1;
-  top: -24px;
-`
-
-const WeirdLi = styled(animated.li)`
-  font-family: open sans;
-  font-size: 16px;
-  font-weight: normal;
-  color: white;
-  position: relative;
-  margin: 0 0 50px 0;
-`
-
-const WeirdUl = styled(animated.ul)`
-  list-style-type: none;
-  align-self: flex-start;
-  padding: 0;
-  margin: 16px 0 0 20px;
-`
-
-const WeirdList = ({ items }) => {
-  return (
-    <WeirdUl>
-      {items.map((v, i) => {
-        return (
-          <WeirdLi>
-            <WeirdLiLabel>{`0${i + 1}`}</WeirdLiLabel>
-            {v}
-          </WeirdLi>
-        )
-      })}
-    </WeirdUl>
-  )
-}
 
 export default ({
   headerProps,
@@ -175,9 +163,6 @@ export default ({
           time. If it takes longer than expected, we promise not the leave you
           high and dry with a half-finished job!
         </AP>
-        <WeirdList
-          items={[`Hull cleaning`, `Anode replacement`, `Lost item recovery`]}
-        />
       </ContentTainr>
       <Curtain style={{ ...curtainProps }} />
       <AH2
@@ -192,6 +177,17 @@ export default ({
       >
         services
       </AH2>
+      {/* <BrokedH2Tainr
+        style={{
+          position: `absolute`,
+          top: `20%`,
+          fontSize: `200px`,
+          width: `100%`,
+        }}
+      >
+        <BrokedAH2 style={h2Props0}>serv</BrokedAH2>
+        <BrokedAH2 style={h2Props1}>ices</BrokedAH2>
+      </BrokedH2Tainr> */}
       <ImageTainr>
         <ServicesImage />
       </ImageTainr>

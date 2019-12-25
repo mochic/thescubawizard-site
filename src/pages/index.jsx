@@ -113,6 +113,7 @@ export default () => {
   const [revealProps, setRevealProps] = useSpring(() => ({
     aboutCurtainOpacity: 1,
     servicesCurtainOpacity: 1,
+    footerOpacity: 0,
     config: { ...config.stiff, duration: 2000 },
   }))
 
@@ -219,10 +220,31 @@ export default () => {
           h2Props1={{ transform: servicesProps.h1Transform }}
         />
       </VisibilitySensor>
-      <Interested />
-      <div>
-        <Footer />
-      </div>
+      <VisibilitySensor
+        onChange={v => {
+          console.log("Interested visibility changed...", v)
+          // setRevealProps({ footerOpacity: 1 })
+        }}
+      >
+        <Interested />
+      </VisibilitySensor>
+      <VisibilitySensor
+        onChange={v => {
+          console.log("Footer visibility changed...", v)
+          setRevealProps({ footerOpacity: 1 })
+        }}
+      >
+        <ADiv
+          style={{
+            position: `absolute`,
+            width: `100%`,
+            bottom: `5px`,
+            opacity: revealProps.footerOpacity,
+          }}
+        >
+          <Footer />
+        </ADiv>
+      </VisibilitySensor>
     </MainTainr>
   )
 }
