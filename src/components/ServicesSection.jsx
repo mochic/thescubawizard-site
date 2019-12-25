@@ -141,7 +141,7 @@ const WeirdList = ({ items }) => {
     <WeirdUl>
       {items.map((v, i) => {
         return (
-          <WeirdLi>
+          <WeirdLi key={`weird-li-${i}`}>
             <WeirdLiLabel>{`0${i + 1}`}</WeirdLiLabel>
             {v}
           </WeirdLi>

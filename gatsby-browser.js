@@ -35,9 +35,13 @@ const GlobalStyle = createGlobalStyle`
 
 const Containr = styled(animated.div)``
 
+// const PageTainr = styled(animated.div)`
+//   margin: auto;
+//   overflow: hidden;
+// `
+
 const PageTainr = styled(animated.div)`
   margin: auto;
-  overflow: hidden;
 `
 
 const HomeLink = styled(Link)`

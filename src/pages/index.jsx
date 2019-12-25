@@ -15,6 +15,8 @@ import Interested from "../components/InterestedSection"
 
 import Footer from "../components/AnotherFooter"
 
+import TitleSVG from "../components/TitleSVG"
+
 import device from "../devices"
 
 import VisibilitySensor from "react-visibility-sensor"
@@ -45,6 +47,17 @@ const AboutTainr = styled(animated.div)`
 `
 
 // z-index 1 so that our header doesnt get cut off...TODO: fix this so we dont need this hack solution
+
+const TitleTainr = styled(animated.div)`
+  z-index: 1000;
+  width: 100%;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  position: sticky;
+  top: 0;
+  min-width: 100vw;
+`
 
 export default () => {
   const [pos, setPos] = useState()
@@ -166,6 +179,9 @@ export default () => {
 
   return (
     <MainTainr>
+      <TitleTainr style={{ background: `red` }}>
+        <TitleSVG style={{ margin: `auto`, maxWidth: `270px` }} />
+      </TitleTainr>
       <VisibilitySensor
         onChange={v => {
           console.log("Hero visibility changed...", v)

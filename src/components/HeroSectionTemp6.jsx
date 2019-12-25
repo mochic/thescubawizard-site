@@ -98,9 +98,9 @@ const Hero = ({ titleProps, linkTainrProps, curtainProps }) => {
 
   return (
     <MainTainr>
-      {/* <TitleTainr {...titleProps}>
+      <TitleTainr {...titleProps}>
         <TitleSVG style={{ margin: `auto`, maxWidth: `270px` }} />
-      </TitleTainr> */}
+      </TitleTainr>
       <HeroLinkTainr style={{ ...linkTainrProps }}>
         <FancyLink
           to="/schedule"
