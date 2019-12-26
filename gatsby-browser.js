@@ -15,6 +15,8 @@ import VisibilityContext from "./src/contexts/visibility.context"
 import Footer from "./src/components/Footer"
 import devices from "./src/devices"
 
+import TitleSVG from "./src/components/TitleSVG"
+
 import smoothscroll from "smoothscroll-polyfill"
 
 // kick off the polyfill!
@@ -33,16 +35,30 @@ const GlobalStyle = createGlobalStyle`
     }
 `
 
-const Containr = styled(animated.div)``
+const Containr = styled(animated.div)`
+  display: inline;
+`
 
-// const PageTainr = styled(animated.div)`
-//   margin: auto;
-//   overflow: hidden;
-// `
+const TitleTainr = styled(animated.div)`
+  z-index: 1000;
+  width: 100%;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  position: sticky;
+  top: 20px;
+  min-width: 100vw;
+  height: 70px;
+`
 
 const PageTainr = styled(animated.div)`
   margin: auto;
+  overflow: hidden;
 `
+
+// const PageTainr = styled(animated.div)`
+//   margin: auto;
+// `
 
 const HomeLink = styled(Link)`
   color: #ffe9c9;
@@ -80,9 +96,29 @@ const FooterContainr = styled.div`
 // use this with a provider + react spring to create "transition" effect?
 const TransitionCover = styled(animated.div)``
 
+// export const replaceComponentRenderer = ({ props, ...other }) => {
+//   return (
+//     <Containr>
+//       <GlobalStyle />
+//       <VisibilityProvider>
+//         <ScrollProvider>
+//           <SchedulingProvider>
+//             <PageTainr>
+//               {React.createElement(props.pageResources.component, props)}
+//             </PageTainr>
+//           </SchedulingProvider>
+//         </ScrollProvider>
+//       </VisibilityProvider>
+//     </Containr>
+//   )
+// }
+
 export const replaceComponentRenderer = ({ props, ...other }) => {
   return (
     <Containr>
+      <TitleTainr>
+        <TitleSVG />
+      </TitleTainr>
       <GlobalStyle />
       <VisibilityProvider>
         <ScrollProvider>
