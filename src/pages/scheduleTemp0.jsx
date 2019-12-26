@@ -366,6 +366,21 @@ export default () => {
   // keep it simple for now...maybs just get something pretty that works...thematically...
   return (
     <Containr>
+      <NavBar
+        handleClick={() => {
+          console.log("%cnavbar clicked!", "color: teal")
+          navigate("/")
+        }}
+        svgProps={{
+          style: {
+            opacity: homeLinkProps.svgOpacity,
+            filter: homeLinkProps.svgBlurRadius.interpolate(
+              v => `blur(${v}px)`
+            ),
+            // filter: `blur(${homeLinkProps.svgBlurRadius}px)`,
+          },
+        }}
+      />
       {/* we need separated from contentTainr to be sibilings for grid layout to work!*/}
       <SchedulerTainr style={contentProps}>
         <Scheduler />

@@ -21,7 +21,7 @@ const MainTainr = styled(animated.div)`
   display: grid;
   grid-template-areas:
     ". . ."
-    ". title ."
+    ". . ."
     ". link ."
     ". . .";
   grid-template-columns: 8% auto 8%;
@@ -37,26 +37,6 @@ const HeroLinkTainr = styled(animated.div)`
   width: 100%;
   grid-area: link;
 `
-
-const TitleTainr = styled(animated.div)`
-  z-index: 1000;
-  width: 100%;
-  text-align: center;
-  padding: 0;
-  margin: 0;
-  grid-area: title;
-`
-
-// const TitleTainr = styled(animated.div)`
-//   z-index: 1000;
-//   width: 100%;
-//   text-align: center;
-//   padding: 0;
-//   margin: 0;
-//   position: sticky;
-//   top: 0;
-//   min-width: 100vw;
-// `
 
 const Curtain = styled(animated.div)`
   height: 100%;
@@ -98,9 +78,6 @@ const Hero = ({ titleProps, linkTainrProps, curtainProps }) => {
 
   return (
     <MainTainr>
-      {/* <TitleTainr {...titleProps}>
-        <TitleSVG style={{ margin: `auto`, maxWidth: `270px` }} />
-      </TitleTainr> */}
       <HeroLinkTainr style={{ ...linkTainrProps }}>
         <FancyLink
           to="/schedule"

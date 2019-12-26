@@ -19,6 +19,8 @@ import TitleSVG from "./src/components/TitleSVG"
 
 import smoothscroll from "smoothscroll-polyfill"
 
+import { navigate } from "gatsby-link"
+
 // kick off the polyfill!
 smoothscroll.polyfill()
 
@@ -35,25 +37,48 @@ const GlobalStyle = createGlobalStyle`
     }
 `
 
-const Containr = styled(animated.div)`
-  display: inline;
-`
+const Containr = styled(animated.div)``
 
-const TitleTainr = styled(animated.div)`
-  z-index: 1000;
+// const NavTainr = styled(animated.div)`
+//   z-index: 1000 !important; /* really important for being visible... */
+//   width: 100%;
+//   text-align: center;
+//   padding: 0;
+//   margin: 0;
+//   position: sticky;
+//   top: 0px;
+//   height: 70px;
+//   display: grid;
+//   backdrop-filter: blur(2px);
+//   float: left;
+
+//   grid-template-areas: ". title .";
+//   grid-template-columns: auto auto auto;
+//   margin: 0 0 -70px 0; /* needs to be the height of the tainr to "remove" relative positioning gap */
+// `
+
+const navTainrHeight = 70
+const NavTainr = styled(animated.div)`
+  z-index: 1000 !important; /* really important for being visible... */
   width: 100%;
   text-align: center;
   padding: 0;
   margin: 0;
   position: sticky;
-  top: 20px;
-  min-width: 100vw;
-  height: 70px;
+  top: 0px;
+  height: ${navTainrHeight}px;
+  display: grid;
+  backdrop-filter: blur(2px);
+  float: left;
+
+  grid-template-areas: ". title .";
+  grid-template-columns: auto auto auto;
 `
 
 const PageTainr = styled(animated.div)`
   margin: auto;
   overflow: hidden;
+  width: 100vw;
 `
 
 // const PageTainr = styled(animated.div)`
@@ -96,29 +121,38 @@ const FooterContainr = styled.div`
 // use this with a provider + react spring to create "transition" effect?
 const TransitionCover = styled(animated.div)``
 
-// export const replaceComponentRenderer = ({ props, ...other }) => {
-//   return (
-//     <Containr>
-//       <GlobalStyle />
-//       <VisibilityProvider>
-//         <ScrollProvider>
-//           <SchedulingProvider>
-//             <PageTainr>
-//               {React.createElement(props.pageResources.component, props)}
-//             </PageTainr>
-//           </SchedulingProvider>
-//         </ScrollProvider>
-//       </VisibilityProvider>
-//     </Containr>
-//   )
-// }
-
 export const replaceComponentRenderer = ({ props, ...other }) => {
+  const atIndex = props.location.pathname === "/"
+
+  const handleTitleClick = e => {
+    console.log("%ctitle clicked...", "color: green")
+
+    if (atIndex) {
+      window.scrollTo({ top: 0, behavior: "smooth" })
+    } else {
+      navigate("/")
+    }
+  }
+
   return (
     <Containr>
-      <TitleTainr>
-        <TitleSVG />
-      </TitleTainr>
+      <NavTainr
+        style={{
+          margin: atIndex
+            ? `100px 0 -170px 0`
+            : `0px 0 -70px 0` /* needs to be the height of the tainr to "remove" relative positioning gap */,
+        }}
+      >
+        <TitleSVG
+          style={{
+            gridArea: `title`,
+            maxWidth: `200px`,
+            minWidth: `200px`,
+            margin: `auto`,
+          }}
+          onClick={handleTitleClick}
+        />
+      </NavTainr>
       <GlobalStyle />
       <VisibilityProvider>
         <ScrollProvider>
