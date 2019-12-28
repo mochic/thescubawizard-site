@@ -5,97 +5,61 @@ import { animated } from "react-spring"
 
 import devices from "../devices"
 
-import { Link } from "../components/Shared"
+// const Containr = styled(animated.div)`
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+//   margin: 0 0 20px 0;
+//   padding: 0;
 
-const Statement = styled(animated.div)`
-  font-family: inconsolata;
-  font-weight: 600;
-  font-style: bold;
-  display: inline-block;
-  width 100%;
-  max-height: 100px;
-  padding: 5% 0 5% 0;
+//   @media ${devices.laptop} {
+//     flex-direction: row;
+//   }
+// `
+
+const Containr = styled(animated.div)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0 20px 0;
+  padding: 0;
 `
 
-const StatementChunk = styled(animated.p)`
+const AP = styled(animated.p)`
+  color: #313e3a;
+  font-family: open sans;
+  font-size: 10px;
   margin: 0;
   padding: 0;
-  color: #505050;
-  font-size: 14px;
 `
 
-const FooterText = styled.p`
-  margin: 0;
-  padding: 0;
-  color: #505050;
-  font-size: 14px;
-  text-align: center;
+// const AHr = styled(animated.hr)`
+//   width: 50px;
+//   border: 0.5px solid #313e3a;
+//   margin: 10px auto 8px auto;
+
+//   // @media ${devices.laptop} {
+//   //   height: 300px;
+//   //   width: 0.25px;
+//   //   display: inline-block;
+//   //   margin: auto 50px auto 50px;
+//   // }
+// `
+
+const AHr = styled(animated.hr)`
+  width: 50px;
+  border: 0.5px solid #313e3a;
+  margin: 10px auto 8px auto;
 `
 
-const FooterLink = styled.a`
-  color: rgba(255, 255, 255, 0.55);
-  text-decoration: none;
-
-  &:visited {
-    color: rgba(255, 255, 255, 0.75);
-  }
-
-  &:hover {
-    color: rgba(255, 255, 255, 0.85);
-  }
-
-  &:active {
-    color: rgba(255, 255, 255, 1);
-  }
-`
-
-const PlugTainr = styled.div`
-  color: #505050;
-  font-family: inconsolata;
-  font-weight: 600;
-  font-style: bold;
-  font-size: 14px;
-  text-align: center;
-  padding: 20px 50px 0 50px;
-`
-
-const FlatIconsPlug = () => (
-  <PlugTainr>
-    {`Icons made by `}
-    <FooterLink
-      href="https://www.flaticon.com/authors/flat-icons"
-      title="Flat Icons"
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      Flat Icons
-    </FooterLink>
-    {` from `}
-    <FooterLink
-      href="https://www.flaticon.com/"
-      title="Flaticon"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      www.flaticon.com
-    </FooterLink>
-    {` are licensed by `}
-    <FooterLink
-      href="http://creativecommons.org/licenses/by/3.0/"
-      title="Creative Commons BY 3.0"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      CC BY 3.0
-    </FooterLink>
-  </PlugTainr>
-)
-
-export default () => {
+export default ({ containrStyle }) => {
   return (
-    <>
-      <FooterText>the scuba wizard</FooterText>
-      <FlatIconsPlug />
-    </>
+    <Containr style={{ ...containrStyle }}>
+      <AP>the scuba wizard</AP>
+      <AHr />
+      <AP>a seattle dive operation</AP>
+    </Containr>
   )
 }

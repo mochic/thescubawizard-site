@@ -16,7 +16,7 @@ import Services from "../components/ServicesSection"
 
 import Interested from "../components/InterestedSection"
 
-import Footer from "../components/AnotherFooter"
+import Footer from "../components/Footer"
 
 import Statements from "../components/Statements3"
 

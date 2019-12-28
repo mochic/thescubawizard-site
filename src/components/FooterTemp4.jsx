@@ -26,6 +26,19 @@ const AP = styled(animated.p)`
   padding: 0;
 `
 
+const AHr = styled(animated.hr)`
+  width: 50px;
+  border: 0.5px solid #313e3a;
+  margin: 8px auto 8px auto;
+
+  @media ${devices.laptop} {
+    height: 300px;
+    width: 0.5px;
+    display: inline-block;
+    margin: auto 50px auto 50px;
+  }
+`
+
 export default () => {
   return (
     <FooterTainr>

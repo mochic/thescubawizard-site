@@ -14,35 +14,29 @@ import HeroImage from "../components/HeroImage"
 import sizes from "../sizes"
 import devices from "../devices"
 
-// const MainTainr = styled(animated.div)`
-//   overflow: hidden;
-//   position: relative;
-//   height: 80vh; /* 100vh felt wayyyy tooo long to scroll thru */
-
-//   display: grid;
-//   grid-template-areas:
-//     ". . ."
-//     ". . ."
-//     ". link ."
-//     ". . .";
-//   grid-template-columns: 8% auto 8%;
-//   grid-template-rows: 250px auto auto auto;
-
-//   @media ${devices.laptop} {
-//     height: 100vh;
-//   }
-// `
-
 const MainTainr = styled(animated.div)`
   overflow: hidden;
-  height: 100vh;
-  padding: 8%;
-  background: red;
+  position: relative;
+  height: 80vh; /* 100vh felt wayyyy tooo long to scroll thru */
+
+  display: grid;
+  grid-template-areas:
+    ". . ."
+    ". . ."
+    ". link ."
+    ". . .";
+  grid-template-columns: 8% auto 8%;
+  grid-template-rows: 250px auto auto auto;
+
+  @media ${devices.laptop} {
+    height: 100vh;
+  }
 `
 
 const HeroLinkTainr = styled(animated.div)`
   z-index: 1000 !important; /* we want our scheduling link always clickable! no matter wut */
   width: 100%;
+  grid-area: link;
 `
 
 const Curtain = styled(animated.div)`

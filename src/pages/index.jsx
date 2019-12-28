@@ -13,7 +13,7 @@ import Services from "../components/ServicesSection"
 
 import Interested from "../components/InterestedSection"
 
-import Footer from "../components/AnotherFooter"
+import Footer from "../components/Footer"
 
 import TitleSVG from "../components/TitleSVG"
 
@@ -178,7 +178,13 @@ export default () => {
             opacity: heroProps.linkOpacity,
             transform: heroProps.linkTransform,
           }}
-          mainTainrStyle={{ position: `absolute`, top: `0px`, left: `0px` }}
+          mainTainrStyle={{
+            position: `absolute`,
+            top: `0px`,
+            left: `0px`,
+            height: `100vh`,
+            width: `100vw`,
+          }}
         />
       </VisibilitySensor>
       <VisibilitySensor

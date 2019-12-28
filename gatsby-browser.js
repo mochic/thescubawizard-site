@@ -58,13 +58,87 @@ const Containr = styled(animated.div)``
 //   margin: 0 0 -70px 0; /* needs to be the height of the tainr to "remove" relative positioning gap */
 // `
 
+// const NavTainr = styled(animated.div)`
+//   z-index: 1000 !important; /* really important for being visible... */
+//   width: 100%;
+//   text-align: center;
+//   padding: 0;
+//   margin: ${atIndex
+//     ? `100px 0 -170px 0`
+//     : `0px 0 -70px 0`}; /* needs to be the height of the tainr to "remove" relative positioning gap */
+//   position: sticky;
+//   top: 0px;
+//   height: ${navTainrHeight}px;
+//   display: grid;
+//   backdrop-filter: blur(2px);
+//   float: left;
+
+//   grid-template-areas: ". title .";
+//   grid-template-columns: auto auto auto;
+// `
+
+// margin: ${atIndex
+//   ? `100px 0 -170px 0`
+//   : `0px 0 -70px 0`}; /* needs to be the height of the tainr to "remove" relative positioning gap */
+
+/*
+Notes
+-----
+- we use negative margin that is equal to containr (+ our actual margin) 
+to trick our way out of relative positioning behavior of sticky
+- we have to wrap our component to filter out props our animated.div 
+doesn't expect
+*/
+// const navTainrHeight = 70
+// const NavTainr = styled(({ atIndex, ...rest }) => <animated.div {...rest} />)`
+//   z-index: 1000 !important; /* really important for being visible... */
+//   width: 100%;
+//   text-align: center;
+//   padding: 0;
+//   margin: ${props => {
+//     return props.atIndex ? `100px 0 -170px 0` : `0px 0 -70px 0`
+//   }};
+//   position: sticky;
+//   top: 0px;
+//   height: ${navTainrHeight}px;
+//   display: grid;
+//   backdrop-filter: blur(2px);
+//   float: left;
+
+//   grid-template-areas: ". title .";
+//   grid-template-columns: auto auto auto;
+
+//   @media ${devices.laptop} {
+//     margin: ${props => {
+//       return props.atIndex ? `100px 0 -170px 0` : `0px 0 -70px 0`
+//     }};
+//   }
+// `
+
+/*
+Notes
+-----
+- we use negative margin that is equal to containr (+ our actual margin) 
+to trick our way out of relative positioning behavior of sticky
+- we have to wrap our component to filter out props our animated.div 
+doesn't expect
+*/
 const navTainrHeight = 70
-const NavTainr = styled(animated.div)`
+const NavTainr = styled(({ atIndex, ...rest }) => <animated.div {...rest} />)`
   z-index: 1000 !important; /* really important for being visible... */
   width: 100%;
   text-align: center;
   padding: 0;
-  margin: 0;
+  margin-top: ${props => {
+    return props.atIndex ? `40vh` : `0px`
+  }};
+  margin-bottom: ${props => {
+    return props.atIndex
+      ? `calc((40vh + ${navTainrHeight}px) * -1)`
+      : `-${navTainrHeight}px`
+  }};
+  margin-left: auto;
+  margin-right: auto;
   position: sticky;
   top: 0px;
   height: ${navTainrHeight}px;
@@ -137,13 +211,7 @@ export const replaceComponentRenderer = ({ props, ...other }) => {
 
   return (
     <Containr>
-      <NavTainr
-        style={{
-          margin: atIndex
-            ? `100px 0 -170px 0`
-            : `0px 0 -70px 0` /* needs to be the height of the tainr to "remove" relative positioning gap */,
-        }}
-      >
+      <NavTainr atIndex>
         <TitleSVG
           style={{
             gridArea: `title`,
