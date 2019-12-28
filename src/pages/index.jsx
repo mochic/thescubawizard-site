@@ -178,6 +178,7 @@ export default () => {
             opacity: heroProps.linkOpacity,
             transform: heroProps.linkTransform,
           }}
+          mainTainrStyle={{ position: `absolute`, top: `0px`, left: `0px` }}
         />
       </VisibilitySensor>
       <VisibilitySensor
@@ -191,6 +192,7 @@ export default () => {
         }}
       >
         <About
+          // key={`about-section`}
           contentTainrProps={{ transform: aboutProps.contentTransform }}
           headerProps={{ transform: aboutProps.headerTransform }}
           curtainProps={{ opacity: revealProps.aboutCurtainOpacity }}

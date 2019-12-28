@@ -55,7 +55,7 @@ const ImageTainr = styled(animated.div)`
   top: 0px;
 `
 
-const Hero = ({ titleProps, linkTainrProps, curtainProps }) => {
+const Hero = ({ titleProps, linkTainrProps, curtainProps, mainTainrStyle }) => {
   const heroImageProps = {}
 
   const linkProps = useSpring({
@@ -78,7 +78,7 @@ const Hero = ({ titleProps, linkTainrProps, curtainProps }) => {
   console.log("%cHero Section rendered!", "color: red")
 
   return (
-    <MainTainr>
+    <MainTainr style={{ ...mainTainrStyle }}>
       <HeroLinkTainr style={{ ...linkTainrProps }}>
         <FancyLink
           to="/schedule"
