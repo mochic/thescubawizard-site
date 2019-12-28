@@ -37,35 +37,6 @@ const MainTainr = styled(animated.div)`
 //   z-index: 1;
 // `
 
-const AboutHeight = 900
-const AboutTainr = styled(animated.div)`
-  min-height: ${AboutHeight}px;
-  width: 100%;
-  position: relative;
-  z-index: 1;
-  background: red;
-`
-
-// z-index 1 so that our header doesnt get cut off...TODO: fix this so we dont need this hack solution
-
-// const TitleTainr = styled(animated.div)`
-//   z-index: 1000;
-//   width: 100%;
-//   text-align: center;
-//   padding: 0;
-//   margin: 0;
-//   position: sticky;
-//   top: 0;
-//   min-width: 100vw;
-// `
-
-const TitleTainr = styled(animated.div)`
-  padding: 0;
-  margin: 0;
-  position: sticky;
-  top: 0;
-`
-
 export default () => {
   const [pos, setPos] = useState()
 

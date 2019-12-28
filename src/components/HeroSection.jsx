@@ -11,6 +11,7 @@ import FancyLink from "../components/FancyLink"
 
 import HeroImage from "../components/HeroImage"
 
+import sizes from "../sizes"
 import devices from "../devices"
 
 const MainTainr = styled(animated.div)`
@@ -92,7 +93,7 @@ const Hero = ({ titleProps, linkTainrProps, curtainProps }) => {
           containrProps={{
             style: {
               margin: `auto`,
-              maxWidth: `270px`,
+              maxWidth: `${sizes.title.width}px`,
             },
           }}
         >

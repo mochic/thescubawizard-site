@@ -14,6 +14,7 @@ import VisibilityContext from "./src/contexts/visibility.context"
 
 import Footer from "./src/components/Footer"
 import devices from "./src/devices"
+import sizes from "./src/sizes"
 
 import TitleSVG from "./src/components/TitleSVG"
 
@@ -146,8 +147,8 @@ export const replaceComponentRenderer = ({ props, ...other }) => {
         <TitleSVG
           style={{
             gridArea: `title`,
-            maxWidth: `200px`,
-            minWidth: `200px`,
+            width: `100%`,
+            maxWidth: `${sizes.title.width}px`,
             margin: `auto`,
           }}
           onClick={handleTitleClick}
