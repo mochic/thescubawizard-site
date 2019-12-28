@@ -186,7 +186,7 @@ export default ({
           // top: `5%`,
           // right: `-200px`,
           fontSize: `200px`,
-          width: `300px`,
+          minWidth: `300px`,
           ...headerProps,
         }}
       >
