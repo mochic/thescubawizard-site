@@ -130,11 +130,11 @@ const NavTainr = styled(({ atIndex, ...rest }) => <animated.div {...rest} />)`
   text-align: center;
   padding: 0;
   margin-top: ${props => {
-    return props.atIndex ? `40vh` : `0px`
+    return props.atIndex ? `20vh` : `0px`
   }};
   margin-bottom: ${props => {
     return props.atIndex
-      ? `calc((40vh + ${navTainrHeight}px) * -1)`
+      ? `calc((20vh + ${navTainrHeight}px) * -1)`
       : `-${navTainrHeight}px`
   }};
   margin-left: auto;

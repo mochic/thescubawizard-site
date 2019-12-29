@@ -29,27 +29,13 @@ to {
 }
 `
 
-// const defaultGV = 80
-// const RevealingTainr = styled.div`
-//   height: 100%;
-//   width: 100%;
-//   background: radial-gradient(
-//     102.87% ${({ gv }) => (gv ? gv : defaultGV)}% at 59.07% 14.02%,
-//     rgba(25, 31, 29, 0.9) 0%,
-//     #191f1d 100%
-//   );
-//   position: absolute;
-//   top: 0px;
-//   left: 0px;
-//   z-index: 0;
-// `
-
-const Gradient = styled.div`
+const defaultGV = 80
+const RevealingTainr = styled.div`
   height: 100%;
   width: 100%;
   background: radial-gradient(
-    82.3% 42.49% at 50.13% 39.96%,
-    rgba(25, 31, 29, 0) 0%,
+    102.87% ${({ gv }) => (gv ? gv : defaultGV)}% at 59.07% 14.02%,
+    rgba(25, 31, 29, 0.9) 0%,
     #191f1d 100%
   );
   position: absolute;
@@ -58,23 +44,8 @@ const Gradient = styled.div`
   z-index: 0;
 `
 
-// const Gradient = styled.div`
-//   height: 100%;
-//   width: 100%;
-//   background: radial-gradient(
-//     141.15% 41.26% at 50.13% 33.56%,
-//     rgba(25, 31, 29, 0) 0%,
-//     #191f1d 100%
-//   );
-//   position: absolute;
-//   top: 0px;
-//   left: 0px;
-//   z-index: 0;
-// `
-
 // gradient potential 12-28-19
 //radial-gradient( 103.87% 80% at 91.07% 34.02%, rgba(25,31,29,0.9) 0%, #191f1d 100% )
-// radial-gradient(141.15% 41.26% at 50.13% 33.56%, rgba(25, 31, 29, 0) 0%, #191F1D 100%);
 
 const ImageTainr = styled(animated.div)`
   z-index: -1;
@@ -102,7 +73,7 @@ const Image = () => (
       <Img
         imgStyle={{ objectPosition: "0% 0%" }}
         style={{
-          minHeight: `100vh`, // todo stop using 100vh for this...
+          minHeight: `100vh`,
         }}
         fluid={data.placeholderImage.childImageSharp.fluid}
       />
@@ -121,7 +92,7 @@ export default ({ outerProps, imageProps, gradientProps }) => {
       <ImageTainr {...imageProps}>
         <Image />
       </ImageTainr>
-      <Gradient {...gradientProps} />
+      <RevealingTainr {...gradientProps} />
     </Containr>
   )
 }

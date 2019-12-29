@@ -116,7 +116,12 @@ const Curtain = styled(animated.div)`
   z-index: 0;
 `
 
-export default ({ contentTainrProps, headerProps, curtainProps }) => {
+export default ({
+  contentTainrProps,
+  headerProps,
+  curtainProps,
+  mainTainrStyle,
+}) => {
   const [revealProps, setRevealProps] = useSpring(() => ({
     imageOpacity: 0,
     curtainOpacity: 1,
@@ -135,7 +140,7 @@ export default ({ contentTainrProps, headerProps, curtainProps }) => {
   console.log("%cAbout Section rendered!", "color: red")
 
   return (
-    <MainTainr>
+    <MainTainr style={{ ...mainTainrStyle }}>
       <AH2
         style={{
           position: `absolute`,

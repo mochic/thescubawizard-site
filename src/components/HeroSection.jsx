@@ -33,16 +33,27 @@ import devices from "../devices"
 //   }
 // `
 
+// const MainTainr = styled(animated.div)`
+//   overflow: hidden;
+//   height: 100vh;
+//   padding: 8%;
+//   background: red;
+// `
+
+// const MainTainr = styled(animated.div)`
+//   overflow: hidden;
+//   height: 500px;
+// `
+
 const MainTainr = styled(animated.div)`
   overflow: hidden;
-  height: 100vh;
-  padding: 8%;
-  background: red;
+  height: 70vh;
 `
 
-const HeroLinkTainr = styled(animated.div)`
+const LinkTainr = styled(animated.div)`
   z-index: 1000 !important; /* we want our scheduling link always clickable! no matter wut */
   width: 100%;
+  margin-top: 60vh;
 `
 
 const Curtain = styled(animated.div)`
@@ -85,7 +96,7 @@ const Hero = ({ titleProps, linkTainrProps, curtainProps, mainTainrStyle }) => {
 
   return (
     <MainTainr style={{ ...mainTainrStyle }}>
-      <HeroLinkTainr style={{ ...linkTainrProps }}>
+      <LinkTainr style={{ ...linkTainrProps }}>
         <FancyLink
           to="/schedule"
           textStyle={{ fontWeight: 300, opacity: linkProps.textOpacity }}
@@ -105,7 +116,7 @@ const Hero = ({ titleProps, linkTainrProps, curtainProps, mainTainrStyle }) => {
         >
           Schedule a chat.
         </FancyLink>
-      </HeroLinkTainr>
+      </LinkTainr>
       <Curtain style={curtainProps} />
       <ImageTainr>
         <HeroImage {...heroImageProps} />

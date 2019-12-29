@@ -161,6 +161,8 @@ export default () => {
         <TitleSVG style={{ margin: `auto`, maxWidth: `270px` }} />
       </TitleTainr> */}
       <VisibilitySensor
+        // partialVisibility /* we don't always have full vis of hero...safari :( */
+        // offset={{ bottom: 500 }}
         onChange={v => {
           console.log("Hero visibility changed...", v)
           // setRevealed({
@@ -178,13 +180,15 @@ export default () => {
             opacity: heroProps.linkOpacity,
             transform: heroProps.linkTransform,
           }}
-          mainTainrStyle={{
-            position: `absolute`,
-            top: `0px`,
-            left: `0px`,
-            height: `100vh`,
-            width: `100vw`,
-          }}
+          mainTainrStyle={
+            {
+              // position: `absolute`,
+              // top: `0px`,
+              // left: `0px`,
+              // height: `100vh`,
+              // width: `100vw`,
+            }
+          }
         />
       </VisibilitySensor>
       <VisibilitySensor
@@ -202,6 +206,7 @@ export default () => {
           contentTainrProps={{ transform: aboutProps.contentTransform }}
           headerProps={{ transform: aboutProps.headerTransform }}
           curtainProps={{ opacity: revealProps.aboutCurtainOpacity }}
+          // mainTainrStyle={{ transform: `translate3d(0,-200px,0)` }}
         />
       </VisibilitySensor>
       <VisibilitySensor
