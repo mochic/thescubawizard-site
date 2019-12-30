@@ -45,34 +45,15 @@ import devices from "../devices"
 //   height: 500px;
 // `
 
-const MainTainr = styled(animated.section)`
+const MainTainr = styled(animated.div)`
   overflow: hidden;
-  height: 100vh;
-  margin: 0;
-  padding: 0;
-  position: relative;
+  height: 70vh;
 `
-
-// const LinkTainr = styled(animated.div)`
-//   z-index: 1000 !important; /* we want our scheduling link always clickable! no matter wut */
-//   width: 100%;
-//   margin-top: 80%;
-// `
-
-// const LinkTainr = styled(animated.div)`
-//   z-index: 1000 !important; /* we want our scheduling link always clickable! no matter wut */
-//   width: 100%;
-
-//   position: absolute;
-//   bottom: -10px;
-// `
 
 const LinkTainr = styled(animated.div)`
   z-index: 1000 !important; /* we want our scheduling link always clickable! no matter wut */
   width: 100%;
-
-  position: absolute;
-  bottom: 30%;
+  margin-top: 60vh;
 `
 
 const Curtain = styled(animated.div)`
@@ -89,16 +70,9 @@ const ImageTainr = styled(animated.div)`
   height: 100%;
   width: 100%;
   top: 0px;
-  left: 0px;
 `
 
-const Hero = ({
-  titleProps,
-  linkTainrProps,
-  curtainProps,
-  mainTainrStyle,
-  gradientProps,
-}) => {
+const Hero = ({ titleProps, linkTainrProps, curtainProps, mainTainrStyle }) => {
   const heroImageProps = {}
 
   const linkProps = useSpring({
@@ -145,7 +119,7 @@ const Hero = ({
       </LinkTainr>
       <Curtain style={curtainProps} />
       <ImageTainr>
-        <HeroImage {...heroImageProps} gradientProps={gradientProps} />
+        <HeroImage {...heroImageProps} />
       </ImageTainr>
     </MainTainr>
   )

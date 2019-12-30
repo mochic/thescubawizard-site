@@ -61,7 +61,6 @@ export default () => {
       title: -0.1,
       link: -0.1,
       curtain: 0.01,
-      gradient: -0.3,
     },
     about: {
       content: -0.08,
@@ -73,23 +72,12 @@ export default () => {
     },
   }
 
-  // const [heroProps, setHeroProps] = useSpring(() => ({
-  //   titleTransform: `translate3d(0px,0px,0)`,
-  //   // titleOpacity: 1,
-  //   linkTransform: `translate3d(0px,0px,0)`,
-  //   linkOpacity: 1,
-  //   curtainOpacity: 1,
-  //   gradientPercent: 0,
-  //   // config: { duration: 5000 },
-  // }))
-
   const [heroProps, setHeroProps] = useSpring(() => ({
-    titleTransform: `translate3d(-100px,0,0)`,
+    titleTransform: `translate3d(0px,0px,0)`,
     // titleOpacity: 1,
     linkTransform: `translate3d(0px,0px,0)`,
-    linkOpacity: 0,
-    curtainOpacity: 1,
-    gradientPercent: 0,
+    linkOpacity: 1,
+    curtainOpacity: 0,
     // config: { duration: 5000 },
   }))
 
@@ -130,9 +118,7 @@ export default () => {
       titleTransform: `translate3d(0px,${velocities.hero.title *
         window.pageYOffset}px,0)`,
       curtainOpacity: velocities.hero.curtain * window.pageYOffset,
-      linkTransform: `translate3d(0px,${velocities.hero.link *
-        window.pageYOffset}px,0)`,
-      gradientPercent: velocities.hero.gradient * window.pageYOffset,
+      linkTransform: `translate3d(0px,${velocities.hero.link}px,0)`,
     })
 
     setAboutProps({
@@ -161,13 +147,6 @@ export default () => {
   // const debouncedHandle = debounce(handleScroll, 20)
   const debouncedHandle = handleScroll
 
-  const gradientInterpolator = v => `radial-gradient(
-    313.85% 74.82% at 50.13%
-      ${v}%,
-    rgba(25, 31, 29, 0.75) 0%,
-    #191f1d 100%
-  )`
-
   useLayoutEffect(() => {
     window.addEventListener("scroll", debouncedHandle)
 
@@ -176,25 +155,22 @@ export default () => {
 
   console.log("%cIndex rendered!", "color: red")
 
-  setHeroProps({ curtainOpacity: 0, titleTransform: `translate3d(0px,0,0)` })
-  setTimeout(1000, setHeroProps({ linkOpacity: 1 }))
-
   return (
     <MainTainr>
       {/* <TitleTainr style={{ background: `red` }}>
         <TitleSVG style={{ margin: `auto`, maxWidth: `270px` }} />
       </TitleTainr> */}
       <VisibilitySensor
-        partialVisibility={`top`} /* we don't always have full vis of hero...safari :( */
-        // offset={{ top: 700 }}
+        // partialVisibility /* we don't always have full vis of hero...safari :( */
+        // offset={{ bottom: 500 }}
         onChange={v => {
           console.log("Hero visibility changed...", v)
           // setRevealed({
           //   hero: v,
           // })
-          setHeroProps({
-            linkOpacity: v ? 1 : 0,
-          })
+          // setHeroProps({
+          //   linkOpacity: v ? 1 : 0,
+          // })
         }}
       >
         <Hero
@@ -213,17 +189,10 @@ export default () => {
               // width: `100vw`,
             }
           }
-          // gradientProps={{
-          //   style: {
-          //     background: heroProps.gradientPercent.interpolate(
-          //       gradientInterpolator
-          //     ),
-          //   },
-          // }}
         />
       </VisibilitySensor>
-      {/* <div style={{ height: `1000px`, width: `100%`, background: `red` }} /> */}
-      <VisibilitySensor
+      <div style={{ height: `1000px`, width: `100%`, background: `red` }} />
+      {/* <VisibilitySensor
         partialVisibility
         offset={{ bottom: 100 }}
         onChange={v => {
@@ -238,10 +207,10 @@ export default () => {
           contentTainrProps={{ transform: aboutProps.contentTransform }}
           headerProps={{ transform: aboutProps.headerTransform }}
           curtainProps={{ opacity: revealProps.aboutCurtainOpacity }}
-          mainTainrStyle={{ opacity: 0 }}
+          // mainTainrStyle={{ transform: `translate3d(0,-200px,0)` }}
         />
       </VisibilitySensor>
-      {/* <VisibilitySensor
+      <VisibilitySensor
         partialVisibility
         offset={{ bottom: 100 }}
         onChange={v => {

@@ -30,7 +30,7 @@ to {
 `
 
 // const defaultGV = 80
-// const RevealingTainr = styled.div`
+// const Gradient = styled.div`
 //   height: 100%;
 //   width: 100%;
 //   background: radial-gradient(
@@ -44,19 +44,19 @@ to {
 //   z-index: 0;
 // `
 
-const Gradient = styled.div`
-  height: 100%;
-  width: 100%;
-  background: radial-gradient(
-    82.3% 42.49% at 50.13% 39.96%,
-    rgba(25, 31, 29, 0) 0%,
-    #191f1d 100%
-  );
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  z-index: 0;
-`
+// const Gradient = styled.div`
+//   height: 100%;
+//   width: 100%;
+//   background: radial-gradient(
+//     82.3% 42.49% at 50.13% 39.96%,
+//     rgba(25, 31, 29, 0) 0%,
+//     #191f1d 100%
+//   );
+//   position: absolute;
+//   top: 0px;
+//   left: 0px;
+//   z-index: 0;
+// `
 
 // const Gradient = styled.div`
 //   height: 100%;
@@ -75,6 +75,116 @@ const Gradient = styled.div`
 // gradient potential 12-28-19
 //radial-gradient( 103.87% 80% at 91.07% 34.02%, rgba(25,31,29,0.9) 0%, #191f1d 100% )
 // radial-gradient(141.15% 41.26% at 50.13% 33.56%, rgba(25, 31, 29, 0) 0%, #191F1D 100%);
+
+// const Gradient = styled(animated.div)`
+//   height: 100%;
+//   width: 100%;
+//   background: radial-gradient(
+//     313.85% 74.82% at 50.13% 0%,
+//     rgba(25, 31, 29, 0.75) 0%,
+//     #191f1d 100%
+//   );
+//   position: absolute;
+//   top: 0px;
+//   left: 0px;
+//   z-index: 0;
+// `
+
+// const Gradient = styled(animated.div)`
+//   height: 100%;
+//   width: 100%;
+//   background: radial-gradient(
+//     177% 30.82% at 50% 0%,
+//     rgba(25, 31, 29, 0.75) 0%,
+//     #191f1d 100%
+//   );
+//   position: absolute;
+//   top: 0px;
+//   left: 0px;
+//   z-index: 0;
+// `
+
+// radial-gradient( 177% 64.82% at -28% 0%, rgba(25,31,29,0.75) 0%, #191f1d 100% );
+
+// const Gradient = styled(animated.div)`
+//   height: 100%;
+//   width: 100%;
+//   background: radial-gradient(
+//     177% 64.82% at -28% 0%,
+//     rgba(25, 31, 29, 0.75) 0%,
+//     #191f1d 100%
+//   );
+//   position: absolute;
+//   top: 0px;
+//   left: 0px;
+//   z-index: 0;
+//   height: 734px;
+// `
+
+// background: radial-gradient(313.85% 74.82% at 50.13% 0%, rgba(25, 31, 29, 0.75) 0%, #191F1D 100%);
+
+// const Gradient = styled(animated.div)`
+//   height: 100%;
+//   width: 100%;
+//   background: radial-gradient(
+//     313.85% 74.82% at 50.13% 0%,
+//     rgba(25, 31, 29, 0.75) 0%,
+//     #191f1d 100%
+//   );
+//   position: absolute;
+//   top: 0px;
+//   left: 0px;
+//   z-index: 0;
+//   height: 812px;
+//   width: 375px;
+// `
+
+// const Gradient = styled(({ gradientPercent, ...rest }) => (
+//   <animated.div {...rest} />
+// ))`
+//   height: 100%;
+//   width: 100%;
+//   background: radial-gradient(
+//     313.85% 74.82% at 50.13%
+//       ${props => props.gradientPercent.interpolate(v => v)}%,
+//     rgba(25, 31, 29, 0.75) 0%,
+//     #191f1d 100%
+//   );
+//   position: absolute;
+//   top: 0px;
+//   left: 0px;
+//   z-index: 0;
+//   height: 812px;
+//   width: 375px;
+// `
+
+// const Gradient = styled(animated.div)`
+//   height: 100%;
+//   width: 100%;
+//   position: absolute;
+//   top: 0px;
+//   left: 0px;
+//   z-index: 0;
+//   height: 812px;
+//   width: 375px;
+// `
+
+const Gradient = styled(animated.div)`
+  height: 100%;
+  width: 100%;
+  background: radial-gradient(
+    313.85% 74.82% at 50.13% 0%,
+    rgba(25, 31, 29, 0.75) 0%,
+    #191f1d 100%
+  );
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 0;
+  height: 812px;
+  width: 100%;
+  min-width: 375px;
+`
 
 const ImageTainr = styled(animated.div)`
   z-index: -1;
@@ -102,7 +212,8 @@ const Image = () => (
       <Img
         imgStyle={{ objectPosition: "0% 0%" }}
         style={{
-          minHeight: `100vh`, // todo stop using 100vh for this...
+          // minHeight: `100vh`, // todo stop using 100vh for this...
+          height: `100vh`,
         }}
         fluid={data.placeholderImage.childImageSharp.fluid}
       />
