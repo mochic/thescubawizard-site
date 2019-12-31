@@ -123,6 +123,33 @@ to trick our way out of relative positioning behavior of sticky
 - we have to wrap our component to filter out props our animated.div 
 doesn't expect
 */
+// const navTainrHeight = 70
+// const NavTainr = styled(({ atIndex, ...rest }) => <animated.div {...rest} />)`
+//   z-index: 1000 !important; /* really important for being visible... */
+//   width: 100%;
+//   text-align: center;
+//   padding: 0;
+//   margin-top: ${props => {
+//     return props.atIndex ? `20vh` : `0px`
+//   }};
+//   margin-bottom: ${props => {
+//     return props.atIndex
+//       ? `calc((20vh + ${navTainrHeight}px) * -1)`
+//       : `-${navTainrHeight}px`
+//   }};
+//   margin-left: auto;
+//   margin-right: auto;
+//   position: sticky;
+//   top: 0px;
+//   height: ${navTainrHeight}px;
+//   display: grid;
+//   backdrop-filter: blur(2px);
+//   float: left;
+
+//   grid-template-areas: ". title .";
+//   grid-template-columns: auto auto auto;
+// `
+
 const navTainrHeight = 70
 const NavTainr = styled(({ atIndex, ...rest }) => <animated.div {...rest} />)`
   z-index: 1000 !important; /* really important for being visible... */
@@ -139,8 +166,7 @@ const NavTainr = styled(({ atIndex, ...rest }) => <animated.div {...rest} />)`
   }};
   margin-left: auto;
   margin-right: auto;
-  position: sticky;
-  top: 0px;
+  position: relative;
   height: ${navTainrHeight}px;
   display: grid;
   backdrop-filter: blur(2px);

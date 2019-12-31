@@ -28,7 +28,7 @@ const AP = styled(animated.p)`
   line-height: 200%;
 `
 
-const MainTainr = styled.div`
+const MainTainr = styled(animated.section)`
   display: grid;
   position: relative; /* very important for absolute positioned image */
   height: 900px;

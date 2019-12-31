@@ -25,6 +25,7 @@ const ADiv = styled(animated.div)``
 
 const MainTainr = styled(animated.div)`
   position: relative;
+  min-height: 100vh;
 `
 
 // intelligently scale with js :/
@@ -199,20 +200,25 @@ export default () => {
       >
         <Hero
           titleProps={{ style: { transform: heroProps.titleTransform } }}
-          curtainProps={{ opacity: heroProps.curtainOpacity }}
+          // curtainProps={{
+          //   opacity: heroProps.curtainOpacity.interpolate(v => {
+          //     console.log(v)
+          //     return 1 - v
+          //   }),
+          // }}
           linkTainrProps={{
             opacity: heroProps.linkOpacity,
             transform: heroProps.linkTransform,
           }}
-          mainTainrStyle={
-            {
-              // position: `absolute`,
-              // top: `0px`,
-              // left: `0px`,
-              // height: `100vh`,
-              // width: `100vw`,
-            }
-          }
+          mainTainrStyle={{
+            position: `absolute`,
+            top: `0px`,
+            left: `0px`,
+            height: `100vh`,
+            width: `100vw`,
+            // zIndex: -1,
+            opacity: 0,
+          }}
           // gradientProps={{
           //   style: {
           //     background: heroProps.gradientPercent.interpolate(
@@ -228,17 +234,21 @@ export default () => {
         offset={{ bottom: 100 }}
         onChange={v => {
           console.log("About visibility changed...", v)
-          setRevealProps({
-            aboutCurtainOpacity: v ? 0 : 1,
-          })
+          // setRevealProps({
+          //   aboutCurtainOpacity: v ? 0 : 1,
+          // })
         }}
       >
         <About
           // key={`about-section`}
           contentTainrProps={{ transform: aboutProps.contentTransform }}
           headerProps={{ transform: aboutProps.headerTransform }}
-          curtainProps={{ opacity: revealProps.aboutCurtainOpacity }}
-          mainTainrStyle={{ opacity: 0 }}
+          // curtainProps={{ opacity: revealProps.aboutCurtainOpacity }}
+          mainTainrStyle={{
+            padding: `300px 0`,
+            opacity: 1,
+            // zIndex: 0,
+          }}
         />
       </VisibilitySensor>
       {/* <VisibilitySensor

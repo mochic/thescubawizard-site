@@ -143,7 +143,7 @@ const Hero = ({
           Schedule a chat.
         </FancyLink>
       </LinkTainr>
-      <Curtain style={curtainProps} />
+      {/* <Curtain style={curtainProps} /> */}
       <ImageTainr>
         <HeroImage {...heroImageProps} gradientProps={gradientProps} />
       </ImageTainr>
