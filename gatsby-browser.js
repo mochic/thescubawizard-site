@@ -1,7 +1,7 @@
-import React, { useContext } from "react"
+import React, { useContext, useState } from "react"
 
 import styled, { createGlobalStyle } from "styled-components"
-import { animated } from "react-spring"
+import { animated, useSpring, config } from "react-spring"
 import { Link } from "gatsby"
 
 import ScrollProvider from "./src/providers/ScrollProvider"
@@ -11,6 +11,9 @@ import SchedulingProvider from "./src/providers/SchedulingProvider"
 
 import VisibilityProvider from "./src/providers/VisibilityProvider"
 import VisibilityContext from "./src/contexts/visibility.context"
+import GeneralProvider from "./src/providers/GeneralProvider"
+
+import GeneralContext from "./src/contexts/general.context"
 
 import Footer from "./src/components/Footer"
 import devices from "./src/devices"
@@ -19,6 +22,8 @@ import sizes from "./src/sizes"
 import TitleSVG from "./src/components/TitleSVG"
 
 import smoothscroll from "smoothscroll-polyfill"
+
+import shared from "./src/shared"
 
 import { navigate } from "gatsby-link"
 
@@ -58,8 +63,27 @@ const Containr = styled(animated.div)``
 //   margin: 0 0 -70px 0; /* needs to be the height of the tainr to "remove" relative positioning gap */
 // `
 
+// const navTainrHeight = 70
+// const NavTainr = styled(animated.div)`
+//   z-index: 1000 !important; /* really important for being visible... */
+//   width: 100%;
+//   text-align: center;
+//   padding: 0;
+//   margin: 0;
+//   position: sticky;
+//   top: 0px;
+//   height: ${navTainrHeight}px;
+//   display: grid;
+//   backdrop-filter: blur(2px);
+//   float: left;
+
+//   grid-template-areas: ". title .";
+//   grid-template-columns: auto auto auto;
+// `
+
 const navTainrHeight = 70
-const NavTainr = styled(animated.div)`
+// filter out props that higher level components dont expect and raise weird errors...
+const NavTainr = styled(({ ...props }) => <animated.div {...props} />)`
   z-index: 1000 !important; /* really important for being visible... */
   width: 100%;
   text-align: center;
@@ -86,80 +110,107 @@ const PageTainr = styled(animated.div)`
 //   margin: auto;
 // `
 
-const HomeLink = styled(Link)`
-  color: #ffe9c9;
-  font-family: inconsolata;
-  font-weight: 900;
-  text-decoration: none;
+// const HomeLink = styled(Link)`
+//   color: #ffe9c9;
+//   font-family: inconsolata;
+//   font-weight: 900;
+//   text-decoration: none;
 
-  &:focus {
-    color: #ffeed6;
-  }
-`
+//   &:focus {
+//     color: #ffeed6;
+//   }
+// `
 
-const NavBar = ({ linkProps, tainrProps, atHome }) => {
-  return (
-    !atHome && (
-      <HomeLink to="/" style={linkProps}>
-        the scuba wizard
-      </HomeLink>
-    )
-  )
-}
+// const NavBar = ({ linkProps, tainrProps, atHome }) => {
+//   return (
+//     !atHome && (
+//       <HomeLink to="/" style={linkProps}>
+//         the scuba wizard
+//       </HomeLink>
+//     )
+//   )
+// }
 
-const HeaderContainr = styled(animated.div)`
-  position: fixed;
-  top: 50px;
-  left: 10px;
-  z-index: 4;
-`
+// const HeaderContainr = styled(animated.div)`
+//   position: fixed;
+//   top: 50px;
+//   left: 10px;
+//   z-index: 4;
+// `
 
-const FooterContainr = styled.div`
-  padding: 20px;
-  border-top: 1px solid #505050;
-`
+// const FooterContainr = styled.div`
+//   padding: 20px;
+//   border-top: 1px solid #505050;
+// `
 
 // use this with a provider + react spring to create "transition" effect?
 const TransitionCover = styled(animated.div)``
 
+// const NavBar = ({ style, atIndex, ...rest }) => {
+//   const { navBarVisible } = useContext(GeneralContext)
+
+//   const navBarProps = useSpring({
+//     opacity: navBarVisible ? 1 : 0,
+//     transform: `translate3d(0,${navBarVisible ? 0 : -100}px,0)`,
+//     config: { ...config.stiff },
+//     delay: shared.scheduleAnimationDuration + shared.navBarAnimationDuration,
+//   })
+
+//   const handleTitleClick = e => {
+//     console.log("%ctitle clicked...", "color: green")
+
+//     if (atIndex) {
+//       window.scrollTo({ top: 0, behavior: "smooth" })
+//     } else {
+//       navigate("/")
+//     }
+//   }
+
+//   return (
+//     <NavTainr style={{ ...navBarProps, ...style }}>
+//       <TitleSVG
+//         style={{
+//           gridArea: `title`,
+//           width: `100%`,
+//           maxWidth: `${sizes.title.width}px`,
+//           margin: `auto`,
+//         }}
+//         onClick={handleTitleClick}
+//       />
+//     </NavTainr>
+//   )
+// }
+
 export const replaceComponentRenderer = ({ props, ...other }) => {
   const atIndex = props.location.pathname === "/"
 
-  const handleTitleClick = e => {
-    console.log("%ctitle clicked...", "color: green")
+  // we gotta take this out of here somehow...
+  // const [navBarHidden, setNavBarHidden] = useState(atIndex) // initialize to hidden=true if we start at index
 
-    if (atIndex) {
-      window.scrollTo({ top: 0, behavior: "smooth" })
-    } else {
-      navigate("/")
-    }
-  }
+  // const showNavBar = () => {
+  //   setNavBarHidden(true)
+  // }
+
+  // const hideNavBar = () => {
+  //   setNavBarHidden(false)
+  // }
 
   return (
     <Containr>
-      <NavTainr
-        style={{
-          margin: atIndex
-            ? `100px 0 -170px 0`
-            : `0px 0 -70px 0` /* needs to be the height of the tainr to "remove" relative positioning gap */,
-        }}
-      >
-        <TitleSVG
-          style={{
-            gridArea: `title`,
-            width: `100%`,
-            maxWidth: `${sizes.title.width}px`,
-            margin: `auto`,
-          }}
-          onClick={handleTitleClick}
-        />
-      </NavTainr>
+      {/* 
+      spreading is best...all overrides need to go here anyway 
+      and we should have some conditional overrides 
+      eventually... 
+      */}
+      {/* <NavBar atIndex={atIndex} /> */}
       <GlobalStyle />
       <VisibilityProvider>
         <ScrollProvider>
           <SchedulingProvider>
             <PageTainr>
-              {React.createElement(props.pageResources.component, props)}
+              {React.createElement(props.pageResources.component, {
+                ...props,
+              })}
             </PageTainr>
           </SchedulingProvider>
         </ScrollProvider>

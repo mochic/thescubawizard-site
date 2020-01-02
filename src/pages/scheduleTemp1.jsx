@@ -22,10 +22,8 @@ import SchedulingContext from "../contexts/scheduling.context"
 import Image from "../components/ContactImage"
 
 import devices from "../devices"
-import { schedulingAnimationDuration } from "../shared" // shared config store for building our animations, todo use the "gatsby way"
 
 import TitleSVG from "../components/TitleSVG"
-import NavBar from "../components/NavBar"
 
 // const NavTainr = styled(animated.div)`
 //   grid-area: nav;
@@ -161,10 +159,16 @@ const SchedulerTainr = styled(animated.div)`
 // `
 
 const Containr = styled(animated.div)`
+  display: grid;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  position: relative;
+  box-sizing: border-box;
+  grid-template-areas:
+    "nav"
+    "form";
+
+  grid-template-rows: 1fr 7fr;
 `
 
 const ImageTainr = styled(animated.div)`
@@ -356,13 +360,12 @@ export default () => {
       contentSpringRef,
     ],
     [0, 0.2, 0.2, 0.2, 0.2],
-    schedulingAnimationDuration
+    1000
   )
 
   // keep it simple for now...maybs just get something pretty that works...thematically...
   return (
     <Containr>
-      <NavBar />
       {/* we need separated from contentTainr to be sibilings for grid layout to work!*/}
       <SchedulerTainr style={contentProps}>
         <Scheduler />

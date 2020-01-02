@@ -19,6 +19,8 @@ import TitleSVG from "../components/TitleSVG"
 
 import device from "../devices"
 
+import NavBar from "../components/NavBar"
+
 import VisibilitySensor from "react-visibility-sensor"
 
 const ADiv = styled(animated.div)``
@@ -89,6 +91,12 @@ export default () => {
   // const [aboutProps, setAboutProps] = useSpring(() => ({
   //   transform: `translate3d(0px,0px,0)`,
   // }))
+
+  const [navBarProps, setNavBarProps] = useSpring(() => ({
+    opacity: 0,
+    transform: `translate3d(0,-100px,0)`,
+  }))
+
   const [servicesProps, setServicesProps] = useSpring(() => ({
     contentTransform: `translate3d(0px,0px,0)`,
     h0Transform: `translate3d(200px, 0px, 0px)`,
@@ -169,6 +177,11 @@ export default () => {
           setHeroProps({
             linkOpacity: v ? 1 : 0,
           })
+          setNavBarProps({
+            opacity: v ? 0 : 1,
+            transform: `translate3d(0,${v ? -100 : 0}px,0)`,
+            config: { ...config.stiff, duration: 600 },
+          })
         }}
       >
         <Hero
@@ -239,6 +252,13 @@ export default () => {
           <Footer />
         </ADiv>
       </VisibilitySensor>
+      <NavBar
+        style={{ ...navBarProps }}
+        handleTitleClick={e => {
+          console.log("%coverridden: title clicked...", "color: green")
+          window.scrollTo({ top: 0, behavior: "smooth" })
+        }}
+      />
     </MainTainr>
   )
 }
