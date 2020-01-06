@@ -104,7 +104,7 @@ const LinkTainr = styled(animated.div)`
   z-index: 1000;
 `
 
-export default () => {
+export default ({linkProps}) => {
   // need outer container to position lazy loading background image
   const [revealed, setRevealed] = useState(false)
 
@@ -116,7 +116,7 @@ export default () => {
   })
 
   const linkSpringRef = useRef()
-  const linkProps = useSpring({
+  const _linkProps = useSpring({
     ref: linkSpringRef,
     from: {
       textOpacity: 0,
@@ -205,11 +205,16 @@ export default () => {
           <LinkTainr>
             <FancyLink
               to={"/schedule"}
-              textStyle={{ opacity: linkProps.textOpacity }}
-              buttonStyle={{
-                opacity: linkProps.arrowOpacity,
-                transform: linkProps.arrowTransform,
+              textStyle={{
+                opacity: _linkProps.textOpacity, 
+                ...linkProps.textStyle
               }}
+              buttonStyle={{
+                opacity: _linkProps.arrowOpacity,
+                transform: _linkProps.arrowTransform,
+                ...linkProps.buttonStyle
+              }}
+              containrProps={{...linkProps.containrProps}}
             >
               Get started today!
             </FancyLink>

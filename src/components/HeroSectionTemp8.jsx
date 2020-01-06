@@ -5,7 +5,7 @@ import { animated, config, useSpring } from "react-spring"
 
 import debounce from "lodash/debounce"
 
-import TitleSVG from "../components/TitleSVGEmbed"
+import TitleSVG from "../components/TitleSVG"
 
 import FancyLink from "../components/FancyLink"
 
@@ -33,25 +33,6 @@ import devices from "../devices"
 //   }
 // `
 
-// const MainTainr = styled(animated.div)`
-//   overflow: hidden;
-//   position: relative;
-//   height: 80vh; /* 100vh felt wayyyy tooo long to scroll thru */
-
-//   display: grid;
-//   grid-template-areas:
-//     ". . ."
-//     ". title ."
-//     ". link ."
-//     ". . .";
-//   grid-template-columns: auto auto auto;
-//   grid-template-rows: auto auto auto auto;
-
-//   @media ${devices.laptop} {
-//     height: 100vh;
-//   }
-// `
-
 const MainTainr = styled(animated.div)`
   overflow: hidden;
   position: relative;
@@ -60,7 +41,7 @@ const MainTainr = styled(animated.div)`
   display: grid;
   grid-template-areas:
     ". . ."
-    ". . ."
+    ". title ."
     ". link ."
     ". . .";
   grid-template-columns: auto auto auto;
@@ -69,6 +50,12 @@ const MainTainr = styled(animated.div)`
   @media ${devices.laptop} {
     height: 100vh;
   }
+`
+
+const HeroLinkTainr = styled(animated.div)`
+  z-index: 1000 !important; /* we want our scheduling link always clickable! no matter wut */
+  width: 100%;
+  grid-area: link;
 `
 
 const Curtain = styled(animated.div)`
@@ -87,20 +74,15 @@ const ImageTainr = styled(animated.div)`
   top: 0px;
 `
 
+const TitleTainr = styled(animated.div)`
+  grid-area: title;
+`
+
 const HintTainr = styled(animated.div)`
   position: fixed;
   bottom: 50px;
   width: 100%;
   text-align: center;
-  mix-blend-mode: overlay;
-  grid-area: hint;
-`
-
-const HeroLinkTainr = styled(animated.div)`
-  z-index: 1000 !important; /* we want our scheduling link always clickable! no matter wut */
-  width: 100%;
-  grid-area: link;
-  margin: 300px 0 0 0;
   mix-blend-mode: overlay;
 `
 
@@ -150,68 +132,47 @@ const Hero = ({
       {/* <TitleTainr>
         <TitleSVG style={{ transform: `scale(0.75)` }} />
       </TitleTainr> */}
-
-      <Curtain style={curtainProps} />
-      <ImageTainr>
-        <HeroImage
-          imageProps={{
+      <HintTainr>
+        <animated.p
+          style={{
+            color: `#ffffff`,
+            fontFamily: `open sans`,
+            fontWeight: 300,
+            ...hintProps,
+            ...scrollHintProps,
+          }}
+        >
+          Scroll for more.
+        </animated.p>
+      </HintTainr>
+      <HeroLinkTainr style={{ ...linkTainrProps }}>
+        <FancyLink
+          to="/schedule"
+          textStyle={{
+            fontWeight: 300,
+            fontFamily: `open sans`,
+            opacity: linkProps.textOpacity,
+          }}
+          buttonStyle={{
+            transform: linkProps.arrowTransform,
+            opacity: linkProps.arrowOpacity,
+          }}
+          arrowProps={{
+            style: {},
+          }}
+          containrProps={{
             style: {
-              display: `grid`,
-              gridTemplateAreas: ``,
-              gridTemplateColumns: `auto auto auto`,
+              margin: `auto`,
+              maxWidth: `${sizes.title.width}px`,
             },
           }}
         >
-          <TitleSVG
-            style={{
-              transform: `scale(0.95)`, // TODO use media queries to make this max 0.75 on smaller mobile devices, also make link a child so it scales with image
-              position: `absolute`,
-              zIndex: 1000,
-              top: `100px`,
-              width: `100%`,
-              textAlign: `center`,
-              gridArea: `title`,
-            }}
-          />
-          <HeroLinkTainr style={{ ...linkTainrProps }}>
-            <FancyLink
-              to="/schedule"
-              textStyle={{
-                fontWeight: 300,
-                fontFamily: `open sans`,
-                opacity: linkProps.textOpacity,
-              }}
-              buttonStyle={{
-                transform: linkProps.arrowTransform,
-                opacity: linkProps.arrowOpacity,
-              }}
-              arrowProps={{
-                style: {},
-              }}
-              containrProps={{
-                style: {
-                  margin: `auto`,
-                  maxWidth: `${sizes.title.width}px`,
-                },
-              }}
-            >
-              Schedule a chat.
-            </FancyLink>
-          </HeroLinkTainr>
-          <HintTainr>
-            <animated.p
-              style={{
-                color: `#ffffff`,
-                fontFamily: `open sans`,
-                fontWeight: 300,
-                ...hintProps,
-                ...scrollHintProps,
-              }}
-            >
-              Scroll for more.
-            </animated.p>
-          </HintTainr>
-        </HeroImage>
+          Schedule a chat.
+        </FancyLink>
+      </HeroLinkTainr>
+      <Curtain style={curtainProps} />
+      <ImageTainr>
+        <HeroImage {...heroImageProps} />
       </ImageTainr>
     </MainTainr>
   )

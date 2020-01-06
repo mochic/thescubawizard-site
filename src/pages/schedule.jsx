@@ -22,7 +22,7 @@ import SchedulingContext from "../contexts/scheduling.context"
 import Image from "../components/ContactImage"
 
 import devices from "../devices"
-import { schedulingAnimationDuration } from "../shared" // shared config store for building our animations, todo use the "gatsby way"
+import { scheduleAnimationDuration } from "../shared" // shared config store for building our animations, todo use the "gatsby way"
 
 import TitleSVG from "../components/TitleSVG"
 import NavBar from "../components/NavBar"
@@ -356,7 +356,7 @@ export default () => {
       contentSpringRef,
     ],
     [0, 0.2, 0.2, 0.2, 0.2],
-    schedulingAnimationDuration
+    scheduleAnimationDuration
   )
 
   // keep it simple for now...maybs just get something pretty that works...thematically...

@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useState, useRef } from "react"
 
 import styled from "styled-components"
-import { animated, config, useSpring, useSprings } from "react-spring"
+import { animated, config, useSpring } from "react-spring"
 
 import Hero from "../components/HeroSection"
 
@@ -39,32 +39,15 @@ const MainTainr = styled(animated.div)`
 //   z-index: 1;
 // `
 
-const BorderTainr = styled(animated.div)`
-  background: radial-gradient(
-    103.93% 50% at 50% 50%,
-    rgba(25, 31, 29, 0.08) 0%,
-    #191f1d 100%
-  );
+const Border = styled(animated.div)`
+  background: radial-gradient(103.93% 50% at 50% 50%, rgba(25, 31, 29, 0.08) 0%, #191F1D 100%);
   height: 100vh; /* not the best but the best we can do for now?... */
   width: 100vh;
   position: fixed;
   top: 0px;
   left: 0px;
-  z-index: 1000;
-  pointer-events: none;
+  z-index: 2;
 `
-
-const HomeLinkTainr = styled(animated.div)``
-
-const Border = ({ homeProps, ...props }) => {
-  return (
-    <BorderTainr {...props}>
-      <HomeLinkTainr style={{ height: `56px`, width: `56px` }} {...homeProps}>
-        <TitleSVG height={`auto`} width={`auto`} style={{ padding: `7px` }} />
-      </HomeLinkTainr>
-    </BorderTainr>
-  )
-}
 
 export default () => {
   const [pos, setPos] = useState()
@@ -117,12 +100,8 @@ export default () => {
 
   const [interestedProps, setInterestedProps] = useSpring(() => ({
     linkFilter: `blur(20px)`,
-    config: { ...config.wobbly, duration: 600 },
+    config: {...config.wobbly, duration: 600}
   }))
-
-  //   const [interestedChunkProps, setInterestedChunkProps] = useSprings((index, ) => ({
-  //     filter: `blur(20px)`,
-  // }))
 
   // const [heroLinkProps, setHeroLinkProps] = useSpring(() => ({
   //   linkTransform: `translate3d(0px,0px,0px)`,
@@ -158,11 +137,11 @@ export default () => {
   }))
 
   const [scrollHintProps, setScrollHintProps] = useSpring(() => ({
-    opacity: 1,
+    opacity: 1
   }))
 
   const [borderProps, setBorderProps] = useSpring(() => ({
-    opacity: 0,
+    opacity: 0
   }))
 
   // const [parallaxProps, setParallaxProps] = useSpring(() => ({
@@ -217,7 +196,7 @@ export default () => {
       {/* <TitleTainr style={{ background: `red` }}>
         <TitleSVG style={{ margin: `auto`, maxWidth: `270px` }} />
       </TitleTainr> */}
-      <Border style={{ ...borderProps, opacity: 0 }} />
+      <Border style={{...borderProps}} />
       <VisibilitySensor
         onChange={v => {
           console.log("Hero visibility changed...", v)
@@ -241,7 +220,7 @@ export default () => {
             opacity: heroProps.linkOpacity,
             transform: heroProps.linkTransform,
           }}
-          scrollHintProps={{ ...scrollHintProps }}
+          scrollHintProps={{...scrollHintProps}}
         />
       </VisibilitySensor>
       <VisibilitySensor
@@ -252,11 +231,8 @@ export default () => {
           setRevealProps({
             aboutCurtainOpacity: v ? 0 : 1,
           })
-          setScrollHintProps({ opacity: v ? 0 : 1 })
-          setBorderProps({ opacity: v ? 1 : 0 })
-          // if (v) {
-          //   setBorderProps({opacity: borderProps.opacity.interpolate(v => (v === 0 ? 1 : 0))})
-          // }
+          setScrollHintProps({opacity: v ? 0 : 1})
+          setBorderProps({opacity: v ? 1 : 0})
         }}
       >
         <About
@@ -289,11 +265,7 @@ export default () => {
           // setRevealProps({ footerOpacity: 1 })
         }}
       >
-        {/* we want the link clickable always... */}
-        <Interested
-          containrProps={{ style: { zIndex: 1000 } }}
-          linkProps={{ buttonStyle: { zIndex: 1000 } }}
-        />
+        <Interested />
       </VisibilitySensor>
       <VisibilitySensor
         onChange={v => {

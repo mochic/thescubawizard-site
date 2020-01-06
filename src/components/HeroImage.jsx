@@ -5,6 +5,8 @@ import Img from "gatsby-image"
 import styled, { keyframes } from "styled-components"
 import { animated } from "react-spring"
 
+import TitleSVG from "./TitleSVGEmbed"
+
 // const RevealingTainr = styled(animated.div)`
 //   height: 100%;
 //   width: 100%;
@@ -78,7 +80,7 @@ const Image = () => (
   />
 )
 
-export default ({ outerProps, imageProps, gradientProps }) => {
+export default ({ outerProps, imageProps, gradientProps, children }) => {
   console.log("%chero image props", "color: orange", {
     outerProps,
     imageProps,
@@ -88,6 +90,7 @@ export default ({ outerProps, imageProps, gradientProps }) => {
     <Containr {...outerProps}>
       <ImageTainr {...imageProps}>
         <Image />
+        {children}
       </ImageTainr>
       <RevealingTainr {...gradientProps} />
     </Containr>
