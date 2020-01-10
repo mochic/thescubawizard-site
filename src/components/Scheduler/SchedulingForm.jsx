@@ -18,6 +18,7 @@ const Form = styled(animated.form)`
   flex-direction: column;
   align-items: left;
   width: 100%;
+  align-items: center;
 `
 
 export default () => {
@@ -88,7 +89,7 @@ export default () => {
         onBlur={handlePhoneBlur}
         onChange={handlePhoneChange}
         disabled={isSubmitting}
-        tainrStyle={{ width: `100%`, maxWidth: `240px` }}
+        tainrStyle={{ width: `100%`, maxWidth: `480px` }}
       />
       <FancyInput
         type="email"
@@ -99,7 +100,7 @@ export default () => {
         onBlur={handleEmailBlur}
         onChange={handleEmailChange}
         disabled={isSubmitting}
-        tainrStyle={{ width: `100%`, maxWidth: `240px` }}
+        tainrStyle={{ width: `100%`, maxWidth: `480px` }}
       />
     </Form>
   )

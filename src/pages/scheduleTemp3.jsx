@@ -160,13 +160,6 @@ const SchedulerTainr = styled(animated.div)`
 //   padding: 5% 8% 46% 8%;
 // `
 
-// const Containr = styled(animated.div)`
-//   width: 100vw;
-//   height: 100vh;
-//   overflow: hidden;
-//   position: relative;
-// `
-
 const Containr = styled(animated.div)`
   width: 100vw;
   height: 100vh;
@@ -181,10 +174,6 @@ const ImageTainr = styled(animated.div)`
   height: 100%;
   width: 100%;
   z-index: -2;
-
-  @media ${devices.tablet} {
-    left: 0px;
-  }
 `
 
 // const ContentTainr = styled(animated.div)``
@@ -413,13 +402,11 @@ export default () => {
       </SchedulerTainr>
       <ImageTainr style={imageProps}>
         <Image
-          // containrProps={{ style: { maxHeight: `800px`, maxWidth: `1180px` } }}
+          containrProps={{ style: { maxHeight: `800px`, maxWidth: `1180px` } }}
           gradientProps={{
             style: {
-              // height: `100%`,
-              // width: `100%`
-              // maxHeight: `800px`,
-              // maxWidth: `1180px`,
+              maxHeight: `800px`,
+              maxWidth: `1180px`,
               //   background: `linear-gradient(254.29deg, rgba(46, 144, 111, 0.3) ${gradientProps.lg0percent.interpolate(
               //     v => v
               //   )}%, #191f1d 75.64%)`,

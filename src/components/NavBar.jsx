@@ -80,7 +80,7 @@ const Containr = styled(animated.div)`
   right: 0px;
   z-index: 1000;
   text-align: right;
-  mix-blend-mode: overlay;
+  mix-blend-mode: soft-light; /* looks better than overlay */
 `
 
 // const BorderTainr = styled(animated.div)``

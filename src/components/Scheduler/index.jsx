@@ -58,10 +58,24 @@ const Statement = styled(animated.div)``
 //   width: 400px;
 // `
 
+// const PageTainr = styled(animated.div)`
+//   height: 100%;
+//   width: 100%;
+//   padding: 16px 16px 0 16px;
+// `
+
+// const PageTainr = styled(animated.div)`
+//   box-sizing: border-box;
+//   height: 100%;
+//   width: 100%;
+//   width: calc(100% - 32px);
+//   padding: 16px 16px 0 16px;
+// `
+
 const PageTainr = styled(animated.div)`
   height: 100%;
   width: 100%;
-  padding: 16px 16px 0 16px;
+  width: calc(100% - 32px);
 `
 
 const Containr = styled(animated.div)`

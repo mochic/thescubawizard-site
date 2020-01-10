@@ -7,8 +7,10 @@ import { animated } from "react-spring"
 
 //-1096.03 to 37.97
 const Gradient = styled(animated.div)`
-  height: 800px;
-  width: 1180px;
+  height: 100%;
+  width: 100%;
+  min-height: 800px;
+  min-width: 1180px;
   position: relative;
   overflow: hidden;
 `
@@ -52,7 +54,12 @@ const Image = () => (
     render={data => (
       <Img
         imgStyle={{ objectFit: "cover", objectPosition: "top left" }}
-        style={{ minHeight: `800px`, minWidth: `1180px` }}
+        style={{
+          height: `100%`,
+          width: `100%`,
+          minHeight: `800px`,
+          minWidth: `1180px`,
+        }}
         fluid={data.placeholderImage.childImageSharp.fluid}
       />
     )}

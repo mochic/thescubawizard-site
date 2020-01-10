@@ -30,6 +30,8 @@ const Button = styled(animated.button)`
   font-weight: 300;
   margin: 0 0 8px 0;
   padding: 0;
+
+  -webkit-tap-highlight-color: rgba(0,0,0,0); /* fixes weird safari issue? */
 `
 
 const StatementTainr = styled(animated.div)``
