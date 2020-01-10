@@ -34,6 +34,34 @@ const P = styled(animated.p)`
   font-weight: 300;
 `
 
+// const SwitchTainr = styled(animated.div)`
+//   overflow: hidden;
+//   display: flex;
+//   align-content: center;
+//   justify-content: center;
+// `
+
+// const SwitchTainr = styled(animated.div)`
+//   overflow: hidden;
+//   position: relative;
+//   height: 300px;
+//   grid-area: switch;
+//   display: flex;
+//   align-items: center;
+//   background: blue;
+// `
+
+// const SwitchTainr = styled(animated.div)`
+//   overflow: hidden;
+//   position: relative;
+//   height: 100%;
+//   width; 100%;
+//   grid-area: switch;
+//   display: flex;
+//   flex-direction: row;
+//   background: blue;
+// `
+
 const nPages = 3
 
 const SwitchTainr = styled(animated.div)`
@@ -48,6 +76,26 @@ const SwitchTainr = styled(animated.div)`
 
 const FormTainr = styled(animated.div)`
   width: 100%;
+`
+
+// const ScheduledTainr = styled(animated.div)`
+//   display: flex;
+//   flex-direction: column;
+//   margin: 100px 0 0 0;
+//   position: absolute;
+//   background: green;
+//   width: 100%;
+// `
+
+const ScheduledTainr = styled(animated.div)`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`
+
+const StatementTainr = styled(animated.div)`
+  position: relative;
+  grid-area: statement;
 `
 
 const Statement = styled(animated.div)``
@@ -73,11 +121,82 @@ const Containr = styled(animated.div)`
   grid-template-rows: 1fr 2fr 1fr;
 `
 
+// const Statements = ({ style0, style1 }) => {
+//   return (
+//     <>
+//       <Statement style={{ ...style0 }}>
+//         <P>{`All we need is a phone number or email address.`}</P>
+//       </Statement>
+//       <Statement style={{ ...style1 }}>
+//         <P>{`Great! We'll try to contact you in the next two business days.`}</P>
+//       </Statement>
+//     </>
+//   )
+// }
+
+// Input is not an animated component
+
+// const Submit = ({ outerputProps, arrowTainrProps }) => {
+//   const {
+//     submitted: { phoneNumber, emailAddress },
+//     isSubmitting,
+//   } = useContext(SchedulingContext)
+
+//   let text
+//   if (phoneNumber || emailAddress) {
+//     text = "Scheduled."
+//   } else if (isSubmitting) {
+//     text = "Scheduling..."
+//   } else {
+//     text = "Schedule a chat."
+//   }
+
+//   return (
+//     <SubmitTainr>
+//       <SubmitInputTainr {...outerputProps}>
+//         <Input
+//           form="scheduling-form"
+//           type="submit"
+//           value={text}
+//           style={{
+//             marginTop: `25px`,
+//             padding: `16px 0 8px 0`,
+//             border: `none`,
+//             background: `none`,
+//             color: `#FFE9C9`,
+//             width: `80%`,
+//             fontFamily: `roboto`,
+//             fontWeight: 300,
+//           }}
+//         />
+//       </SubmitInputTainr>
+//       <SubmitArrowTainr {...arrowTainrProps}>
+//         <ScheduleArrow />
+//       </SubmitArrowTainr>
+//     </SubmitTainr>
+//   )
+// }
+
 const SubmitterTainr = styled(animated.div)`
   grid-area: submit;
   display: flex;
   width: 300%; /* 3 slider states */
 `
+
+// const SubmittedTainr = styled(animated.div)`
+//   align-self: center;
+//   text-align: center;
+//   position: absolute;
+//   width: 100%;
+//   padding: 30px 0 20px 0;
+// `
+
+// const UnsubmittedTainr = styled(animated.div)`
+//   align-self: center;
+//   text-align: center;
+//   position: absolute;
+//   width: 100%;
+// `
 
 const Link = styled(Link_)`
   font-family: open sans;

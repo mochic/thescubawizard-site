@@ -13,7 +13,7 @@ import Services from "../components/ServicesSection"
 
 import Interested from "../components/InterestedSection"
 
-import Footer from "../components/Footer"
+import Footer from "../components/AnotherFooter"
 
 import TitleSVG from "../components/TitleSVGEmbed"
 
@@ -39,7 +39,7 @@ const MainTainr = styled(animated.div)`
 //   z-index: 1;
 // `
 
-const DepthsGradient = styled(animated.div)`
+const BorderTainr = styled(animated.div)`
   background: radial-gradient(
     103.93% 50% at 50% 50%,
     rgba(25, 31, 29, 0.08) 0%,
@@ -47,20 +47,40 @@ const DepthsGradient = styled(animated.div)`
   );
   height: 100vh; /* not the best but the best we can do for now?... */
   width: 100vw;
-  pointer-events: none;
   position: fixed;
   top: 0px;
   left: 0px;
-  z-index: 5; /* hopefully this is enough but not too much... */
+  z-index: 1000;
+  pointer-events: none;
 `
+
+// const BorderTainr = styled(animated.div)``
+
+const HomeLinkTainr = styled(animated.div)`
+  transform: translate3d(0, 0, 0);
+`
+
+const Border = ({ homeProps, ...props }) => {
+  return (
+    <BorderTainr {...props}>
+      <HomeLinkTainr
+        style={{ padding: `7px`, textAlign: `right` }}
+        {...homeProps}
+      >
+        <TitleSVG
+          height={`56px`}
+          width={`56px`}
+          fill={`#ffffff80`}
+          style={{ mixBlendMode: `overlay` }}
+        />
+      </HomeLinkTainr>
+    </BorderTainr>
+  )
+}
 
 export default () => {
   const [pos, setPos] = useState()
 
-  // some performance cost to prevent weird situations when we initialize at top but about is slightly showing...
-  const diveThreshold = 50 // probs have to do something elaborate to calculate this...
-  const [isDiving, setIsDiving] = useState(window.pageYOffset > diveThreshold)
-  console.log("%cIndex rendered", { isDiving }, "color: #ff00ff")
   // maybe use different based on browser support, etc....
   // const rawHandler = () => {
   //   setPos(window.pageYOffset)
@@ -112,6 +132,24 @@ export default () => {
     config: { ...config.wobbly, duration: 600 },
   }))
 
+  //   const [interestedChunkProps, setInterestedChunkProps] = useSprings((index, ) => ({
+  //     filter: `blur(20px)`,
+  // }))
+
+  // const [heroLinkProps, setHeroLinkProps] = useSpring(() => ({
+  //   linkTransform: `translate3d(0px,0px,0px)`,
+  //   linkOpacity: 0,
+  // }))
+
+  // const [aboutProps, setAboutProps] = useSpring(() => ({
+  //   transform: `translate3d(0px,0px,0)`,
+  // }))
+
+  const [navBarProps, setNavBarProps] = useSpring(() => ({
+    opacity: 0,
+    transform: `translate3d(0,-100px,0)`,
+  }))
+
   const [servicesProps, setServicesProps] = useSpring(() => ({
     contentTransform: `translate3d(0px,0px,0)`,
     h0Transform: `translate3d(200px, 0px, 0px)`,
@@ -129,29 +167,22 @@ export default () => {
     servicesCurtainOpacity: 1,
     footerOpacity: 0,
     config: { ...config.stiff, duration: 2000 },
-    reset: !isDiving,
   }))
 
   const [scrollHintProps, setScrollHintProps] = useSpring(() => ({
     opacity: 1,
   }))
 
-  const [navBarProps, setNavBarProps] = useSpring(() => ({
+  const [borderProps, setBorderProps] = useSpring(() => ({
     opacity: 0,
-    depthsOpacity: 0,
   }))
+
+  // const [parallaxProps, setParallaxProps] = useSpring(() => ({
+  //   aboutTransform: `translate3d(0px,0px,0px)`,
+  // }))
 
   const rawHandler = () => {
     // setPos(window.pageYOffset)
-    if (!isDiving && window.pageYOffset > diveThreshold) {
-      console.log("%csetting diving to: ", "color: #ff00ff", true)
-      console.log(window.pageYOffset)
-      setIsDiving(true)
-    } else if (isDiving && window.pageYOffset <= diveThreshold) {
-      console.log("%csetting diving to: ", "color: #ff00ff", false)
-      setIsDiving(false)
-    }
-
     setHeroProps({
       titleTransform: `translate3d(0px,${velocities.hero.title *
         window.pageYOffset}px,0)`,
@@ -189,21 +220,16 @@ export default () => {
     window.addEventListener("scroll", debouncedHandle)
 
     return () => window.removeEventListener("scroll", debouncedHandle)
-  }, [isDiving]) // if we dont do this handleScroll will only evaluate pos.current to its initial 0 from each render
+  }, [pos]) // if we dont do this handleScroll will only evaluate pos.current to its initial 0 from each render
 
   console.log("%cIndex rendered!", "color: red")
 
   return (
     <MainTainr>
-      <NavBar
-        style={{ opacity: navBarProps.opacity }}
-        handleHomeClick={e => {
-          e.preventDefault()
-          console.log("%coverriden title clicked", "color: teal")
-          window.scrollTo({ top: 0, behavior: `smooth` })
-        }}
-      />
-      <DepthsGradient style={{ opacity: navBarProps.depthsOpacity }} />
+      {/* <TitleTainr style={{ background: `red` }}>
+        <TitleSVG style={{ margin: `auto`, maxWidth: `270px` }} />
+      </TitleTainr> */}
+      <Border style={{ ...borderProps }} />
       <VisibilitySensor
         onChange={v => {
           console.log("Hero visibility changed...", v)
@@ -212,13 +238,6 @@ export default () => {
           // })
           setHeroProps({
             linkOpacity: v ? 1 : 0,
-          })
-
-          // hide navbar when hero visible when not
-          setNavBarProps({
-            opacity: v ? 0 : 1,
-            depthsOpacity: v ? 0 : 1,
-            config: { ...config.stiff, duration: 1200 },
           })
           // setNavBarProps({
           //   opacity: v ? 0 : 1,
@@ -240,21 +259,16 @@ export default () => {
       <VisibilitySensor
         partialVisibility
         offset={{ bottom: 100 }}
-        active={isDiving}
         onChange={v => {
-          console.log("About visibility changed...", {
-            visibility: v,
-            isDiving,
-          })
+          console.log("About visibility changed...", v)
           setRevealProps({
-            aboutCurtainOpacity: v && isDiving ? 0 : 1,
+            aboutCurtainOpacity: v ? 0 : 1,
           })
           setScrollHintProps({ opacity: v ? 0 : 1 })
-          // setNavBarProps({
-          //   opacity: v ? 1 : 0,
-          //   depthsOpacity: v ? 1 : 0,
-          //   config: { ...config.stiff, duration: 1600 },
-          // })
+          setBorderProps({
+            opacity: v ? 1 : 0,
+            config: { ...config.stiff, duration: 1600 },
+          })
           // if (v) {
           //   setBorderProps({opacity: borderProps.opacity.interpolate(v => (v === 0 ? 1 : 0))})
           // }
@@ -306,7 +320,7 @@ export default () => {
           style={{
             position: `absolute`,
             width: `100%`,
-            bottom: `25px`,
+            bottom: `5px`,
             opacity: revealProps.footerOpacity,
           }}
         >

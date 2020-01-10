@@ -13,7 +13,7 @@ import Services from "../components/ServicesSection"
 
 import Interested from "../components/InterestedSection"
 
-import Footer from "../components/Footer"
+import Footer from "../components/AnotherFooter"
 
 import TitleSVG from "../components/TitleSVGEmbed"
 
@@ -51,16 +51,14 @@ const DepthsGradient = styled(animated.div)`
   position: fixed;
   top: 0px;
   left: 0px;
-  z-index: 5; /* hopefully this is enough but not too much... */
+  z-index: 1000;
 `
 
 export default () => {
   const [pos, setPos] = useState()
 
-  // some performance cost to prevent weird situations when we initialize at top but about is slightly showing...
-  const diveThreshold = 50 // probs have to do something elaborate to calculate this...
+  const diveThreshold = 100 // probs have to do something elaborate to calculate this...
   const [isDiving, setIsDiving] = useState(window.pageYOffset > diveThreshold)
-  console.log("%cIndex rendered", { isDiving }, "color: #ff00ff")
   // maybe use different based on browser support, etc....
   // const rawHandler = () => {
   //   setPos(window.pageYOffset)
@@ -129,7 +127,6 @@ export default () => {
     servicesCurtainOpacity: 1,
     footerOpacity: 0,
     config: { ...config.stiff, duration: 2000 },
-    reset: !isDiving,
   }))
 
   const [scrollHintProps, setScrollHintProps] = useSpring(() => ({
@@ -145,7 +142,6 @@ export default () => {
     // setPos(window.pageYOffset)
     if (!isDiving && window.pageYOffset > diveThreshold) {
       console.log("%csetting diving to: ", "color: #ff00ff", true)
-      console.log(window.pageYOffset)
       setIsDiving(true)
     } else if (isDiving && window.pageYOffset <= diveThreshold) {
       console.log("%csetting diving to: ", "color: #ff00ff", false)
@@ -189,7 +185,7 @@ export default () => {
     window.addEventListener("scroll", debouncedHandle)
 
     return () => window.removeEventListener("scroll", debouncedHandle)
-  }, [isDiving]) // if we dont do this handleScroll will only evaluate pos.current to its initial 0 from each render
+  }, [pos]) // if we dont do this handleScroll will only evaluate pos.current to its initial 0 from each render
 
   console.log("%cIndex rendered!", "color: red")
 
@@ -213,13 +209,6 @@ export default () => {
           setHeroProps({
             linkOpacity: v ? 1 : 0,
           })
-
-          // hide navbar when hero visible when not
-          setNavBarProps({
-            opacity: v ? 0 : 1,
-            depthsOpacity: v ? 0 : 1,
-            config: { ...config.stiff, duration: 1200 },
-          })
           // setNavBarProps({
           //   opacity: v ? 0 : 1,
           //   transform: `translate3d(0,${v ? -100 : 0}px,0)`,
@@ -242,19 +231,16 @@ export default () => {
         offset={{ bottom: 100 }}
         active={isDiving}
         onChange={v => {
-          console.log("About visibility changed...", {
-            visibility: v,
-            isDiving,
-          })
+          console.log("About visibility changed...", v)
           setRevealProps({
-            aboutCurtainOpacity: v && isDiving ? 0 : 1,
+            aboutCurtainOpacity: v ? 0 : 1,
           })
           setScrollHintProps({ opacity: v ? 0 : 1 })
-          // setNavBarProps({
-          //   opacity: v ? 1 : 0,
-          //   depthsOpacity: v ? 1 : 0,
-          //   config: { ...config.stiff, duration: 1600 },
-          // })
+          setNavBarProps({
+            opacity: v ? 1 : 0,
+            depthsOpacity: v ? 1 : 0,
+            config: { ...config.stiff, duration: 1600 },
+          })
           // if (v) {
           //   setBorderProps({opacity: borderProps.opacity.interpolate(v => (v === 0 ? 1 : 0))})
           // }
@@ -306,7 +292,7 @@ export default () => {
           style={{
             position: `absolute`,
             width: `100%`,
-            bottom: `25px`,
+            bottom: `5px`,
             opacity: revealProps.footerOpacity,
           }}
         >

@@ -52,29 +52,19 @@ import devices from "../devices"
 //   }
 // `
 
-// const MainTainr = styled(animated.div)`
-//   overflow: hidden;
-//   position: relative;
-//   height: 80vh; /* 100vh felt wayyyy tooo long to scroll thru */
-
-//   display: grid;
-//   grid-template-areas:
-//     ". . ."
-//     ". . ."
-//     ". link ."
-//     ". . .";
-//   grid-template-columns: auto auto auto;
-//   grid-template-rows: auto auto auto auto;
-
-//   @media ${devices.laptop} {
-//     height: 100vh;
-//   }
-// `
-
 const MainTainr = styled(animated.div)`
   overflow: hidden;
   position: relative;
   height: 80vh; /* 100vh felt wayyyy tooo long to scroll thru */
+
+  display: grid;
+  grid-template-areas:
+    ". . ."
+    ". . ."
+    ". link ."
+    ". . .";
+  grid-template-columns: auto auto auto;
+  grid-template-rows: auto auto auto auto;
 
   @media ${devices.laptop} {
     height: 100vh;
@@ -112,37 +102,6 @@ const HeroLinkTainr = styled(animated.div)`
   grid-area: link;
   margin: 300px 0 0 0;
   mix-blend-mode: overlay;
-`
-
-// const ContenTainr = styled.div`
-//   margin: 0;
-//   padding: 0;
-//   display: grid;
-//   grid-template-areas:
-//     ". title ."
-//     ". link ."
-//     ". hint .;
-//   grid-template-columns: auto auto auto;
-//   grid-template-rows: auto auto auto;
-// `
-
-// const ContenTainr = styled.div`
-//   margin: 0;
-//   padding: 0;
-//   display: grid;
-//   height: 100%;
-//   width: 100%;
-//   grid-template-areas:
-//     ". title ."
-//     ". link ."
-//     ". hint .;
-//   grid-template-columns: auto auto auto;
-//   grid-template-rows: auto auto auto;
-// `
-
-const ContenTainr = styled.div`
-  margin: 0;
-  padding: 0;
 `
 
 const Hero = ({
@@ -188,18 +147,22 @@ const Hero = ({
 
   return (
     <MainTainr>
+      {/* <TitleTainr>
+        <TitleSVG style={{ transform: `scale(0.75)` }} />
+      </TitleTainr> */}
+
       <Curtain style={curtainProps} />
       <ImageTainr>
         <HeroImage
-        // imageProps={{
-        //   style: {
-        //     display: `grid`,
-        //     gridTemplateAreas: ``,
-        //     gridTemplateColumns: `auto auto auto`,
-        //   },
-        // }}
+          imageProps={{
+            style: {
+              display: `grid`,
+              gridTemplateAreas: ``,
+              gridTemplateColumns: `auto auto auto`,
+            },
+          }}
         >
-          <ContenTainr>
+          <div>
             <TitleSVG
               style={{
                 transform: `scale(0.95)`, // TODO use media queries to make this max 0.75 on smaller mobile devices, also make link a child so it scales with image
@@ -249,7 +212,7 @@ const Hero = ({
                 Scroll for more.
               </animated.p>
             </HintTainr>
-          </ContenTainr>
+          </div>
         </HeroImage>
       </ImageTainr>
     </MainTainr>

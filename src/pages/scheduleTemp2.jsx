@@ -269,6 +269,38 @@ const AH3 = styled(animated.h3)`
 //   )
 // }
 
+const BorderTainr = styled(animated.div)`
+  background: radial-gradient(
+    103.93% 50% at 50% 50%,
+    rgba(25, 31, 29, 0.08) 0%,
+    #191f1d 100%
+  );
+  height: 100vh; /* not the best but the best we can do for now?... */
+  width: 100vw;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 1000;
+  pointer-events: none;
+`
+
+// const BorderTainr = styled(animated.div)``
+
+const HomeLinkTainr = styled(animated.div)``
+
+const Border = ({ homeProps, ...props }) => {
+  return (
+    <BorderTainr {...props}>
+      <HomeLinkTainr
+        style={{ padding: `7px`, textAlign: `right` }}
+        {...homeProps}
+      >
+        <TitleSVG height={`56px`} width={`56px`} />
+      </HomeLinkTainr>
+    </BorderTainr>
+  )
+}
+
 // font-family: playfair display;
 //   font-weight: bold;
 //   font-size: 72px;
@@ -332,6 +364,15 @@ export default () => {
     },
   })
 
+  //-1096.03 to 37.97
+  //   const gradientSpringRef = useRef()
+  //   const gradientProps = useSpring({
+  //     ref: gradientSpringRef,
+  //     from: { lg0percent: -1096.03 },
+  //     to: { lg0Percent: 37.97 },
+  //     config: { ...config.wobbly, duration: 2000 },
+  //   })
+
   const gradientSpringRef = useRef()
   const gradientProps = useSpring({
     ref: gradientSpringRef,
@@ -355,13 +396,21 @@ export default () => {
     to: { opacity: 1 },
   })
 
-  const navBarSpringRef = useRef()
-  const navBarProps = useSpring({
-    ref: navBarSpringRef,
-    from: { opacity: 0 },
-    to: { opacity: 1 },
-  })
+  const borderProps = {
+    style: { background: `none` },
+  }
 
+  //   useChain(
+  //     [
+  //       imageSpringRef,
+  //       gradientSpringRef,
+  //       headerSpringRef,
+  //       contentSpringRef,
+  //       homeLinkSpringRef,
+  //     ],
+  //     [0, 0, 0.3, 0.4, 0.6],
+  //     3000
+  //   )
   useChain(
     [
       homeLinkSpringRef,
@@ -369,19 +418,16 @@ export default () => {
       gradientSpringRef,
       headerSpringRef,
       contentSpringRef,
-      navBarSpringRef,
     ],
-    [0, 0.2, 0.2, 0.2, 0.2, 0.4],
+    [0, 0.2, 0.2, 0.2, 0.2],
     shared.scheduleAnimationDuration
   )
 
   // keep it simple for now...maybs just get something pretty that works...thematically...
   return (
     <Containr>
-      <NavBar
-        style={{ ...navBarProps }}
-        gradientProps={{ style: { background: `none` } }}
-      />
+      {/* <NavBar /> */}
+      <Border {...borderProps} />
       {/* we need separated from contentTainr to be sibilings for grid layout to work!*/}
       <SchedulerTainr style={contentProps}>
         <Scheduler />
@@ -400,10 +446,10 @@ export default () => {
             ...gradientProps,
           }}
         >
-          {/* <AH3 style={headerProps}>schedule</AH3> */}
-          <AH2 style={headerProps}>schedule</AH2>
+          <AH3 style={headerProps}>schedule</AH3>
         </Image>
       </ImageTainr>
+      {/* <Curtain className="curtain" /> */}
     </Containr>
   )
 }

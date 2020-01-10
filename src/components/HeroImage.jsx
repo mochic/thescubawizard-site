@@ -46,14 +46,23 @@ const RevealingTainr = styled.div`
   z-index: 0;
 `
 
+// const ImageTainr = styled(animated.div)`
+//   z-index: -1;
+//   animation: ${Drift} 55s ease-out;
+// `
+
 const ImageTainr = styled(animated.div)`
   z-index: -1;
-  animation: ${Drift} 55s ease-out;
+  transform: translate3d(
+    0,
+    0,
+    0
+  ); /* somehow this fixes the filter thing on chrome...weird...todo investigate... */
 `
 
 const Containr = styled(animated.div)``
 
-const Image = () => (
+const Image = ({ style, imgStyle }) => (
   <StaticQuery
     query={graphql`
       query {
@@ -70,9 +79,10 @@ const Image = () => (
     `}
     render={data => (
       <Img
-        imgStyle={{ objectPosition: "0% 0%" }}
+        imgStyle={{ objectPosition: "0% 0%", ...imgStyle }}
         style={{
           minHeight: `100vh`,
+          ...style,
         }}
         fluid={data.placeholderImage.childImageSharp.fluid}
       />
@@ -89,6 +99,7 @@ export default ({ outerProps, imageProps, gradientProps, children }) => {
   return (
     <Containr {...outerProps}>
       <ImageTainr {...imageProps}>
+        {/* <Image imgStyle={{ position: `absolute`, top: `0px`, left: `0px` }} /> */}
         <Image />
         {children}
       </ImageTainr>

@@ -19,27 +19,18 @@ const FooterTainr = styled(animated.div)`
 `
 
 const AP = styled(animated.p)`
-  color: #ffffff;
+  color: #313e3a;
   font-family: open sans;
   font-size: 10px;
   margin: 0;
   padding: 0;
-  mix-blend-mode: overlay;
-  z-index: 5;
 `
 
 export default () => {
   return (
     <FooterTainr>
       <AP>the scuba wizard</AP>
-      <hr
-        style={{
-          border: `0.5px solid #ffffff`,
-          width: `50px`,
-          mixBlendMode: `overlay`,
-          zIndex: 5,
-        }}
-      />
+      <hr style={{ border: `0.5px solid #313e3a`, width: `50px` }} />
       <AP>a seattle dive operation</AP>
     </FooterTainr>
   )

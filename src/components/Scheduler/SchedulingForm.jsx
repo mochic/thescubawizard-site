@@ -20,19 +20,6 @@ const Form = styled(animated.form)`
   width: 100%;
 `
 
-const P = styled(animated.p)`
-  font-family: gilda display;
-  color: white;
-  margin: 0;
-  border: 0;
-  margin-bottom: 8%;
-`
-
-const SubmitTainr = styled(animated.div)`
-  align-self: center;
-  text-align: center;
-`
-
 export default () => {
   const { submit, isSubmitting, submitted } = useContext(SchedulingContext)
 
@@ -101,27 +88,8 @@ export default () => {
         onBlur={handlePhoneBlur}
         onChange={handlePhoneChange}
         disabled={isSubmitting}
-        tainrStyle={{ width: `100%` }}
+        tainrStyle={{ width: `100%`, maxWidth: `240px` }}
       />
-      {/* <P
-        style={{
-          fontFamily: `roboto`,
-          fontWeight: 300,
-          marginTop: `7%`,
-          marginBottom: `5%`,
-        }}
-      >
-        or
-      </P> */}
-      {/* <P
-        style={{
-          fontFamily: `roboto`,
-          fontWeight: 300,
-          margin: 0,
-        }}
-      >
-        or
-      </P> */}
       <FancyInput
         type="email"
         autoComplete="email"
@@ -131,25 +99,8 @@ export default () => {
         onBlur={handleEmailBlur}
         onChange={handleEmailChange}
         disabled={isSubmitting}
-        tainrStyle={{ width: `100%` }}
+        tainrStyle={{ width: `100%`, maxWidth: `240px` }}
       />
-      {/* <SubmitTainr>
-        <Input
-          type="submit"
-          value={isSubmitting ? "Scheduling..." : "Schedule a chat"}
-          style={{
-            marginTop: `25px`,
-            padding: `16px 0 8px 0`,
-            border: `none`,
-            background: `none`,
-            color: `#FFE9C9`,
-            width: `80%`,
-            fontFamily: `roboto`,
-            fontWeight: 300,
-          }}
-        />
-        <ScheduleArrow />
-      </SubmitTainr> */}
     </Form>
   )
 }
