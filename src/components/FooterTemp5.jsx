@@ -25,20 +25,22 @@ const AP = styled(animated.p)`
   margin: 0;
   padding: 0;
   mix-blend-mode: overlay;
+  z-index: 5;
 `
 
-const AHr = styled(animated.hr)`
-  border: 0.5 solid #ffffff;
-  width: 50px;
-  mix-blend-mode: overlay;
-`
-
-export default ({ hrProps, p0Props, p1Props, ...props }) => {
+export default () => {
   return (
-    <FooterTainr {...props}>
-      <AP {...p0Props}>the scuba wizard</AP>
-      <AHr {...hrProps} />
-      <AP {...p1Props}>a seattle dive operation</AP>
+    <FooterTainr>
+      <AP>the scuba wizard</AP>
+      <hr
+        style={{
+          border: `0.5px solid #ffffff`,
+          width: `50px`,
+          mixBlendMode: `overlay`,
+          zIndex: 5,
+        }}
+      />
+      <AP>a seattle dive operation</AP>
     </FooterTainr>
   )
 }

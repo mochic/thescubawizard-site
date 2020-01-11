@@ -18,6 +18,7 @@ import Footer from "../components/Footer"
 import TitleSVG from "../components/TitleSVGEmbed"
 
 import device from "../devices"
+import shared from "../shared"
 
 import NavBar from "../components/NavBar"
 
@@ -51,7 +52,7 @@ const DepthsGradient = styled(animated.div)`
   position: fixed;
   top: 0px;
   left: 0px;
-  z-index: 5; /* hopefully this is enough but not too much... */
+  z-index: ${shared.depthsGradientZIndex}; /* hopefully this is enough but not too much... */
 `
 
 export default () => {
@@ -140,6 +141,8 @@ export default () => {
     opacity: 0,
     depthsOpacity: 0,
   }))
+
+  // const [footerProps, setFooterProps] = useSpring(() => ({ opacity: 0 }))
 
   const rawHandler = () => {
     // setPos(window.pageYOffset)
@@ -297,9 +300,16 @@ export default () => {
         />
       </VisibilitySensor>
       <VisibilitySensor
+        delayedCall
         onChange={v => {
-          console.log("Footer visibility changed...", v)
-          setRevealProps({ footerOpacity: 1 })
+          console.log("%cFooter visibility changed...", "color: #ff00ff", v)
+          if (v) {
+            setRevealProps({
+              footerOpacity: 1,
+              delay: 1000,
+              config: { ...config.slow, duration: 1000 },
+            })
+          }
         }}
       >
         <ADiv
@@ -310,7 +320,12 @@ export default () => {
             opacity: revealProps.footerOpacity,
           }}
         >
-          <Footer />
+          {/* zIndex set so its not obfuscated by gradient */}
+          <Footer
+            hrProps={{ style: { zIndex: shared.depthsGradientZIndex + 1 } }}
+            p0Props={{ style: { zIndex: shared.depthsGradientZIndex + 1 } }}
+            p1Props={{ style: { zIndex: shared.depthsGradientZIndex + 1 } }}
+          />
         </ADiv>
       </VisibilitySensor>
       {/* <NavBar
