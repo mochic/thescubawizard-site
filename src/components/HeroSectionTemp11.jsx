@@ -117,12 +117,10 @@ const ImageTainr = styled(animated.div)`
 // `
 
 const HintTainr = styled(animated.div)`
-  position: absolute;
-  bottom: 50px;
   width: 100%;
   text-align: center;
   mix-blend-mode: overlay;
-  z-index: 1000; /* no idea...todo figure out why... */
+  grid-area: hint;
 `
 
 // const HeroLinkTainr = styled(animated.div)`
@@ -133,23 +131,13 @@ const HintTainr = styled(animated.div)`
 //   mix-blend-mode: overlay;
 // `
 
-// const HeroLinkTainr = styled(animated.div)`
-//   z-index: 1000 !important; /* we want our scheduling link always clickable! no matter wut */
-//   width: 100%;
-//   grid-area: link;
-//   margin: 0;
-//   padding: 0;
-//   mix-blend-mode: overlay;
-// `
-
 const HeroLinkTainr = styled(animated.div)`
   z-index: 1000 !important; /* we want our scheduling link always clickable! no matter wut */
   width: 100%;
+  grid-area: link;
   margin: 0;
   padding: 0;
   mix-blend-mode: overlay;
-  position: absolute;
-  bottom: 124px;
 `
 
 // const ContenTainr = styled.div`
@@ -183,35 +171,30 @@ const HeroLinkTainr = styled(animated.div)`
 //   padding: 0;
 // `
 
-// const ContenTainr = styled.div`
-//   position: absolute;
-//   top: 0px;
-//   margin: 0;
-//   padding: 0;
-//   display: grid;
-//   grid-template-areas:
-//     ". . ."
-//     ". title ."
-//     ". link ."
-//     ". hint .";
-//   grid-template-columns: auto minmax(300px, auto) auto;
-//   grid-template-rows: minmax(100px, auto) auto auto auto;
-
-//   width: 100%;
-//   height: 80%;
-
-//   @media ${devices.mobileM} {
-//     grid-template-columns: auto minmax(400px, auto) auto;
-//   }
-
-//   @media ${devices.laptop} {
-//     height: 100%; /* 100% of 100vh image...this feels way wrong TODO rethink... */
-//   }
-// `
-
 const ContenTainr = styled.div`
+  position: absolute;
+  top: 0px;
   margin: 0;
   padding: 0;
+  display: grid;
+  grid-template-areas:
+    ". . ."
+    ". title ."
+    ". link ."
+    ". hint .";
+  grid-template-columns: auto minmax(300px, auto) auto;
+  grid-template-rows: minmax(100px, auto) auto auto auto;
+
+  width: 100%;
+  height: 80%;
+
+  @media ${devices.mobileM} {
+    grid-template-columns: auto minmax(400px, auto) auto;
+  }
+
+  @media ${devices.laptop} {
+    height: 100%; /* 100% of 100vh image...this feels way wrong TODO rethink... */
+  }
 `
 
 const Hero = ({
@@ -272,55 +255,55 @@ const Hero = ({
             <TitleSVG
               style={{
                 transform: `scale(0.95)`, // TODO use media queries to make this max 0.75 on smaller mobile devices, also make link a child so it scales with image
-                position: `absolute`,
+                // position: `absolute`,
                 zIndex: 1000,
-                top: `100px`,
+                // top: `100px`,
                 width: `100%`,
                 textAlign: `center`,
                 gridArea: `title`,
               }}
             />
+            <HeroLinkTainr style={{ ...linkTainrProps }}>
+              <FancyLink
+                to="/schedule"
+                textStyle={{
+                  fontWeight: 300,
+                  fontFamily: `open sans`,
+                  opacity: linkProps.textOpacity,
+                }}
+                buttonStyle={{
+                  transform: linkProps.arrowTransform,
+                  opacity: linkProps.arrowOpacity,
+                }}
+                arrowProps={{
+                  style: {},
+                }}
+                containrProps={{
+                  style: {
+                    margin: `auto`,
+                    maxWidth: `${sizes.title.width}px`,
+                  },
+                }}
+              >
+                Schedule a chat.
+              </FancyLink>
+            </HeroLinkTainr>
+            <HintTainr>
+              <animated.p
+                style={{
+                  color: `#ffffff`,
+                  fontFamily: `open sans`,
+                  fontWeight: 300,
+                  ...hintProps,
+                  ...scrollHintProps,
+                }}
+              >
+                Scroll for more.
+              </animated.p>
+            </HintTainr>
           </ContenTainr>
         </HeroImage>
       </ImageTainr>
-      <HeroLinkTainr style={{ ...linkTainrProps }}>
-        <FancyLink
-          to="/schedule"
-          textStyle={{
-            fontWeight: 300,
-            fontFamily: `open sans`,
-            opacity: linkProps.textOpacity,
-          }}
-          buttonStyle={{
-            transform: linkProps.arrowTransform,
-            opacity: linkProps.arrowOpacity,
-          }}
-          arrowProps={{
-            style: {},
-          }}
-          containrProps={{
-            style: {
-              margin: `auto`,
-              maxWidth: `${sizes.title.width}px`,
-            },
-          }}
-        >
-          Schedule a chat.
-        </FancyLink>
-      </HeroLinkTainr>
-      <HintTainr>
-        <animated.p
-          style={{
-            color: `#ffffff`,
-            fontFamily: `open sans`,
-            fontWeight: 300,
-            ...hintProps,
-            ...scrollHintProps,
-          }}
-        >
-          Scroll for more.
-        </animated.p>
-      </HintTainr>
     </MainTainr>
   )
 }

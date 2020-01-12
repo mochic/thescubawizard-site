@@ -44,6 +44,7 @@ const RevealingTainr = styled.div`
   top: 0px;
   left: 0px;
   z-index: 0;
+  pointer-events: none;
 `
 
 // const ImageTainr = styled(animated.div)`
