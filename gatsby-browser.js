@@ -4,6 +4,8 @@ import styled, { createGlobalStyle } from "styled-components"
 import { animated, useSpring, config } from "react-spring"
 import { Link } from "gatsby"
 
+import VisibilitySensor from "react-visibility-sensor"
+
 import ScrollProvider from "./src/providers/ScrollProvider"
 import ScrollContext from "./src/contexts/scroll.context"
 
@@ -180,6 +182,75 @@ const TransitionCover = styled(animated.div)``
 //     </NavTainr>
 //   )
 // }
+
+// export const replaceComponentRenderer = ({ props, ...other }) => {
+//   const atIndex = props.location.pathname === "/"
+
+//   // we gotta take this out of here somehow...
+//   // const [navBarHidden, setNavBarHidden] = useState(atIndex) // initialize to hidden=true if we start at index
+
+//   // const showNavBar = () => {
+//   //   setNavBarHidden(true)
+//   // }
+
+//   // const hideNavBar = () => {
+//   //   setNavBarHidden(false)
+//   // }
+
+//   return (
+//     <Containr>
+//       {/*
+//       spreading is best...all overrides need to go here anyway
+//       and we should have some conditional overrides
+//       eventually...
+//       */}
+//       {/* <NavBar atIndex={atIndex} /> */}
+//       <GlobalStyle />
+//       <VisibilityProvider>
+//         <ScrollProvider>
+//           <SchedulingProvider>
+//             <PageTainr>
+//               {React.createElement(props.pageResources.component, {
+//                 ...props,
+//               })}
+//               <VisibilitySensor
+//         delayedCall
+//         onChange={v => {
+//           console.log("%cFooter visibility changed...", "color: #ff00ff", v)
+//           if (v) {
+//             setRevealProps({
+//               footerOpacity: 1,
+//               delay: 1000,
+//               config: { ...config.slow, duration: 1000 },
+//             })
+//           }
+//         }}
+//       >
+//         <ADiv
+//           style={{
+//             position: `absolute`,
+//             width: `100%`,
+//             bottom: `25px`,
+//             opacity: revealProps.footerOpacity,
+//           }}
+//         >
+//           {/* zIndex set so its not obfuscated by gradient */}
+//           <Footer
+//             hrProps={{ style: { zIndex: shared.depthsGradientZIndex + 1 } }}
+//             p0Props={{ style: { zIndex: shared.depthsGradientZIndex + 1 } }}
+//             p1Props={{ style: { zIndex: shared.depthsGradientZIndex + 1 } }}
+//           />
+//         </ADiv>
+//       </VisibilitySensor>
+//             </PageTainr>
+//           </SchedulingProvider>
+//         </ScrollProvider>
+//       </VisibilityProvider>
+//     </Containr>
+//   )
+// }
+
+const ADiv = styled(animated.div)``
 
 export const replaceComponentRenderer = ({ props, ...other }) => {
   const atIndex = props.location.pathname === "/"

@@ -58,6 +58,10 @@ const DepthsGradient = styled(animated.div)`
 export default () => {
   const [pos, setPos] = useState()
 
+  const revealState = useState({
+    footer: false,
+  })
+
   // some performance cost to prevent weird situations when we initialize at top but about is slightly showing...
   const diveThreshold = 50 // probs have to do something elaborate to calculate this...
   const [isDiving, setIsDiving] = useState(window.pageYOffset > diveThreshold)
@@ -128,7 +132,6 @@ export default () => {
   const [revealProps, setRevealProps] = useSpring(() => ({
     aboutCurtainOpacity: 1,
     servicesCurtainOpacity: 1,
-    footerOpacity: 0,
     config: { ...config.stiff, duration: 2000 },
     reset: !isDiving,
   }))
@@ -142,7 +145,10 @@ export default () => {
     depthsOpacity: 0,
   }))
 
-  // const [footerProps, setFooterProps] = useSpring(() => ({ opacity: 0 }))
+  const [footerProps, setFooterProps] = useSpring(() => ({
+    opacity: 0,
+    transform: `blur(${revealState.footer ? 2 : 0}px)`,
+  }))
 
   const rawHandler = () => {
     // setPos(window.pageYOffset)
@@ -304,10 +310,15 @@ export default () => {
         onChange={v => {
           console.log("%cFooter visibility changed...", "color: #ff00ff", v)
           if (v) {
-            setRevealProps({
-              footerOpacity: 1,
+            // setRevealProps({
+            //   footerOpacity: 1,
+            //   delay: 1000,
+            //   config: { ...config.slow, duration: 1000 },
+            // })
+            setFooterProps({
+              opacity: 1,
               delay: 1000,
-              config: { ...config.slow, duration: 1000 },
+              config: { ...config.molasses, duration: 3000 },
             })
           }
         }}
@@ -317,7 +328,7 @@ export default () => {
             position: `absolute`,
             width: `100%`,
             bottom: `25px`,
-            opacity: revealProps.footerOpacity,
+            ...footerProps,
           }}
         >
           {/* zIndex set so its not obfuscated by gradient */}

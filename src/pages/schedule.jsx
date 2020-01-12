@@ -26,6 +26,9 @@ import shared from "../shared" // shared config store for building our animation
 
 import TitleSVG from "../components/TitleSVG"
 import NavBar from "../components/NavBar"
+import Footer from "../components/Footer"
+
+const ADiv = styled(animated.div)``
 
 // const NavTainr = styled(animated.div)`
 //   grid-area: nav;
@@ -431,6 +434,19 @@ export default () => {
           <AH2 style={headerProps}>schedule</AH2>
         </Image>
       </ImageTainr>
+      {/* <ADiv
+        style={{
+          position: `absolute`,
+          width: `100%`,
+          bottom: `25px`,
+        }}
+      >
+        <Footer
+          hrProps={{ style: { zIndex: -1 } }}
+          p0Props={{ style: { zIndex: -1 } }}
+          p1Props={{ style: { zIndex: -1 } }}
+        />
+      </ADiv> */}
     </Containr>
   )
 }
