@@ -123,20 +123,11 @@ const HintTainr = styled(animated.div)`
   grid-area: hint;
 `
 
-// const HeroLinkTainr = styled(animated.div)`
-//   z-index: 1000 !important; /* we want our scheduling link always clickable! no matter wut */
-//   width: 100%;
-//   grid-area: link;
-//   margin: 300px 0 0 0;
-//   mix-blend-mode: overlay;
-// `
-
 const HeroLinkTainr = styled(animated.div)`
   z-index: 1000 !important; /* we want our scheduling link always clickable! no matter wut */
   width: 100%;
   grid-area: link;
-  margin: 0;
-  padding: 0;
+  margin: 300px 0 0 0;
   mix-blend-mode: overlay;
 `
 
@@ -173,6 +164,8 @@ const HeroLinkTainr = styled(animated.div)`
 
 const ContenTainr = styled.div`
   position: absolute;
+  width: 100%;
+  height: 100%;
   top: 0px;
   margin: 0;
   padding: 0;
@@ -182,19 +175,8 @@ const ContenTainr = styled.div`
     ". title ."
     ". link ."
     ". hint .";
-  grid-template-columns: auto minmax(300px, auto) auto;
-  grid-template-rows: minmax(100px, auto) auto auto auto;
-
-  width: 100%;
-  height: 80%;
-
-  @media ${devices.mobileM} {
-    grid-template-columns: auto minmax(400px, auto) auto;
-  }
-
-  @media ${devices.laptop} {
-    height: 100%; /* 100% of 100vh image...this feels way wrong TODO rethink... */
-  }
+  grid-template-columns: auto auto auto;
+  grid-template-rows: auto auto auto auto;
 `
 
 const Hero = ({
@@ -255,9 +237,9 @@ const Hero = ({
             <TitleSVG
               style={{
                 transform: `scale(0.95)`, // TODO use media queries to make this max 0.75 on smaller mobile devices, also make link a child so it scales with image
-                // position: `absolute`,
+                position: `absolute`,
                 zIndex: 1000,
-                // top: `100px`,
+                top: `100px`,
                 width: `100%`,
                 textAlign: `center`,
                 gridArea: `title`,
