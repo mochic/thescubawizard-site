@@ -102,8 +102,9 @@ export default () => {
     titleTransform: `translate3d(0px,0px,0)`,
     // titleOpacity: 1,
     linkTransform: `translate3d(0px,0px,0)`,
-    linkOpacity: 1,
-    curtainOpacity: 0,
+    linkOpacity: 0,
+    curtainOpacity: 1,
+    delay: 0,
     // config: { duration: 5000 },
   }))
 
@@ -137,7 +138,7 @@ export default () => {
   }))
 
   const [scrollHintProps, setScrollHintProps] = useSpring(() => ({
-    opacity: 1,
+    opacity: 0,
   }))
 
   const [navBarProps, setNavBarProps] = useSpring(() => ({
@@ -219,9 +220,35 @@ export default () => {
           // setRevealed({
           //   hero: v,
           // })
-          setHeroProps({
-            linkOpacity: v ? 1 : 0,
-          })
+          if (v) {
+            setHeroProps({
+              curtainOpacity: 0,
+              delay: 0,
+              config: { ...config.molasses, duration: 600 },
+            })
+            setHeroProps({
+              linkOpacity: 1,
+              delay: 750,
+              config: { ...config.molasses, duration: 500 },
+            })
+            setScrollHintProps({
+              opacity: 1,
+              delay: 2000,
+              config: { ...config.molasses, duration: 2000 },
+            })
+          } else {
+            setHeroProps({
+              curtainOpacity: 1,
+              linkOpacity: 0,
+              delay: 0,
+              config: { ...config.default, duration: 500 },
+            })
+            setScrollHintProps({
+              opacity: 0,
+              delay: 0,
+              config: { ...config.molasses, duration: 500 },
+            })
+          }
 
           // hide navbar when hero visible when not
           setNavBarProps({

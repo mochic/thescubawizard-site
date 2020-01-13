@@ -102,10 +102,15 @@ const NavTainr = styled(({ ...props }) => <animated.div {...props} />)`
   grid-template-columns: auto auto auto;
 `
 
+// const PageTainr = styled(animated.div)`
+//   margin: auto;
+//   overflow: hidden;
+//   width: 100vw;
+// `
+
 const PageTainr = styled(animated.div)`
   margin: auto;
   overflow: hidden;
-  width: 100vw;
 `
 
 // const PageTainr = styled(animated.div)`

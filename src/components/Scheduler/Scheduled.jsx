@@ -22,7 +22,7 @@ const P = styled(animated.p)`
 
 const H2 = styled(animated.h2)``
 
-const Button = styled(animated.button)`
+const AButton = styled(animated.button)`
   color: #979797;
   font-size: 14px;
   font-family open sans;
@@ -108,15 +108,15 @@ export default () => {
 
   return (
     <>
-      <Link to="/another10">Home.</Link>
-      <Button
+      <Link to="/index">Home.</Link>
+      <AButton
         onClick={e => {
           e.preventDefault()
           resetSubmission()
         }}
       >
-        Reschedule.
-      </Button>
+        test Reschedule.
+      </AButton>
     </>
   )
 }

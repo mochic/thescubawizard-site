@@ -14,7 +14,7 @@ import {
 
 import SchedulingContext from "../../contexts/scheduling.context"
 
-import Scheduled from "./Scheduled"
+// import Scheduled from "./Scheduled"
 import SchedulingForm from "./SchedulingForm"
 
 import { Input } from "../Shared"
@@ -36,18 +36,32 @@ const P = styled(animated.p)`
 
 const nPages = 3
 
+// const SwitchTainr = styled(animated.div)`
+//   overflow: hidden;
+//   position: relative;
+//   height: 100%;
+//   width: ${nPages * 100}%;
+//   grid-area: switch;
+//   display: flex;
+//   flex-direction: row;
+// `
+
 const SwitchTainr = styled(animated.div)`
   overflow: hidden;
   position: relative;
   height: 100%;
-  width: ${nPages * 100}%;
   grid-area: switch;
   display: flex;
   flex-direction: row;
 `
 
+// const FormTainr = styled(animated.div)`
+//   width: 100%;
+//   background: green;
+// `
+
 const FormTainr = styled(animated.div)`
-  width: 100%;
+  background: green;
 `
 
 const Statement = styled(animated.div)``
@@ -72,10 +86,29 @@ const Statement = styled(animated.div)``
 //   padding: 16px 16px 0 16px;
 // `
 
+// const PageTainr = styled(animated.div)`
+//   height: 100%;
+//   width: 100%;
+//   padding: 5px;
+//   box-sizing: border-box;
+//   background: red;
+// `
+
+// const PageTainr = styled(animated.div)`
+//   height: 100%;
+//   width: 33.33%; /* fallback for old browsers... */
+//   width: calc(100% / 3);
+//   padding: 20px 80px 20px 20px;
+//   background: red;
+//   box-sizing: border-box;
+// `
+
 const PageTainr = styled(animated.div)`
   height: 100%;
-  width: 100%;
-  width: calc(100% - 32px);
+  width: 100vw;
+  padding: 20px;
+  background: red;
+  box-sizing: border-box;
 `
 
 const Containr = styled(animated.div)`
@@ -85,12 +118,19 @@ const Containr = styled(animated.div)`
     "switch"
     "submit";
   grid-template-rows: 1fr 2fr 1fr;
+  background: blue;
 `
+
+// const SubmitterTainr = styled(animated.div)`
+//   grid-area: submit;
+//   display: flex;
+//   width: 300%; /* 3 slider states */
+// `
 
 const SubmitterTainr = styled(animated.div)`
   grid-area: submit;
   display: flex;
-  width: 300%; /* 3 slider states */
+  /* not even width 100% is necessary... */
 `
 
 const Link = styled(Link_)`
@@ -100,16 +140,21 @@ const Link = styled(Link_)`
   text-decoration: none;
   text-align: center;
   padding: 0 0 5px 0;
+  font-size: 16px;
 `
 
 const RescheduleButton = styled(animated.button)`
   color: #979797;
-  font-size: 14px;
+  font-size: 16px;
   font-family open sans;
   margin: 0px;
   font-weight: 300;
   margin: 0 0 8px 0;
   padding: 0;
+
+  background: none;
+  border: none;
+  -webkit-appearance: none;
 `
 
 const SubmitInputTainr = styled(animated.div)``
@@ -194,11 +239,24 @@ const Unsubmitted = ({ text, arrowProps, inputProps }) => {
   )
 }
 
+// const SubmitStateTainr = styled(animated.div)`
+//   align-self: center;
+//   text-align: center;
+//   width: 33.33%;
+//   width: calc(100% / 3);
+// `
+
 const SubmitStateTainr = styled(animated.div)`
-  width: 100%;
   align-self: center;
   text-align: center;
+  width: 100vw;
 `
+
+// const SubmitStateTainr = styled(animated.div)`
+//   width: 100%;
+//   align-self: center;
+//   text-align: center;
+// `
 
 const Submitter = ({ reset }) => {
   console.log("%cSubmit rendered!", "color: purple")

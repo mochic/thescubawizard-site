@@ -17,15 +17,21 @@ when in column-mode (when width of div > 100px)
 const P = styled(animated.p)`
   color: #ffffff;
   font-family: playfair display;
-  margin: 5px auto 5px auto;
-  padding: 0;
+  padding: 0; /* dont override margin it fucks everything up */
 `
+
+// const Button = styled(animated.button)`
+//   background: none;
+//   border: none;
+//   margin: 5px auto 5px auto;
+//   padding: 0;
+// `
 
 const Button = styled(animated.button)`
   background: none;
   border: none;
-  margin: 5px auto 5px auto;
   padding: 0;
+  margin: 0;
 `
 
 const Containr = styled.div`
@@ -36,7 +42,7 @@ const Containr = styled.div`
 
 const ButtonTainr = styled(animated.div)`
   position: relative;
-  margin: auto;
+  margin: auto 0px auto auto;
 `
 
 export default ({

@@ -116,13 +116,20 @@ const ImageTainr = styled(animated.div)`
 //   grid-area: hint;
 // `
 
+// const HintTainr = styled(animated.div)`
+//   position: absolute;
+//   bottom: 50px;
+//   width: 100%;
+//   text-align: center;
+//   mix-blend-mode: overlay;
+//   z-index: 1000; /* no idea...todo figure out why... */
+// `
+
 const HintTainr = styled(animated.div)`
-  position: absolute;
-  bottom: 50px;
   width: 100%;
   text-align: center;
   mix-blend-mode: overlay;
-  z-index: 1000; /* no idea...todo figure out why... */
+  z-index: 5; /* no idea...todo figure out why... */
 `
 
 // const HeroLinkTainr = styled(animated.div)`
@@ -142,14 +149,22 @@ const HintTainr = styled(animated.div)`
 //   mix-blend-mode: overlay;
 // `
 
+// const HeroLinkTainr = styled(animated.div)`
+//   z-index: 1000 !important; /* we want our scheduling link always clickable! no matter wut */
+//   width: 100%;
+//   margin: 0;
+//   padding: 0;
+//   mix-blend-mode: overlay;
+//   position: absolute;
+//   bottom: 124px;
+// `
+
 const HeroLinkTainr = styled(animated.div)`
   z-index: 1000 !important; /* we want our scheduling link always clickable! no matter wut */
   width: 100%;
-  margin: 0;
+  margin: 0 0 20px 0;
   padding: 0;
   mix-blend-mode: overlay;
-  position: absolute;
-  bottom: 124px;
 `
 
 // const ContenTainr = styled.div`
@@ -212,6 +227,16 @@ const HeroLinkTainr = styled(animated.div)`
 const ContenTainr = styled.div`
   margin: 0;
   padding: 0;
+
+  display: flex;
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  flex-direction: column;
+
+  @media ${devices.tablet} {
+    flex-direction: row-reverse;
+  }
 `
 
 const Hero = ({
@@ -239,11 +264,18 @@ const Hero = ({
     config: { ...config.molasses, duration: 500 },
   })
 
-  const hintProps = {}
+  // const hintProps = {}
   // const [hintProps, setHintProps, stopHintProps] = useSpring(() => ({
   //   opacity: 1,
   //   // transform: `translate3d(0,60px,0)`
   // }))
+  const hintProps = {}
+  // const hintProps = useSpring({
+  //   from: { opacity: 0, transform: `translate3d(0,20px,0)` },
+  //   to: { opacity: 1, transform: `translate3d(0,0px,0)` },
+  //   delay: 1000,
+  //   config: { ...config.molasses, duration: 500 },
+  // })
 
   console.log("%cHero Section rendered!", "color: red")
 
@@ -268,59 +300,59 @@ const Hero = ({
         //   },
         // }}
         >
-          <ContenTainr>
-            <TitleSVG
-              style={{
-                transform: `scale(0.95)`, // TODO use media queries to make this max 0.75 on smaller mobile devices, also make link a child so it scales with image
-                position: `absolute`,
-                zIndex: 1000,
-                top: `100px`,
-                width: `100%`,
-                textAlign: `center`,
-                gridArea: `title`,
-              }}
-            />
-          </ContenTainr>
+          <TitleSVG
+            style={{
+              transform: `scale(0.95)`, // TODO use media queries to make this max 0.75 on smaller mobile devices, also make link a child so it scales with image
+              position: `absolute`,
+              zIndex: 1000,
+              top: `100px`,
+              width: `100%`,
+              textAlign: `center`,
+              gridArea: `title`,
+            }}
+          />
         </HeroImage>
       </ImageTainr>
-      <HeroLinkTainr style={{ ...linkTainrProps }}>
-        <FancyLink
-          to="/schedule"
-          textStyle={{
-            fontWeight: 300,
-            fontFamily: `open sans`,
-            opacity: linkProps.textOpacity,
-          }}
-          buttonStyle={{
-            transform: linkProps.arrowTransform,
-            opacity: linkProps.arrowOpacity,
-          }}
-          arrowProps={{
-            style: {},
-          }}
-          containrProps={{
-            style: {
-              margin: `auto`,
-              maxWidth: `${sizes.title.width}px`,
-            },
-          }}
-        >
-          Schedule a chat.
-        </FancyLink>
-      </HeroLinkTainr>
-      <HintTainr>
-        <animated.p
-          style={{
-            color: `#ffffff`,
-            fontFamily: `open sans`,
-            fontWeight: 300,
-            ...hintProps,
-            ...scrollHintProps,
-          }}
-        >
-          Scroll for more.
-        </animated.p>
-      </HintTainr>
+      <ContenTainr>
+        <HeroLinkTainr style={{ ...linkTainrProps }}>
+          <FancyLink
+            to="/schedule"
+            textStyle={{
+              fontWeight: 300,
+              fontFamily: `open sans`,
+              opacity: linkProps.textOpacity,
+            }}
+            buttonStyle={{
+              transform: linkProps.arrowTransform,
+              opacity: linkProps.arrowOpacity,
+            }}
+            arrowProps={{
+              style: {},
+            }}
+            containrProps={{
+              style: {
+                margin: `auto`,
+                maxWidth: `${sizes.title.width}px`,
+              },
+            }}
+          >
+            Schedule a chat.
+          </FancyLink>
+        </HeroLinkTainr>
+        <HintTainr>
+          <animated.p
+            style={{
+              color: `#ffffff`,
+              fontFamily: `open sans`,
+              fontWeight: 300,
+              ...hintProps,
+              ...scrollHintProps,
+            }}
+          >
+            Scroll for more.
+          </animated.p>
+        </HintTainr>
+      </ContenTainr>
     </MainTainr>
   )
 }

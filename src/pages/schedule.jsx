@@ -170,10 +170,16 @@ const SchedulerTainr = styled(animated.div)`
 //   position: relative;
 // `
 
+// const Containr = styled(animated.div)`
+//   width: 100vw;
+//   height: 100vh;
+//   overflow: hidden;
+//   position: relative;
+// `
+
 const Containr = styled(animated.div)`
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
+  width: 100%;
+  height: 100%;
   position: relative;
 `
 
