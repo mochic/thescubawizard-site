@@ -60,9 +60,7 @@ const SwitchTainr = styled(animated.div)`
 //   background: green;
 // `
 
-const FormTainr = styled(animated.div)`
-  background: green;
-`
+const FormTainr = styled(animated.div)``
 
 const Statement = styled(animated.div)``
 
@@ -107,7 +105,6 @@ const PageTainr = styled(animated.div)`
   height: 100%;
   width: 100vw;
   padding: 20px;
-  background: red;
   box-sizing: border-box;
 `
 
@@ -118,7 +115,6 @@ const Containr = styled(animated.div)`
     "switch"
     "submit";
   grid-template-rows: 1fr 2fr 1fr;
-  background: blue;
 `
 
 // const SubmitterTainr = styled(animated.div)`

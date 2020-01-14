@@ -164,7 +164,7 @@ export default ({ contentTainrProps, headerProps, curtainProps }) => {
         </AP>
       </ContentTainr>
       <Curtain style={curtainProps} />
-      <ImageTainr>
+      <ImageTainr style-={{ background: `red` }}>
         <AboutImage
           containrProps={{
             style: {

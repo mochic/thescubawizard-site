@@ -177,10 +177,25 @@ const SchedulerTainr = styled(animated.div)`
 //   position: relative;
 // `
 
+// const Containr = styled(animated.div)`
+//   width: 100%;
+//   height: 100%;
+//   position: relative;
+//   overflow: hidden;
+// `
+
+// const Containr = styled(animated.div)`
+//   width: 100vw;
+//   height: 100vh;
+//   position: relative;
+//   overflow: hidden;
+// `
+
 const Containr = styled(animated.div)`
   width: 100%;
   height: 100%;
   position: relative;
+  overflow: hidden;
 `
 
 const ImageTainr = styled(animated.div)`
