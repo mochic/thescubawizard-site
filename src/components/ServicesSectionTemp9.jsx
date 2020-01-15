@@ -120,27 +120,13 @@ const WeirdLiLabel = styled(animated.p)`
   top: -24px;
 `
 
-// const WeirdLi = styled(animated.li)`
-//   font-family: open sans;
-//   font-size: 16px;
-//   font-weight: normal;
-//   color: white;
-//   position: relative;
-//   margin: 0 0 50px 0;
-//   float: left;
-// `
-
-const WeirdLi = styled(animated.span)`
+const WeirdLi = styled(animated.li)`
   font-family: open sans;
   font-size: 16px;
   font-weight: normal;
   color: white;
   position: relative;
   margin: 0 0 50px 0;
-
-  &&::after {
-    margin: 10px;
-  }
 `
 
 // const WeirdUl = styled(animated.ul)`
@@ -150,46 +136,28 @@ const WeirdLi = styled(animated.span)`
 //   margin: 16px 0 0 20px;
 // `
 
-// const WeirdUl = styled(animated.ul)`
-//   list-style-type: none;
-//   padding: 0;
-//   margin: 16px 0 0 20px;
-// `
-
-// const WeirdUl = styled(animated.div)`
-//   list-style-type: none;
-//   padding: 0;
-//   margin: 16px 0 0 20px;
-// `
-
-const WeirdTainr = styled(animated.div)`
+const WeirdUl = styled(animated.ul)`
+  list-style-type: none;
   padding: 0;
-  margin: 30px 0 0 0;
-  display: flex;
-  justify-content: space-around;
-  flex-direction: column;
-
-  @media ${devices.laptop} {
-    flex-direction: row;
-  }
+  margin: 16px 0 0 20px;
 `
 
-const InnerContenTainr = styled.div``
+const InnerContenTainr = styled.div`
+  background: blue;
+`
 
-const WeirdList = ({ items, propsList }) => {
-  const _propsList = propsList || []
-
+const WeirdList = ({ items }) => {
   return (
-    <WeirdTainr>
+    <WeirdUl>
       {items.map((v, i) => {
         return (
-          <WeirdLi key={`weird-li-${i}`} {..._propsList[i]}>
+          <WeirdLi key={`weird-li-${i}`}>
             <WeirdLiLabel>{`0${i + 1}`}</WeirdLiLabel>
             {v}
           </WeirdLi>
         )
       })}
-    </WeirdTainr>
+    </WeirdUl>
   )
 }
 
@@ -200,7 +168,6 @@ export default ({
   imageProps,
   h2Props0,
   h2Props1,
-  listProps,
 }) => {
   return (
     <MainTainr>

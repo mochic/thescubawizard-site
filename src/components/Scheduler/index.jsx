@@ -139,8 +139,27 @@ const Link = styled(Link_)`
   font-size: 16px;
 `
 
+// const RescheduleButton = styled(animated.button)`
+//   color: #979797;
+//   font-size: 16px;
+//   font-family open sans;
+//   margin: 0px;
+//   font-weight: 300;
+//   margin: 0 0 8px 0;
+//   padding: 0;
+
+//   background: none;
+//   border: none;
+//   -webkit-appearance: none;
+
+//   &:focus {
+//     outline: 1px solid #979797;
+//   }
+// `
+
 const RescheduleButton = styled(animated.button)`
-  color: #979797;
+  color: white;
+  mix-blend-mode: overlay;
   font-size: 16px;
   font-family open sans;
   margin: 0px;
@@ -151,6 +170,10 @@ const RescheduleButton = styled(animated.button)`
   background: none;
   border: none;
   -webkit-appearance: none;
+  
+  &:focus {
+    outline: 1px solid #979797;
+  }
 `
 
 const SubmitInputTainr = styled(animated.div)``
@@ -164,11 +187,14 @@ const Submitted = ({
 }) => {
   return (
     <>
-      <Link style={{ ...homeStyle, color: `#ffffff` }} {...homeRest}>
+      <Link
+        style={{ ...homeStyle, color: `#ffffff`, margin: `auto` }}
+        {...homeRest}
+      >
         Home.
       </Link>
       <RescheduleButton
-        style={{ ...rescheduleStyle, color: `#979797` }}
+        style={{ ...rescheduleStyle, color: `#979797`, margin: `auto` }}
         {...rescheduleRest}
         onClick={e => {
           e.preventDefault()
@@ -586,6 +612,21 @@ export default () => {
     config: { ...config.slow, duration: 500 },
   })
 
+  const statements = [
+    "Signalling hq...",
+    "Sending a bat signal to hq...",
+    "Resorting to arcane sorcery...",
+    "fuq...\nSomething bad may have happened. Please try again later.", // todo maybs add sad face watermark...
+  ]
+
+  <P>Signalling hq...</P>
+          </Statement>
+          <Statement>
+            <P>Sending a bat signal to hq...</P>
+          </Statement>
+          <Statement>
+            <P>Resorting to arcane sorcery...</P>
+  const statementSprings = useSpring(statements, i => i.key, {})
   // const scheduleSpringRef = useRef()
   // const scheduleProps = useSpring({
   //   ref: scheduleSpringRef,
@@ -624,7 +665,7 @@ export default () => {
     <Containr>
       <SwitchTainr style={{ ...switchProps }}>
         <PageTainr className="page-tainr-0" style={{ ...page0Props }}>
-          <Statement>
+          <Statement style={{ maxWidth: `480px`, margin: `auto` }}>
             <P>All we need is a phone number or email address.</P>
           </Statement>
           <FormTainr>
@@ -632,12 +673,18 @@ export default () => {
           </FormTainr>
         </PageTainr>
         <PageTainr className="page-tainr-1" style={{ ...page1Props }}>
+          <Statement style={{ maxWidth: `480px`, margin: `auto` }}>
+            <P>Signalling hq...</P>
+          </Statement>
           <Statement>
             <P>Sending a bat signal to hq...</P>
           </Statement>
+          <Statement>
+            <P>Resorting to arcane sorcery...</P>
+          </Statement>
         </PageTainr>
         <PageTainr className="page-tainr-2" style={{ ...page2Props }}>
-          <Statement>
+          <Statement style={{ maxWidth: `480px`, margin: `auto` }}>
             <P>
               Great! We'll try to contact you in the next two business days.
             </P>

@@ -98,12 +98,6 @@ export default () => {
     },
   }
 
-  const offsets = {
-    services: {
-      content: 170,
-    },
-  }
-
   const [heroProps, setHeroProps] = useSpring(() => ({
     titleTransform: `translate3d(0px,0px,0)`,
     // titleOpacity: 1,
@@ -143,14 +137,9 @@ export default () => {
     reset: !isDiving,
   }))
 
-  const [aboutRevealProps, setAboutRevealProps] = useSpring(() => ({
-    opacity: 0,
-    config: { ...config.molasses, duration: 200 },
-  }))
-
   const [servicesRevealProps, setServicesRevealProps] = useSpring(() => ({
     opacity: 0,
-    config: { ...config.molasses, duration: 200 },
+    config: { ...config.molasses, duration: 1000 },
   }))
 
   const [scrollHintProps, setScrollHintProps] = useSpring(() => ({
@@ -194,8 +183,7 @@ export default () => {
 
     setServicesProps({
       contentTransform: `translate3d(0px,${velocities.services.content *
-        window.pageYOffset +
-        offsets.services.content}px,0px)`,
+        window.pageYOffset}px,0px)`,
       h0Transform: `translate3d(${velocities.services.content *
         window.pageYOffset}px,0px,0px)`,
       h1Transform: `translate3d(${-velocities.services.content *
@@ -302,9 +290,6 @@ export default () => {
           setRevealProps({
             aboutCurtainOpacity: v && isDiving ? 0 : 1,
           })
-          setAboutRevealProps({
-            opacity: v ? 1 : 0,
-          })
           setScrollHintProps({ opacity: v ? 0 : 1 })
           // setNavBarProps({
           //   opacity: v ? 1 : 0,
@@ -320,7 +305,6 @@ export default () => {
           contentTainrProps={{ transform: aboutProps.contentTransform }}
           headerProps={{ transform: aboutProps.headerTransform }}
           curtainProps={{ opacity: revealProps.aboutCurtainOpacity }}
-          imageProps={{ style: aboutRevealProps }}
         />
       </VisibilitySensor>
       <VisibilitySensor
@@ -330,10 +314,6 @@ export default () => {
           console.log("Services visibility changed...", v)
           setRevealProps({
             servicesCurtainOpacity: v ? 0 : 1,
-          })
-          // todo maybe wrapp all image reveals in same spring to control them better?
-          setAboutRevealProps({
-            opacity: v ? 0 : 1,
           })
           setServicesRevealProps({
             opacity: v ? 1 : 0,

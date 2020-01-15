@@ -173,7 +173,7 @@ export default ({ contentTainrProps, headerProps, curtainProps }) => {
               margin: `-1px`,
             },
           }}
-          imageTainrProps={{
+          containrProps={{
             style: {
               opacity: revealProps.imageOpacity,
               // transform: `translate3d(-${scrollDrift}px, 0, 0)`,

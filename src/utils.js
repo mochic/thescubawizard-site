@@ -1,3 +1,4 @@
+// if these are broked go here fam: https://regex101.com/
 export const parsePhoneNumber = phoneNumber => {
   const pattern = /^(?<country>1|\+1)?(?: )?\(?(?<area>[0-9]{0,3})\)?(?: )?(?<prefix>[0-9]{0,3})-?(?<line>[0-9]{0,4})\s?$/
   const matched = phoneNumber.match(pattern)
