@@ -70,8 +70,11 @@ describe(`isValidPhone`, () => {
   it(`validates phone #8`, () => {
     expect(isValidPhone(`+18082235545` + String.fromCharCode(32))).toBe(true)
   })
-  it(`validates phone #9`, () => {
-    expect(isValidPhone(`11111111`).toBe(true))
+  it(`validates phone #10`, () => {
+    expect(isValidPhone(`11111111111`)).toBe(true)
+  })
+  it(`validates phone #10`, () => {
+    expect(isValidPhone(`+11111111111`)).toBe(true)
   })
 })
 

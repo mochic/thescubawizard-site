@@ -23,7 +23,13 @@ export const isEmptyString = str => {
  * rely on the input for formatting
  */
 export const isValidPhone = phoneNumber => {
-  const { area, prefix, line } = parsePhoneNumber(phoneNumber)
+  const { country, area, prefix, line } = parsePhoneNumber(phoneNumber)
+
+  if (country === 1 && !(area || prefix || line)) {
+    console.log("Weird only country situation", "color: #ff00ff")
+    return true
+  }
+
   return !!(
     area &&
     area.length === 3 &&

@@ -613,20 +613,22 @@ export default () => {
   })
 
   const statements = [
-    "Signalling hq...",
-    "Sending a bat signal to hq...",
-    "Resorting to arcane sorcery...",
-    "fuq...\nSomething bad may have happened. Please try again later.", // todo maybs add sad face watermark...
+    { key: `statement-0`, value: `Signalling hq...` },
+    { key: `statement-1`, value: `Trying a telegram...` },
+    { key: `statement-2`, value: "Resorting to arcane sorcery..." },
+    {
+      key: `statement-3`,
+      value: "fuq...\nSomething bad may have happened. Please try again later.",
+    }, // todo maybs add sad face watermark...
   ]
 
-  <P>Signalling hq...</P>
-          </Statement>
-          <Statement>
-            <P>Sending a bat signal to hq...</P>
-          </Statement>
-          <Statement>
-            <P>Resorting to arcane sorcery...</P>
-  const statementSprings = useSpring(statements, i => i.key, {})
+  const statementProps = useSprings(
+    statements.length,
+    statements.map(({ key }, idx) => ({
+      opacity: 0,
+      transform: `translate3d(0,0px,0)`,
+    }))
+  )
   // const scheduleSpringRef = useRef()
   // const scheduleProps = useSpring({
   //   ref: scheduleSpringRef,
