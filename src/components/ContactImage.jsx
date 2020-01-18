@@ -29,6 +29,7 @@ const ImageTainr = styled(animated.div)`
   position: absolute;
   animation: ${Drift} 55s ease-out;
   animation-fill-mode: forwards;
+  background: #191f1d;
 `
 
 const Containr = styled(animated.div)`
@@ -40,7 +41,9 @@ const Image = () => (
   <StaticQuery
     query={graphql`
       query {
-        placeholderImage: file(relativePath: { eq: "140219-N-BJ254-058.jpg" }) {
+        placeholderImage: file(
+          relativePath: { eq: "140219-N-BJ254-058-test-8.png" }
+        ) {
           childImageSharp {
             fluid(grayscale: true) {
               ...GatsbyImageSharpFluid
@@ -52,7 +55,11 @@ const Image = () => (
     render={data => (
       <Img
         imgStyle={{ objectFit: "cover", objectPosition: "top left" }}
-        style={{ minHeight: `800px`, minWidth: `1180px` }}
+        style={{
+          minHeight: `800px`,
+          minWidth: `1180px`,
+          mixBlendMode: `overlay`,
+        }}
         fluid={data.placeholderImage.childImageSharp.fluid}
       />
     )}
@@ -73,20 +80,9 @@ export default ({
   console.log(`%ccontact gradientProps:`, "color: blue", gradientProps)
   return (
     <Containr {...containrProps}>
-      <Gradient
-        style={{
-          background: lg0percent.interpolate(
-            v =>
-              `linear-gradient(254.29deg, rgba(46, 144, 111, 0.3) ${v}%, #191f1d 75.64%)`
-          ),
-          ...gradientStyle,
-        }}
-        {...gradientPropsRest}
-      >
-        <ImageTainr {...imageTainrProps}>
-          <Image />
-        </ImageTainr>
-      </Gradient>
+      <ImageTainr {...imageTainrProps}>
+        <Image />
+      </ImageTainr>
       {children}
     </Containr>
   )
