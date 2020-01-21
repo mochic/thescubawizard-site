@@ -95,7 +95,7 @@ const Image = ({ ...outerProps }) => (
     query={graphql`
       query {
         placeholderImage: file(
-          relativePath: { eq: "diver-83508_1280-cropped-0.png" }
+          relativePath: { eq: "diver-83508_1280-cropped-0-test-3.png" }
         ) {
           childImageSharp {
             fluid(grayscale: true) {

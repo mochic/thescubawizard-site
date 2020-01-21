@@ -398,10 +398,16 @@ export default () => {
   })
 
   const headerSpringRef = useRef()
+  // const headerProps = useSpring({
+  //   ref: headerSpringRef,
+  //   from: { opacity: 0 },
+  //   to: { opacity: 1 },
+  // })
+
   const headerProps = useSpring({
     ref: headerSpringRef,
     from: { opacity: 0 },
-    to: { opacity: 1 },
+    to: { opacity: 0.2 },
   })
 
   const navBarSpringRef = useRef()
@@ -432,7 +438,9 @@ export default () => {
         gradientProps={{ style: { background: `none` } }}
       />
       {/* we need separated from contentTainr to be sibilings for grid layout to work!*/}
-      <SchedulerTainr style={contentProps}>
+      <SchedulerTainr
+        style={{ backgroundFilter: `blur(20px)`, ...contentProps }}
+      >
         <Scheduler />
       </SchedulerTainr>
       <ImageTainr style={imageProps}>
@@ -452,7 +460,16 @@ export default () => {
           }}
         >
           {/* <AH3 style={headerProps}>schedule</AH3> */}
-          <AH2 style={headerProps}>schedule</AH2>
+          <AH2
+            style={{
+              color: `#fee8c8`,
+              // opacity: 0.2,  its a headerProp controlled via spring
+              mixBlendMode: `color`,
+              ...headerProps,
+            }}
+          >
+            schedule
+          </AH2>
         </Image>
       </ImageTainr>
       {/* <ADiv

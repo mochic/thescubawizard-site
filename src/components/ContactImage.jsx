@@ -24,12 +24,17 @@ const Drift = keyframes`
     }
 `
 
+// const ImageTainr = styled(animated.div)`
+//   z-index: -2;
+//   position: absolute;
+//   animation: ${Drift} 55s ease-out;
+//   animation-fill-mode: forwards;
+//   background: #191f1d;
+// `
+
 const ImageTainr = styled(animated.div)`
   z-index: -2;
   position: absolute;
-  animation: ${Drift} 55s ease-out;
-  animation-fill-mode: forwards;
-  background: #191f1d;
 `
 
 const Containr = styled(animated.div)`
@@ -42,7 +47,7 @@ const Image = () => (
     query={graphql`
       query {
         placeholderImage: file(
-          relativePath: { eq: "140219-N-BJ254-058-test-8.png" }
+          relativePath: { eq: "140219-N-BJ254-058-test-17.png" }
         ) {
           childImageSharp {
             fluid(grayscale: true) {
@@ -59,6 +64,7 @@ const Image = () => (
           minHeight: `800px`,
           minWidth: `1180px`,
           mixBlendMode: `overlay`,
+          opacity: 0.2,
         }}
         fluid={data.placeholderImage.childImageSharp.fluid}
       />

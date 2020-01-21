@@ -320,7 +320,7 @@ export default () => {
           contentTainrProps={{ transform: aboutProps.contentTransform }}
           headerProps={{ transform: aboutProps.headerTransform }}
           curtainProps={{ opacity: revealProps.aboutCurtainOpacity }}
-          imageProps={{ style: aboutRevealProps }}
+          // imageProps={{ style: aboutRevealProps }}
         />
       </VisibilitySensor>
       <VisibilitySensor
