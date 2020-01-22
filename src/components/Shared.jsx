@@ -159,3 +159,7 @@ export const AHr = styled(animated.hr)`
 // export const Hr = styled.hr`
 
 // `
+
+export const ASection = styled(animated.section)`
+  background: red;
+`
