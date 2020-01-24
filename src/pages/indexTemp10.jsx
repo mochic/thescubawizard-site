@@ -25,7 +25,6 @@ import NavBar from "../components/NavBar"
 import VisibilitySensor from "react-visibility-sensor"
 
 import AboutImage from "../components/AboutImage"
-import ServicesImage from "../components/ServicesImage"
 import { ASection, AHr, AH3, AH2, ADiv, AP } from "../components/Shared"
 
 // const ADiv = styled(animated.div)``
@@ -55,25 +54,6 @@ const AboutImageTainr = styled(ADiv)`
   mix-blend-mode: overlay;
 `
 
-const ServicesImageTainr = styled(animated.div)`
-  min-width: 320px;
-  width: 100%;
-  height: 900px;
-  position: absolute;
-  top: -200px;
-  right: 0px;
-  z-index: -1;
-`
-
-// media queries
-const AServicesAH2 = styled(AH2)`
-  font-size: 200px;
-
-  @media ${devices.laptop} {
-    font-size: 260px;
-  }
-`
-
 // media queries
 // const AboutH3 = styled(AH2)`
 //   position: absolute;
@@ -89,6 +69,23 @@ const AboutSection = styled(ASection)`
     ". . .";
   grid-template-rows: auto auto auto;
   grid-template-columns: auto 250px auto;
+  @media ${devices.laptop} {
+    grid-template-rows: auto auto 150px;
+    grid-template-columns: 8% minmax(auto, 900px) minmax(8%, auto);
+  }
+`
+
+const ServicesSection = styled(ASection)`
+  display: grid;
+  position: relative; /* very important for absolute positioned image */
+  height: 700px;
+  grid-template-areas:
+    ". . . "
+    ". content ."
+    ". . .";
+  grid-template-rows: auto auto auto;
+  grid-template-columns: auto 250px auto;
+
   @media ${devices.laptop} {
     grid-template-rows: auto auto 150px;
     grid-template-columns: 8% minmax(auto, 900px) minmax(8%, auto);
@@ -124,92 +121,6 @@ const DepthsGradient = styled(animated.div)`
   left: 0px;
   z-index: ${shared.depthsGradientZIndex}; /* hopefully this is enough but not too much... */
 `
-
-// services list
-const WeirdLiLabel = styled(animated.p)`
-  font-size: 50px;
-  font-family: playfair display;
-  color: #ffffff;
-  mix-blend-mode: overlay;
-  position: absolute;
-  margin: 0;
-  padding: 0;
-  opacity: 0.1;
-  top: -24px;
-`
-
-// const WeirdLi = styled(animated.li)`
-//   font-family: open sans;
-//   font-size: 16px;
-//   font-weight: normal;
-//   color: white;
-//   position: relative;
-//   margin: 0 0 50px 0;
-//   float: left;
-// `
-
-const WeirdLi = styled(animated.span)`
-  font-family: open sans;
-  font-size: 16px;
-  font-weight: normal;
-  color: white;
-  position: relative;
-  margin: 0 0 50px 0;
-
-  &&::after {
-    margin: 10px;
-  }
-`
-
-// const WeirdUl = styled(animated.ul)`
-//   list-style-type: none;
-//   align-self: flex-start;
-//   padding: 0;
-//   margin: 16px 0 0 20px;
-// `
-
-// const WeirdUl = styled(animated.ul)`
-//   list-style-type: none;
-//   padding: 0;
-//   margin: 16px 0 0 20px;
-// `
-
-// const WeirdUl = styled(animated.div)`
-//   list-style-type: none;
-//   padding: 0;
-//   margin: 16px 0 0 20px;
-// `
-
-const WeirdTainr = styled(animated.div)`
-  padding: 0;
-  margin: 30px 0 0 0;
-  display: flex;
-  justify-content: space-around;
-  flex-direction: column;
-
-  @media ${devices.laptop} {
-    flex-direction: row;
-  }
-`
-
-const InnerContenTainr = styled.div``
-
-const WeirdList = ({ items, propsList }) => {
-  const _propsList = propsList || []
-
-  return (
-    <WeirdTainr>
-      {items.map((v, i) => {
-        return (
-          <WeirdLi key={`weird-li-${i}`} {..._propsList[i]}>
-            <WeirdLiLabel>{`0${i + 1}`}</WeirdLiLabel>
-            {v}
-          </WeirdLi>
-        )
-      })}
-    </WeirdTainr>
-  )
-}
 
 export default () => {
   const [pos, setPos] = useState()
@@ -539,7 +450,7 @@ export default () => {
           </AboutImageTainr>
         </AboutSection>
       </VisibilitySensor>
-      {/* <VisibilitySensor
+      <VisibilitySensor
         partialVisibility
         offset={{ bottom: 100 }}
         onChange={v => {
@@ -564,109 +475,7 @@ export default () => {
           h2Props0={{ transform: servicesProps.h0Transform }}
           h2Props1={{ transform: servicesProps.h1Transform }}
         />
-      </VisibilitySensor> */}
-      <VisibilitySensor
-        partialVisibility
-        offset={{ bottom: 100 }}
-        onChange={v => {
-          console.log("Services visibility changed...", v)
-          setRevealProps({
-            servicesCurtainOpacity: v ? 0 : 1,
-          })
-          // todo maybe wrapp all image reveals in same spring to control them better?
-          setAboutRevealProps({
-            opacity: v ? 0 : 1,
-          })
-          setServicesRevealProps({
-            opacity: v ? 1 : 0,
-          })
-        }}
-      >
-        <AServicesAH2
-          style={{
-            position: `absolute`,
-            // top: `5%`,
-            // right: `-200px`,
-            fontSize: `200px`,
-            minWidth: `300px`,
-            transform: servicesProps.headerTransform,
-          }}
-        >
-          services
-        </AServicesAH2>
-        <ContenTainr style={{ gridArea: `content` }}>
-          <AH3>We've got your back.</AH3>
-          <AHr />
-          <ADiv>
-            <AP
-              style={{
-                textAlign: `center`,
-                fontFamily: `open sans`,
-                fontSize: `16px`,
-                fontWeight: 300,
-              }}
-            >
-              We'll work with you to make sure the job gets done right the first
-              time. If it takes longer than expected, we promise not the leave
-              you high and dry with a half-finished job!
-            </AP>
-            <WeirdList
-              items={[
-                `Hull cleaning`,
-                `Anode replacement`,
-                `Lost item recovery`,
-              ]}
-            />
-          </ADiv>
-        </ContenTainr>
-        <ServicesImageTainr>
-          <AboutImage />
-        </ServicesImageTainr>
       </VisibilitySensor>
-      <VisibilitySensor
-        onChange={v => {
-          console.log("Interested visibility changed...", v)
-          // setRevealProps({ footerOpacity: 1 })
-        }}
-      >
-        <Interested
-          containrProps={{ style: { zIndex: 1000 } }}
-          linkProps={{ buttonStyle: { zIndex: 1000 } }}
-        />
-      </VisibilitySensor>
-      {/* <VisibilitySensor
-        delayedCall
-        onChange={v => {
-          console.log("%cFooter visibility changed...", "color: #ff00ff", v)
-          if (v) {
-            // setRevealProps({
-            //   footerOpacity: 1,
-            //   delay: 1000,
-            //   config: { ...config.slow, duration: 1000 },
-            // })
-            setFooterProps({
-              opacity: 1,
-              delay: 1000,
-              config: { ...config.molasses, duration: 3000 },
-            })
-          }
-        }}
-      >
-        <ADiv
-          style={{
-            position: `absolute`,
-            width: `100%`,
-            bottom: `25px`,
-            ...footerProps,
-          }}
-        >
-          <Footer
-            hrProps={{ style: { zIndex: shared.depthsGradientZIndex + 1 } }}
-            p0Props={{ style: { zIndex: shared.depthsGradientZIndex + 1 } }}
-            p1Props={{ style: { zIndex: shared.depthsGradientZIndex + 1 } }}
-          />
-        </ADiv>
-      </VisibilitySensor> */}
       <VisibilitySensor
         onChange={v => {
           console.log("Interested visibility changed...", v)

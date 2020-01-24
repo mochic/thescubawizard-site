@@ -126,11 +126,8 @@ const ImageTainr = styled(animated.div)`
   z-index: -1;
   position: absolute;
   width: 100%;
-  min-width: 600px;
-  background: red;
-
-  top: 0px;
-  left: -100px;
+  height: 100%;
+  min-width: 320px;
 
   @media ${devices.tablet} {
     left: 0px;

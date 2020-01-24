@@ -1,6 +1,8 @@
 import styled from "styled-components"
 import { animated } from "react-spring"
 
+import devices from "../devices"
+
 export const Containr = styled(animated.div)`
   display: grid;
   grid-template-columns: repeat(24, 1fr);
@@ -150,16 +152,67 @@ export const Input = styled.input`
   }
 `
 
-export const AHr = styled(animated.hr)`
-  width: 100%;
-  border: 0.5px solid #ffe9c9;
-  margin: 0 0 16px 0;
-`
+// export const AHr = styled(animated.hr)`
+//   width: 100%;
+//   border: 0.5px solid #ffe9c9;
+//   margin: 0 0 16px 0;
+// `
 
 // export const Hr = styled.hr`
 
 // `
 
+export const AH3 = styled(animated.h3)`
+  font-family: playfair display;
+  font-size: 26px;
+  font-weight: bold;
+  color: #ffe9c9;
+  line-height: 150%;
+  text-align: center;
+`
+
+export const ADiv = styled(animated.div)``
+
 export const ASection = styled(animated.section)`
-  background: red;
+  position: relative;
+`
+
+// make chunks go in different directions as u scroll?
+export const AH2 = styled(animated.h2)`
+  font-family: playfair display;
+  font-weight: bold;
+  font-size: 260px;
+  margin: 0;
+  padding: 0;
+  color: rgba(255, 255, 255, 0.5);
+  mix-blend-mode: overlay;
+  width: 100%;
+  min-width: 300px;
+  word-break: break-word;
+
+  @media ${devices.laptop} {
+    font-size: 260px;
+  }
+`
+
+// we needs teh queries!
+export const AHr = styled(animated.hr)`
+  width: 40%;
+  border: 0.5px solid #ffe9c9;
+  margin: 0 0 16px 0;
+
+  @media ${devices.laptop} {
+    height: 300px;
+    width: 0.5px;
+    display: inline-block;
+    margin: auto 50px auto 50px;
+  }
+`
+
+export const AP = styled(animated.p)`
+  font-family: open sans;
+  font-size: 18px;
+  font-weight: 600;
+  color: white;
+  line-height: 200%;
 `

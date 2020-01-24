@@ -82,6 +82,7 @@ import devices from "../devices"
 // `
 
 const MainTainr = styled(animated.div)`
+  z-index: 1;
   overflow: hidden;
   position: relative;
   height: 80vh; /* 100vh felt wayyyy tooo long to scroll thru */
