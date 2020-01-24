@@ -65,6 +65,8 @@ const ServicesImageTainr = styled(animated.div)`
   z-index: -1;
 `
 
+const InterestedImageTainr = styled(animated.div)``
+
 // media queries
 const AServicesAH2 = styled(AH2)`
   font-size: 200px;
@@ -80,6 +82,38 @@ const AServicesAH2 = styled(AH2)`
 // `
 
 const AboutSection = styled(ASection)`
+  display: grid;
+  position: relative; /* very important for absolute positioned image */
+  height: 900px;
+  grid-template-areas:
+    ". . . "
+    ". content ."
+    ". . .";
+  grid-template-rows: auto auto auto;
+  grid-template-columns: auto 250px auto;
+  @media ${devices.laptop} {
+    grid-template-rows: auto auto 150px;
+    grid-template-columns: 8% minmax(auto, 900px) minmax(8%, auto);
+  }
+`
+
+const ServicesSection = styled(ASection)`
+  display: grid;
+  position: relative; /* very important for absolute positioned image */
+  height: 900px;
+  grid-template-areas:
+    ". . . "
+    ". content ."
+    ". . .";
+  grid-template-rows: auto auto auto;
+  grid-template-columns: auto 250px auto;
+  @media ${devices.laptop} {
+    grid-template-rows: auto auto 150px;
+    grid-template-columns: 8% minmax(auto, 900px) minmax(8%, auto);
+  }
+`
+
+const InterestedSection = styled(ASection)`
   display: grid;
   position: relative; /* very important for absolute positioned image */
   height: 900px;
@@ -582,46 +616,48 @@ export default () => {
           })
         }}
       >
-        <AServicesAH2
-          style={{
-            position: `absolute`,
-            // top: `5%`,
-            // right: `-200px`,
-            fontSize: `200px`,
-            minWidth: `300px`,
-            transform: servicesProps.headerTransform,
-          }}
-        >
-          services
-        </AServicesAH2>
-        <ContenTainr style={{ gridArea: `content` }}>
-          <AH3>We've got your back.</AH3>
-          <AHr />
-          <ADiv>
-            <AP
-              style={{
-                textAlign: `center`,
-                fontFamily: `open sans`,
-                fontSize: `16px`,
-                fontWeight: 300,
-              }}
-            >
-              We'll work with you to make sure the job gets done right the first
-              time. If it takes longer than expected, we promise not the leave
-              you high and dry with a half-finished job!
-            </AP>
-            <WeirdList
-              items={[
-                `Hull cleaning`,
-                `Anode replacement`,
-                `Lost item recovery`,
-              ]}
-            />
-          </ADiv>
-        </ContenTainr>
-        <ServicesImageTainr>
-          <AboutImage />
-        </ServicesImageTainr>
+        <ServicesSection>
+          <AServicesAH2
+            style={{
+              position: `absolute`,
+              // top: `5%`,
+              // right: `-200px`,
+              fontSize: `200px`,
+              minWidth: `300px`,
+              transform: servicesProps.headerTransform,
+            }}
+          >
+            services
+          </AServicesAH2>
+          <ContenTainr style={{ gridArea: `content` }}>
+            <AH3>We've got your back.</AH3>
+            <AHr />
+            <ADiv>
+              <AP
+                style={{
+                  textAlign: `center`,
+                  fontFamily: `open sans`,
+                  fontSize: `16px`,
+                  fontWeight: 300,
+                }}
+              >
+                We'll work with you to make sure the job gets done right the
+                first time. If it takes longer than expected, we promise not the
+                leave you high and dry with a half-finished job!
+              </AP>
+              <WeirdList
+                items={[
+                  `Hull cleaning`,
+                  `Anode replacement`,
+                  `Lost item recovery`,
+                ]}
+              />
+            </ADiv>
+          </ContenTainr>
+          <ServicesImageTainr>
+            <AboutImage />
+          </ServicesImageTainr>
+        </ServicesSection>
       </VisibilitySensor>
       <VisibilitySensor
         onChange={v => {

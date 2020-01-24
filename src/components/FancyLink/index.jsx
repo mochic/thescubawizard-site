@@ -52,6 +52,7 @@ export default ({
   textStyle,
   arrowProps,
   containrProps,
+  // fancyClick
 }) => {
   const handleClick = e => {
     e.preventDefault()
@@ -61,6 +62,8 @@ export default ({
 
   const textProps = {}
   const buttonProps = {}
+
+  // const [outerButtonProps, setOuterButtonProps] = useSpring({})
 
   return (
     <Containr {...containrProps}>
