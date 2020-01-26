@@ -9,9 +9,10 @@ import debounce from "lodash/debounce"
 
 import About from "../components/AboutSection"
 
-import Services from "../components/ServicesSection"
+import Services from "../components/ServicesSectionOld"
 
 import Interested from "../components/InterestedSection"
+import InterestedOld from "../components/InterestedSectionTemp1"
 
 import Footer from "../components/Footer"
 
@@ -51,18 +52,51 @@ const AboutImageTainr = styled(ADiv)`
   position: absolute;
   top: 0px;
   left: 0px;
-  height: 700px;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
   mix-blend-mode: overlay;
 `
 
+const AboutSection = styled(ASection)`
+  display: grid;
+  position: relative; /* very important for absolute positioned image */
+  height: 900px;
+  width: 100%;
+  grid-template-areas:
+    ". . . "
+    ". content ."
+    ". . .";
+  grid-template-rows: auto auto auto;
+  grid-template-columns: auto 250px auto;
+  @media ${devices.laptop} {
+    grid-template-rows: auto auto 150px;
+    grid-template-columns: 8% minmax(auto, 900px) minmax(8%, auto);
+  }
+`
+
+// const ServicesImageTainr = styled(animated.div)`
+//   min-width: 320px;
+//   width: 100%;
+//   height: 900px;
+//   position: absolute;
+//   top: -200px;
+//   right: 0px;
+//   z-index: -1;
+// `
+
+// mixblendmode lighten filter opacity(0.5) top 0px right 0px
 const ServicesImageTainr = styled(animated.div)`
   min-width: 320px;
+  max-width: 1500px;
   width: 100%;
-  height: 900px;
+  height: 100%;
   position: absolute;
-  top: -200px;
+  top: 0px;
   right: 0px;
   z-index: -1;
+  mix-blend-mode: lighten;
+  filter: opacity(0.5);
 `
 
 const InterestedImageTainr = styled(animated.div)``
@@ -80,22 +114,6 @@ const AServicesAH2 = styled(AH2)`
 // const AboutH3 = styled(AH2)`
 //   position: absolute;
 // `
-
-const AboutSection = styled(ASection)`
-  display: grid;
-  position: relative; /* very important for absolute positioned image */
-  height: 900px;
-  grid-template-areas:
-    ". . . "
-    ". content ."
-    ". . .";
-  grid-template-rows: auto auto auto;
-  grid-template-columns: auto 250px auto;
-  @media ${devices.laptop} {
-    grid-template-rows: auto auto 150px;
-    grid-template-columns: 8% minmax(auto, 900px) minmax(8%, auto);
-  }
-`
 
 const ServicesSection = styled(ASection)`
   display: grid;
@@ -655,7 +673,7 @@ export default () => {
             </ADiv>
           </ContenTainr>
           <ServicesImageTainr>
-            <AboutImage />
+            <ServicesImage />
           </ServicesImageTainr>
         </ServicesSection>
       </VisibilitySensor>
@@ -710,7 +728,7 @@ export default () => {
         }}
       >
         {/* we want the link clickable always... */}
-        <Interested
+        <InterestedOld
           containrProps={{ style: { zIndex: 1000 } }}
           linkProps={{ buttonStyle: { zIndex: 1000 } }}
         />

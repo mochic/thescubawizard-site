@@ -10,11 +10,14 @@ import {
   useSpring,
   config,
 } from "react-spring"
+
+import { AH3, AP, ADiv } from "./Shared"
+
 import VisibilitySensor from "react-visibility-sensor"
 
 import FancyLink from "./FancyLink"
 
-const AnimatedH2 = styled(animated.h2)`
+const InterestedH3 = styled(animated.h3)`
   color: #ffe9c9;
   font-family: playfair display;
   font-size: 48px;
@@ -24,11 +27,11 @@ const AnimatedH2 = styled(animated.h2)`
   text-align: center;
 `
 
-const P = styled(animated.p)`
-  font-size: 16px;
-  font-family: open sans;
-  color: white;
-`
+// const P = styled(animated.p)`
+//   font-size: 16px;
+//   font-family: open sans;
+//   color: white;
+// `
 
 const ImageTainr = styled(animated.div)`
   z-index: -1;
@@ -66,6 +69,7 @@ const MainTainr = styled(animated.div)`
   background: #191f1d;
   z-index: 0;
   overflow: visible;
+  display: grid;
 `
 
 const ContentTainr = styled(animated.div)`
@@ -98,13 +102,7 @@ const Image = () => (
   />
 )
 
-const PTainer = styled(animated.div)``
-
-const LinkTainr = styled(animated.div)`
-  z-index: 1000;
-`
-
-export default ({linkProps}) => {
+export default ({ linkProps }) => {
   // need outer container to position lazy loading background image
   const [revealed, setRevealed] = useState(false)
 
@@ -180,9 +178,9 @@ export default ({linkProps}) => {
     >
       <MainTainr>
         <ContentTainr>
-          <AnimatedH2 style={headerProps}>
+          <InterestedH3 style={headerProps}>
             Interested
-            <P
+            <AP
               style={{
                 fontFamily: `playfair display`,
                 fontSize: `48px`,
@@ -195,30 +193,30 @@ export default ({linkProps}) => {
               }}
             >
               ?
-            </P>
-          </AnimatedH2>
-          <PTainer>
-            <P style={statementProps}>
+            </AP>
+          </InterestedH3>
+          <div>
+            <AP style={statementProps}>
               Scheduling a chat takes less than a minute.
-            </P>
-          </PTainer>
-          <LinkTainr>
+            </AP>
+          </div>
+          <div style={{ zIndex: 1000 }}>
             <FancyLink
               to={"/schedule"}
               textStyle={{
-                opacity: _linkProps.textOpacity, 
-                ...linkProps.textStyle
+                opacity: _linkProps.textOpacity,
+                ...linkProps.textStyle,
               }}
               buttonStyle={{
                 opacity: _linkProps.arrowOpacity,
                 transform: _linkProps.arrowTransform,
-                ...linkProps.buttonStyle
+                ...linkProps.buttonStyle,
               }}
-              containrProps={{...linkProps.containrProps}}
+              containrProps={{ ...linkProps.containrProps }}
             >
               Get started today!
             </FancyLink>
-          </LinkTainr>
+          </div>
         </ContentTainr>
         <BackTainr>
           <ImageTainr>

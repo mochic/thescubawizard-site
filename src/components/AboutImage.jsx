@@ -94,9 +94,7 @@ const Image = ({ ...outerProps }) => (
   <StaticQuery
     query={graphql`
       query {
-        placeholderImage: file(
-          relativePath: { eq: "diver-83508_1280-cropped-0-test-3.png" }
-        ) {
+        placeholderImage: file(relativePath: { eq: "diver-oval-8.png" }) {
           childImageSharp {
             fluid(grayscale: true) {
               ...GatsbyImageSharpFluid
@@ -112,6 +110,12 @@ const Image = ({ ...outerProps }) => (
           style={{
             height: `100%`,
             width: `100%`,
+            minWidth: `200px`,
+            minHeight: `700px`,
+            overflow: `hidden`,
+            position: `relative`,
+            maxWidth: `600px`,
+            margin: `auto 50px auto auto`,
           }}
           fluid={data.placeholderImage.childImageSharp.fluid}
         />
@@ -138,12 +142,14 @@ const ImageTainr = styled(animated.div)`
   }
 `
 
-export default ({ imageTainrProps, containrProps }) => {
-  return (
-    <Containr {...containrProps}>
-      <ImageTainr>
-        <Image outerProps={imageTainrProps} />
-      </ImageTainr>
-    </Containr>
-  )
-}
+// export default ({ imageTainrProps, containrProps }) => {
+//   return (
+//     <Containr {...containrProps}>
+//       <ImageTainr>
+//         <Image outerProps={imageTainrProps} />
+//       </ImageTainr>
+//     </Containr>
+//   )
+// }
+
+export default Image
