@@ -209,10 +209,17 @@ export const AHr = styled(animated.hr)`
   }
 `
 
+// export const AP = styled(animated.p)`
+//   font-family: open sans;
+//   font-size: 18px;
+//   font-weight: 600;
+//   color: white;
+//   line-height: 200%;
+// `
+
 export const AP = styled(animated.p)`
   font-family: open sans;
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 300;
   color: white;
-  line-height: 200%;
 `

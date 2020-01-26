@@ -5,6 +5,19 @@ import { animated } from "react-spring"
 
 import devices from "../devices"
 
+// const FooterTainr = styled(animated.div)`
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+//   margin: 0 0 20px 0;
+//   padding: 0;
+
+//   @media ${devices.laptop} {
+//     flex-direction: row;
+//   }
+// `
+
 const FooterTainr = styled(animated.div)`
   display: flex;
   flex-direction: column;
@@ -12,10 +25,6 @@ const FooterTainr = styled(animated.div)`
   justify-content: center;
   margin: 0 0 20px 0;
   padding: 0;
-
-  @media ${devices.laptop} {
-    flex-direction: row;
-  }
 `
 
 const AP = styled(animated.p)`

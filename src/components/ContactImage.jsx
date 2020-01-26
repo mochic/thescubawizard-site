@@ -47,7 +47,7 @@ const Image = () => (
     query={graphql`
       query {
         placeholderImage: file(
-          relativePath: { eq: "140219-N-BJ254-058-test-17.png" }
+          relativePath: { eq: "deep-diving-deep-diving-gear-diver-54306-2.png" }
         ) {
           childImageSharp {
             fluid(grayscale: true) {
@@ -61,6 +61,8 @@ const Image = () => (
       <Img
         imgStyle={{ objectFit: "cover", objectPosition: "top left" }}
         style={{
+          height: `100%`,
+          width: `100%`,
           minHeight: `800px`,
           minWidth: `1180px`,
           mixBlendMode: `overlay`,
@@ -72,24 +74,26 @@ const Image = () => (
   />
 )
 
-export default ({
-  imageTainrProps,
-  containrProps,
-  gradientProps,
-  children,
-}) => {
-  const {
-    lg0percent,
-    style: gradientStyle,
-    ...gradientPropsRest
-  } = gradientProps
-  console.log(`%ccontact gradientProps:`, "color: blue", gradientProps)
-  return (
-    <Containr {...containrProps}>
-      <ImageTainr {...imageTainrProps}>
-        <Image />
-      </ImageTainr>
-      {children}
-    </Containr>
-  )
-}
+// export default ({
+//   imageTainrProps,
+//   containrProps,
+//   gradientProps,
+//   children,
+// }) => {
+//   const {
+//     lg0percent,
+//     style: gradientStyle,
+//     ...gradientPropsRest
+//   } = gradientProps
+//   console.log(`%ccontact gradientProps:`, "color: blue", gradientProps)
+//   return (
+//     <Containr {...containrProps}>
+//       <ImageTainr {...imageTainrProps}>
+//         <Image />
+//       </ImageTainr>
+//       {children}
+//     </Containr>
+//   )
+// }
+
+export default Image

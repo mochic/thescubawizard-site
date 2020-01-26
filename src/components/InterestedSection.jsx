@@ -34,24 +34,6 @@ const InterestedH3 = styled(animated.h3)`
 // `
 
 const ImageTainr = styled(animated.div)`
-  z-index: -1;
-`
-
-const Gradient = styled(animated.div)`
-  height: 100%;
-  width: 100%;
-  background: radial-gradient(
-    127.87% 41.37% at 59.13% 52.4%,
-    rgba(80, 133, 95, 0.25) 0%,
-    #191f1d 100%
-  );
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 0;
-`
-
-const BackTainr = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -59,6 +41,29 @@ const BackTainr = styled.div`
   overflow: hidden;
   width: 100%;
 `
+
+// const Gradient = styled(animated.div)`
+//   height: 100%;
+//   width: 100%;
+//   background: radial-gradient(
+//     127.87% 41.37% at 59.13% 52.4%,
+//     rgba(80, 133, 95, 0.25) 0%,
+//     #191f1d 100%
+//   );
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   z-index: 0;
+// `
+
+// const BackTainr = styled.div`
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   z-index: -1;
+//   overflow: hidden;
+//   width: 100%;
+// `
 
 // position relative is super important for anchoring our absolute pos stuff!
 // z-index for clickable buttons is really important!
@@ -83,7 +88,7 @@ const Image = () => (
     query={graphql`
       query {
         placeholderImage: file(
-          relativePath: { eq: "deep-diving-deep-diving-gear-diver-54306.jpg" }
+          relativePath: { eq: "deep-diving-deep-diving-gear-diver-54306-2.png" }
         ) {
           childImageSharp {
             fluid(grayscale: true) {
@@ -196,7 +201,7 @@ export default ({ linkProps }) => {
             </AP>
           </InterestedH3>
           <div>
-            <AP style={statementProps}>
+            <AP style={{ ...statementProps }}>
               Scheduling a chat takes less than a minute.
             </AP>
           </div>
@@ -205,6 +210,8 @@ export default ({ linkProps }) => {
               to={"/schedule"}
               textStyle={{
                 opacity: _linkProps.textOpacity,
+                fontFamily: `open sans`,
+                fontWeight: 300,
                 ...linkProps.textStyle,
               }}
               buttonStyle={{
@@ -218,12 +225,9 @@ export default ({ linkProps }) => {
             </FancyLink>
           </div>
         </ContentTainr>
-        <BackTainr>
-          <ImageTainr>
-            <Image />
-          </ImageTainr>
-          <Gradient />
-        </BackTainr>
+        <ImageTainr>
+          <Image />
+        </ImageTainr>
       </MainTainr>
     </VisibilitySensor>
   )

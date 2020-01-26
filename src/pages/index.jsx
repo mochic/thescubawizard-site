@@ -267,6 +267,10 @@ export default () => {
   const [pos, setPos] = useState()
 
   const revealState = useState({
+    hero: false,
+    about: false,
+    services: false,
+    interested: false,
     footer: false,
   })
 
@@ -288,6 +292,7 @@ export default () => {
     about: false,
     services: false,
     interested: false,
+    footer: false,
   })
 
   const velocities = {
@@ -575,9 +580,7 @@ export default () => {
             <AP
               style={{
                 textAlign: `center`,
-                fontFamily: `open sans`,
-                fontSize: `16px`,
-                fontWeight: 300,
+                lineHeight: `200%`,
               }}
             >
               We’re dedicated to delivering a quality dive service to the
@@ -654,9 +657,7 @@ export default () => {
               <AP
                 style={{
                   textAlign: `center`,
-                  fontFamily: `open sans`,
-                  fontSize: `16px`,
-                  fontWeight: 300,
+                  lineHeight: `200%`,
                 }}
               >
                 We'll work with you to make sure the job gets done right the
