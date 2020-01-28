@@ -155,7 +155,6 @@ const ContenTainr = styled(ADiv)`
   flex-direction: column;
   align-items: center;
   background: none;
-  backdrop-filter: blur(1px);
 
   @media ${devices.laptop} {
     flex-direction: row;
@@ -265,20 +264,20 @@ const WeirdList = ({ items, propsList }) => {
 }
 
 export default () => {
-  // const [pos, setPos] = useState()
+  const [pos, setPos] = useState()
 
-  // const revealState = useState({
-  //   hero: false,
-  //   about: false,
-  //   services: false,
-  //   interested: false,
-  //   footer: false,
-  // })
+  const revealState = useState({
+    hero: false,
+    about: false,
+    services: false,
+    interested: false,
+    footer: false,
+  })
 
   // some performance cost to prevent weird situations when we initialize at top but about is slightly showing...
   const diveThreshold = 50 // probs have to do something elaborate to calculate this...
   const [isDiving, setIsDiving] = useState(window.pageYOffset > diveThreshold)
-  // console.log("%cIndex rendered", "color: #ff00ff", { isDiving })
+  console.log("%cIndex rendered", { isDiving }, "color: #ff00ff")
   // maybe use different based on browser support, etc....
   // const rawHandler = () => {
   //   setPos(window.pageYOffset)
@@ -289,7 +288,7 @@ export default () => {
   // const servicesVelocity = 0.8
 
   const [revealed, setRevealed] = useState({
-    hero: window.pageYOffset === 0, // best way to handle first render?
+    hero: false,
     about: false,
     services: false,
     interested: false,
@@ -303,8 +302,8 @@ export default () => {
       curtain: 0.01,
     },
     about: {
-      content: -0.2,
-      header: -0.3,
+      content: -0.08,
+      header: -0.04,
     },
     services: {
       content: -0.08,
@@ -313,28 +312,9 @@ export default () => {
   }
 
   const offsets = {
-    about: {
-      content: { x: 0, y: 0, z: 0 },
-      header: { x: 0, y: 0, z: 0 },
-    },
     services: {
-      content: { x: 0, y: 170, z: 0 },
-      header: { x: 0, y: 0, z: 0 },
+      content: 170,
     },
-    interested: {
-      content: { x: 0, y: 0, z: 0 },
-    },
-  }
-
-  // const resolveTransform = () => {
-  //   return `transform`
-  // }
-
-  const generateTransform = (section, itemName, adjustment) => {
-    const _adjustment = adjustment || { x: 0, y: 0, z: 0 }
-    const offset = offsets[section][itemName]
-    return `translate3d(${offset.x + _adjustment.x}px,${offset.y +
-      _adjustment.y}px,${offset.z + _adjustment.z}px)`
   }
 
   const [heroProps, setHeroProps] = useSpring(() => ({
@@ -342,7 +322,7 @@ export default () => {
     // titleOpacity: 1,
     linkTransform: `translate3d(0px,0px,0)`,
     linkOpacity: 0,
-    curtainOpacity: revealed.hero ? 1 : 0,
+    curtainOpacity: 1,
     delay: 0,
     // config: { duration: 5000 },
   }))
@@ -357,54 +337,29 @@ export default () => {
   //   config: { ...config.wobbly, duration: 600 },
   // }))
 
-  // const [servicesProps, setServicesProps] = useSpring(() => ({
-  //   contentTransform: `translate3d(0px,0px,0)`,
-  //   h0Transform: `translate3d(200px, 0px, 0px)`,
-  //   h1Transform: `translate3d(-200px, 0px, 0px)`,
-  //   headerTransform: `translate3d(-200px,0px,0px)`,
-  // }))
-
-  // const [aboutProps, setAboutProps] = useSpring(() => ({
-  //   contentTransform: `translate3d(0px,0px,0px)`,
-  //   headerTransform: `translate3d(0px,0px,0px)`,
-  // }))
-
-  const aboutProps = useSpring({
-    imageOpacity: revealed.about ? 1 : 0,
-    config: {
-      ...config.stiff,
-      duration: 20000,
-    },
-  })
-
-  const [aboutParallaxProps, setAboutParallaxProps] = useSpring(() => ({
-    contentTransform: `translate3d(${offsets.about.content.x}px,${offsets.about.content.y}px,${offsets.about.content.z}px)`,
-    headerTransform: `translate3d(${offsets.about.header.x}px,${offsets.about.header.y}px,${offsets.about.header.z}px)`,
-    // config: { ...config.wobbly },
+  const [servicesProps, setServicesProps] = useSpring(() => ({
+    contentTransform: `translate3d(0px,0px,0)`,
+    h0Transform: `translate3d(200px, 0px, 0px)`,
+    h1Transform: `translate3d(-200px, 0px, 0px)`,
+    headerTransform: `translate3d(-200px,0px,0px)`,
   }))
 
-  const [servicesParallaxProps, setServicesParallaxProps] = useSpring(() => ({
-    contentTransform: `translate3d(${offsets.services.content.x}px,${offsets.services.content.y}px,${offsets.services.content.z}px)`,
-    headerTransform: `translate3d(${offsets.services.header.x}px,${offsets.services.header.y}px,${offsets.services.header.z}px)`,
+  const [aboutProps, setAboutProps] = useSpring(() => ({
+    contentTransform: `translate3d(0px,0px,0px)`,
+    headerTransform: `translate3d(0px,0px,0px)`,
   }))
 
-  const [interestedParallaxProps, setInterestedParallaxProps] = useSpring(
-    () => ({
-      contentTransform: `translate3d(${offsets.interested.content.x}px,${offsets.interested.content.y}px,${offsets.interested.content.z}px)`,
-    })
-  )
+  const [revealProps, setRevealProps] = useSpring(() => ({
+    aboutCurtainOpacity: 1,
+    servicesCurtainOpacity: 1,
+    config: { ...config.stiff, duration: 2000 },
+    reset: !isDiving,
+  }))
 
-  // const [revealProps, setRevealProps] = useSpring(() => ({
-  //   aboutCurtainOpacity: 1,
-  //   servicesCurtainOpacity: 1,
-  //   config: { ...config.stiff, duration: 2000 },
-  //   reset: !isDiving,
-  // }))
-
-  // const [aboutRevealProps, setAboutRevealProps] = useSpring(() => ({
-  //   opacity: 0,
-  //   config: { ...config.molasses, duration: 200 },
-  // }))
+  const [aboutRevealProps, setAboutRevealProps] = useSpring(() => ({
+    opacity: 0,
+    config: { ...config.molasses, duration: 200 },
+  }))
 
   const [servicesRevealProps, setServicesRevealProps] = useSpring(() => ({
     opacity: 0,
@@ -427,12 +382,11 @@ export default () => {
 
   const [footerProps, setFooterProps] = useSpring(() => ({
     opacity: 0,
-    transform: `blur(${revealed.footer ? 2 : 0}px)`,
+    transform: `blur(${revealState.footer ? 2 : 0}px)`,
   }))
 
   const rawHandler = () => {
     // setPos(window.pageYOffset)
-    // console.log(revealed)
     if (!isDiving && window.pageYOffset > diveThreshold) {
       console.log("%csetting diving to: ", "color: #ff00ff", true)
       console.log(window.pageYOffset)
@@ -442,96 +396,31 @@ export default () => {
       setIsDiving(false)
     }
 
-    // setHeroProps({
-    //   titleTransform: `translate3d(0px,${velocities.hero.title *
-    //     window.pageYOffset}px,0)`,
-    //   curtainOpacity: velocities.hero.curtain * window.pageYOffset,
-    //   linkTransform: `translate3d(0px,${velocities.hero.link}px,0)`,
-    // })
+    setHeroProps({
+      titleTransform: `translate3d(0px,${velocities.hero.title *
+        window.pageYOffset}px,0)`,
+      curtainOpacity: velocities.hero.curtain * window.pageYOffset,
+      linkTransform: `translate3d(0px,${velocities.hero.link}px,0)`,
+    })
 
-    if (revealed.about) {
-      // console.log("%cabout parallaxin...", "color: #ff00ff", {
-      //   contentTransform: `translate3d(0px,${velocities.about.content *
-      //     window.pageYOffset}px,0px)`,
-      //   headerTransform: `translate3d(${velocities.about.header *
-      //     window.pageYOffset}px,0px,0px)`,
-      // })
-      const aboutContentTransform = generateTransform("about", "content", {
-        x: 0,
-        y: velocities.about.content * window.pageYOffset,
-        z: 0,
-      })
-      const aboutHeaderTransform = generateTransform("about", "header", {
-        x: velocities.about.header * window.pageYOffset,
-        y: 0,
-        z: 0,
-      })
+    setAboutProps({
+      contentTransform: `translate3d(0px,${velocities.about.content *
+        window.pageYOffset}px,0px)`,
+      headerTransform: `translate3d(${velocities.about.header *
+        window.pageYOffset}px,0px,0px)`,
+    })
 
-      // setAboutParallaxProps({
-      //   contentTransform: `translate3d(0px,${velocities.about.content *
-      //     window.pageYOffset}px,0px)`,
-      //   headerTransform: `translate3d(${velocities.about.header *
-      //     window.pageYOffset}px,0px,0px)`,
-      // })
-      setAboutParallaxProps({
-        contentTransform: aboutContentTransform,
-        headerTransform: aboutHeaderTransform,
-      })
-    }
-
-    if (revealed.services) {
-      const servicesContentTransform = generateTransform(
-        "services",
-        "content",
-        { x: 0, y: velocities.services.content * window.pageYOffset, z: 0 }
-      )
-
-      const servicesHeaderTransform = generateTransform("services", "header", {
-        x: velocities.services.header * window.pageYOffset,
-        y: 0,
-        z: 0,
-      })
-
-      // console.log("%cschedule parallaxin...", "color: #eb9e34", {
-      //   servicesContentTransform,
-      //   servicesHeaderTransform,
-      // })
-
-      setServicesParallaxProps({
-        contentTransform: servicesContentTransform,
-        headerTransform: servicesHeaderTransform,
-      })
-    }
-
-    if (revealed.interested) {
-      const interestedContentTransform = generateTransform(
-        "interested",
-        "content",
-        { x: 0, y: velocities.interested.content * window.pageYOffset, z: 0 }
-      )
-
-      // console.log(
-      //   "%cinterested parallaxin...",
-      //   "color: #eb9e34",
-      //   interestedContentTransform
-      // )
-
-      setInterestedParallaxProps({
-        contentTransform: interestedContentTransform,
-      })
-    }
-
-    // setServicesProps({
-    //   contentTransform: `translate3d(0px,${velocities.services.content *
-    //     window.pageYOffset +
-    //     offsets.services.content}px,0px)`,
-    //   h0Transform: `translate3d(${velocities.services.content *
-    //     window.pageYOffset}px,0px,0px)`,
-    //   h1Transform: `translate3d(${-velocities.services.content *
-    //     window.pageYOffset}px,0px,0px)`,
-    //   headerTransform: `translate3d(${-velocities.services.header *
-    //     window.pageYOffset}px,0px,0px)`,
-    // })
+    setServicesProps({
+      contentTransform: `translate3d(0px,${velocities.services.content *
+        window.pageYOffset +
+        offsets.services.content}px,0px)`,
+      h0Transform: `translate3d(${velocities.services.content *
+        window.pageYOffset}px,0px,0px)`,
+      h1Transform: `translate3d(${-velocities.services.content *
+        window.pageYOffset}px,0px,0px)`,
+      headerTransform: `translate3d(${-velocities.services.header *
+        window.pageYOffset}px,0px,0px)`,
+    })
   }
 
   const handleScroll = e => {
@@ -545,9 +434,9 @@ export default () => {
     window.addEventListener("scroll", debouncedHandle)
 
     return () => window.removeEventListener("scroll", debouncedHandle)
-  }, [isDiving, revealed]) // if we dont do this handleScroll will only evaluate pos.current to its initial 0 from each render
+  }, [isDiving]) // if we dont do this handleScroll will only evaluate pos.current to its initial 0 from each render
 
-  console.log("%cIndex rendered!", "color: red", { isDiving, revealed })
+  console.log("%cIndex rendered!", "color: red")
 
   return (
     <MainTainr>
@@ -562,10 +451,51 @@ export default () => {
       <DepthsGradient style={{ opacity: navBarProps.depthsOpacity }} />
       <VisibilitySensor
         onChange={v => {
-          if (revealed.hero !== v) {
-            console.log("Hero visibility changed...", v)
-            setRevealed({ ...revealed, hero: v })
+          console.log("Hero visibility changed...", v)
+          // setRevealed({
+          //   hero: v,
+          // })
+          if (v) {
+            setHeroProps({
+              curtainOpacity: 0,
+              delay: 0,
+              config: { ...config.molasses, duration: 600 },
+            })
+            setHeroProps({
+              linkOpacity: 1,
+              delay: 750,
+              config: { ...config.molasses, duration: 500 },
+            })
+            setScrollHintProps({
+              opacity: 1,
+              delay: 2000,
+              config: { ...config.molasses, duration: 2000 },
+            })
+          } else {
+            setHeroProps({
+              curtainOpacity: 1,
+              linkOpacity: 0,
+              delay: 0,
+              config: { ...config.default, duration: 500 },
+            })
+            setScrollHintProps({
+              opacity: 0,
+              delay: 0,
+              config: { ...config.molasses, duration: 500 },
+            })
           }
+
+          // hide navbar when hero visible when not
+          setNavBarProps({
+            opacity: v ? 0 : 1,
+            depthsOpacity: v ? 0 : 1,
+            config: { ...config.stiff, duration: 1200 },
+          })
+          // setNavBarProps({
+          //   opacity: v ? 0 : 1,
+          //   transform: `translate3d(0,${v ? -100 : 0}px,0)`,
+          //   config: { ...config.stiff, duration: 600 },
+          // })
         }}
       >
         <Hero
@@ -578,14 +508,63 @@ export default () => {
           scrollHintProps={{ ...scrollHintProps }}
         />
       </VisibilitySensor>
-      <VisibilitySensor
+      {/* <VisibilitySensor
         partialVisibility
+        offset={{ bottom: 100 }}
         active={isDiving}
         onChange={v => {
-          if (revealed.about !== v) {
-            console.log("About visibility changed...", v)
-            setRevealed({ ...revealed, about: v })
-          }
+          console.log("About visibility changed...", {
+            visibility: v,
+            isDiving,
+          })
+          setRevealProps({
+            aboutCurtainOpacity: v && isDiving ? 0 : 1,
+          })
+          setAboutRevealProps({
+            opacity: v ? 1 : 0,
+          })
+          setScrollHintProps({ opacity: v ? 0 : 1 })
+          // setNavBarProps({
+          //   opacity: v ? 1 : 0,
+          //   depthsOpacity: v ? 1 : 0,
+          //   config: { ...config.stiff, duration: 1600 },
+          // })
+          // if (v) {
+          //   setBorderProps({opacity: borderProps.opacity.interpolate(v => (v === 0 ? 1 : 0))})
+          // }
+        }}
+      >
+        <About
+          contentTainrProps={{ transform: aboutProps.contentTransform }}
+          headerProps={{ transform: aboutProps.headerTransform }}
+          curtainProps={{ opacity: revealProps.aboutCurtainOpacity }}
+          // imageProps={{ style: aboutRevealProps }}
+        />
+      </VisibilitySensor> */}
+      <VisibilitySensor
+        partialVisibility
+        offset={{ bottom: 100 }}
+        active={isDiving}
+        onChange={v => {
+          console.log("About visibility changed...", {
+            visibility: v,
+            isDiving,
+          })
+          setRevealProps({
+            aboutCurtainOpacity: v && isDiving ? 0 : 1,
+          })
+          setAboutRevealProps({
+            opacity: v ? 1 : 0,
+          })
+          setScrollHintProps({ opacity: v ? 0 : 1 })
+          // setNavBarProps({
+          //   opacity: v ? 1 : 0,
+          //   depthsOpacity: v ? 1 : 0,
+          //   config: { ...config.stiff, duration: 1600 },
+          // })
+          // if (v) {
+          //   setBorderProps({opacity: borderProps.opacity.interpolate(v => (v === 0 ? 1 : 0))})
+          // }
         }}
       >
         <AboutSection>
@@ -595,17 +574,12 @@ export default () => {
               top: `5px`,
               // left: `41px`,
               left: `100px`, // to account for animation
-              transform: aboutParallaxProps.headerTransform,
+              transform: aboutProps.headerTransform,
             }}
           >
             about
           </AH2>
-          <ContenTainr
-            style={{
-              gridArea: `content`,
-              transform: aboutParallaxProps.contentTransform,
-            }}
-          >
+          <ContenTainr style={{ gridArea: `content` }}>
             <AH3>Not your everyday dive service.</AH3>
             <AHr />
             <AP
@@ -620,19 +594,52 @@ export default () => {
               schedule.
             </AP>
           </ContenTainr>
-          <AboutImageTainr style={{ opacity: aboutProps.imageOpacity }}>
+          <AboutImageTainr>
             <AboutImage />
           </AboutImageTainr>
         </AboutSection>
       </VisibilitySensor>
+      {/* <VisibilitySensor
+        partialVisibility
+        offset={{ bottom: 100 }}
+        onChange={v => {
+          console.log("Services visibility changed...", v)
+          setRevealProps({
+            servicesCurtainOpacity: v ? 0 : 1,
+          })
+          // todo maybe wrapp all image reveals in same spring to control them better?
+          setAboutRevealProps({
+            opacity: v ? 0 : 1,
+          })
+          setServicesRevealProps({
+            opacity: v ? 1 : 0,
+          })
+        }}
+      >
+        <Services
+          contentProps={{ transform: servicesProps.contentTransform }}
+          curtainProps={{ opacity: revealProps.servicesCurtainOpacity }}
+          imageProps={{ style: servicesRevealProps }}
+          headerProps={{ transform: servicesProps.headerTransform }}
+          h2Props0={{ transform: servicesProps.h0Transform }}
+          h2Props1={{ transform: servicesProps.h1Transform }}
+        />
+      </VisibilitySensor> */}
       <VisibilitySensor
         partialVisibility
-        active={isDiving}
+        offset={{ bottom: 100 }}
         onChange={v => {
-          if (revealed.services !== v) {
-            console.log("Services visibility changed...", v)
-            setRevealed({ ...revealed, services: v })
-          }
+          console.log("Services visibility changed...", v)
+          setRevealProps({
+            servicesCurtainOpacity: v ? 0 : 1,
+          })
+          // todo maybe wrapp all image reveals in same spring to control them better?
+          setAboutRevealProps({
+            opacity: v ? 0 : 1,
+          })
+          setServicesRevealProps({
+            opacity: v ? 1 : 0,
+          })
         }}
       >
         <ServicesSection>
@@ -643,17 +650,12 @@ export default () => {
               // right: `-200px`,
               fontSize: `200px`,
               minWidth: `300px`,
-              transform: servicesParallaxProps.headerTransform,
+              transform: servicesProps.headerTransform,
             }}
           >
             services
           </AServicesAH2>
-          <ContenTainr
-            style={{
-              gridArea: `content`,
-              transform: servicesParallaxProps.contentTransform,
-            }}
-          >
+          <ContenTainr style={{ gridArea: `content` }}>
             <AH3>We've got your back.</AH3>
             <AHr />
             <ADiv>
@@ -682,11 +684,13 @@ export default () => {
         </ServicesSection>
       </VisibilitySensor>
       <VisibilitySensor
-        partialVisibility
         onChange={v => {
-          if (revealed.interested !== v) {
-            console.log("Interested visibility changed...", v)
-            setRevealed({ ...revealed, interewsted: v })
+          console.log("Interested visibility changed...", v)
+          if (v) {
+            setInterestedProps({
+              contentBlur: 0,
+              contentTransform: `translate3d(0px,0px,0px)`,
+            })
           }
         }}
       >
@@ -701,14 +705,54 @@ export default () => {
           // linkProps={{ buttonStyle: { zIndex: 1000 } }}
         />
       </VisibilitySensor>
+      {/* <VisibilitySensor
+        delayedCall
+        onChange={v => {
+          console.log("%cFooter visibility changed...", "color: #ff00ff", v)
+          if (v) {
+            // setRevealProps({
+            //   footerOpacity: 1,
+            //   delay: 1000,
+            //   config: { ...config.slow, duration: 1000 },
+            // })
+            setFooterProps({
+              opacity: 1,
+              delay: 1000,
+              config: { ...config.molasses, duration: 3000 },
+            })
+          }
+        }}
+      >
+        <ADiv
+          style={{
+            position: `absolute`,
+            width: `100%`,
+            bottom: `25px`,
+            ...footerProps,
+          }}
+        >
+          <Footer
+            hrProps={{ style: { zIndex: shared.depthsGradientZIndex + 1 } }}
+            p0Props={{ style: { zIndex: shared.depthsGradientZIndex + 1 } }}
+            p1Props={{ style: { zIndex: shared.depthsGradientZIndex + 1 } }}
+          />
+        </ADiv>
+      </VisibilitySensor> */}
       <VisibilitySensor
         delayedCall
-        partialVisibility
         onChange={v => {
-          // different footer logic maybe
-          if (v && revealed.footer !== v) {
-            console.log("Footer visibility changed...", v)
-            setRevealed({ ...revealed, footer: v })
+          console.log("%cFooter visibility changed...", "color: #ff00ff", v)
+          if (v) {
+            // setRevealProps({
+            //   footerOpacity: 1,
+            //   delay: 1000,
+            //   config: { ...config.slow, duration: 1000 },
+            // })
+            setFooterProps({
+              opacity: 1,
+              delay: 1000,
+              config: { ...config.molasses, duration: 3000 },
+            })
           }
         }}
       >
@@ -728,6 +772,13 @@ export default () => {
           />
         </ADiv>
       </VisibilitySensor>
+      {/* <NavBar
+        style={{ ...navBarProps }}
+        handleTitleClick={e => {
+          console.log("%coverridden: title clicked...", "color: green")
+          window.scrollTo({ top: 0, behavior: "smooth" })
+        }}
+      /> */}
     </MainTainr>
   )
 }

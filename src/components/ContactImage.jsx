@@ -47,7 +47,7 @@ const Image = () => (
     query={graphql`
       query {
         placeholderImage: file(
-          relativePath: { eq: "deep-diving-deep-diving-gear-diver-54306-2.png" }
+          relativePath: { eq: "140219-N-BJ254-058-test-17.png" }
         ) {
           childImageSharp {
             fluid(grayscale: true) {
