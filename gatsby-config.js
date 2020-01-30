@@ -12,6 +12,7 @@ module.exports = {
     author: `https://github.com/mochic`,
   },
   plugins: [
+    "gatsby-plugin-remove-console",
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,

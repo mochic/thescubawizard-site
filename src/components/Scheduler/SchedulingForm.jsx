@@ -1,4 +1,11 @@
-import React, { useContext, useCallback, useRef, useState } from "react"
+import React, {
+  useContext,
+  useCallback,
+  useRef,
+  useState,
+  useLayoutEffect,
+  useEffect,
+} from "react"
 
 import styled from "styled-components"
 import { animated } from "react-spring"
@@ -23,6 +30,12 @@ const Form = styled(animated.form)`
 
 export default () => {
   const { submit, isSubmitting, submitted } = useContext(SchedulingContext)
+
+  console.log("%cscheduling form render", "color: red", {
+    submit,
+    isSubmitting,
+    submitted,
+  })
 
   const [values, setValues] = useState({
     emailAddress: ``,
