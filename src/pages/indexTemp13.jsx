@@ -264,18 +264,6 @@ const WeirdList = ({ items, propsList }) => {
   )
 }
 
-const Depths = styled(animated.div)`
-  color: red;
-  width: 100%;
-  pointer-events: none;
-  height: 100vh;
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  overflow: hidden;
-  z-index: 5;
-`
-
 export default () => {
   // const [pos, setPos] = useState()
 
@@ -353,33 +341,11 @@ export default () => {
     titleTransform: `translate3d(0px,0px,0)`,
     // titleOpacity: 1,
     linkTransform: `translate3d(0px,0px,0)`,
-    // linkOpacity: 0,
+    linkOpacity: 0,
     curtainOpacity: revealed.hero ? 0 : 1,
     delay: 0,
     // config: { duration: 5000 },
   }))
-
-  const [heroLinkProps, setHeroLinkProps] = useSpring(() => ({
-    opacity: 0,
-  }))
-
-  const [heroHintProps, setHeroHintProps] = useSpring(() => ({
-    opacity: 0,
-  }))
-
-  if (revealed.hero && !isDiving) {
-    console.log("%cSetting hero link and hint props...", "color: #ff00ff")
-    setHeroLinkProps({
-      opacity: 1,
-      delay: 1000,
-      config: { ...config.molasses, duration: 600 },
-    })
-    setHeroHintProps({
-      opacity: 1,
-      delay: 2000,
-      config: { ...config.molasses, duration: 1000 },
-    })
-  }
 
   // const [blurUpProps, setBlurUpProps] = useSpring(() => ({
   //   interestedLinkFilter: `blur(20px)`
@@ -459,18 +425,9 @@ export default () => {
     depthsOpacity: 0,
   }))
 
-  // const [footerProps, setFooterProps] = useSpring(() => ({
-  //   opacity: 0,
-  //   transform: `blur(${revealed.footer ? 2 : 0}px)`,
-  // }))
-
-  // const [footerProps, setFooterProps] = useSpring(() => ({
-  //   opacity: revealed.footer ? 1 : 0,
-  //   // transform: `blur(${revealed.footer ? 2 : 0}px)`,
-  // }))
-
   const [footerProps, setFooterProps] = useSpring(() => ({
-    opacity: revealed.footer ? 1 : 0,
+    opacity: 0,
+    transform: `blur(${revealed.footer ? 2 : 0}px)`,
   }))
 
   const rawHandler = () => {
@@ -613,7 +570,6 @@ export default () => {
         }}
       />
       <DepthsGradient style={{ opacity: navBarProps.depthsOpacity }} />
-      <Depths />
       <VisibilitySensor
         onChange={v => {
           if (revealed.hero !== v) {
@@ -626,10 +582,10 @@ export default () => {
           titleProps={{ style: { transform: heroProps.titleTransform } }}
           curtainProps={{ opacity: heroProps.curtainOpacity }}
           linkTainrProps={{
-            opacity: heroLinkProps.opacity,
+            opacity: heroProps.linkOpacity,
             transform: heroProps.linkTransform,
           }}
-          scrollHintProps={{ ...heroHintProps }}
+          scrollHintProps={{ ...scrollHintProps }}
         />
       </VisibilitySensor>
       <VisibilitySensor
@@ -760,14 +716,9 @@ export default () => {
         partialVisibility
         onChange={v => {
           // different footer logic maybe
-          if (v && !revealed.footer) {
-            console.log("%cFooter visibility changed...", "color: #00ff00", v)
-            // setRevealed({ ...revealed, footer: v })
-            setFooterProps({
-              opacity: 1,
-              delay: 1000,
-              config: { ...config.molasses, duration: 500 },
-            })
+          if (v && revealed.footer !== v) {
+            console.log("Footer visibility changed...", v)
+            setRevealed({ ...revealed, footer: v })
           }
         }}
       >

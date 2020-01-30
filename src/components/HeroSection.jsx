@@ -237,6 +237,7 @@ const ContenTainr = styled.div`
 
   @media ${devices.tablet} {
     flex-direction: row-reverse;
+    bottom: 10%;
   }
 `
 

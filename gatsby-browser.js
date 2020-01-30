@@ -111,6 +111,7 @@ const NavTainr = styled(({ ...props }) => <animated.div {...props} />)`
 const PageTainr = styled(animated.div)`
   margin: auto;
   overflow: hidden;
+  max-width: 1900px; /* make really big devices perf later... */
 `
 
 // const PageTainr = styled(animated.div)`
