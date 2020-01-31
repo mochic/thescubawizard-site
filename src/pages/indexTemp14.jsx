@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState, useRef, useEffect } from "react"
+import React, { useLayoutEffect, useState, useRef } from "react"
 
 import styled from "styled-components"
 import { animated, config, useSpring, useSprings } from "react-spring"
@@ -163,49 +163,24 @@ const ContenTainr = styled(ADiv)`
   }
 `
 
-// const DepthsGradient = styled(animated.div)`
-//   background: radial-gradient(
-//     103.93% 50% at 50% 50%,
-//     rgba(25, 31, 29, 0.08) 0%,
-//     #191f1d 100%
-//   );
-//   height: 100vh; /* not the best but the best we can do for now?... */
-//   width: 100vw;
-//   pointer-events: none;
-//   position: fixed;
-//   top: 0px;
-//   left: 0px;
-//   z-index: ${shared.depthsGradientZIndex}; /* hopefully this is enough but not too much... */
-// `
-
 const DepthsGradient = styled(animated.div)`
   background: radial-gradient(
     103.93% 50% at 50% 50%,
     rgba(25, 31, 29, 0.08) 0%,
     #191f1d 100%
   );
-  height: 80vh;
+  height: 100vh; /* not the best but the best we can do for now?... */
   width: 100vw;
-  position: relative;
-  z-index: ${shared.depthsGradientZIndex + 1};
-`
-
-const DepthsContainr = styled(animated.div)`
-  height: 100%; /* not the best but the best we can do for now?... */
-  width: 100%;
   pointer-events: none;
   position: fixed;
   top: 0px;
   left: 0px;
-  z-index: ${shared.depthsGradientZIndex};
+  z-index: ${shared.depthsGradientZIndex}; /* hopefully this is enough but not too much... */
 `
 
-const Depths = styled(animated.div)`
-  height: 20vh;
-  width: 100vw;
-  position: relative;
-  background: #191f1d;
-`
+const DepthsContainr = styled(animated.div)``
+
+const Depths = styled(animated.div)``
 
 // color: red;
 //   width: 100%;
@@ -328,7 +303,7 @@ export default () => {
 
   // some performance cost to prevent weird situations when we initialize at top but about is slightly showing...
   const diveThreshold = 50 // probs have to do something elaborate to calculate this...
-  const [isDiving, setIsDiving] = useState(false)
+  const [isDiving, setIsDiving] = useState(window.pageYOffset > diveThreshold)
   // console.log("%cIndex rendered", "color: #ff00ff", { isDiving })
   // maybe use different based on browser support, etc....
   // const rawHandler = () => {
@@ -340,7 +315,7 @@ export default () => {
   // const servicesVelocity = 0.8
 
   const [revealed, setRevealed] = useState({
-    hero: false, // best way to handle first render?
+    hero: window.pageYOffset === 0, // best way to handle first render?
     about: false,
     services: false,
     interested: false,
@@ -496,7 +471,6 @@ export default () => {
   const [navBarProps, setNavBarProps] = useSpring(() => ({
     opacity: 0,
     depthsOpacity: 0,
-    bottomDepthsOpacity: 1,
   }))
 
   // const [footerProps, setFooterProps] = useSpring(() => ({
@@ -533,11 +507,6 @@ export default () => {
           window.pageYOffset}px,0)`,
         curtainOpacity: velocities.hero.curtain * window.pageYOffset,
         linkTransform: `translate3d(0px,${velocities.hero.link}px,0)`,
-      })
-      setNavBarProps({
-        opacity: velocities.hero.curtain * window.pageYOffset,
-        depthsOpacity: velocities.hero.curtain * window.pageYOffset,
-        bottomDepthsOpacity: 1 - velocities.hero.curtain * window.pageYOffset,
       })
     }
     // setHeroProps({
@@ -639,10 +608,6 @@ export default () => {
   // const debouncedHandle = debounce(handleScroll, 20)
   const debouncedHandle = handleScroll
 
-  useEffect(() => {
-    setIsDiving(window.pageYOffset > diveThreshold)
-  }, [])
-
   useLayoutEffect(() => {
     window.addEventListener("scroll", debouncedHandle)
 
@@ -661,10 +626,8 @@ export default () => {
           window.scrollTo({ top: 0, behavior: `smooth` })
         }}
       />
-      <DepthsContainr>
-        <DepthsGradient style={{ opacity: navBarProps.depthsOpacity }} />
-        <Depths style={{ opacity: navBarProps.bottomDepthsOpacity }} />
-      </DepthsContainr>
+      <DepthsGradient style={{ opacity: navBarProps.depthsOpacity }} />
+      <Depths />
       <VisibilitySensor
         onChange={v => {
           if (revealed.hero !== v) {
