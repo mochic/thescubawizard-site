@@ -407,7 +407,7 @@ export default () => {
     imageOpacity: revealed.about ? 1 : 0,
     config: {
       ...config.stiff,
-      duration: 20000,
+      // duration: 20000,
     },
   })
 
