@@ -163,49 +163,53 @@ const ContenTainr = styled(ADiv)`
   }
 `
 
-// const DepthsGradient = styled(animated.div)`
-//   background: radial-gradient(
-//     103.93% 50% at 50% 50%,
-//     rgba(25, 31, 29, 0.08) 0%,
-//     #191f1d 100%
-//   );
-//   height: 100vh; /* not the best but the best we can do for now?... */
-//   width: 100vw;
-//   pointer-events: none;
-//   position: fixed;
-//   top: 0px;
-//   left: 0px;
-//   z-index: ${shared.depthsGradientZIndex}; /* hopefully this is enough but not too much... */
-// `
-
 const DepthsGradient = styled(animated.div)`
   background: radial-gradient(
     103.93% 50% at 50% 50%,
     rgba(25, 31, 29, 0.08) 0%,
     #191f1d 100%
   );
-  height: 80vh;
-  width: 100vw;
-  position: relative;
-  z-index: ${shared.depthsGradientZIndex + 1};
-`
-
-const DepthsContainr = styled(animated.div)`
-  height: 100%; /* not the best but the best we can do for now?... */
-  width: 100%;
+  min-height: 100vh; /* fall back if fill-available not available */
+  height: -moz-available;
+  height: fill-available;
+  min-width: 100vw;
+  width: -moz-available;
+  width: fill-available;
   pointer-events: none;
   position: fixed;
   top: 0px;
   left: 0px;
-  z-index: ${shared.depthsGradientZIndex};
+  z-index: ${shared.depthsGradientZIndex}; /* hopefully this is enough but not too much... */
 `
 
-const Depths = styled(animated.div)`
-  height: 20vh;
-  width: 100vw;
-  position: relative;
-  background: #191f1d;
-`
+// const DepthsGradient = styled(animated.div)`
+//   background: radial-gradient(
+//     103.93% 50% at 50% 50%,
+//     rgba(25, 31, 29, 0.08) 0%,
+//     #191f1d 100%
+//   );
+//   height: 80vh;
+//   width: 100vw;
+//   position: relative;
+//   z-index: ${shared.depthsGradientZIndex + 1};
+// `
+
+// const DepthsContainr = styled(animated.div)`
+//   height: 100%; /* not the best but the best we can do for now?... */
+//   width: 100%;
+//   pointer-events: none;
+//   position: fixed;
+//   top: 0px;
+//   left: 0px;
+//   z-index: ${shared.depthsGradientZIndex};
+// `
+
+// const Depths = styled(animated.div)`
+//   height: 20vh;
+//   width: 100vw;
+//   position: relative;
+//   background: #191f1d;
+// `
 
 // color: red;
 //   width: 100%;
@@ -315,6 +319,21 @@ const WeirdList = ({ items, propsList }) => {
 //   z-index: 5;
 // `
 
+// TODO: grab height from shared store or something...
+const AboveDepths = styled(animated.div)`
+  background: red;
+  height: 80vh;
+  width: 100%;
+  z-index: 1000 !important;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+
+  @media ${devices.laptop} {
+    height: 100vh;
+  }
+`
+
 export default () => {
   // const [pos, setPos] = useState()
 
@@ -328,6 +347,10 @@ export default () => {
 
   // some performance cost to prevent weird situations when we initialize at top but about is slightly showing...
   const diveThreshold = 50 // probs have to do something elaborate to calculate this...
+
+  // on render pageYOffset threshold
+  const aboutRevealedThreshold = 300
+
   const [isDiving, setIsDiving] = useState(false)
   // console.log("%cIndex rendered", "color: #ff00ff", { isDiving })
   // maybe use different based on browser support, etc....
@@ -338,6 +361,14 @@ export default () => {
   // const heroVelocity = 0.8
   // const aboutVelocity = -0.08
   // const servicesVelocity = 0.8
+
+  const [visible, setVisible] = useState({
+    hero: false,
+    about: false,
+    services: false,
+    interested: false,
+    footer: false,
+  })
 
   const [revealed, setRevealed] = useState({
     hero: false, // best way to handle first render?
@@ -351,6 +382,7 @@ export default () => {
     hero: {
       title: -0.1,
       link: -0.1,
+      hint: -0.1,
       curtain: 0.01,
     },
     about: {
@@ -358,8 +390,8 @@ export default () => {
       header: -0.3,
     },
     services: {
-      content: -0.08,
-      header: -0.07,
+      content: -0.2,
+      header: 0.3,
     },
   }
 
@@ -391,34 +423,54 @@ export default () => {
   const [heroProps, setHeroProps] = useSpring(() => ({
     titleTransform: `translate3d(0px,0px,0)`,
     // titleOpacity: 1,
+    //linkOpacity: revealed.hero ? 1 : 0,
+    linkOpacity: 0,
     linkTransform: `translate3d(0px,0px,0)`,
-    // linkOpacity: 0,
-    curtainOpacity: revealed.hero ? 0 : 1,
+    // hintOpacity: revealed.hero ? 1 : 0,
+    hintOpacity: 0,
+    hintTransform: `translate3d(0px,0px,0)`,
+    // curtainOpacity: revealed.hero ? 0 : 1, this wont work with a setter due to the scope when it gets evaluated
     delay: 0,
     // config: { duration: 5000 },
   }))
 
-  const [heroLinkProps, setHeroLinkProps] = useSpring(() => ({
-    opacity: 0,
-  }))
+  // const [heroLinkProps, setHeroLinkProps] = useSpring(() => ({
+  //   opacity: 0,
+  // }))
 
-  const [heroHintProps, setHeroHintProps] = useSpring(() => ({
-    opacity: 0,
-  }))
+  // const [heroHintProps, setHeroHintProps] = useSpring(() => ({
+  //   opacity: 0,
+  // }))
 
-  if (revealed.hero && !isDiving) {
-    console.log("%cSetting hero link and hint props...", "color: #ff00ff")
-    setHeroLinkProps({
-      opacity: 1,
-      delay: 1000,
-      config: { ...config.molasses, duration: 600 },
-    })
-    setHeroHintProps({
-      opacity: 1,
-      delay: 2000,
-      config: { ...config.molasses, duration: 1000 },
-    })
-  }
+  const heroLinkProps = useSpring({
+    opacity: revealed.hero && !isDiving ? 1 : 0,
+    transform:
+      revealed.hero && !isDiving
+        ? `translate3d(0,0px,0)`
+        : `translate3d(0,-10px,0)`,
+  })
+
+  const heroHintProps = useSpring({
+    opacity: revealed.hero && !isDiving ? 1 : 0,
+    transform:
+      revealed.hero && !isDiving
+        ? `translate3d(0,0px,0)`
+        : `translate3d(0,-10px,0)`,
+  })
+
+  // if (revealed.hero && !isDiving) {
+  //   console.log("%cSetting hero link and hint props...", "color: #ff00ff")
+  //   setHeroLinkProps({
+  //     opacity: 1,
+  //     delay: 1000,
+  //     config: { ...config.molasses, duration: 600 },
+  //   })
+  //   setHeroHintProps({
+  //     opacity: 1,
+  //     delay: 2000,
+  //     config: { ...config.molasses, duration: 1000 },
+  //   })
+  // }
 
   // const [blurUpProps, setBlurUpProps] = useSpring(() => ({
   //   interestedLinkFilter: `blur(20px)`
@@ -443,9 +495,11 @@ export default () => {
   // }))
 
   const aboutProps = useSpring({
+    headerOpacity: revealed.about ? 1 : 0,
     imageOpacity: revealed.about ? 1 : 0,
     config: {
-      ...config.stiff,
+      ...config.molasses,
+      duration: 2000,
       // duration: 20000,
     },
   })
@@ -528,11 +582,15 @@ export default () => {
     // different logic for hero...parallax-reveal when hero is not fully revealed
     // velocities should really be distance to travel + value to change by
     if (!revealed.hero) {
+      console.log("%cHero not revealed...", "color: #ff00ff")
       setHeroProps({
         titleTransform: `translate3d(0px,${velocities.hero.title *
           window.pageYOffset}px,0)`,
         curtainOpacity: velocities.hero.curtain * window.pageYOffset,
-        linkTransform: `translate3d(0px,${velocities.hero.link}px,0)`,
+        linkTransform: `translate3d(0px,${velocities.hero.link *
+          window.pageYOffset}px,0)`,
+        hintTransform: `translate3d(0px,${velocities.hero.link *
+          window.pageYOffset}px,0)`,
       })
       setNavBarProps({
         opacity: velocities.hero.curtain * window.pageYOffset,
@@ -540,6 +598,11 @@ export default () => {
         bottomDepthsOpacity: 1 - velocities.hero.curtain * window.pageYOffset,
       })
     }
+    // else {
+    //   setHeroProps({
+    //     curtainOpacity: velocities.hero.curtain * window.pageYOffset,
+    //   })
+    // }
     // setHeroProps({
     //   titleTransform: `translate3d(0px,${velocities.hero.title *
     //     window.pageYOffset}px,0)`,
@@ -640,7 +703,14 @@ export default () => {
   const debouncedHandle = handleScroll
 
   useEffect(() => {
+    console.log("%cwut", "color: #00ff00")
     setIsDiving(window.pageYOffset > diveThreshold)
+    setRevealed({ ...revealed, hero: true })
+    setHeroProps({
+      curtainOpacity: 0,
+      // linkOpacity: 1,
+      // hintOpacity: 1,
+    })
   }, [])
 
   useLayoutEffect(() => {
@@ -661,27 +731,37 @@ export default () => {
           window.scrollTo({ top: 0, behavior: `smooth` })
         }}
       />
-      <DepthsContainr>
-        <DepthsGradient style={{ opacity: navBarProps.depthsOpacity }} />
-        <Depths style={{ opacity: navBarProps.bottomDepthsOpacity }} />
-      </DepthsContainr>
+      <DepthsGradient style={{ opacity: navBarProps.depthsOpacity }} />
       <VisibilitySensor
+        delayedCall
         onChange={v => {
           if (revealed.hero !== v) {
             console.log("Hero visibility changed...", v)
-            setRevealed({ ...revealed, hero: v })
+            setRevealed({ ...revealed, hero: v, about: false }) // dont want to have both visible as same time ever
           }
         }}
       >
-        <Hero
+        {/* <Hero
           titleProps={{ style: { transform: heroProps.titleTransform } }}
           curtainProps={{ opacity: heroProps.curtainOpacity }}
           linkTainrProps={{
-            opacity: heroLinkProps.opacity,
+            opacity: heroProps.linkOpacity,
             transform: heroProps.linkTransform,
           }}
-          scrollHintProps={{ ...heroHintProps }}
-        />
+          scrollHintProps={{
+            opacity: heroProps.hintOpacity,
+            transform: heroProps.hintTransform,
+          }}
+        /> */}
+        <div style={{ position: `relative` }}>
+          <Hero
+            titleProps={{ style: { transform: heroProps.titleTransform } }}
+            curtainProps={{ opacity: heroProps.curtainOpacity }}
+            linkTainrProps={{ ...heroLinkProps }}
+            scrollHintProps={{ ...heroHintProps }}
+          />
+          <AboveDepths />
+        </div>
       </VisibilitySensor>
       <VisibilitySensor
         partialVisibility
@@ -689,7 +769,7 @@ export default () => {
         onChange={v => {
           if (revealed.about !== v) {
             console.log("About visibility changed...", v)
-            setRevealed({ ...revealed, about: v })
+            setRevealed({ ...revealed, hero: false, about: v }) // might end badly...
           }
         }}
       >
@@ -701,6 +781,7 @@ export default () => {
               // left: `41px`,
               left: `100px`, // to account for animation
               transform: aboutParallaxProps.headerTransform,
+              opacity: aboutProps.headerOpacity,
             }}
           >
             about

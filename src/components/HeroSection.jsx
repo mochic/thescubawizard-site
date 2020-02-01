@@ -126,11 +126,17 @@ const ImageTainr = styled(animated.div)`
 //   z-index: 1000; /* no idea...todo figure out why... */
 // `
 
+// const HintTainr = styled(animated.div)`
+//   width: 100%;
+//   text-align: center;
+//   mix-blend-mode: overlay;
+//   z-index: 5; /* no idea...todo figure out why... */
+// `
+
 const HintTainr = styled(animated.div)`
   width: 100%;
   text-align: center;
   mix-blend-mode: overlay;
-  z-index: 5; /* no idea...todo figure out why... */
 `
 
 // const HeroLinkTainr = styled(animated.div)`
@@ -347,6 +353,7 @@ const Hero = ({
               color: `#ffffff`,
               fontFamily: `open sans`,
               fontWeight: 300,
+              transform: `translate3d(0px,0px,0px)`, // somehow fixes overlay on mobile ios........
               ...hintProps,
               ...scrollHintProps,
             }}
