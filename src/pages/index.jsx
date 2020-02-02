@@ -321,7 +321,7 @@ const WeirdList = ({ items, propsList }) => {
 
 // TODO: grab height from shared store or something...
 const AboveDepths = styled(animated.div)`
-  background: red;
+  background: #191f1d;
   height: 80vh;
   width: 100%;
   z-index: 1000 !important;
@@ -756,11 +756,12 @@ export default () => {
         <div style={{ position: `relative` }}>
           <Hero
             titleProps={{ style: { transform: heroProps.titleTransform } }}
-            curtainProps={{ opacity: heroProps.curtainOpacity }}
+            // curtainProps={{ opacity: heroProps.curtainOpacity }}
+            curtainProps={{ opacity: 0 }}
             linkTainrProps={{ ...heroLinkProps }}
             scrollHintProps={{ ...heroHintProps }}
           />
-          <AboveDepths />
+          <AboveDepths style={{ opacity: heroProps.curtainOpacity }} />
         </div>
       </VisibilitySensor>
       <VisibilitySensor
