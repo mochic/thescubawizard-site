@@ -1,4 +1,10 @@
-import React, { useRef, useState, useContext } from "react"
+import React, {
+  useRef,
+  useState,
+  useContext,
+  useEffect,
+  useLayoutEffect,
+} from "react"
 
 import { Link } from "gatsby"
 import { navigate } from "gatsby-link"
@@ -30,12 +36,6 @@ import Footer from "../components/Footer"
 
 const ADiv = styled(animated.div)``
 
-// const NavTainr = styled(animated.div)`
-//   grid-area: nav;
-//   width: 100%;
-//   text-align: center;
-// `
-
 const HomeLink = styled(Link)`
   color: #ffe9c9;
   font-family: inconsolata;
@@ -57,24 +57,6 @@ const TitleTainr = styled(animated.div)`
   top: 50%;
 `
 
-// const NavBar = ({ linkProps, tainrProps }) => {
-//   return (
-//     <NavTainr style={tainrProps}>
-//       <HomeLink to="/" style={linkProps}>
-//         the scuba wizard
-//       </HomeLink>
-//     </NavTainr>
-//   )
-// }
-
-// const OtherNavBar = props => {
-//   return (
-//     <NavTainr {...props}>
-//       <TitleSVG />
-//     </NavTainr>
-//   )
-// }
-
 const H2 = styled(animated.h2)`
   font-family: gilda display;
   grid-area: heading;
@@ -83,18 +65,6 @@ const H2 = styled(animated.h2)`
   margin: 0;
   padding: 0;
 `
-
-// const P = styled(animated.p)`
-//   font-family: open sans;
-//   color: white;
-//   margin: 0;
-//   border: 0;
-//   margin-top: 56px;
-//   margin-bottom: 5%;
-//   font-size: 26px;
-//   line-height: 110.3%;
-//   font-weight: normal;
-// `
 
 const P = styled(animated.p)`
   font-family: open sans;
@@ -106,23 +76,6 @@ const P = styled(animated.p)`
   line-height: 110.3%;
   font-weight: 300;
 `
-
-// const Statement = styled(animated.div)`
-//   grid-area: statement;
-//   display: flex;
-//   flex-direction: column;
-//   align-content: center;
-//   font-size: 160%;
-//   max-width: 60%;
-//   min-width: 250px;
-//   width: 250px;
-
-//   margin-top: 60px;
-
-//   @media ${devices.laptop} {
-//     flex-direction: row;
-//   }
-// `
 
 const StatementTainr = styled(animated.div)`
   grid-area: statement;
@@ -149,48 +102,6 @@ const SchedulerTainr = styled(animated.div)`
   grid-area: form;
 `
 
-// const Containr = styled(animated.div)`
-//   display: grid;
-//   width: 100vw;
-//   height: 100vh;
-//   overflow: hidden;
-//   box-sizing: border-box;
-//   grid-template-areas:
-//     "nav"
-//     "form";
-
-//   grid-template-rows: 1fr 7fr;
-//   padding: 5% 8% 46% 8%;
-// `
-
-// const Containr = styled(animated.div)`
-//   width: 100vw;
-//   height: 100vh;
-//   overflow: hidden;
-//   position: relative;
-// `
-
-// const Containr = styled(animated.div)`
-//   width: 100vw;
-//   height: 100vh;
-//   overflow: hidden;
-//   position: relative;
-// `
-
-// const Containr = styled(animated.div)`
-//   width: 100%;
-//   height: 100%;
-//   position: relative;
-//   overflow: hidden;
-// `
-
-// const Containr = styled(animated.div)`
-//   width: 100vw;
-//   height: 100vh;
-//   position: relative;
-//   overflow: hidden;
-// `
-
 const Containr = styled(animated.div)`
   width: 100%;
   height: 100%;
@@ -210,32 +121,6 @@ const ImageTainr = styled(animated.div)`
     left: 0px;
   }
 `
-
-// const ContentTainr = styled(animated.div)``
-
-// const DriftRight = keyframes`
-//     from {
-//         transform: translate3d(-60px,0,0);
-//     }
-
-//     to {
-//         transform: translate3d(0px,0,0);
-//     }
-// `
-
-// const AH3 = styled(animated.h3)`
-//   font-family: playfair display;
-//   font-weight: bold;
-//   font-size: 72px;
-//   line-height: 164.3%;
-//   z-index: -1;
-//   position: absolute;
-//   top: 0px;
-//   right: -166px;
-//   color: #ffe9c9;
-//   animation: ${DriftRight} 60s ease-out;
-//   animation-fill-mode: forwards;
-// `
 
 const Drift = keyframes`
     from {
@@ -260,61 +145,6 @@ const AH3 = styled(animated.h3)`
   animation: ${Drift} 55s ease-out;
   animation-fill-mode: forwards;
 `
-
-// needs to be z-index bellow inputs but z-index above rest.
-// const Curtain = styled(animated.div)`
-//   height: 100vh;
-//   width: 100vh;
-//   position: fixed;
-//   top: 0px;
-//   left: 0px;
-//   background: red;
-//   z-index: 1000;
-//   opacity: 0;
-// `
-
-// position absolute for ios scrolling and other reasons...:/....
-// const NavTainr = styled(animated.div)`
-//   position: absolute;
-//   z-index: 1000;
-//   width: 100%;
-//   text-align: center;
-//   top: 18px;
-// `
-
-// need animated for react-spring values!
-// TODO maybs make it an animated svg
-// const SVGTainr = styled(animated.div)``
-
-// own fade in animations with spring built in...override with external props?
-// const NavBar = ({ handleClick, svgProps, ...rest }) => {
-//   console.log("%cnavbar with: ", "color: red", svgProps, rest)
-
-//   const _handleClick = e => {
-//     e.preventDefault()
-//     handleClick()
-//   }
-
-//   return (
-//     <NavTainr {...rest}>
-//       <SVGTainr onClick={_handleClick} {...svgProps}>
-//         <TitleSVG />
-//       </SVGTainr>
-//     </NavTainr>
-//   )
-// }
-
-// font-family: playfair display;
-//   font-weight: bold;
-//   font-size: 72px;
-//   line-height: 164.3%;
-//   z-index: -1;
-//   position: absolute;
-//   top: 0px;
-//   right: -140px;
-//   color: #ffe9c9;
-//   animation: ${Drift} 55s ease-out;
-//   animation-fill-mode: forwards;
 
 const AH2 = styled(animated.h2)`
   font-family: playfair display;
@@ -439,7 +269,7 @@ export default () => {
       />
       {/* we need separated from contentTainr to be sibilings for grid layout to work!*/}
       <SchedulerTainr
-        style={{ backgroundFilter: `blur(20px)`, ...contentProps }}
+      // style={{ backgroundFilter: `blur(20px)`, ...contentProps }}
       >
         <Scheduler />
       </SchedulerTainr>

@@ -163,24 +163,89 @@ const ContenTainr = styled(ADiv)`
   }
 `
 
+// const DepthsGradient = styled(animated.div)`
+//   background: radial-gradient(
+//     103.93% 50% at 50% 50%,
+//     rgba(25, 31, 29, 0.08) 0%,
+//     #191f1d 100%
+//   );
+//   min-height: 100vh; /* fall back if fill-available not available */
+//   height: -moz-available;
+//   height: fill-available;
+//   min-width: 100vw;
+//   width: -moz-available;
+//   width: fill-available;
+//   pointer-events: none;
+//   position: fixed;
+//   top: 0px;
+//   left: 0px;
+//   z-index: ${shared.depthsGradientZIndex}; /* hopefully this is enough but not too much... */
+// `
+
 const DepthsGradient = styled(animated.div)`
   background: radial-gradient(
     103.93% 50% at 50% 50%,
     rgba(25, 31, 29, 0.08) 0%,
     #191f1d 100%
   );
-  min-height: 100vh; /* fall back if fill-available not available */
-  height: -moz-available;
-  height: fill-available;
-  min-width: 100vw;
-  width: -moz-available;
-  width: fill-available;
+  height: 100vh;
+  width: 100vw;
   pointer-events: none;
   position: fixed;
   top: 0px;
+  bottom: 0px;
   left: 0px;
   z-index: ${shared.depthsGradientZIndex}; /* hopefully this is enough but not too much... */
 `
+
+const DepthsGradientTop = styled(animated.div)`
+  background: radial-gradient(
+    103.93% 50% at 50% 50%,
+    rgba(25, 31, 29, 0.08) 0%,
+    #191f1d 100%
+  );
+  height: 300px;
+  width: 100%;
+  pointer-events: none;
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  z-index: ${shared.depthsGradientZIndex}; /* hopefully this is enough but not too much... */
+`
+
+const DepthsGradientBottom = styled(animated.div)`
+  background: radial-gradient(
+    103.93% 50% at 50% 50%,
+    rgba(25, 31, 29, 0.08) 0%,
+    #191f1d 100%
+  );
+  height: 300px;
+  width: 100%;
+  pointer-events: none;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  z-index: ${shared.depthsGradientZIndex}; /* hopefully this is enough but not too much... */
+`
+
+// const DepthsGradient = styled(animated.div)`
+//   background: radial-gradient(
+//     103.93% 50% at 50% 50%,
+//     rgba(25, 31, 29, 0.08) 0%,
+//     #191f1d 100%
+//   );
+//   height: -moz-available;
+//   height: fill-available;
+//   width: -moz-available;
+//   width: fill-available;
+//   pointer-events: none;
+//   position: fixed;
+//   top: 0px;
+//   bottom: 0px;
+//   left: 0px;
+//   z-index: ${shared.depthsGradientZIndex}; /* hopefully this is enough but not too much... */
+// `
 
 // const DepthsGradient = styled(animated.div)`
 //   background: radial-gradient(
@@ -333,6 +398,14 @@ const AboveDepths = styled(animated.div)`
     height: 100vh;
   }
 `
+
+// const Thang = styled(animated.div)`
+//   width: 100%;
+//   height: 200px;
+//   background: green;
+//   position: sticky;
+//   top: 100px;
+// `
 
 export default () => {
   // const [pos, setPos] = useState()
@@ -731,7 +804,9 @@ export default () => {
           window.scrollTo({ top: 0, behavior: `smooth` })
         }}
       />
-      <DepthsGradient style={{ opacity: navBarProps.depthsOpacity }} />
+      {/* <DepthsGradient style={{ opacity: navBarProps.depthsOpacity }} /> */}
+      <DepthsGradientTop style={{ opacity: navBarProps.depthsOpacity }} />
+      <DepthsGradientBottom style={{ opacity: navBarProps.depthsOpacity }} />
       <VisibilitySensor
         delayedCall
         onChange={v => {
@@ -764,6 +839,7 @@ export default () => {
           <AboveDepths style={{ opacity: heroProps.curtainOpacity }} />
         </div>
       </VisibilitySensor>
+      {/* <Thang /> */}
       <VisibilitySensor
         partialVisibility
         active={isDiving}

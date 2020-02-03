@@ -273,7 +273,7 @@ export const replaceComponentRenderer = ({ props, ...other }) => {
   // }
 
   return (
-    <Containr>
+    <Containr className="browser-tainr">
       {/* 
       spreading is best...all overrides need to go here anyway 
       and we should have some conditional overrides 
@@ -284,7 +284,7 @@ export const replaceComponentRenderer = ({ props, ...other }) => {
       <VisibilityProvider>
         <ScrollProvider>
           <SchedulingProvider>
-            <PageTainr>
+            <PageTainr className="page-tainr">
               {React.createElement(props.pageResources.component, {
                 ...props,
               })}
