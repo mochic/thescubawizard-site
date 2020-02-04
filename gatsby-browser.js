@@ -39,7 +39,7 @@ const GlobalStyle = createGlobalStyle`
       margin: 0;
       padding: 0;
       background: #191f1d; 
-      font-family: inconsolata, sans serif;
+      font-family: playfair display, serif;
       font-size: 16px;
       line-height: 1;
     }
@@ -258,7 +258,7 @@ const TransitionCover = styled(animated.div)``
 
 const ADiv = styled(animated.div)``
 
-export const replaceComponentRenderer = ({ props, ...other }) => {
+export const replaceComponentRenderer = ({ props }) => {
   const atIndex = props.location.pathname === "/"
 
   // we gotta take this out of here somehow...
@@ -274,10 +274,10 @@ export const replaceComponentRenderer = ({ props, ...other }) => {
 
   return (
     <Containr className="browser-tainr">
-      {/* 
-      spreading is best...all overrides need to go here anyway 
-      and we should have some conditional overrides 
-      eventually... 
+      {/*
+      spreading is best...all overrides need to go here anyway
+      and we should have some conditional overrides
+      eventually...
       */}
       {/* <NavBar atIndex={atIndex} /> */}
       <GlobalStyle />
@@ -285,9 +285,7 @@ export const replaceComponentRenderer = ({ props, ...other }) => {
         <ScrollProvider>
           <SchedulingProvider>
             <PageTainr className="page-tainr">
-              {React.createElement(props.pageResources.component, {
-                ...props,
-              })}
+              {React.createElement(props.pageResources.component, props)}
             </PageTainr>
           </SchedulingProvider>
         </ScrollProvider>

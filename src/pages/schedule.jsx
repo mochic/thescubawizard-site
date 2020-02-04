@@ -247,62 +247,132 @@ export default () => {
     to: { opacity: 1 },
   })
 
+  // useChain(
+  //   [
+  //     homeLinkSpringRef,
+  //     imageSpringRef,
+  //     gradientSpringRef,
+  //     headerSpringRef,
+  //     contentSpringRef,
+  //     navBarSpringRef,
+  //   ],
+  //   [0, 0.2, 0.2, 0.2, 0.2, 0.4],
+  //   shared.scheduleAnimationDuration
+  // )
+
   useChain(
     [
-      homeLinkSpringRef,
       imageSpringRef,
       gradientSpringRef,
       headerSpringRef,
       contentSpringRef,
       navBarSpringRef,
     ],
-    [0, 0.2, 0.2, 0.2, 0.2, 0.4],
+    [0.2, 0.2, 0.2, 0.2, 0.4],
     shared.scheduleAnimationDuration
   )
 
   // keep it simple for now...maybs just get something pretty that works...thematically...
+  // return (
+  //   <Containr>
+  //     <NavBar
+  //       style={{ ...navBarProps }}
+  //       gradientProps={{ style: { background: `none` } }}
+  //     />
+  //     {/* we need separated from contentTainr to be sibilings for grid layout to work!*/}
+  //     <SchedulerTainr
+  //     // style={{ backgroundFilter: `blur(20px)`, ...contentProps }}
+  //     >
+  //       <Scheduler />
+  //     </SchedulerTainr>
+  //     <ImageTainr style={imageProps}>
+  //       <Image
+  //         // containrProps={{ style: { maxHeight: `800px`, maxWidth: `1180px` } }}
+  //         gradientProps={{
+  //           style: {
+  //             // height: `100%`,
+  //             // width: `100%`
+  //             // maxHeight: `800px`,
+  //             // maxWidth: `1180px`,
+  //             //   background: `linear-gradient(254.29deg, rgba(46, 144, 111, 0.3) ${gradientProps.lg0percent.interpolate(
+  //             //     v => v
+  //             //   )}%, #191f1d 75.64%)`,
+  //           },
+  //           ...gradientProps,
+  //         }}
+  //       >
+  //         {/* <AH3 style={headerProps}>schedule</AH3> */}
+  //         <AH2
+  //           style={{
+  //             color: `#fee8c8`,
+  //             // opacity: 0.2,  its a headerProp controlled via spring
+  //             mixBlendMode: `color`,
+  //             ...headerProps,
+  //           }}
+  //         >
+  //           schedule
+  //         </AH2>
+  //       </Image>
+  //     </ImageTainr>
+  //     {/* <ADiv
+  //       style={{
+  //         position: `absolute`,
+  //         width: `100%`,
+  //         bottom: `25px`,
+  //       }}
+  //     >
+  //       <Footer
+  //         hrProps={{ style: { zIndex: -1 } }}
+  //         p0Props={{ style: { zIndex: -1 } }}
+  //         p1Props={{ style: { zIndex: -1 } }}
+  //       />
+  //     </ADiv> */}
+  //   </Containr>
+  // )
   return (
-    <Containr>
+    <>
       <NavBar
-        style={{ ...navBarProps }}
+        className="navbar-schedule"
+        style={{ background: "none", ...navBarProps }}
         gradientProps={{ style: { background: `none` } }}
-      />
-      {/* we need separated from contentTainr to be sibilings for grid layout to work!*/}
-      <SchedulerTainr
-      // style={{ backgroundFilter: `blur(20px)`, ...contentProps }}
-      >
-        <Scheduler />
-      </SchedulerTainr>
-      <ImageTainr style={imageProps}>
-        <Image
-          // containrProps={{ style: { maxHeight: `800px`, maxWidth: `1180px` } }}
-          gradientProps={{
-            style: {
-              // height: `100%`,
-              // width: `100%`
-              // maxHeight: `800px`,
-              // maxWidth: `1180px`,
-              //   background: `linear-gradient(254.29deg, rgba(46, 144, 111, 0.3) ${gradientProps.lg0percent.interpolate(
-              //     v => v
-              //   )}%, #191f1d 75.64%)`,
-            },
-            ...gradientProps,
-          }}
+      ></NavBar>
+      <Containr>
+        {/* we need separated from contentTainr to be sibilings for grid layout to work!*/}
+        <SchedulerTainr
+          style={{ backgroundFilter: `blur(20px)`, ...contentProps }}
         >
-          {/* <AH3 style={headerProps}>schedule</AH3> */}
-          <AH2
-            style={{
-              color: `#fee8c8`,
-              // opacity: 0.2,  its a headerProp controlled via spring
-              mixBlendMode: `color`,
-              ...headerProps,
+          <Scheduler />
+        </SchedulerTainr>
+        <ImageTainr style={{ ...imageProps }}>
+          <Image
+            // containrProps={{ style: { maxHeight: `800px`, maxWidth: `1180px` } }}
+            gradientProps={{
+              style: {
+                // height: `100%`,
+                // width: `100%`
+                // maxHeight: `800px`,
+                // maxWidth: `1180px`,
+                //   background: `linear-gradient(254.29deg, rgba(46, 144, 111, 0.3) ${gradientProps.lg0percent.interpolate(
+                //     v => v
+                //   )}%, #191f1d 75.64%)`,
+              },
+              ...gradientProps,
             }}
           >
-            schedule
-          </AH2>
-        </Image>
-      </ImageTainr>
-      {/* <ADiv
+            {/* <AH3 style={headerProps}>schedule</AH3> */}
+            <AH2
+              style={{
+                color: `#fee8c8`,
+                // opacity: 0.2,  its a headerProp controlled via spring
+                mixBlendMode: `color`,
+                ...headerProps,
+              }}
+            >
+              schedule
+            </AH2>
+          </Image>
+        </ImageTainr>
+        {/* <ADiv
         style={{
           position: `absolute`,
           width: `100%`,
@@ -315,6 +385,7 @@ export default () => {
           p1Props={{ style: { zIndex: -1 } }}
         />
       </ADiv> */}
-    </Containr>
+      </Containr>
+    </>
   )
 }
