@@ -2,15 +2,38 @@ import React, { useState } from "react"
 
 import SchedulingContext from "../contexts/scheduling.context"
 import submitToAPI from "../api"
-import { processPhoneNumber } from "../utils"
+// import { processPhoneNumber } from "../utils"
+
+import {
+  isEmptyString,
+  phoneFormatter,
+  emailFormatter,
+  validateEmail,
+  validatePhone,
+} from "../utils"
 
 export default ({ children }) => {
-  const submit = async (emailAddress, phoneNumber) => {
-    setScheduling(prevState => ({
-      ...prevState,
-      isSubmitting: true,
-    }))
-    console.log("submitting to api:", { phoneNumber, emailAddress })
+  const STATES = {
+    UNSUBMITTED: "UNSUBMITTED",
+    SUBMITTING: "SUBMITTING",
+    SUBMITTED: "SUBMITTED",
+  }
+
+  const submit = async () => {
+    setScheduling(prevState => {
+      return {
+        ...prevState,
+        prevStatus: prevState.status,
+        status: STATES.SUBMITTING,
+      }
+    })
+
+    validateField("phone")
+    validateField("email")
+
+    // const filteredFields = scheduling.fields.filter(
+    //   ({ errors }) => errors.length === 0
+    // )
 
     let [submittedToAPI, apiErrored] = await submitToAPI(
       emailAddress,
@@ -45,12 +68,61 @@ export default ({ children }) => {
     console.log("reset submission")
   }
 
+  // const fieldSetterFactory = id => (() => {})
+  // const fieldValidateFactory = id => (() => {})
+
   const schedulingState = {
-    isSubmitting: false,
-    submitted: {},
-    errors: {},
-    // status: 0, // 0 unsubmitted, 1 submitting, 2 submitted
-    // prevStatus: null,
+    status: STATES.UNSUBMITTED,
+    previousStatus: null,
+    fields: [
+      {
+        id: "email",
+        value: "",
+        errors: [],
+        formatter: emailFormatter,
+        validator: emailValidator,
+        setValue: v => {
+          setScheduling(prevState => ({
+            ...prevState,
+            fields: prevState.fields.map(f =>
+              f.id === `email` ? { ...f, value: v.formatter(v, f.value) } : f
+            ),
+          }))
+        },
+        validate: () => {
+          setScheduling(prevState => ({
+            ...prevState,
+            fields: prevState.fields.map(f =>
+              f.id === `email` ? { ...f, errors: [f.validator(f.value)] } : f
+            ),
+          }))
+        },
+      },
+      {
+        id: "phone",
+        value: "",
+        errors: [],
+        formatter: phoneFormatter,
+        validator: phoneValidator,
+        setValue: v => {
+          setScheduling(prevState => ({
+            ...prevState,
+            fields: prevState.fields.map(f =>
+              f.id === `phone` ? { ...f, value: v.formatter(v, f.value) } : f
+            ),
+          }))
+        },
+        validate: () => {
+          setScheduling(prevState => ({
+            ...prevState,
+            fields: prevState.fields.map(f =>
+              f.id === `phone` ? { ...f, errors: [f.validator(f.value)] } : f
+            ),
+          }))
+        },
+      },
+    ],
+    errors: [], // top level errors like api not available, auth errors, etc...
     submit,
     resetSubmission,
   }

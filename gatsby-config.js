@@ -14,7 +14,10 @@ module.exports = {
   plugins: [
     "gatsby-plugin-remove-console",
     `gatsby-plugin-react-helmet`,
-    `gatsby-plugin-styled-components`,
+    {
+      resolve: `gatsby-plugin-styled-components`,
+      options: {},
+    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {

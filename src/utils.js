@@ -7,8 +7,12 @@ import { parsePhoneNumberFromString, AsYouType } from "libphonenumber-js"
 //   return matched ? matched.groups : {}
 // }
 
+const maxEmailLength = 56
 export const isValidEmail = emailAddress => {
-  return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(emailAddress)
+  return (
+    /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(emailAddress) &&
+    emailAddress.length < maxEmailLength // could have put in regex but prefer explicit...
+  )
 }
 
 export const isEmptyString = str => {
@@ -151,6 +155,11 @@ export const validateEmail = emailAddress => {
 // }
 
 // const asYouType = new AsYouType("US")
+
+export const emailFormatter = (current, previous) => {
+  // doesn't really do anything...just supporting an interface with this...
+  return current
+}
 
 export const phoneFormatter = (current, previous) => {
   // when delete occurs?
