@@ -7,11 +7,19 @@ import { parsePhoneNumberFromString, AsYouType } from "libphonenumber-js"
 //   return matched ? matched.groups : {}
 // }
 
-const maxEmailLength = 56
+//stackoverflow.com/questions/386294/what-is-the-maximum-length-of-a-valid-email-address/44317754
+const maxEmailUserLength = 64
+const maxEmailDomainLength = 255
 export const isValidEmail = emailAddress => {
+  // could have put in regex but prefer explicit...also big complicated regexes scare me :/...
+  if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(emailAddress)) {
+    return false
+  }
+
+  const [user, domain] = emailAddress.split("@")
+
   return (
-    /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(emailAddress) &&
-    emailAddress.length < maxEmailLength // could have put in regex but prefer explicit...
+    user.length <= maxEmailUserLength && domain.length <= maxEmailDomainLength
   )
 }
 
@@ -174,4 +182,12 @@ export const phoneFormatter = (current, previous) => {
   const phoneNumber = new AsYouType("US").input(current)
   console.log({ phoneNumber, current })
   return phoneNumber ? phoneNumber : current
+}
+
+export const sanitizeEmail = emailAddress => {
+  return emailAddress
+}
+
+export const sanitizePhone = phoneNumber => {
+  return parsePhoneNumberFromString(phoneNumber).number
 }

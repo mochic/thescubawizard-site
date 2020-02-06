@@ -6,10 +6,12 @@ import submitToAPI from "../api"
 
 import {
   isEmptyString,
-  phoneFormatter,
   emailFormatter,
+  phoneFormatter,
   validateEmail,
   validatePhone,
+  sanitizeEmail,
+  sanitizePhone,
 } from "../utils"
 
 export default ({ children }) => {
@@ -80,7 +82,7 @@ export default ({ children }) => {
         value: "",
         errors: [],
         formatter: emailFormatter,
-        validator: emailValidator,
+        validator: validateEmail,
         setValue: v => {
           setScheduling(prevState => ({
             ...prevState,
@@ -103,7 +105,7 @@ export default ({ children }) => {
         value: "",
         errors: [],
         formatter: phoneFormatter,
-        validator: phoneValidator,
+        validator: validatePhone,
         setValue: v => {
           setScheduling(prevState => ({
             ...prevState,
