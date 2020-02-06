@@ -120,23 +120,39 @@ import {
 // })
 
 describe("phoneFormatter", () => {
+  // it(`formats phone #0`, () => {
+  //   expect(phoneFormatter("8", "")).toEqual("(8")
+  // })
   it(`formats phone #0`, () => {
-    expect(phoneFormatter("8", "")).toEqual("(8")
+    expect(phoneFormatter("8", "")).toEqual("8")
   })
+  // it(`formats phone #1`, () => {
+  //   expect(phoneFormatter("(808", "(80")).toEqual("(808) ")
+  // })
   it(`formats phone #1`, () => {
-    expect(phoneFormatter("(808", "(80")).toEqual("(808) ")
+    expect(phoneFormatter("(808", "(80")).toEqual("(808)")
   })
+  // it(`formats phone #2`, () => {
+  //   expect(phoneFormatter("(808) 223", "(808) 22")).toEqual("(808) 223-")
+  // })
   it(`formats phone #2`, () => {
-    expect(phoneFormatter("(808) 223", "(808) 22")).toEqual("(808) 223-")
+    expect(phoneFormatter("(808) 223", "(808) 22")).toEqual("(808) 223")
   })
   it(`formats phone #3`, () => {
     expect(phoneFormatter("(808) 223-5545", "(808) 223-554")).toEqual(
       "(808) 223-5545"
     )
   })
+  // it(`formats phone #4`, () => {
+  //   expect(phoneFormatter("(808) 223-55455", "(808) 223-5545")).toEqual(
+  //     "(808) 223-5545"
+  //   )
+  // })
+
+  // never restrict the user...dont give them a "nothing happened", "trapped" feeling
   it(`formats phone #4`, () => {
     expect(phoneFormatter("(808) 223-55455", "(808) 223-5545")).toEqual(
-      "(808) 223-5545"
+      "80822355455"
     )
   })
   it(`formats phone #5`, () => {
@@ -151,5 +167,11 @@ describe("phoneFormatter", () => {
    */
   it(`formats phone #7`, () => {
     expect(phoneFormatter("(800", "(800) ")).toEqual("(800")
+  })
+  it(`formats phone #8`, () => {
+    expect(phoneFormatter("808", "80")).toEqual("(808)")
+  })
+  it(`formats phone #9`, () => {
+    expect(phoneFormatter("(808) 2235", "(808) 223")).toEqual("(808) 223-5")
   })
 })

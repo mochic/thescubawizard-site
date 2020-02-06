@@ -78,7 +78,7 @@ const Containr = styled(animated.div)`
   position: fixed;
   top: 0px;
   right: 0px;
-  z-index: 1000;
+  z-index: ${shared.heroCurtainZIndex + 1} !important;
   text-align: right;
   mix-blend-mode: soft-light; /* looks better than overlay */
 `

@@ -182,52 +182,85 @@ const ContenTainr = styled(ADiv)`
 //   z-index: ${shared.depthsGradientZIndex}; /* hopefully this is enough but not too much... */
 // `
 
+// const DepthsGradient = styled(animated.div)`
+//   background: radial-gradient(
+//     103.93% 50% at 50% 50%,
+//     rgba(25, 31, 29, 0.08) 0%,
+//     #191f1d 100%
+//   );
+//   height: calc(100vh + 300px);
+//   width: 100vw;
+//   pointer-events: none;
+//   position: fixed;
+//   bottom: 0px;
+//   left: 0px;
+//   z-index: ${shared.depthsGradientZIndex}; /* hopefully this is enough but not too much... */
+// `
+
+// const DepthsGradient = styled(animated.div)`
+//   background: radial-gradient(
+//     103.93% 50% at 50% 50%,
+//     rgba(25, 31, 29, 0.08) 0%,
+//     #191f1d 100%
+//   );
+//   height: 2000px;
+//   width: 100vw;
+//   pointer-events: none;
+//   position: fixed;
+//   bottom: 0px;
+//   left: 0px;
+//   mix-blend-mode: darken;
+//   transform: translate3d(0, -200px, 0);
+//   z-index: ${shared.depthsGradientZIndex}; /* hopefully this is enough but not too much... */
+// `
+
 const DepthsGradient = styled(animated.div)`
   background: radial-gradient(
-    103.93% 50% at 50% 50%,
-    rgba(25, 31, 29, 0.08) 0%,
+    119.29% 51.85% at 50.13% 50%,
+    rgba(25, 31, 29, 0) 0%,
     #191f1d 100%
   );
-  height: 100vh;
+  height: 120vh;
   width: 100vw;
   pointer-events: none;
   position: fixed;
   top: 0px;
-  bottom: 0px;
   left: 0px;
+
+  transform: translate3d(0, -20vh, 0);
   z-index: ${shared.depthsGradientZIndex}; /* hopefully this is enough but not too much... */
 `
 
-const DepthsGradientTop = styled(animated.div)`
-  background: radial-gradient(
-    103.93% 50% at 50% 50%,
-    rgba(25, 31, 29, 0.08) 0%,
-    #191f1d 100%
-  );
-  height: 300px;
-  width: 100%;
-  pointer-events: none;
-  position: fixed;
-  top: 0px;
-  bottom: 0px;
-  left: 0px;
-  z-index: ${shared.depthsGradientZIndex}; /* hopefully this is enough but not too much... */
-`
+// const DepthsGradientTop = styled(animated.div)`
+//   background: radial-gradient(
+//     100% 100% at 50.13% 100%,
+//     rgba(25, 31, 29, 0) 0%,
+//     #191f1d 100%
+//   );
+//   height: 250px;
+//   width: 100%;
+//   pointer-events: none;
+//   position: fixed;
+//   top: 0px;
+//   bottom: 0px;
+//   left: 0px;
+//   z-index: ${shared.depthsGradientZIndex}; /* hopefully this is enough but not too much... */
+// `
 
-const DepthsGradientBottom = styled(animated.div)`
-  background: radial-gradient(
-    103.93% 50% at 50% 50%,
-    rgba(25, 31, 29, 0.08) 0%,
-    #191f1d 100%
-  );
-  height: 300px;
-  width: 100%;
-  pointer-events: none;
-  position: fixed;
-  bottom: 0px;
-  left: 0px;
-  z-index: ${shared.depthsGradientZIndex}; /* hopefully this is enough but not too much... */
-`
+// const DepthsGradientBottom = styled(animated.div)`
+//   background: radial-gradient(
+//     154.84% 121.8% at 50.13% 0%,
+//     rgba(255, 255, 255, 0) 0%,
+//     #191f1d 100%
+//   );
+//   height: 250px;
+//   width: 100%;
+//   pointer-events: none;
+//   position: fixed;
+//   bottom: 0px;
+//   left: 0px;
+//   z-index: ${shared.depthsGradientZIndex}; /* hopefully this is enough but not too much... */
+// `
 
 // const DepthsGradient = styled(animated.div)`
 //   background: radial-gradient(
@@ -389,7 +422,7 @@ const AboveDepths = styled(animated.div)`
   background: #191f1d;
   height: 80vh;
   width: 100%;
-  z-index: 1000 !important;
+  z-index: ${shared.heroCurtainZIndex} !important;
   position: absolute;
   top: 0px;
   left: 0px;
@@ -575,6 +608,7 @@ export default () => {
       duration: 2000,
       // duration: 20000,
     },
+    immediate: !revealed.about,
   })
 
   const [aboutParallaxProps, setAboutParallaxProps] = useSpring(() => ({
@@ -804,9 +838,9 @@ export default () => {
           window.scrollTo({ top: 0, behavior: `smooth` })
         }}
       />
-      {/* <DepthsGradient style={{ opacity: navBarProps.depthsOpacity }} /> */}
-      <DepthsGradientTop style={{ opacity: navBarProps.depthsOpacity }} />
-      <DepthsGradientBottom style={{ opacity: navBarProps.depthsOpacity }} />
+      <DepthsGradient style={{ opacity: navBarProps.depthsOpacity }} />
+      {/* <DepthsGradientTop style={{ opacity: navBarProps.depthsOpacity }} />
+      <DepthsGradientBottom style={{ opacity: navBarProps.depthsOpacity }} /> */}
       <VisibilitySensor
         delayedCall
         onChange={v => {

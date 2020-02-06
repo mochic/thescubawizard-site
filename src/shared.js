@@ -5,4 +5,5 @@ export default {
   scheduleAnimationDuration: 1000,
   navBarAnimationDuration: 500,
   depthsGradientZIndex: 5,
+  heroCurtainZIndex: 1000,
 }

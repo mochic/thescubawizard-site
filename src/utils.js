@@ -1,4 +1,4 @@
-import { parsePhoneNumberFromString } from "libphonenumber-js"
+import { parsePhoneNumberFromString, AsYouType } from "libphonenumber-js"
 
 // // if these are broked go here fam: https://regex101.com/
 // export const parsePhoneNumber = phoneNumber => {
@@ -7,13 +7,13 @@ import { parsePhoneNumberFromString } from "libphonenumber-js"
 //   return matched ? matched.groups : {}
 // }
 
-// export const isValidEmail = emailAddress => {
-//   return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(emailAddress)
-// }
+export const isValidEmail = emailAddress => {
+  return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(emailAddress)
+}
 
-// export const isEmptyString = str => {
-//   return !/\S/.test(str)
-// }
+export const isEmptyString = str => {
+  return !/\S/.test(str)
+}
 
 // /**
 //  * isValidPhone() validates phone number
@@ -40,6 +40,12 @@ import { parsePhoneNumberFromString } from "libphonenumber-js"
 //   ) // !! converts truthy values to true and falsey values to false (ie: null, undefined, etc.)
 // }
 
+export const isValidPhone = phoneNumber => {
+  const parsedPhoneNumber = parsePhoneNumberFromString(phoneNumber)
+
+  return parsedPhoneNumber ? parsedPhoneNumber.isValid() : false
+}
+
 // export const validatePhone = phoneNumber => {
 //   if (isEmptyString(phoneNumber)) {
 //     return `Phone number appears to be empty.`
@@ -50,6 +56,16 @@ import { parsePhoneNumberFromString } from "libphonenumber-js"
 //   }
 // }
 
+export const validatePhone = phoneNumber => {
+  if (isEmptyString(phoneNumber)) {
+    return // todo: maybs move this logic to higher level handler...
+  } else if (!isValidPhone(phoneNumber)) {
+    return `Please enter a valid phone number.`
+  } else {
+    return
+  }
+}
+
 // export const validateEmail = emailAddress => {
 //   if (isEmptyString(emailAddress)) {
 //     return `Email address appears to be empty.`
@@ -59,6 +75,16 @@ import { parsePhoneNumberFromString } from "libphonenumber-js"
 //     return
 //   }
 // }
+
+export const validateEmail = emailAddress => {
+  if (isEmptyString(emailAddress)) {
+    return
+  } else if (!isValidEmail(emailAddress)) {
+    return `Please enter a valid email address.`
+  } else {
+    return
+  }
+}
 
 // /**
 //  * formats a phone number
@@ -124,13 +150,19 @@ import { parsePhoneNumberFromString } from "libphonenumber-js"
 //   return processed
 // }
 
+// const asYouType = new AsYouType("US")
+
 export const phoneFormatter = (current, previous) => {
   // when delete occurs?
+  // maybs only do this for critcal periods...
+  // like when we only hav a country code, etc...
+  // its better for reformatting numbers when we type way to much and
+  // delete back
   if (current.length < previous.length) {
     return current
   }
 
-  const phoneNumber = parsePhoneNumberFromString(current, "US")
-
-  return phoneNumber ? phoneNumber.formatNational() : ""
+  const phoneNumber = new AsYouType("US").input(current)
+  console.log({ phoneNumber, current })
+  return phoneNumber ? phoneNumber : current
 }
