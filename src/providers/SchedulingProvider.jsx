@@ -15,7 +15,7 @@ import {
 } from "../utils"
 
 export default ({ children }) => {
-  const STATES = {
+  const STATUS = {
     UNSUBMITTED: "UNSUBMITTED",
     SUBMITTING: "SUBMITTING",
     SUBMITTED: "SUBMITTED",
@@ -23,45 +23,51 @@ export default ({ children }) => {
 
   const submit = async () => {
     setScheduling(prevState => {
+      // all fields empty
+      if (prevState.fields.filter(f => !isEmptyString(f.value)).length < 1) {
+        return {
+          ...prevState,
+          status: STATUS.UNSUBMITTED,
+          prevStatus: STATUS.UNSUBMITTED,
+          errors: ["Please enter a phone number or email address."],
+        }
+      }
+
       return {
         ...prevState,
         prevStatus: prevState.status,
         status: STATES.SUBMITTING,
+        fields: prevState.fields.map(f => {
+          return {
+            ...f,
+            errors: [f.validator(f.value)],
+          }
+        }),
       }
     })
 
-    validateField("phone")
-    validateField("email")
-
-    // const filteredFields = scheduling.fields.filter(
-    //   ({ errors }) => errors.length === 0
-    // )
-
     let [submittedToAPI, apiErrored] = await submitToAPI(
-      emailAddress,
-      processPhoneNumber(phoneNumber)
+      sanitizeEmail(emailAddress),
+      sanitizePhone(phoneNumber)
     )
     console.log("api response:", submittedToAPI, apiErrored)
 
-    // setScheduling(prevState => ({
-    //   ...prevState,
-    //   submitted: { ...submittedToAPI },
-    //   errors: {
-    //     api: `An expected error occurred when submitting your values to our api.`,
-    //   },
-    //   isSubmitting: false,
-    // }))
-
-    setScheduling(prevState => ({
-      ...prevState,
-      submitted: { ...submittedToAPI },
-      // status: 1,
-      // prevStatus: 0,
-      errors: {
-        api: `An expected error occurred when submitting your values to our api.`,
-      },
-      isSubmitting: false,
-    }))
+    if (apiErrored) {
+      setScheduling(prevState => ({
+        ...prevState,
+        status: STATUS.UNSUBMITTED,
+        previousStatus: STATUS.SUBMITTING,
+        errors: [
+          `An expected error occurred when submitting your values to our api.`,
+        ],
+      }))
+    } else {
+      setScheduling(prevState => ({
+        ...prevState,
+        status: STATUS.SUBMITTED,
+        previousStatus: STATUS.SUBMITTING,
+      }))
+    }
     console.log("submitted!")
   }
 
