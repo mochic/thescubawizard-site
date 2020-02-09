@@ -86,6 +86,7 @@ const MainTainr = styled(animated.div)`
   overflow: hidden;
   position: relative;
   height: 80vh; /* 100vh felt wayyyy tooo long to scroll thru */
+  min-height: 545px;
 
   @media ${devices.laptop} {
     height: 100vh;
@@ -137,6 +138,7 @@ const HintTainr = styled(animated.div)`
   width: 100%;
   text-align: center;
   mix-blend-mode: overlay;
+  z-index: 5;
 `
 
 // const HeroLinkTainr = styled(animated.div)`

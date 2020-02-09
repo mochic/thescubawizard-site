@@ -37,6 +37,11 @@ const MainTainr = styled(animated.div)`
   z-index: -1;
 `
 
+// const MainTainr = styled(animated.div)`
+//   position: relative;
+//   background: #191f1d;
+// `
+
 // intelligently scale with js :/
 // show header and extra stuff if in tablet/desktop view!
 // const AboutHeight = 900
@@ -163,57 +168,6 @@ const ContenTainr = styled(ADiv)`
   }
 `
 
-// const DepthsGradient = styled(animated.div)`
-//   background: radial-gradient(
-//     103.93% 50% at 50% 50%,
-//     rgba(25, 31, 29, 0.08) 0%,
-//     #191f1d 100%
-//   );
-//   min-height: 100vh; /* fall back if fill-available not available */
-//   height: -moz-available;
-//   height: fill-available;
-//   min-width: 100vw;
-//   width: -moz-available;
-//   width: fill-available;
-//   pointer-events: none;
-//   position: fixed;
-//   top: 0px;
-//   left: 0px;
-//   z-index: ${shared.depthsGradientZIndex}; /* hopefully this is enough but not too much... */
-// `
-
-// const DepthsGradient = styled(animated.div)`
-//   background: radial-gradient(
-//     103.93% 50% at 50% 50%,
-//     rgba(25, 31, 29, 0.08) 0%,
-//     #191f1d 100%
-//   );
-//   height: calc(100vh + 300px);
-//   width: 100vw;
-//   pointer-events: none;
-//   position: fixed;
-//   bottom: 0px;
-//   left: 0px;
-//   z-index: ${shared.depthsGradientZIndex}; /* hopefully this is enough but not too much... */
-// `
-
-// const DepthsGradient = styled(animated.div)`
-//   background: radial-gradient(
-//     103.93% 50% at 50% 50%,
-//     rgba(25, 31, 29, 0.08) 0%,
-//     #191f1d 100%
-//   );
-//   height: 2000px;
-//   width: 100vw;
-//   pointer-events: none;
-//   position: fixed;
-//   bottom: 0px;
-//   left: 0px;
-//   mix-blend-mode: darken;
-//   transform: translate3d(0, -200px, 0);
-//   z-index: ${shared.depthsGradientZIndex}; /* hopefully this is enough but not too much... */
-// `
-
 const DepthsGradient = styled(animated.div)`
   background: radial-gradient(
     119.29% 51.85% at 50.13% 50%,
@@ -231,94 +185,6 @@ const DepthsGradient = styled(animated.div)`
   z-index: ${shared.depthsGradientZIndex}; /* hopefully this is enough but not too much... */
 `
 
-// const DepthsGradientTop = styled(animated.div)`
-//   background: radial-gradient(
-//     100% 100% at 50.13% 100%,
-//     rgba(25, 31, 29, 0) 0%,
-//     #191f1d 100%
-//   );
-//   height: 250px;
-//   width: 100%;
-//   pointer-events: none;
-//   position: fixed;
-//   top: 0px;
-//   bottom: 0px;
-//   left: 0px;
-//   z-index: ${shared.depthsGradientZIndex}; /* hopefully this is enough but not too much... */
-// `
-
-// const DepthsGradientBottom = styled(animated.div)`
-//   background: radial-gradient(
-//     154.84% 121.8% at 50.13% 0%,
-//     rgba(255, 255, 255, 0) 0%,
-//     #191f1d 100%
-//   );
-//   height: 250px;
-//   width: 100%;
-//   pointer-events: none;
-//   position: fixed;
-//   bottom: 0px;
-//   left: 0px;
-//   z-index: ${shared.depthsGradientZIndex}; /* hopefully this is enough but not too much... */
-// `
-
-// const DepthsGradient = styled(animated.div)`
-//   background: radial-gradient(
-//     103.93% 50% at 50% 50%,
-//     rgba(25, 31, 29, 0.08) 0%,
-//     #191f1d 100%
-//   );
-//   height: -moz-available;
-//   height: fill-available;
-//   width: -moz-available;
-//   width: fill-available;
-//   pointer-events: none;
-//   position: fixed;
-//   top: 0px;
-//   bottom: 0px;
-//   left: 0px;
-//   z-index: ${shared.depthsGradientZIndex}; /* hopefully this is enough but not too much... */
-// `
-
-// const DepthsGradient = styled(animated.div)`
-//   background: radial-gradient(
-//     103.93% 50% at 50% 50%,
-//     rgba(25, 31, 29, 0.08) 0%,
-//     #191f1d 100%
-//   );
-//   height: 80vh;
-//   width: 100vw;
-//   position: relative;
-//   z-index: ${shared.depthsGradientZIndex + 1};
-// `
-
-// const DepthsContainr = styled(animated.div)`
-//   height: 100%; /* not the best but the best we can do for now?... */
-//   width: 100%;
-//   pointer-events: none;
-//   position: fixed;
-//   top: 0px;
-//   left: 0px;
-//   z-index: ${shared.depthsGradientZIndex};
-// `
-
-// const Depths = styled(animated.div)`
-//   height: 20vh;
-//   width: 100vw;
-//   position: relative;
-//   background: #191f1d;
-// `
-
-// color: red;
-//   width: 100%;
-//   pointer-events: none;
-//   height: 100vh;
-//   position: fixed;
-//   top: 0px;
-//   left: 0px;
-//   overflow: hidden;
-//   z-index: 5;
-
 // services list
 const WeirdLiLabel = styled(animated.p)`
   font-size: 50px;
@@ -331,16 +197,6 @@ const WeirdLiLabel = styled(animated.p)`
   opacity: 0.1;
   top: -24px;
 `
-
-// const WeirdLi = styled(animated.li)`
-//   font-family: open sans;
-//   font-size: 16px;
-//   font-weight: normal;
-//   color: white;
-//   position: relative;
-//   margin: 0 0 50px 0;
-//   float: left;
-// `
 
 const WeirdLi = styled(animated.span)`
   font-family: open sans;
@@ -355,25 +211,6 @@ const WeirdLi = styled(animated.span)`
   }
 `
 
-// const WeirdUl = styled(animated.ul)`
-//   list-style-type: none;
-//   align-self: flex-start;
-//   padding: 0;
-//   margin: 16px 0 0 20px;
-// `
-
-// const WeirdUl = styled(animated.ul)`
-//   list-style-type: none;
-//   padding: 0;
-//   margin: 16px 0 0 20px;
-// `
-
-// const WeirdUl = styled(animated.div)`
-//   list-style-type: none;
-//   padding: 0;
-//   margin: 16px 0 0 20px;
-// `
-
 const WeirdTainr = styled(animated.div)`
   padding: 0;
   margin: 30px 0 0 0;
@@ -385,8 +222,6 @@ const WeirdTainr = styled(animated.div)`
     flex-direction: row;
   }
 `
-
-const InnerContenTainr = styled.div``
 
 const WeirdList = ({ items, propsList }) => {
   const _propsList = propsList || []

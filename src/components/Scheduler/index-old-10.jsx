@@ -139,24 +139,6 @@ const Link = styled(Link_)`
   font-size: 16px;
 `
 
-// const RescheduleButton = styled(animated.button)`
-//   color: #979797;
-//   font-size: 16px;
-//   font-family open sans;
-//   margin: 0px;
-//   font-weight: 300;
-//   margin: 0 0 8px 0;
-//   padding: 0;
-
-//   background: none;
-//   border: none;
-//   -webkit-appearance: none;
-
-//   &:focus {
-//     outline: 1px solid #979797;
-//   }
-// `
-
 const RescheduleButton = styled(animated.button)`
   color: white;
   mix-blend-mode: overlay;
@@ -207,33 +189,6 @@ const Submitted = ({
   )
 }
 
-// const Unsubmitted = ({ text, arrowProps, inputProps }) => {
-//   return (
-//     <>
-//       <SubmitInputTainr {...inputProps}>
-//         <Input
-//           form="scheduling-form"
-//           type="submit"
-//           value={text}
-//           style={{
-//             marginTop: `25px`,
-//             padding: `16px 0 8px 0`,
-//             border: `none`,
-//             background: `none`,
-//             color: `#FFE9C9`,
-//             width: `80%`,
-//             fontFamily: `roboto`,
-//             fontWeight: 300,
-//           }}
-//         />
-//       </SubmitInputTainr>
-//       <SubmitArrowTainr {...arrowProps}>
-//         <ScheduleArrow />
-//       </SubmitArrowTainr>
-//     </>
-//   )
-// }
-
 const Unsubmitted = ({ text, arrowProps, inputProps }) => {
   return (
     <>
@@ -260,13 +215,6 @@ const Unsubmitted = ({ text, arrowProps, inputProps }) => {
     </>
   )
 }
-
-// const SubmitStateTainr = styled(animated.div)`
-//   align-self: center;
-//   text-align: center;
-//   width: 33.33%;
-//   width: calc(100% / 3);
-// `
 
 const SubmitStateTainr = styled(animated.div)`
   align-self: center;
@@ -329,8 +277,28 @@ const Submitter = ({ reset }) => {
     homeTextOpacity: 0,
     rescheduleTextOpacity: 0,
     config: { ...config.stiff, duration: 1000 },
-    delay: 0,
   }))
+
+  // // triggered via gesture...ie swiping...initial offsets r paged
+  // const carouselProps = useSpring({
+  //   from: {
+  //     transform: `translate3d(-${((state > 0 ? state - 1 : 2) * 100) /
+  //       3.0}%,0,0)`,
+  //   },
+  //   to: { transform: `translate3d(-${(state * 100) / 3.0}%,0,0)` },
+  //   onStart: () => {
+  //     console.log("%ccarousel spring started...", "color: pink")
+  //     setScheduleProps({
+  //       arrowOpacity: status !== STATUS.UNSUBMITTED ? 0 : 1,
+  //       submitTextOpacity: status !== STATUS.UNSUBMITTED ? 0 : 1,
+  //       submittingOpacity: status === STATUS.SUBMITTING ? 1 : 0,
+  //       homeTextOpacity: status === STATUS.SUBMITTED ? 1 : 0,
+  //       rescheduleTextOpacity: status === STATUS.SUBMITTED ? 1 : 0,
+  //       // delay: 1000,
+  //     })
+  //   },
+  //   reset: true,
+  // })
 
   // triggered via gesture...ie swiping...initial offsets r paged
   const carouselProps = useSpring({
@@ -346,7 +314,7 @@ const Submitter = ({ reset }) => {
         submittingOpacity: status === STATUS.SUBMITTING ? 1 : 0,
         homeTextOpacity: status === STATUS.SUBMITTED ? 1 : 0,
         rescheduleTextOpacity: status === STATUS.SUBMITTED ? 1 : 0,
-        delay: state * 1000,
+        // delay: 1000,
       })
     },
     reset: true,
