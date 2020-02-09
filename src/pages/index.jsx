@@ -245,6 +245,8 @@ const WeirdList = ({ items, propsList }) => {
 // `
 
 // TODO: grab height from shared store or something...
+// NOTE: always ue pointer-events: none for these weird overlay divs...almost no reason for them to ever block pointer events as theyre almost purely styling...
+// TODO: make a set of "styling" div components
 const AboveDepths = styled(animated.div)`
   background: #191f1d;
   height: 80vh;
@@ -253,6 +255,7 @@ const AboveDepths = styled(animated.div)`
   position: absolute;
   top: 0px;
   left: 0px;
+  pointer-events: none;
 
   @media ${devices.laptop} {
     height: 100vh;
@@ -689,7 +692,7 @@ export default () => {
             transform: heroProps.hintTransform,
           }}
         /> */}
-        <div style={{ position: `relative` }}>
+        {/* <div style={{ position: `relative` }}>
           <Hero
             titleProps={{ style: { transform: heroProps.titleTransform } }}
             // curtainProps={{ opacity: heroProps.curtainOpacity }}
@@ -698,7 +701,18 @@ export default () => {
             scrollHintProps={{ ...heroHintProps }}
           />
           <AboveDepths style={{ opacity: heroProps.curtainOpacity }} />
-        </div>
+        </div> */}
+        <>
+          <Hero
+            titleProps={{ style: { transform: heroProps.titleTransform } }}
+            // curtainProps={{ opacity: heroProps.curtainOpacity }}
+            curtainProps={{ opacity: 0 }}
+            containrProps={{ position: `relative` }}
+            linkTainrProps={{ ...heroLinkProps }}
+            scrollHintProps={{ ...heroHintProps }}
+          />
+          <AboveDepths style={{ opacity: heroProps.curtainOpacity }} />
+        </>
       </VisibilitySensor>
       {/* <Thang /> */}
       <VisibilitySensor

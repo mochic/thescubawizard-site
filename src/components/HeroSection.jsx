@@ -254,6 +254,7 @@ const Hero = ({
   linkTainrProps,
   curtainProps,
   scrollHintProps,
+  containrProps,
 }) => {
   const heroImageProps = {}
 
@@ -298,17 +299,18 @@ const Hero = ({
   // }, 1000)
 
   return (
-    <MainTainr>
+    <MainTainr style={{ ...containrProps }}>
       <Curtain style={curtainProps} />
-      <ImageTainr>
+      <ImageTainr style={{ background: `red` }}>
         <HeroImage
-        // imageProps={{
-        //   style: {
-        //     display: `grid`,
-        //     gridTemplateAreas: ``,
-        //     gridTemplateColumns: `auto auto auto`,
-        //   },
-        // }}
+          style={{ background: `yellow` }}
+          // imageProps={{
+          //   style: {
+          //     display: `grid`,
+          //     gridTemplateAreas: ``,
+          //     gridTemplateColumns: `auto auto auto`,
+          //   },
+          // }}
         >
           <TitleSVG
             style={{
