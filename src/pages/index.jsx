@@ -22,12 +22,15 @@ import devices from "../devices"
 import shared from "../shared"
 
 import NavBar from "../components/NavBar"
+import smoothscroll from "smoothscroll-polyfill"
 
 import VisibilitySensor from "react-visibility-sensor"
 
 import AboutImage from "../components/AboutImage"
 import ServicesImage from "../components/ServicesImage"
 import { ASection, AHr, AH3, AH2, ADiv, AP } from "../components/Shared"
+
+// smoothscroll.polyfill()
 
 const MainTainr = styled(animated.div)`
   position: relative;

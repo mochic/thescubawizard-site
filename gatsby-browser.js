@@ -2,6 +2,10 @@ import React, { useContext, useState } from "react"
 
 import styled, { createGlobalStyle } from "styled-components"
 import { animated, useSpring, config } from "react-spring"
+
+import pageWrapper from "./wrapPageElement"
+import rootWrapper from "./wrapRootElement"
+
 import { Link } from "gatsby"
 
 import VisibilitySensor from "react-visibility-sensor"
@@ -23,14 +27,14 @@ import sizes from "./src/sizes"
 
 import TitleSVG from "./src/components/TitleSVG"
 
-import smoothscroll from "smoothscroll-polyfill"
+// import smoothscroll from "smoothscroll-polyfill"
 
 import shared from "./src/shared"
 
 import { navigate } from "gatsby-link"
 
 // kick off the polyfill!
-smoothscroll.polyfill()
+// smoothscroll.polyfill()
 
 const GlobalStyle = createGlobalStyle`
     html, body {
@@ -258,38 +262,41 @@ const TransitionCover = styled(animated.div)``
 
 const ADiv = styled(animated.div)``
 
-export const replaceComponentRenderer = ({ props }) => {
-  const atIndex = props.location.pathname === "/"
+// export const replaceComponentRenderer = ({ props }) => {
+//   // const atIndex = props.location.pathname === "/"
 
-  // we gotta take this out of here somehow...
-  // const [navBarHidden, setNavBarHidden] = useState(atIndex) // initialize to hidden=true if we start at index
+//   // we gotta take this out of here somehow...
+//   // const [navBarHidden, setNavBarHidden] = useState(atIndex) // initialize to hidden=true if we start at index
 
-  // const showNavBar = () => {
-  //   setNavBarHidden(true)
-  // }
+//   // const showNavBar = () => {
+//   //   setNavBarHidden(true)
+//   // }
 
-  // const hideNavBar = () => {
-  //   setNavBarHidden(false)
-  // }
+//   // const hideNavBar = () => {
+//   //   setNavBarHidden(false)
+//   // }
 
-  return (
-    <Containr className="browser-tainr">
-      {/*
-      spreading is best...all overrides need to go here anyway
-      and we should have some conditional overrides
-      eventually...
-      */}
-      {/* <NavBar atIndex={atIndex} /> */}
-      <GlobalStyle />
-      <VisibilityProvider>
-        <ScrollProvider>
-          <SchedulingProvider>
-            <PageTainr className="page-tainr">
-              {React.createElement(props.pageResources.component, props)}
-            </PageTainr>
-          </SchedulingProvider>
-        </ScrollProvider>
-      </VisibilityProvider>
-    </Containr>
-  )
-}
+//   return (
+//     <Containr className="browser-tainr">
+//       {/*
+//       spreading is best...all overrides need to go here anyway
+//       and we should have some conditional overrides
+//       eventually...
+//       */}
+//       {/* <NavBar atIndex={atIndex} /> */}
+//       <GlobalStyle />
+//       <VisibilityProvider>
+//         <ScrollProvider>
+//           <SchedulingProvider>
+//             <PageTainr className="page-tainr">
+//               {React.createElement(props.pageResources.component, props)}
+//             </PageTainr>
+//           </SchedulingProvider>
+//         </ScrollProvider>
+//       </VisibilityProvider>
+//     </Containr>
+//   )
+// }
+
+export const wrapPageElement = pageWrapper
+export const wrapRootElement = rootWrapper
