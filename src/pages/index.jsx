@@ -256,6 +256,7 @@ const AboveDepths = styled(animated.div)`
   top: 0px;
   left: 0px;
   pointer-events: none;
+  min-height: ${shared.minHeroHeight}px;
 
   @media ${devices.laptop} {
     height: 100vh;

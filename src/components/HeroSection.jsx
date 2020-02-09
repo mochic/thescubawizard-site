@@ -12,81 +12,15 @@ import FancyLink from "../components/FancyLink"
 import HeroImage from "../components/HeroImage"
 
 import sizes from "../sizes"
+import shared from "../shared"
 import devices from "../devices"
-
-// const MainTainr = styled(animated.div)`
-//   overflow: hidden;
-//   position: relative;
-//   height: 80vh; /* 100vh felt wayyyy tooo long to scroll thru */
-
-//   display: grid;
-//   grid-template-areas:
-//     ". . ."
-//     ". title ."
-//     ". link ."
-//     ". . .";
-//   grid-template-columns: 8% auto 8%;
-//   grid-template-rows: 250px auto auto auto;
-
-//   @media ${devices.laptop} {
-//     height: 100vh;
-//   }
-// `
-
-// const MainTainr = styled(animated.div)`
-//   overflow: hidden;
-//   position: relative;
-//   height: 80vh; /* 100vh felt wayyyy tooo long to scroll thru */
-
-//   display: grid;
-//   grid-template-areas:
-//     ". . ."
-//     ". title ."
-//     ". link ."
-//     ". . .";
-//   grid-template-columns: auto auto auto;
-//   grid-template-rows: auto auto auto auto;
-
-//   @media ${devices.laptop} {
-//     height: 100vh;
-//   }
-// `
-
-// const MainTainr = styled(animated.div)`
-//   overflow: hidden;
-//   position: relative;
-//   height: 80vh; /* 100vh felt wayyyy tooo long to scroll thru */
-
-//   display: grid;
-//   grid-template-areas:
-//     ". . ."
-//     ". . ."
-//     ". link ."
-//     ". . .";
-//   grid-template-columns: auto auto auto;
-//   grid-template-rows: auto auto auto auto;
-
-//   @media ${devices.laptop} {
-//     height: 100vh;
-//   }
-// `
-
-// const MainTainr = styled(animated.div)`
-//   overflow: hidden;
-//   position: relative;
-//   height: 80vh; /* 100vh felt wayyyy tooo long to scroll thru */
-
-//   @media ${devices.laptop} {
-//     height: 100vh;
-//   }
-// `
 
 const MainTainr = styled(animated.div)`
   z-index: 1;
   overflow: hidden;
   position: relative;
   height: 80vh; /* 100vh felt wayyyy tooo long to scroll thru */
-  min-height: 545px;
+  min-height: ${shared.minHeroHeight}px;
 
   @media ${devices.laptop} {
     height: 100vh;
@@ -109,64 +43,12 @@ const ImageTainr = styled(animated.div)`
   top: 0px;
 `
 
-// const HintTainr = styled(animated.div)`
-//   position: fixed;
-//   bottom: 50px;
-//   width: 100%;
-//   text-align: center;
-//   mix-blend-mode: overlay;
-//   grid-area: hint;
-// `
-
-// const HintTainr = styled(animated.div)`
-//   position: absolute;
-//   bottom: 50px;
-//   width: 100%;
-//   text-align: center;
-//   mix-blend-mode: overlay;
-//   z-index: 1000; /* no idea...todo figure out why... */
-// `
-
-// const HintTainr = styled(animated.div)`
-//   width: 100%;
-//   text-align: center;
-//   mix-blend-mode: overlay;
-//   z-index: 5; /* no idea...todo figure out why... */
-// `
-
 const HintTainr = styled(animated.div)`
   width: 100%;
   text-align: center;
   mix-blend-mode: overlay;
   z-index: 5;
 `
-
-// const HeroLinkTainr = styled(animated.div)`
-//   z-index: 1000 !important; /* we want our scheduling link always clickable! no matter wut */
-//   width: 100%;
-//   grid-area: link;
-//   margin: 300px 0 0 0;
-//   mix-blend-mode: overlay;
-// `
-
-// const HeroLinkTainr = styled(animated.div)`
-//   z-index: 1000 !important; /* we want our scheduling link always clickable! no matter wut */
-//   width: 100%;
-//   grid-area: link;
-//   margin: 0;
-//   padding: 0;
-//   mix-blend-mode: overlay;
-// `
-
-// const HeroLinkTainr = styled(animated.div)`
-//   z-index: 1000 !important; /* we want our scheduling link always clickable! no matter wut */
-//   width: 100%;
-//   margin: 0;
-//   padding: 0;
-//   mix-blend-mode: overlay;
-//   position: absolute;
-//   bottom: 124px;
-// `
 
 const HeroLinkTainr = styled(animated.div)`
   z-index: 1000 !important; /* we want our scheduling link always clickable! no matter wut */
@@ -175,63 +57,6 @@ const HeroLinkTainr = styled(animated.div)`
   padding: 0;
   mix-blend-mode: overlay;
 `
-
-// const ContenTainr = styled.div`
-//   margin: 0;
-//   padding: 0;
-//   display: grid;
-//   grid-template-areas:
-//     ". title ."
-//     ". link ."
-//     ". hint .;
-//   grid-template-columns: auto auto auto;
-//   grid-template-rows: auto auto auto;
-// `
-
-// const ContenTainr = styled.div`
-//   margin: 0;
-//   padding: 0;
-//   display: grid;
-//   height: 100%;
-//   width: 100%;
-//   grid-template-areas:
-//     ". title ."
-//     ". link ."
-//     ". hint .;
-//   grid-template-columns: auto auto auto;
-//   grid-template-rows: auto auto auto;
-// `
-
-// const ContenTainr = styled.div`
-//   margin: 0;
-//   padding: 0;
-// `
-
-// const ContenTainr = styled.div`
-//   position: absolute;
-//   top: 0px;
-//   margin: 0;
-//   padding: 0;
-//   display: grid;
-//   grid-template-areas:
-//     ". . ."
-//     ". title ."
-//     ". link ."
-//     ". hint .";
-//   grid-template-columns: auto minmax(300px, auto) auto;
-//   grid-template-rows: minmax(100px, auto) auto auto auto;
-
-//   width: 100%;
-//   height: 80%;
-
-//   @media ${devices.mobileM} {
-//     grid-template-columns: auto minmax(400px, auto) auto;
-//   }
-
-//   @media ${devices.laptop} {
-//     height: 100%; /* 100% of 100vh image...this feels way wrong TODO rethink... */
-//   }
-// `
 
 const ContenTainr = styled.div`
   margin: 0;
@@ -289,14 +114,6 @@ const Hero = ({
   // })
 
   console.log("%cHero Section rendered!", "color: red")
-
-  // setTimeout(() => {
-  //   console.log('%cHint showing...', 'color: blue')
-  //   setHintProps({
-  //     opacity: 1,
-  //     // transform: `translate3d(0,0px,0)`,
-  //   })
-  // }, 1000)
 
   return (
     <MainTainr style={{ ...containrProps }}>

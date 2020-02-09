@@ -55,51 +55,9 @@ const SwitchTainr = styled(animated.div)`
   flex-direction: row;
 `
 
-// const FormTainr = styled(animated.div)`
-//   width: 100%;
-//   background: green;
-// `
-
 const FormTainr = styled(animated.div)``
 
 const Statement = styled(animated.div)``
-
-// const PageTainr = styled(animated.div)`
-//   height: 100%;
-//   width: 100%;
-//   width: 400px;
-// `
-
-// const PageTainr = styled(animated.div)`
-//   height: 100%;
-//   width: 100%;
-//   padding: 16px 16px 0 16px;
-// `
-
-// const PageTainr = styled(animated.div)`
-//   box-sizing: border-box;
-//   height: 100%;
-//   width: 100%;
-//   width: calc(100% - 32px);
-//   padding: 16px 16px 0 16px;
-// `
-
-// const PageTainr = styled(animated.div)`
-//   height: 100%;
-//   width: 100%;
-//   padding: 5px;
-//   box-sizing: border-box;
-//   background: red;
-// `
-
-// const PageTainr = styled(animated.div)`
-//   height: 100%;
-//   width: 33.33%; /* fallback for old browsers... */
-//   width: calc(100% / 3);
-//   padding: 20px 80px 20px 20px;
-//   background: red;
-//   box-sizing: border-box;
-// `
 
 const PageTainr = styled(animated.div)`
   height: 100%;
@@ -117,12 +75,6 @@ const Containr = styled(animated.div)`
   grid-template-rows: 1fr 2fr 1fr;
 `
 
-// const SubmitterTainr = styled(animated.div)`
-//   grid-area: submit;
-//   display: flex;
-//   width: 300%; /* 3 slider states */
-// `
-
 const SubmitterTainr = styled(animated.div)`
   grid-area: submit;
   display: flex;
@@ -138,24 +90,6 @@ const Link = styled(Link_)`
   padding: 0 0 5px 0;
   font-size: 16px;
 `
-
-// const RescheduleButton = styled(animated.button)`
-//   color: #979797;
-//   font-size: 16px;
-//   font-family open sans;
-//   margin: 0px;
-//   font-weight: 300;
-//   margin: 0 0 8px 0;
-//   padding: 0;
-
-//   background: none;
-//   border: none;
-//   -webkit-appearance: none;
-
-//   &:focus {
-//     outline: 1px solid #979797;
-//   }
-// `
 
 const RescheduleButton = styled(animated.button)`
   color: white;
@@ -483,17 +417,17 @@ export default () => {
     statements.map(({ key }, idx) => ({
       opacity: status === STATUS.SUBMITTING ? 1 : 0,
       // transform: `translate3d(0,${status === STATUS.SUBMITTING ? 0 : -10}px,0)`,
-      delay: 500 + 1000 * idx,
+      delay: 500 + 3000 * idx,
       config: { ...config.molasses, duration: 1000 },
     }))
   )
-
+  // we want this to animate faster...todo maybs look into async chains?
   const statementDriftProps = useSprings(
     statements.length,
     statements.map(({ key }, idx) => ({
       // opacity: status === STATUS.SUBMITTING ? 1 : 0,
       transform: `translate3d(0,${status === STATUS.SUBMITTING ? 0 : -10}px,0)`,
-      delay: 500 + 1000 * idx,
+      delay: 500 + 3000 * idx,
       config: { ...config.molasses, duration: 4000 },
     }))
   )

@@ -6,4 +6,5 @@ export default {
   navBarAnimationDuration: 500,
   depthsGradientZIndex: 5,
   heroCurtainZIndex: 1000,
+  minHeroHeight: 545,
 }
