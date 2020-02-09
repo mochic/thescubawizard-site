@@ -21,60 +21,39 @@ export default ({ children }) => {
     SUBMITTED: "SUBMITTED",
   }
 
-  const submit = async (_phoneNumber, _emailAddress) => {
-    // set to empty string if undefined? could be bad...
-    const phoneNumber = _phoneNumber || ""
-    const emailAddress = _emailAddress || ""
+  const submit = async () => {
+    setScheduling(prevState => {
+      // all fields empty
+      if (prevState.fields.filter(f => !isEmptyString(f.value)).length < 1) {
+        return {
+          ...prevState,
+          status: STATUS.UNSUBMITTED,
+          prevStatus: STATUS.UNSUBMITTED,
+          errors: ["Please enter a phone number or email address."],
+        }
+      }
 
-    // all fields empty
-    if (isEmptyString(phoneNumber) && isEmptyString(emailAddress)) {
-      setScheduling(prevState => ({
+      return {
         ...prevState,
-        status: STATUS.UNSUBMITTED,
-        prevStatus: STATUS.UNSUBMITTED,
-        errors: ["Please enter a phone number or email address."],
-      }))
-    }
+        prevStatus: prevState.status,
+        status: STATUS.SUBMITTING,
+        fields: prevState.fields.map(f => {
+          return {
+            ...f,
+            errors: [f.validator(f.value)],
+          }
+        }),
+      }
+    })
 
-    const emailError = schedulingState.fields[0].validator(emailAddress)
-    const phoneError = schedulingState.fields[1].validator(phoneNumber)
-    // const hasValidField = emailError || phoneError ? true : false
-    const hasValidField =
-      typeof emailError === "undefined" || typeof phoneError === "undefined"
-
-    setScheduling(prevState => ({
-      ...prevState,
-      status: hasValidField ? STATUS.SUBMITTING : STATUS.UNSUBMITTED,
-      prevStatus: hasValidField ? STATUS.SUBMITTING : STATUS.UNSUBMITTED,
-      fields: [
-        // emailAddress
-        {
-          ...prevState.fields[0],
-          value: emailAddress,
-          errors: emailError ? [emailError] : [],
-        },
-        // phoneNumber
-        {
-          ...prevState.fields[1],
-          value: phoneNumber,
-          errors: phoneError ? [phoneError] : [],
-        },
-      ],
-    }))
-
-    // dont continue if no valid fields...
-    if (!hasValidField) {
-      console.log("%cNo valid fields...", "color: #ff00ff", hasValidField)
-      return
-    }
-
-    console.log("Submitting...")
+    // setScheduling(prevState => {
+    //   return
+    // })
     let [submittedToAPI, apiErrored] = await submitToAPI(
-      sanitizeEmail(emailAddress),
+      sanitizeEmail(fieldsemailAddress),
       sanitizePhone(phoneNumber)
     )
-
-    console.log("%capi response:", "color: #ff00ff", submittedToAPI, apiErrored)
+    console.log("api response:", submittedToAPI, apiErrored)
 
     if (apiErrored) {
       setScheduling(prevState => ({
@@ -92,12 +71,16 @@ export default ({ children }) => {
         previousStatus: STATUS.SUBMITTING,
       }))
     }
+    console.log("submitted!")
   }
 
   const resetSubmission = () => {
-    console.log("resetting submission")
-    setScheduling(({ prevStatus }) => ({ ...schedulingState }))
+    setScheduling(({ prevStatus }) => ({ ...schedulingState, prevStatus }))
+    console.log("reset submission")
   }
+
+  // const fieldSetterFactory = id => (() => {})
+  // const fieldValidateFactory = id => (() => {})
 
   const schedulingState = {
     STATUS,
@@ -115,7 +98,7 @@ export default ({ children }) => {
           setScheduling(prevState => ({
             ...prevState,
             fields: prevState.fields.map(f =>
-              f.id === `email` ? { ...f, value: f.formatter(v, f.value) } : f
+              f.id === `email` ? { ...f, value: v.formatter(v, f.value) } : f
             ),
           }))
         },
@@ -139,7 +122,7 @@ export default ({ children }) => {
           setScheduling(prevState => ({
             ...prevState,
             fields: prevState.fields.map(f =>
-              f.id === `phone` ? { ...f, value: f.formatter(v, f.value) } : f
+              f.id === `phone` ? { ...f, value: v.formatter(v, f.value) } : f
             ),
           }))
         },

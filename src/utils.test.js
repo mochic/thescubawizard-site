@@ -175,3 +175,9 @@ describe("phoneFormatter", () => {
     expect(phoneFormatter("(808) 2235", "(808) 223")).toEqual("(808) 223-5")
   })
 })
+
+describe("isValidPhone", () => {
+  it(`validates phone #0`, () => {
+    expect(isValidPhone("(808) 223-5545")).toBe(true)
+  })
+})

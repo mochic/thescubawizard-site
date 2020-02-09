@@ -53,8 +53,8 @@ export const isEmptyString = str => {
 // }
 
 export const isValidPhone = phoneNumber => {
-  const parsedPhoneNumber = parsePhoneNumberFromString(phoneNumber)
-
+  const parsedPhoneNumber = parsePhoneNumberFromString(phoneNumber, "US")
+  console.log("%cparsed number: ", "color: green", parsedPhoneNumber)
   return parsedPhoneNumber ? parsedPhoneNumber.isValid() : false
 }
 
@@ -189,5 +189,7 @@ export const sanitizeEmail = emailAddress => {
 }
 
 export const sanitizePhone = phoneNumber => {
-  return parsePhoneNumberFromString(phoneNumber).number
+  // maybs this logic is wrong...TODO rethink this...
+  const parsedPhoneNumber = parsePhoneNumberFromString(phoneNumber, "US")
+  return parsedPhoneNumber ? parsedPhoneNumber.number : ""
 }

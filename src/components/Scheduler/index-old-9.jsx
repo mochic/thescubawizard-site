@@ -500,20 +500,8 @@ export default () => {
   const statementProps = useSprings(
     statements.length,
     statements.map(({ key }, idx) => ({
-      opacity: status === STATUS.SUBMITTING ? 1 : 0,
-      // transform: `translate3d(0,${status === STATUS.SUBMITTING ? 0 : -10}px,0)`,
-      delay: 500 + 1000 * idx,
-      // config: { ...config.molasses, duration: 10000 },
-    }))
-  )
-
-  const statementDriftProps = useSprings(
-    statements.length,
-    statements.map(({ key }, idx) => ({
-      // opacity: status === STATUS.SUBMITTING ? 1 : 0,
-      transform: `translate3d(0,${status === STATUS.SUBMITTING ? 0 : -10}px,0)`,
-      delay: 500 + 1000 * idx,
-      config: { ...config.molasses, duration: 4000 },
+      opacity: 0,
+      transform: `translate3d(0,0px,0)`,
     }))
   )
 
@@ -536,26 +524,20 @@ export default () => {
           </FormTainr>
         </PageTainr>
         <PageTainr className="page-tainr-1" style={{ ...page1Props }}>
-          {statements.map(({ key, value }, idx) => {
-            return (
-              <Statement
-                key={key}
-                style={{
-                  ...statementProps[idx],
-                  ...statementDriftProps[idx],
-                  maxWidth: `480px`,
-                  margin: `auto`,
-                }}
-              >
-                <P>{value}</P>
-              </Statement>
-            )
-          })}
+          <Statement style={{ maxWidth: `480px`, margin: `auto` }}>
+            <P>Signalling hq...</P>
+          </Statement>
+          <Statement>
+            <P>Sending a bat signal to hq...</P>
+          </Statement>
+          <Statement>
+            <P>Resorting to arcane sorcery...</P>
+          </Statement>
         </PageTainr>
         <PageTainr className="page-tainr-2" style={{ ...page2Props }}>
           <Statement style={{ maxWidth: `480px`, margin: `auto` }}>
             <P>
-              Great! We'll try to contact you within the next two business days.
+              Great! We'll try to contact you in the next two business days.
             </P>
           </Statement>
           {/* <ScheduledTainr>

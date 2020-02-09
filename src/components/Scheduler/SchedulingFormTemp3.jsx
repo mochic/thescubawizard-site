@@ -17,12 +17,7 @@ import ScheduleArrow from "./ScheduleArrow"
 
 import SchedulingContext from "../../contexts/scheduling.context"
 
-import {
-  validateEmail,
-  validatePhone,
-  phoneFormatter,
-  emailFormatter,
-} from "../../utils"
+import { validateEmail, validatePhone, phoneFormatter } from "../../utils"
 
 const Form = styled(animated.form)`
   grid-area: form;
@@ -34,59 +29,63 @@ const Form = styled(animated.form)`
 `
 
 export default () => {
-  const {
+  const { submit, isSubmitting, submitted } = useContext(SchedulingContext)
+
+  console.log("%cscheduling form render", "color: red", {
     submit,
-    fields: [emailAddress, phoneNumber],
-    status,
-    STATUS,
-  } = useContext(SchedulingContext)
+    isSubmitting,
+    submitted,
+  })
 
-  // const phoneInputRef = useRef()
-  // const emailInputRef = useRef()
+  const [values, setValues] = useState({
+    emailAddress: ``,
+    phoneNumber: ``,
+  })
 
-  // const [values, setValues] = useState({
-  //   emailAddress: ``,
-  //   phoneNumber: ``,
-  // })
-
-  // const [errors, setErrors] = useState({
-  //   emailAddress: ``,
-  //   phoneNumber: ``,
-  // })
+  const [errors, setErrors] = useState({
+    emailAddress: ``,
+    phoneNumber: ``,
+  })
 
   const handleEmailBlur = e => {
-    console.log("%cEmail blur", "color: orange")
-    emailAddress.validate()
+    setErrors({ ...errors, emailAddress: validateEmail(values.emailAddress) })
+    console.log("%cEmail blur handled.", "color: orange", { values, errors })
   }
 
   const handleEmailChange = e => {
-    console.log("%cEmail change", "color: orange")
-    emailAddress.setValue(e.target.value)
+    setValues({
+      ...values,
+      emailAddress: e.target.value,
+    })
+    console.log("%cEmail change handled.", "color: orange", { values })
   }
 
   const handlePhoneBlur = e => {
-    console.log("%cPhone blur handled.", "color: orange")
-    phoneNumber.validate()
+    setErrors({ ...errors, phoneNumber: validatePhone(values.phoneNumber) })
+    console.log("%cPhone blur handled.", "color: orange", { values, errors })
   }
 
   const handlePhoneChange = e => {
-    console.log("%cPhone change handled.", "color: orange")
-    phoneNumber.setValue(e.target.value)
+    setValues({
+      ...values,
+      phoneNumber: phoneFormatter(e.target.value, values.phoneNumber),
+    })
+    console.log("%cPhone change handled.", "color: orange", { values })
   }
 
   const handleSubmit = async e => {
     console.log("%csubmitting...", "color: green")
     e.preventDefault()
     // dont submit again if we're already submitting
-    if (status === STATUS.SUBMITTING) {
+    if (isSubmitting) {
       console.log("%calready submitting...", "color: red")
       return
     }
 
     try {
-      // this is actually fine...
-      await submit(phoneNumber.value, emailAddress.value)
+      await submit(values.emailAddress, values.phoneNumber)
       console.log(`%capi success`, `color: teal`)
+      setValues({ emailAddress: ``, phoneNumber: `` }) // reset form
     } catch (err) {
       console.log(`%capi error`, `color: red`, err)
     }
@@ -95,27 +94,25 @@ export default () => {
   return (
     <Form id="scheduling-form" onSubmit={handleSubmit} noValidate>
       <FancyInput
-        // ref={phoneInputRef}
         type="tel"
         autoComplete="tel"
         placeholder="Phone number"
-        value={phoneNumber.value}
-        error={phoneNumber.errors[0]}
+        value={values.phoneNumber}
+        error={errors.phoneNumber}
         onBlur={handlePhoneBlur}
         onChange={handlePhoneChange}
-        disabled={status === STATUS.SUBMITTING}
+        disabled={isSubmitting}
         tainrStyle={{ width: `100%`, maxWidth: `480px` }}
       />
       <FancyInput
-        // ref={emailInputRef}
         type="email"
         autoComplete="email"
         placeholder="Email address"
-        value={emailAddress.value}
-        error={emailAddress.errors[0]}
+        value={values.emailAddress}
+        error={errors.emailAddress}
         onBlur={handleEmailBlur}
         onChange={handleEmailChange}
-        disabled={status === STATUS.SUBMITTING}
+        disabled={isSubmitting}
         tainrStyle={{ width: `100%`, maxWidth: `480px` }}
       />
     </Form>

@@ -21,32 +21,25 @@ export default ({ children }) => {
     SUBMITTED: "SUBMITTED",
   }
 
-  const submit = async (_phoneNumber, _emailAddress) => {
-    // set to empty string if undefined? could be bad...
-    const phoneNumber = _phoneNumber || ""
-    const emailAddress = _emailAddress || ""
-
-    // all fields empty
-    if (isEmptyString(phoneNumber) && isEmptyString(emailAddress)) {
-      setScheduling(prevState => ({
-        ...prevState,
-        status: STATUS.UNSUBMITTED,
-        prevStatus: STATUS.UNSUBMITTED,
-        errors: ["Please enter a phone number or email address."],
-      }))
-    }
-
+  const submit = async (phoneNumber, emailAddress) => {
     const emailError = schedulingState.fields[0].validator(emailAddress)
     const phoneError = schedulingState.fields[1].validator(phoneNumber)
-    // const hasValidField = emailError || phoneError ? true : false
-    const hasValidField =
-      typeof emailError === "undefined" || typeof phoneError === "undefined"
 
-    setScheduling(prevState => ({
-      ...prevState,
-      status: hasValidField ? STATUS.SUBMITTING : STATUS.UNSUBMITTED,
-      prevStatus: hasValidField ? STATUS.SUBMITTING : STATUS.UNSUBMITTED,
-      fields: [
+    setScheduling(prevState => {
+      // all fields empty
+      if (isEmptyString(phoneNumber) && isEmptyString(emailAddress)) {
+        return {
+          ...prevState,
+          status: STATUS.UNSUBMITTED,
+          prevStatus: STATUS.UNSUBMITTED,
+          errors: ["Please enter a phone number or email address."],
+        }
+      }
+
+      // for
+      const emailError = prevState.fields[0].validator(emailAddress)
+      const phoneError = prevState.fields[1].validator(phoneNumber)
+      const validatedFields = [
         // emailAddress
         {
           ...prevState.fields[0],
@@ -59,12 +52,26 @@ export default ({ children }) => {
           value: phoneNumber,
           errors: phoneError ? [phoneError] : [],
         },
-      ],
-    }))
+      ]
+
+      fieldsValid = validatedFields.map(f => f.errors.length < 1).includes(true)
+      console.log("fields valid: ", prevState, fieldsValid)
+      return {
+        ...prevState,
+        status: fieldsValid ? STATUS.SUBMITTING : STATUS.UNSUBMITTED,
+        prevStatus: fieldsValid ? STATUS.SUBMITTING : STATUS.UNSUBMITTED,
+        fields: validatedFields,
+      }
+    })
 
     // dont continue if no valid fields...
-    if (!hasValidField) {
-      console.log("%cNo valid fields...", "color: #ff00ff", hasValidField)
+    if (!fieldsValid) {
+      console.log(
+        "%cNo valid fields...",
+        "color: #ff00ff",
+        fieldsValid,
+        scheduling
+      )
       return
     }
 
@@ -94,10 +101,18 @@ export default ({ children }) => {
     }
   }
 
+  // const resetSubmission = () => {
+  //   console.log("resetting submission")
+  //   setScheduling(({ prevStatus }) => ({ ...schedulingState, prevStatus }))
+  // }
+
   const resetSubmission = () => {
     console.log("resetting submission")
     setScheduling(({ prevStatus }) => ({ ...schedulingState }))
   }
+
+  // const fieldSetterFactory = id => (() => {})
+  // const fieldValidateFactory = id => (() => {})
 
   const schedulingState = {
     STATUS,
