@@ -29,18 +29,10 @@ import AboutImage from "../components/AboutImage"
 import ServicesImage from "../components/ServicesImage"
 import { ASection, AHr, AH3, AH2, ADiv, AP } from "../components/Shared"
 
-// const ADiv = styled(animated.div)``
-
 const MainTainr = styled(animated.div)`
   position: relative;
   background: #191f1d;
-  z-index: -1;
 `
-
-// const MainTainr = styled(animated.div)`
-//   position: relative;
-//   background: #191f1d;
-// `
 
 // intelligently scale with js :/
 // show header and extra stuff if in tablet/desktop view!
