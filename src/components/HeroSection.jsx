@@ -335,6 +335,7 @@ const Hero = ({
             buttonStyle={{
               transform: linkProps.arrowTransform,
               opacity: linkProps.arrowOpacity,
+              padding: "10px 0 10px 10px",
             }}
             arrowProps={{
               style: {},

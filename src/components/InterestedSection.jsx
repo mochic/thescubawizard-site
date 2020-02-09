@@ -186,13 +186,12 @@ export default ({ linkProps, headerProps, statementProps }) => {
               fontWeight: 300,
               // ...linkProps.textStyle,
             }}
-            buttonStyle={
-              {
-                // opacity: _linkProps.arrowOpacity,
-                // transform: _linkProps.arrowTransform,
-                // ...linkProps.buttonStyle,
-              }
-            }
+            buttonStyle={{
+              padding: "10px 0 10px 10px",
+              // opacity: _linkProps.arrowOpacity,
+              // transform: _linkProps.arrowTransform,
+              // ...linkProps.buttonStyle,
+            }}
             // containrProps={{ ...linkProps.containrProps }}
           >
             Get started today!
