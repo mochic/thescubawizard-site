@@ -6,7 +6,7 @@ Mobile first dive website built with [gatsbyjs](https://github.com/gatsbyjs/gats
 
 via env vars, .env, etc...
 
-- GATSBY_ACTIVE_ENV = integration
+- GATSBY_ACTIVE_ENV = production
 - GATSBY_CONTACT_INFO_ENDPOINT = the contact info post endpoint
 
 ## notes

@@ -9,13 +9,14 @@ if (!postEndpoint) {
 export default async (emailAddress, phoneNumber) => {
   let response
   try {
+    console.info("%cposting to contact info endpoint...", "color: #34ebb1")
     response = await axios.post(postEndpoint, {
       phoneNumber,
       emailAddress,
     })
-    console.info("%capi success", "color: #34ebb1", response)
+    console.info("%capi success", "color: #34ebb1", response.data)
   } catch (err) {
-    console.warning("%capi error", "color: #eb4334", err)
+    console.warn("%capi error", "color: #eb4334", err)
     return [{}, true]
   }
 

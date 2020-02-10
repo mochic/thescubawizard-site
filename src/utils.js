@@ -54,7 +54,6 @@ export const isEmptyString = str => {
 
 export const isValidPhone = phoneNumber => {
   const parsedPhoneNumber = parsePhoneNumberFromString(phoneNumber, "US")
-  console.log("%cparsed number: ", "color: green", parsedPhoneNumber)
   return parsedPhoneNumber ? parsedPhoneNumber.isValid() : false
 }
 
@@ -180,7 +179,6 @@ export const phoneFormatter = (current, previous) => {
   }
 
   const phoneNumber = new AsYouType("US").input(current)
-  console.log({ phoneNumber, current })
   return phoneNumber ? phoneNumber : current
 }
 
