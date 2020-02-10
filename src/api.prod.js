@@ -13,9 +13,9 @@ export default async (emailAddress, phoneNumber) => {
       phoneNumber,
       emailAddress,
     })
-    console.log("%capi success", "color: teal", response)
+    console.info("%capi success", "color: #34ebb1", response)
   } catch (err) {
-    console.log("%capi error", "color: red", err)
+    console.warning("%capi error", "color: #eb4334", err)
     return [{}, true]
   }
 
