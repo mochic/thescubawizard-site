@@ -13,10 +13,11 @@ export default async (emailAddress, phoneNumber) => {
     response = await axios.post(postEndpoint, {
       phoneNumber,
       emailAddress,
+      projectId: `thescubawizard-site`,
     })
     console.info("%capi success", "color: #34ebb1", response.data)
   } catch (err) {
-    console.warn("%capi error", "color: #eb4334", err)
+    console.warn("%capi error", "color: #eb4334", err.body)
     return [{}, true]
   }
 
