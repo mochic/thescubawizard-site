@@ -11,7 +11,7 @@ import {
   config,
 } from "react-spring"
 
-import { AH3, AP, ADiv, ASection } from "./Shared"
+import { AH3, AP, ADiv, ASection, ImageTainr } from "./Shared"
 
 import VisibilitySensor from "react-visibility-sensor"
 
@@ -33,13 +33,17 @@ const InterestedH3 = styled(animated.h3)`
 //   color: white;
 // `
 
-const ImageTainr = styled(animated.div)`
-  position: absolute;
-  top: 0;
-  left: 0;
+// const ImageTainr = styled(animated.div)`
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   z-index: -1;
+//   overflow: hidden;
+//   width: 100%;
+// `
+
+const InterestedImageTainr = styled(ImageTainr)`
   z-index: -1;
-  overflow: hidden;
-  width: 100%;
 `
 
 // const Gradient = styled(animated.div)`
@@ -198,9 +202,9 @@ export default ({ linkProps, headerProps, statementProps }) => {
           </FancyLink>
         </div>
       </ContentTainr>
-      <ImageTainr>
+      <InterestedImageTainr>
         <Image />
-      </ImageTainr>
+      </InterestedImageTainr>
     </SectionTainr>
   )
 }

@@ -120,16 +120,6 @@ const WeirdLiLabel = styled(animated.p)`
   top: -24px;
 `
 
-// const WeirdLi = styled(animated.li)`
-//   font-family: open sans;
-//   font-size: 16px;
-//   font-weight: normal;
-//   color: white;
-//   position: relative;
-//   margin: 0 0 50px 0;
-//   float: left;
-// `
-
 const WeirdLi = styled(animated.span)`
   font-family: open sans;
   font-size: 16px;
@@ -142,25 +132,6 @@ const WeirdLi = styled(animated.span)`
     margin: 10px;
   }
 `
-
-// const WeirdUl = styled(animated.ul)`
-//   list-style-type: none;
-//   align-self: flex-start;
-//   padding: 0;
-//   margin: 16px 0 0 20px;
-// `
-
-// const WeirdUl = styled(animated.ul)`
-//   list-style-type: none;
-//   padding: 0;
-//   margin: 16px 0 0 20px;
-// `
-
-// const WeirdUl = styled(animated.div)`
-//   list-style-type: none;
-//   padding: 0;
-//   margin: 16px 0 0 20px;
-// `
 
 const WeirdTainr = styled(animated.div)`
   padding: 0;

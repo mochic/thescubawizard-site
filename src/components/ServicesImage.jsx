@@ -55,12 +55,37 @@ import devices from "../devices"
 // `
 
 // it's actually important for us to use images that are wider than tall...for our weird scaling issues design stuffs...
-const Image = () => (
+// const Image = () => (
+//   <StaticQuery
+//     query={graphql`
+//       query {
+//         placeholderImage: file(
+//           relativePath: { eq: "hires_110629-N-XD935-139-7.png" }
+//         ) {
+//           childImageSharp {
+//             fluid(grayscale: true) {
+//               ...GatsbyImageSharpFluid
+//             }
+//           }
+//         }
+//       }
+//     `}
+//     render={data => (
+//       <Img
+//         imgStyle={{ objectPosition: "50% 50%" }}
+//         style={{ minWidth: `450px`, height: `100%`, width: `100%` }}
+//         fluid={data.placeholderImage.childImageSharp.fluid}
+//       />
+//     )}
+//   />
+// )
+
+const Image = ({ imgStyle, style }) => (
   <StaticQuery
     query={graphql`
       query {
         placeholderImage: file(
-          relativePath: { eq: "hires_110629-N-XD935-139-4.png" }
+          relativePath: { eq: "hires_110629-N-XD935-139-10.png" }
         ) {
           childImageSharp {
             fluid(grayscale: true) {
@@ -72,8 +97,8 @@ const Image = () => (
     `}
     render={data => (
       <Img
-        imgStyle={{ objectPosition: "50% 50%" }}
-        style={{ minWidth: `450px`, height: `100%`, width: `100%` }}
+        imgStyle={{ ...imgStyle }}
+        style={{ ...style }}
         fluid={data.placeholderImage.childImageSharp.fluid}
       />
     )}

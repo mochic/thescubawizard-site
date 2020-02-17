@@ -28,7 +28,15 @@ import VisibilitySensor from "react-visibility-sensor"
 
 import AboutImage from "../components/AboutImage"
 import ServicesImage from "../components/ServicesImage"
-import { ASection, AHr, AH3, AH2, ADiv, AP } from "../components/Shared"
+import {
+  ASection,
+  AHr,
+  AH3,
+  AH2,
+  ADiv,
+  AP,
+  ImageTainr,
+} from "../components/Shared"
 
 // smoothscroll.polyfill()
 
@@ -48,14 +56,36 @@ const MainTainr = styled(animated.div)`
 // `
 
 // for media queries?
-const AboutImageTainr = styled(ADiv)`
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  mix-blend-mode: overlay;
+// const AboutImageTainr = styled(ADiv)`
+//   position: absolute;
+//   top: 0px;
+//   left: 0px;
+//   width: 100%;
+//   height: 100%;
+//   overflow: hidden;
+//   mix-blend-mode: overlay;
+// `
+
+// media queries
+const AboutImageTainr = styled(ImageTainr)``
+
+// const ServicesImageTainr = styled(ImageTainr)`
+//   min-width: 320px;
+//   max-width: 600px;
+//   max-height: 700px;
+//   margin: 140px 0 0 0;
+// `
+
+// const ServicesImageTainr = styled(ImageTainr)`
+//   height: 100%;
+//   width: 100%;
+//   min-width: 320px;
+//   max-height: 700px;
+//   margin: 140px 0 0 0;
+// `
+
+const ServicesImageTainr = styled(ImageTainr)`
+  margin: 140px 0 0 0;
 `
 
 const AboutSection = styled(ASection)`
@@ -86,18 +116,28 @@ const AboutSection = styled(ASection)`
 // `
 
 // mixblendmode lighten filter opacity(0.5) top 0px right 0px
-const ServicesImageTainr = styled(animated.div)`
-  min-width: 320px;
-  max-width: 1500px;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  z-index: -1;
-  mix-blend-mode: lighten;
-  filter: opacity(0.5);
-`
+// const ServicesImageTainr = styled(animated.div)`
+//   min-width: 320px;
+//   max-width: 1500px;
+//   width: 100%;
+//   height: 100%;
+//   position: absolute;
+//   top: 0px;
+//   right: 0px;
+//   z-index: -1;
+//   mix-blend-mode: lighten;
+//   filter: opacity(0.5);
+// `
+
+// const ServicesImageTainr = styled(animated.div)`
+//   min-width: 320px;
+//   max-width: 1500px;
+//   width: 100%;
+//   height: 100%;
+//   position: absolute;
+//   top: 0px;
+//   right: 0px;
+// `
 
 const InterestedImageTainr = styled(animated.div)``
 
@@ -119,6 +159,7 @@ const ServicesSection = styled(ASection)`
   display: grid;
   position: relative; /* very important for absolute positioned image */
   height: 900px;
+  padding: 100px 0 0 0;
   grid-template-areas:
     ". . . "
     ". content ."
@@ -762,7 +803,7 @@ export default () => {
               schedule.
             </AP>
           </ContenTainr>
-          <AboutImageTainr style={{ opacity: aboutProps.imageOpacity }}>
+          <AboutImageTainr>
             <AboutImage />
           </AboutImageTainr>
         </AboutSection>
@@ -819,7 +860,17 @@ export default () => {
             </ADiv>
           </ContenTainr>
           <ServicesImageTainr>
-            <ServicesImage />
+            <ServicesImage
+              imgStyle={{ objectFit: `cover`, objectPosition: "50% 50%" }}
+              style={{
+                opacity: aboutProps.imageOpacity,
+                margin: `auto 50px auto auto`,
+                minWidth: `600px`,
+                width: `100%`,
+                height: `100%`,
+                maxHeight: `700px`,
+              }}
+            />
           </ServicesImageTainr>
         </ServicesSection>
       </VisibilitySensor>

@@ -223,3 +223,13 @@ export const AP = styled(animated.p)`
   font-weight: 300;
   color: white;
 `
+
+export const ImageTainr = styled(animated.div)`
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  mix-blend-mode: overlay;
+`
