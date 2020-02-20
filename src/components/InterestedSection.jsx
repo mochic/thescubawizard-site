@@ -12,6 +12,7 @@ import {
 } from "react-spring"
 
 import { AH3, AP, ADiv, ASection, ImageTainr } from "./Shared"
+// import Image from "./Image"
 
 import VisibilitySensor from "react-visibility-sensor"
 
@@ -80,6 +81,7 @@ const SectionTainr = styled(ASection)`
   z-index: 0;
   overflow: visible;
   display: grid;
+  background: #191f1d;
 `
 
 const ContentTainr = styled(animated.div)`
@@ -88,12 +90,36 @@ const ContentTainr = styled(animated.div)`
   width: 260px;
 `
 
-const Image = () => (
+// const Image = () => (
+//   <StaticQuery
+//     query={graphql`
+//       query {
+//         placeholderImage: file(
+//           relativePath: { eq: "deep-diving-deep-diving-gear-diver-54306-5.png" }
+//         ) {
+//           childImageSharp {
+//             fluid(grayscale: true) {
+//               ...GatsbyImageSharpFluid
+//             }
+//           }
+//         }
+//       }
+//     `}
+//     render={data => (
+//       <Img
+//         style={{ minHeight: `1000px` }}
+//         fluid={data.placeholderImage.childImageSharp.fluid}
+//       />
+//     )}
+//   />
+// )
+
+const Image = ({ query, imgStyle, style }) => (
   <StaticQuery
     query={graphql`
       query {
         placeholderImage: file(
-          relativePath: { eq: "deep-diving-deep-diving-gear-diver-54306-2.png" }
+          relativePath: { eq: "deep-diving-deep-diving-gear-diver-54306-5.png" }
         ) {
           childImageSharp {
             fluid(grayscale: true) {
@@ -103,12 +129,23 @@ const Image = () => (
         }
       }
     `}
-    render={data => (
-      <Img
-        style={{ minHeight: `1000px` }}
-        fluid={data.placeholderImage.childImageSharp.fluid}
-      />
-    )}
+    render={data => {
+      return (
+        <Img
+          imgStyle={{
+            objectFit: "cover",
+            objectPosition: "50% 50%",
+            ...imgStyle,
+          }}
+          style={{
+            overflow: `hidden`,
+            position: `relative`,
+            ...style,
+          }}
+          fluid={data.placeholderImage.childImageSharp.fluid}
+        />
+      )
+    }}
   />
 )
 
@@ -203,7 +240,15 @@ export default ({ linkProps, headerProps, statementProps }) => {
         </div>
       </ContentTainr>
       <InterestedImageTainr>
-        <Image />
+        <Image
+          imageStyle={{}}
+          style={{
+            minHeight: `1000px`,
+            maxHeight: `1000px`,
+            maxWidth: `700px`,
+            padding: `auto 50px auto auto`,
+          }}
+        />
       </InterestedImageTainr>
     </SectionTainr>
   )

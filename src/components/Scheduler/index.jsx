@@ -75,10 +75,34 @@ const Containr = styled(animated.div)`
   grid-template-rows: 1fr 2fr 1fr;
 `
 
+// const Containr = styled(animated.div)`
+//   display: grid;
+//   grid-template-areas:
+//     "statement"
+//     "switch"
+//     "submit";
+//   grid-template-rows: 1fr 2fr 1fr;
+//   height: 100vh;
+//   height: -moz-available;
+//   height: -webkit-fill-available;
+//   height: fill-available;
+// `
+
+// const Containr = styled(animated.div)`
+//   display: grid;
+//   grid-template-areas:
+//     "statement"
+//     "switch"
+//     "submit";
+//   grid-template-rows: 1fr 2fr 1fr;
+//   height: 100vh;
+// `
+
 const SubmitterTainr = styled(animated.div)`
   grid-area: submit;
   display: flex;
   /* not even width 100% is necessary... */
+  padding: 0 0 10vh 0;
 `
 
 const Link = styled(Link_)`

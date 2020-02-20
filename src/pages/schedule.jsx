@@ -34,92 +34,105 @@ import TitleSVG from "../components/TitleSVG"
 import NavBar from "../components/NavBar"
 import Footer from "../components/Footer"
 
-const ADiv = styled(animated.div)``
+import { ImageTainr } from "../components/Shared"
 
-const HomeLink = styled(Link)`
-  color: #ffe9c9;
-  font-family: inconsolata;
-  font-weight: 900;
-  text-decoration: none;
+// const ADiv = styled(animated.div)``
 
-  &:focus {
-    color: #ffeed6;
-  }
-`
+// const HomeLink = styled(Link)`
+//   color: #ffe9c9;
+//   font-family: inconsolata;
+//   font-weight: 900;
+//   text-decoration: none;
 
-const TitleTainr = styled(animated.div)`
-  z-index: 1000;
-  width: 100%;
-  text-align: center;
-  padding: 0;
-  margin: 0;
-  position: absolute;
-  top: 50%;
-`
+//   &:focus {
+//     color: #ffeed6;
+//   }
+// `
 
-const H2 = styled(animated.h2)`
-  font-family: gilda display;
-  grid-area: heading;
-  color: #506a61;
-  font-size: 450%;
-  margin: 0;
-  padding: 0;
-`
+// const TitleTainr = styled(animated.div)`
+//   z-index: 1000;
+//   width: 100%;
+//   text-align: center;
+//   padding: 0;
+//   margin: 0;
+//   position: absolute;
+//   top: 50%;
+// `
 
-const P = styled(animated.p)`
-  font-family: open sans;
-  color: #cecece;
-  margin: 0;
-  border: 0;
-  margin-bottom: 5%;
-  font-size: 22px;
-  line-height: 110.3%;
-  font-weight: 300;
-`
+// const H2 = styled(animated.h2)`
+//   font-family: gilda display;
+//   grid-area: heading;
+//   color: #506a61;
+//   font-size: 450%;
+//   margin: 0;
+//   padding: 0;
+// `
 
-const StatementTainr = styled(animated.div)`
-  grid-area: statement;
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  max-width: 60%;
-  min-width: 250px;
-  width: 250px;
+// const P = styled(animated.p)`
+//   font-family: open sans;
+//   color: #cecece;
+//   margin: 0;
+//   border: 0;
+//   margin-bottom: 5%;
+//   font-size: 22px;
+//   line-height: 110.3%;
+//   font-weight: 300;
+// `
 
-  margin-top: 60px;
+// const StatementTainr = styled(animated.div)`
+//   grid-area: statement;
+//   display: flex;
+//   flex-direction: column;
+//   align-content: center;
+//   max-width: 60%;
+//   min-width: 250px;
+//   width: 250px;
 
-  @media ${devices.laptop} {
-    flex-direction: row;
-  }
-`
+//   margin-top: 60px;
 
-const Statement = styled(animated.div)`
-  position: absolute;
-  display: flex;
-`
+//   @media ${devices.laptop} {
+//     flex-direction: row;
+//   }
+// `
+
+// const Statement = styled(animated.div)`
+//   position: absolute;
+//   display: flex;
+// `
 
 const SchedulerTainr = styled(animated.div)`
   grid-area: form;
+  z-index: 1;
 `
 
 const Containr = styled(animated.div)`
   width: 100%;
   height: 100%;
-  position: relative;
   overflow: hidden;
+  background: #191f1d;
+  position: relative;
 `
 
-const ImageTainr = styled(animated.div)`
-  position: absolute;
-  top: 0px;
-  left: -146px;
+// const ScheduleImageTainr = styled(ImageTainr)`
+//   height: 100%;
+//   width: 100%;
+//   min-width: 1180px;
+//   min-height: 624px;
+//   left: -100px;
+//   z-index: 0;
+//   pointer-events: none;
+//   bottom: 0px;
+// `
+
+const ScheduleImageTainr = styled(ImageTainr)`
   height: 100%;
   width: 100%;
-  z-index: -2;
-
-  @media ${devices.tablet} {
-    left: 0px;
-  }
+  min-width: 1180px;
+  min-height: 642px;
+  left: -100px;
+  z-index: 0;
+  pointer-events: none;
+  bottom: 0px;
 `
 
 const Drift = keyframes`
@@ -132,49 +145,49 @@ const Drift = keyframes`
     }
 `
 
-const AH3 = styled(animated.h3)`
-  font-family: playfair display;
-  font-weight: bold;
-  font-size: 72px;
-  line-height: 164.3%;
-  z-index: -1;
-  position: absolute;
-  top: 0px;
-  right: -140px;
-  color: #ffe9c9;
-  animation: ${Drift} 55s ease-out;
-  animation-fill-mode: forwards;
-`
+// const AH3 = styled(animated.h3)`
+//   font-family: playfair display;
+//   font-weight: bold;
+//   font-size: 72px;
+//   line-height: 164.3%;
+//   z-index: -1;
+//   position: absolute;
+//   top: 0px;
+//   right: -140px;
+//   color: #ffe9c9;
+//   animation: ${Drift} 55s ease-out;
+//   animation-fill-mode: forwards;
+// `
 
-const AH2 = styled(animated.h2)`
-  font-family: playfair display;
-  font-weight: bold;
-  font-size: 200px;
-  margin: 0;
-  padding: 0;
-  color: rgba(255, 255, 255, 0.5);
-  mix-blend-mode: overlay;
-  width: 100%;
-  word-break: break-all;
+// const AH2 = styled(animated.h2)`
+//   font-family: playfair display;
+//   font-weight: bold;
+//   font-size: 200px;
+//   margin: 0;
+//   padding: 0;
+//   color: rgba(255, 255, 255, 0.5);
+//   mix-blend-mode: overlay;
+//   width: 100%;
+//   word-break: break-all;
 
-  position: absolute;
-  top: 0px;
-  right: -140px;
+//   position: absolute;
+//   top: 0px;
+//   right: -140px;
 
-  text-align: right;
+//   text-align: right;
 
-  z-index: -1;
-  animation: ${Drift} 55s ease-out;
-  animation-fill-mode: forwards;
+//   z-index: -1;
+//   animation: ${Drift} 55s ease-out;
+//   animation-fill-mode: forwards;
 
-  @media ${devices.tablet} {
-    width: none;
-  }
+//   @media ${devices.tablet} {
+//     width: none;
+//   }
 
-  @media ${devices.laptop} {
-    font-size: 260px;
-  }
-`
+//   @media ${devices.laptop} {
+//     font-size: 260px;
+//   }
+// `
 
 export default () => {
   /* simple state for now...fix later
@@ -268,35 +281,32 @@ export default () => {
         >
           <Scheduler />
         </SchedulerTainr>
-        <ImageTainr style={{ ...imageProps }}>
+        <ScheduleImageTainr style={{ ...imageProps }}>
           <Image
             // containrProps={{ style: { maxHeight: `800px`, maxWidth: `1180px` } }}
-            gradientProps={{
-              style: {
-                // height: `100%`,
-                // width: `100%`
-                // maxHeight: `800px`,
-                // maxWidth: `1180px`,
-                //   background: `linear-gradient(254.29deg, rgba(46, 144, 111, 0.3) ${gradientProps.lg0percent.interpolate(
-                //     v => v
-                //   )}%, #191f1d 75.64%)`,
-              },
-              ...gradientProps,
+            // gradientProps={{
+            //   style: {
+            //     // height: `100%`,
+            //     // width: `100%`
+            //     // maxHeight: `800px`,
+            //     // maxWidth: `1180px`,
+            //     //   background: `linear-gradient(254.29deg, rgba(46, 144, 111, 0.3) ${gradientProps.lg0percent.interpolate(
+            //     //     v => v
+            //     //   )}%, #191f1d 75.64%)`,
+            //   },
+            //   ...gradientProps,
+            // }}
+            style={{
+              height: `100%`,
+              width: `100%`,
+              // minHeight: `800px`,
+              // minWidth: `1180px`,
+              // maxHeight: `100%`,
+              // mixBlendMode: `overlay`,
+              // opacity: 0.2,
             }}
-          >
-            {/* <AH3 style={headerProps}>schedule</AH3> */}
-            <AH2
-              style={{
-                color: `#fee8c8`,
-                // opacity: 0.2,  its a headerProp controlled via spring
-                mixBlendMode: `color`,
-                ...headerProps,
-              }}
-            >
-              schedule
-            </AH2>
-          </Image>
-        </ImageTainr>
+          />
+        </ScheduleImageTainr>
       </Containr>
     </>
   )

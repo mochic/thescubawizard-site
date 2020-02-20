@@ -7,12 +7,12 @@ import Hero from "../components/HeroSection"
 
 import debounce from "lodash/debounce"
 
-import About from "../components/AboutSection"
+// import About from "../components/AboutSection"
 
-import Services from "../components/ServicesSectionOld"
+// import Services from "../components/ServicesSectionOld"
 
 import Interested from "../components/InterestedSection"
-import InterestedOld from "../components/InterestedSectionTemp1"
+// import InterestedOld from "../components/InterestedSectionTemp1"
 
 import Footer from "../components/Footer"
 
@@ -164,6 +164,7 @@ const ServicesSection = styled(ASection)`
     ". . . "
     ". content ."
     ". . .";
+  background: red;
   grid-template-rows: auto auto auto;
   grid-template-columns: auto 250px auto;
   @media ${devices.laptop} {
@@ -172,21 +173,21 @@ const ServicesSection = styled(ASection)`
   }
 `
 
-const InterestedSection = styled(ASection)`
-  display: grid;
-  position: relative; /* very important for absolute positioned image */
-  height: 900px;
-  grid-template-areas:
-    ". . . "
-    ". content ."
-    ". . .";
-  grid-template-rows: auto auto auto;
-  grid-template-columns: auto 250px auto;
-  @media ${devices.laptop} {
-    grid-template-rows: auto auto 150px;
-    grid-template-columns: 8% minmax(auto, 900px) minmax(8%, auto);
-  }
-`
+// const InterestedSection = styled(ASection)`
+//   display: grid;
+//   position: relative; /* very important for absolute positioned image */
+//   height: 900px;
+//   grid-template-areas:
+//     ". . . "
+//     ". content ."
+//     ". . .";
+//   grid-template-rows: auto auto auto;
+//   grid-template-columns: auto 250px auto;
+//   @media ${devices.laptop} {
+//     grid-template-rows: auto auto 150px;
+//     grid-template-columns: 8% minmax(auto, 900px) minmax(8%, auto);
+//   }
+// `
 
 const ContenTainr = styled(ADiv)`
   grid-area: content;
