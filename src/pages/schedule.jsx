@@ -203,7 +203,8 @@ export default () => {
   const {
     fields: [emailAddress, phoneNumber],
   } = useContext(SchedulingContext)
-  console.log("%cscheduling context: ", "color: blue", {
+
+  console.log("%rendering scheduling... ", "context: ", "color: blue", {
     emailAddress,
     phoneNumber,
   })

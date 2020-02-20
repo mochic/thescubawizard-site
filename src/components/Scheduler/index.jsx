@@ -4,12 +4,12 @@ import { Link as Link_ } from "gatsby"
 import styled from "styled-components"
 import {
   animated,
-  useTransition,
+  // useTransition,
   useSpring,
   useChain,
   config,
   useSprings,
-  useTrail,
+  // useTrail,
 } from "react-spring"
 
 import SchedulingContext from "../../contexts/scheduling.context"
@@ -21,7 +21,7 @@ import { Input } from "../Shared"
 
 import ScheduleArrow from "./ScheduleArrow"
 
-import devices from "../../devices"
+// import devices from "../../devices"
 
 const P = styled(animated.p)`
   font-family: open sans;
@@ -276,7 +276,7 @@ const Submitter = ({ reset }) => {
       break
   }
 
-  console.log("%cSubmitter rendered!", "color: teal", { status })
+  console.log("%cSubmitter rendered!", "color: red", { status })
 
   const [scheduleProps, setScheduleProps] = useSpring(() => ({
     arrowTransform: `translate3d(0px,0,0)`,

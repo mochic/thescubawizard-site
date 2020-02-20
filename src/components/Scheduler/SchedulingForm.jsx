@@ -1,28 +1,28 @@
 import React, {
   useContext,
-  useCallback,
-  useRef,
-  useState,
-  useLayoutEffect,
-  useEffect,
+  // useCallback,
+  // useRef,
+  // useState,
+  // useLayoutEffect,
+  // useEffect,
 } from "react"
 
 import styled from "styled-components"
 import { animated } from "react-spring"
 
-import { Input } from "../Shared"
-import FancyInput from "./FancyInput3"
+// import { Input } from "../Shared"
+import FancyInput from "./FancyInput"
 
-import ScheduleArrow from "./ScheduleArrow"
+// import ScheduleArrow from "./ScheduleArrow"
 
 import SchedulingContext from "../../contexts/scheduling.context"
 
-import {
-  validateEmail,
-  validatePhone,
-  phoneFormatter,
-  emailFormatter,
-} from "../../utils"
+// import {
+//   validateEmail,
+//   validatePhone,
+//   phoneFormatter,
+//   emailFormatter,
+// } from "../../utils"
 
 const Form = styled(animated.form)`
   grid-area: form;

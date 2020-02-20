@@ -2,7 +2,7 @@ import React, { useState, useCallback, useRef } from "react"
 
 import PropTypes from "prop-types"
 import { animated, useSpring, config, useChain } from "react-spring"
-import styled from "styled-components"
+import styled, { keyframes } from "styled-components"
 
 const Containr = styled(animated.div)`
   display: flex;
@@ -32,7 +32,7 @@ const colors = {
 const ErrorLabel = styled(animated.label)`
   color: ${errorColor};
   font-family: open sans;
-  font-weight: 300;
+  font-weight: normal;
   font-size: 13px;
   margin-bottom: 5px;
   margin-top: 13px;
@@ -81,7 +81,7 @@ const Input = styled.input`
   border-bottom: 1px solid
     ${({ value, error }) => {
       if (error) {
-        return `red`
+        return `rgb(${errorColor[0]},${errorColor[1]},${errorColor[2]})`
       } else if (value) {
         return "#c4c4c4"
       } else {
@@ -91,9 +91,37 @@ const Input = styled.input`
   text-align: left;
   font-family: open sans;
   font-size: 16px !important; /* less than 16px will trigger terrible safari zoom */
-  font-weight: 300;
+  font-weight: normal;
   color: ${props => (props.error ? "red" : "#c4c4c4")};
   padding: 5px 5px 5px 10px;
+`
+
+const FadeIn = keyframes`
+    from {
+        caret-color: rgba255,233,201,0)
+    } to {
+        caret-color: rgba(255,233,201,1)
+    }
+`
+
+const AInput = styled(animated.input)`
+  outline: 0;
+  border: 0;
+  border-radius: 0; /* ios inputs :( */
+  background: transparent;
+  border-style: solid;
+  text-align: left;
+  font-family: open sans;
+  font-size: 16px !important; /* less than 16px will trigger terrible safari zoom */
+  font-weight: 300;
+  padding: 5px 5px 5px 10px;
+
+  &:focus {
+    caret-color: rgba255,233,201,0)
+    animation: 2s ${FadeIn};
+    animation-delay: 0.5s;
+    animation-fill-mode: forwards;
+  }
 `
 
 const FancyInput = ({
@@ -168,14 +196,16 @@ const FancyInput = ({
           : `translate3d(0px,-40px,0) scale(1.0)`,
     },
     config: { ...config.molasses, duration: 500 },
+    reset: focused,
   })
 
   const inputSpringRef = useRef()
   const inputProps = useSpring({
     ref: inputSpringRef,
     from: { colorAlpha: 0 },
-    to: { colorAlpha: 0 },
-    reset: focused,
+    to: { colorAlpha: 1.0 },
+    // reset: focused,
+    delay: 500,
   })
 
   const errorLabelRef = useRef()
@@ -185,7 +215,113 @@ const FancyInput = ({
     to: { opacity: error ? 1 : 0 },
   })
 
-  useChain([placeholderLabelRef, inputSpringRef, errorLabelRef])
+  // useChain([placeholderLabelRef, inputSpringRef, errorLabelRef])
+
+  // const {
+  //   placeholderTransform,
+  //   placeholderOpacity,
+  //   errorLabelOpacity,
+  //   caretOpacity,
+  // } = useSpring({
+  //   from: {
+  //     placeholderTransform: `translate3d(0px,-40px,0) scale(1.0)`,
+  //     placeholderOpacity: 1,
+  //     errorLabelOpacity: 0,
+  //     caretOpacity: 0,
+  //   },
+  //   to: [
+  //     {
+  //       placeholderTransform:
+  //         focused || value
+  //           ? `translate3d(0px,-65px,0) scale(0.7)`
+  //           : `translate3d(0px,-40px,0) scale(1.0)`,
+  //       placeholderOpacity: 1,
+  //     },
+  //     { caretOpacity: 1 },
+  //     { errorLabelOpacity: error ? 1 : 0 },
+  //   ],
+  //   reset: focused,
+  // })
+
+  const [otherInputProps, setOtherInputProps] = useSpring(() => ({
+    caretColor: `rgba(0,0,0,0)`,
+  }))
+
+  const {
+    placeholderTransform,
+    placeholderOpacity,
+    errorLabelOpacity,
+    caretOpacity,
+  } = useSpring({
+    from: {
+      placeholderTransform: `translate3d(0px,-40px,0) scale(1.0)`,
+      placeholderOpacity: 1,
+      errorLabelOpacity: 0,
+      caretOpacity: 0,
+    },
+    to: {
+      placeholderTransform:
+        focused || value
+          ? `translate3d(0px,-65px,0) scale(0.7)`
+          : `translate3d(0px,-40px,0) scale(1.0)`,
+      placeholderOpacity: 1,
+      caretOpacity: 1,
+      errorLabelOpacity: error ? 1 : 0,
+    },
+    // reset: focused,
+    // config: { ...config.stiff, duration: 1000 },
+    // we use on start because we can to trigger during because on rest feels too slow...
+    // this all "works" because we are currently rerendering on focus...which isnt amazing ~.~...
+    onStart: () => {
+      console.log("%cplaceholder spring resting...", "color: red")
+      setOtherInputProps({
+        caretColor: inputColorTemplate + `${focused ? 1 : 0})`,
+        delay: 200, // 300 felt too slow
+      })
+    },
+  })
+
+  console.log("fancy input rendered!")
+  // return (
+  //   <Containr style={tainrStyle}>
+  //     <PlaceholderLabel
+  //       onClick={handleLabelClick}
+  //       style={{
+  //         position: `absolute`,
+  //         color: placeholderLabelColor,
+  //         ...placeholderLabelProps,
+  //       }}
+  //     >
+  //       {placeholder}
+  //     </PlaceholderLabel>
+  //     <AInput
+  //       {...props}
+  //       ref={inputRef}
+  //       value={value}
+  //       onBlur={handleBlur}
+  //       onChange={onChange}
+  //       onFocus={handleFocus}
+  //       error={error !== null}
+  //       style={{
+  //         ...props.style,
+  //         color: inputProps.colorAlpha.interpolate(
+  //           v => inputColorTemplate + `${v})`
+  //         ),
+  //         borderBottom: inputProps.colorAlpha.interpolate(
+  //           v => `1px solid ` + inputColorTemplate + `${v})`
+  //         ),
+  //         //   caretColor: inputProps.colorAlpha.interpolate(
+  //         //     v => inputColorTemplate + `${v})`
+  //         //   ),
+  //         // borderColor: placeholderLabelColor,
+  //       }}
+  //     />
+
+  //     <ErrorLabel style={errorLabelProps} onClick={handleLabelClick}>
+  //       {error}
+  //     </ErrorLabel>
+  //   </Containr>
+  // )
 
   return (
     <Containr style={tainrStyle}>
@@ -194,12 +330,14 @@ const FancyInput = ({
         style={{
           position: `absolute`,
           color: placeholderLabelColor,
-          ...placeholderLabelProps,
+          transform: placeholderTransform,
+          transformOrigin: `left top`,
+          opacity: placeholderOpacity,
         }}
       >
         {placeholder}
       </PlaceholderLabel>
-      <Input
+      <AInput
         {...props}
         ref={inputRef}
         value={value}
@@ -209,18 +347,16 @@ const FancyInput = ({
         error={error !== null}
         style={{
           ...props.style,
-          color: inputProps.colorAlpha.interpolate(
-            v => inputColorTemplate + `${v})`
-          ),
-          lineHeight: `0px`,
-          // caretColor: inputProps.colorAlpha.interpolate(
-          //   v => inputColorTemplate + `${0})`
-          // ),
-          // borderColor: placeholderLabelColor,
+          ...otherInputProps,
+          color: inputColorTemplate + `${1})`,
+          borderBottom: `1px solid ` + inputColorTemplate + `${1})`,
         }}
       />
 
-      <ErrorLabel style={errorLabelProps} onClick={handleLabelClick}>
+      <ErrorLabel
+        style={{ opacity: errorLabelOpacity }}
+        onClick={handleLabelClick}
+      >
         {error}
       </ErrorLabel>
     </Containr>
