@@ -6,50 +6,50 @@ import { animated, useSpring, config } from "react-spring"
 import pageWrapper from "./wrapPageElement"
 import rootWrapper from "./wrapRootElement"
 
-import { Link } from "gatsby"
+// import { Link } from "gatsby"
 
-import VisibilitySensor from "react-visibility-sensor"
+// import VisibilitySensor from "react-visibility-sensor"
 
-import ScrollProvider from "./src/providers/ScrollProvider"
-import ScrollContext from "./src/contexts/scroll.context"
+// import ScrollProvider from "./src/providers/ScrollProvider"
+// import ScrollContext from "./src/contexts/scroll.context"
 
-import SchedulingProvider from "./src/providers/SchedulingProvider"
+// import SchedulingProvider from "./src/providers/SchedulingProvider"
 
-import VisibilityProvider from "./src/providers/VisibilityProvider"
-import VisibilityContext from "./src/contexts/visibility.context"
-import GeneralProvider from "./src/providers/GeneralProvider"
+// import VisibilityProvider from "./src/providers/VisibilityProvider"
+// import VisibilityContext from "./src/contexts/visibility.context"
+// import GeneralProvider from "./src/providers/GeneralProvider"
 
-import GeneralContext from "./src/contexts/general.context"
+// import GeneralContext from "./src/contexts/general.context"
 
-import Footer from "./src/components/Footer"
-import devices from "./src/devices"
-import sizes from "./src/sizes"
+// import Footer from "./src/components/Footer"
+// import devices from "./src/devices"
+// import sizes from "./src/sizes"
 
-import TitleSVG from "./src/components/TitleSVG"
+// import TitleSVG from "./src/components/TitleSVG"
 
 // import smoothscroll from "smoothscroll-polyfill"
 
-import shared from "./src/shared"
+// import shared from "./src/shared"
 
-import { navigate } from "gatsby-link"
+// import { navigate } from "gatsby-link"
 
 // kick off the polyfill!
 // smoothscroll.polyfill()
 
-const GlobalStyle = createGlobalStyle`
-    html, body {
-    }
-    body {
-      margin: 0;
-      padding: 0;
-      background: #191f1d; 
-      font-family: playfair display, serif;
-      font-size: 16px;
-      line-height: 1;
-    }
-`
+// const GlobalStyle = createGlobalStyle`
+//     html, body {
+//     }
+//     body {
+//       margin: 0;
+//       padding: 0;
+//       background: #191f1d;
+//       font-family: playfair display, serif;
+//       font-size: 16px;
+//       line-height: 1;
+//     }
+// `
 
-const Containr = styled(animated.div)``
+// const Containr = styled(animated.div)``
 
 // const NavTainr = styled(animated.div)`
 //   z-index: 1000 !important; /* really important for being visible... */
@@ -89,22 +89,22 @@ const Containr = styled(animated.div)``
 
 const navTainrHeight = 70
 // filter out props that higher level components dont expect and raise weird errors...
-const NavTainr = styled(({ ...props }) => <animated.div {...props} />)`
-  z-index: 1000 !important; /* really important for being visible... */
-  width: 100%;
-  text-align: center;
-  padding: 0;
-  margin: 0;
-  position: sticky;
-  top: 0px;
-  height: ${navTainrHeight}px;
-  display: grid;
-  backdrop-filter: blur(2px);
-  float: left;
+// const NavTainr = styled(({ ...props }) => <animated.div {...props} />)`
+//   z-index: 1000 !important; /* really important for being visible... */
+//   width: 100%;
+//   text-align: center;
+//   padding: 0;
+//   margin: 0;
+//   position: sticky;
+//   top: 0px;
+//   height: ${navTainrHeight}px;
+//   display: grid;
+//   backdrop-filter: blur(2px);
+//   float: left;
 
-  grid-template-areas: ". title .";
-  grid-template-columns: auto auto auto;
-`
+//   grid-template-areas: ". title .";
+//   grid-template-columns: auto auto auto;
+// `
 
 // const PageTainr = styled(animated.div)`
 //   margin: auto;
@@ -112,11 +112,11 @@ const NavTainr = styled(({ ...props }) => <animated.div {...props} />)`
 //   width: 100vw;
 // `
 
-const PageTainr = styled(animated.div)`
-  margin: auto;
-  overflow: hidden;
-  max-width: 1900px; /* make really big devices perf later... */
-`
+// const PageTainr = styled(animated.div)`
+//   margin: auto;
+//   overflow: hidden;
+//   max-width: 1900px; /* make really big devices perf later... */
+// `
 
 // const PageTainr = styled(animated.div)`
 //   margin: auto;

@@ -5,7 +5,7 @@ import { animated, config, useSpring, useSprings } from "react-spring"
 
 import Hero from "../components/HeroSection"
 
-import debounce from "lodash/debounce"
+// import debounce from "lodash/debounce"
 
 // import About from "../components/AboutSection"
 
@@ -16,13 +16,13 @@ import Interested from "../components/InterestedSection"
 
 import Footer from "../components/Footer"
 
-import TitleSVG from "../components/TitleSVGEmbed"
+// import TitleSVG from "../components/TitleSVGEmbed"
 
 import devices from "../devices"
 import shared from "../shared"
 
 import NavBar from "../components/NavBar"
-import smoothscroll from "smoothscroll-polyfill"
+// import smoothscroll from "smoothscroll-polyfill"
 
 import VisibilitySensor from "react-visibility-sensor"
 

@@ -3,7 +3,7 @@ import React, { useLayoutEffect, useState, useRef } from "react"
 import styled from "styled-components"
 import { animated, config, useSpring } from "react-spring"
 
-import debounce from "lodash/debounce"
+// import debounce from "lodash/debounce"
 
 import TitleSVG from "../components/TitleSVGEmbed"
 
