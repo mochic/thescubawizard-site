@@ -344,7 +344,7 @@ const FancyInput = ({
         onBlur={handleBlur}
         onChange={onChange}
         onFocus={handleFocus}
-        error={error !== null}
+        // error={error !== null}
         style={{
           ...props.style,
           ...otherInputProps,

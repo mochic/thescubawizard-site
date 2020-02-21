@@ -146,6 +146,7 @@ const Submitted = ({
   return (
     <>
       <Link
+        to={"/"}
         style={{ ...homeStyle, color: `#ffffff`, margin: `auto` }}
         {...homeRest}
       >
