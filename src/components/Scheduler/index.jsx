@@ -147,13 +147,13 @@ const Submitted = ({
     <>
       <Link
         to={"/"}
-        style={{ ...homeStyle, color: `#ffffff`, margin: `auto` }}
+        style={{ color: `#ffffff`, margin: `auto`, ...homeStyle }}
         {...homeRest}
       >
         Home.
       </Link>
       <RescheduleButton
-        style={{ ...rescheduleStyle, color: `#979797`, margin: `auto` }}
+        style={{ color: `#979797`, margin: `auto`, ...rescheduleStyle }}
         {...rescheduleRest}
         onClick={e => {
           e.preventDefault()
