@@ -5,7 +5,7 @@ import { animated, config, useSpring, useSprings } from "react-spring"
 
 import Hero from "../components/HeroSection"
 
-// import debounce from "lodash/debounce"
+import debounce from "lodash/debounce"
 
 // import About from "../components/AboutSection"
 
@@ -164,7 +164,6 @@ const ServicesSection = styled(ASection)`
     ". . . "
     ". content ."
     ". . .";
-  background: red;
   grid-template-rows: auto auto auto;
   grid-template-columns: auto 250px auto;
   @media ${devices.laptop} {
@@ -198,6 +197,7 @@ const ContenTainr = styled(ADiv)`
   align-items: center;
   background: none;
   backdrop-filter: blur(1px);
+  z-index: 1; /* clickable above all the other stuff... */
 
   @media ${devices.laptop} {
     flex-direction: row;
@@ -243,10 +243,35 @@ const WeirdLi = styled(animated.span)`
   position: relative;
   margin: 0 0 50px 0;
 
+  border: 1px solid red;
+
   &&::after {
     margin: 10px;
   }
 `
+
+// isOpen is elevated to list state? just receive styles here
+const WeirdItem = ({
+  label,
+  heading,
+  content,
+  labelProps,
+  headingProps,
+  contentProps,
+  handleClick,
+  ...rest
+}) => {
+  return (
+    <WeirdLi onClick={handleClick} {...rest}>
+      <WeirdLiLabel {...labelProps}>{label}</WeirdLiLabel>
+      {heading}
+      <AP>{content}</AP>
+      <button style={{ background: `red` }} onClick={handleClick}>
+        Learn more.
+      </button>
+    </WeirdLi>
+  )
+}
 
 const WeirdTainr = styled(animated.div)`
   padding: 0;
@@ -255,22 +280,39 @@ const WeirdTainr = styled(animated.div)`
   justify-content: space-around;
   flex-direction: column;
 
+  border: 1px solid yellow;
+
   @media ${devices.laptop} {
     flex-direction: row;
   }
+  z-index: 1000000000000;
 `
 
 const WeirdList = ({ items, propsList }) => {
+  const _items = items || []
   const _propsList = propsList || []
+
+  const [expanded, setExpanded] = useState(null)
+  // const itemPropsList = useSprings(_items)
 
   return (
     <WeirdTainr>
-      {items.map((v, i) => {
+      {_items.map(({ heading, content }, i) => {
+        // pad label with 0 if less than 10
+        // dont show content if not focused
         return (
-          <WeirdLi key={`weird-li-${i}`} {..._propsList[i]}>
-            <WeirdLiLabel>{`0${i + 1}`}</WeirdLiLabel>
-            {v}
-          </WeirdLi>
+          <WeirdItem
+            key={`weird-li-${i}`}
+            label={`${i < 10 ? `0` : ``}${i + 1}`}
+            heading={heading}
+            content={expanded === i ? content : ""}
+            handleClick={e => {
+              e.preventDefault()
+              console.log("%cExpanding weird item: ", i)
+              setExpanded(i)
+            }}
+            {..._propsList[i]}
+          />
         )
       })}
     </WeirdTainr>
@@ -853,9 +895,18 @@ export default () => {
               </AP>
               <WeirdList
                 items={[
-                  `Hull cleaning`,
-                  `Anode replacement`,
-                  `Lost item recovery`,
+                  {
+                    heading: `Hull cleaning`,
+                    content: "This is just filler content or something...",
+                  },
+                  {
+                    heading: `Anode replacement`,
+                    content: "This is just filler content or something...",
+                  },
+                  {
+                    heading: `Lost item recovery`,
+                    content: "This is just filler content or something...",
+                  },
                 ]}
               />
             </ADiv>
