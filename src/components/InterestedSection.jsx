@@ -140,6 +140,7 @@ const Image = ({ query, imgStyle, style }) => (
           style={{
             overflow: `hidden`,
             position: `relative`,
+            margin: `auto`,
             ...style,
           }}
           fluid={data.placeholderImage.childImageSharp.fluid}
@@ -244,7 +245,6 @@ export default ({ linkProps, headerProps, statementProps }) => {
           imageStyle={{}}
           style={{
             minHeight: `1000px`,
-            maxHeight: `1000px`,
             maxWidth: `700px`,
             padding: `auto 50px auto auto`,
           }}
