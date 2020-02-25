@@ -97,6 +97,9 @@ const AboutSection = styled(ASection)`
     ". . . "
     ". content ."
     ". . .";
+
+  background: #191f1d;
+
   grid-template-rows: auto auto auto;
   grid-template-columns: auto 250px auto;
   @media ${devices.laptop} {
@@ -166,6 +169,9 @@ const ServicesSection = styled(ASection)`
     ". . .";
   grid-template-rows: auto auto auto;
   grid-template-columns: auto 250px auto;
+
+  background: #191f1d;
+
   @media ${devices.laptop} {
     grid-template-rows: auto auto 150px;
     grid-template-columns: 8% minmax(auto, 900px) minmax(8%, auto);
@@ -250,6 +256,13 @@ const WeirdLi = styled(animated.span)`
   }
 `
 
+const AH3Li = styled(animated.h3)`
+  font-family: open sans;
+  font-size: 16px;
+  font-weight: 300;
+  color: white;
+`
+
 // isOpen is elevated to list state? just receive styles here
 const WeirdItem = ({
   label,
@@ -264,8 +277,8 @@ const WeirdItem = ({
   return (
     <WeirdLi onClick={handleClick} {...rest}>
       <WeirdLiLabel {...labelProps}>{label}</WeirdLiLabel>
-      {heading}
-      <AP>{content}</AP>
+      <AH3Li {...headingProps}>{heading}</AH3Li>
+      <AP {...contentProps}>{content}</AP>
       <button style={{ background: `red` }} onClick={handleClick}>
         Learn more.
       </button>
@@ -293,7 +306,19 @@ const WeirdList = ({ items, propsList }) => {
   const _propsList = propsList || []
 
   const [expanded, setExpanded] = useState(null)
-  // const itemPropsList = useSprings(_items)
+  const itemPropsList = useSprings(
+    _items.length,
+    _items.map(item => ({
+      from: {
+        labelTransform: `translate3d(0px,0px,0) scale(0.5)`,
+        headingTransform: `translate3d(0px,0px,0)`,
+      },
+      to: {
+        labelTransform: `translate3d(60px,10px,0) scale(1.0)`,
+        headingTransform: `translate3d(60px,10px,0)`,
+      },
+    }))
+  )
 
   return (
     <WeirdTainr>
@@ -309,7 +334,13 @@ const WeirdList = ({ items, propsList }) => {
             handleClick={e => {
               e.preventDefault()
               console.log("%cExpanding weird item: ", i)
-              setExpanded(i)
+              setExpanded(expanded === i ? null : i)
+            }}
+            labelProps={{
+              style: { transform: itemPropsList[i].labelTransform },
+            }}
+            headingProps={{
+              style: { transform: itemPropsList[i].headingTransform },
             }}
             {..._propsList[i]}
           />
