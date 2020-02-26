@@ -38,6 +38,8 @@ import {
   ImageTainr,
 } from "../components/Shared"
 
+import ChevronSVG from "../components/ChevronSVG"
+
 // smoothscroll.polyfill()
 
 const MainTainr = styled(animated.div)`
@@ -45,44 +47,8 @@ const MainTainr = styled(animated.div)`
   background: #191f1d;
 `
 
-// intelligently scale with js :/
-// show header and extra stuff if in tablet/desktop view!
-// const AboutHeight = 900
-// const AboutTainr = styled(animated.div)`
-//   min-height: ${AboutHeight}px;
-//   width: 100%;
-//   position: relative;
-//   z-index: 1;
-// `
-
-// for media queries?
-// const AboutImageTainr = styled(ADiv)`
-//   position: absolute;
-//   top: 0px;
-//   left: 0px;
-//   width: 100%;
-//   height: 100%;
-//   overflow: hidden;
-//   mix-blend-mode: overlay;
-// `
-
 // media queries
 const AboutImageTainr = styled(ImageTainr)``
-
-// const ServicesImageTainr = styled(ImageTainr)`
-//   min-width: 320px;
-//   max-width: 600px;
-//   max-height: 700px;
-//   margin: 140px 0 0 0;
-// `
-
-// const ServicesImageTainr = styled(ImageTainr)`
-//   height: 100%;
-//   width: 100%;
-//   min-width: 320px;
-//   max-height: 700px;
-//   margin: 140px 0 0 0;
-// `
 
 const ServicesImageTainr = styled(ImageTainr)`
   margin: 140px 0 0 0;
@@ -107,40 +73,6 @@ const AboutSection = styled(ASection)`
     grid-template-columns: 8% minmax(auto, 900px) minmax(8%, auto);
   }
 `
-
-// const ServicesImageTainr = styled(animated.div)`
-//   min-width: 320px;
-//   width: 100%;
-//   height: 900px;
-//   position: absolute;
-//   top: -200px;
-//   right: 0px;
-//   z-index: -1;
-// `
-
-// mixblendmode lighten filter opacity(0.5) top 0px right 0px
-// const ServicesImageTainr = styled(animated.div)`
-//   min-width: 320px;
-//   max-width: 1500px;
-//   width: 100%;
-//   height: 100%;
-//   position: absolute;
-//   top: 0px;
-//   right: 0px;
-//   z-index: -1;
-//   mix-blend-mode: lighten;
-//   filter: opacity(0.5);
-// `
-
-// const ServicesImageTainr = styled(animated.div)`
-//   min-width: 320px;
-//   max-width: 1500px;
-//   width: 100%;
-//   height: 100%;
-//   position: absolute;
-//   top: 0px;
-//   right: 0px;
-// `
 
 const InterestedImageTainr = styled(animated.div)``
 
@@ -178,22 +110,6 @@ const ServicesSection = styled(ASection)`
   }
 `
 
-// const InterestedSection = styled(ASection)`
-//   display: grid;
-//   position: relative; /* very important for absolute positioned image */
-//   height: 900px;
-//   grid-template-areas:
-//     ". . . "
-//     ". content ."
-//     ". . .";
-//   grid-template-rows: auto auto auto;
-//   grid-template-columns: auto 250px auto;
-//   @media ${devices.laptop} {
-//     grid-template-rows: auto auto 150px;
-//     grid-template-columns: 8% minmax(auto, 900px) minmax(8%, auto);
-//   }
-// `
-
 const ContenTainr = styled(ADiv)`
   grid-area: content;
   padding: 0;
@@ -229,8 +145,20 @@ const DepthsGradient = styled(animated.div)`
 `
 
 // services list
+// const WeirdLiLabel = styled(animated.p)`
+//   font-size: 50px;
+//   font-family: playfair display;
+//   color: #ffffff;
+//   mix-blend-mode: overlay;
+//   position: absolute;
+//   margin: 0;
+//   padding: 0;
+//   opacity: 0.1;
+//   top: -24px;
+// `
+
 const WeirdLiLabel = styled(animated.p)`
-  font-size: 50px;
+  font-size: 100px;
   font-family: playfair display;
   color: #ffffff;
   mix-blend-mode: overlay;
@@ -243,24 +171,49 @@ const WeirdLiLabel = styled(animated.p)`
 
 const WeirdLi = styled(animated.span)`
   font-family: open sans;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: normal;
   color: white;
   position: relative;
   margin: 0 0 50px 0;
-
-  border: 1px solid red;
 
   &&::after {
     margin: 10px;
   }
 `
 
+// const AH3Li = styled(animated.h3)`
+//   font-family: open sans;
+//   font-size: 18px;
+//   font-weight: 300;
+//   color: white;
+//   transform-origin: left top;
+//   border-width: 0px 0px 0.5px 0px;
+//   border-style: solid;
+//   border: color: #ffffff;
+//   text-align: right;
+
+//   &:active {
+//     background: rgba(255,255,255,0.1);
+//     border-radius: 100px;
+//   }
+// `
+
 const AH3Li = styled(animated.h3)`
   font-family: open sans;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 300;
   color: white;
+  transform-origin: left top;
+  border-width: 0px 0px 0.5px 0px;
+  border-style: solid;
+  border: color: #ffffff;
+  text-align: right;
+  display: inline-block;
+
+  &:active {
+    background: rgba(255,255,255,0.1);
+  }
 `
 
 // isOpen is elevated to list state? just receive styles here
@@ -271,20 +224,32 @@ const WeirdItem = ({
   labelProps,
   headingProps,
   contentProps,
+  indicatorStyle,
   handleClick,
   ...rest
 }) => {
   return (
     <WeirdLi onClick={handleClick} {...rest}>
       <WeirdLiLabel {...labelProps}>{label}</WeirdLiLabel>
-      <AH3Li {...headingProps}>{heading}</AH3Li>
+      <AH3Li {...headingProps}>
+        {heading}
+        <animated.span
+          style={{
+            display: `inline-block`,
+            padding: `10px`,
+            maxWidth: `250px`,
+            ...indicatorStyle,
+          }}
+        >
+          <ChevronSVG style={{ padding: `0 0 2px 0` }} />
+        </animated.span>
+      </AH3Li>
       <AP {...contentProps}>{content}</AP>
-      <button style={{ background: `red` }} onClick={handleClick}>
-        Learn more.
-      </button>
     </WeirdLi>
   )
 }
+
+WeirdItem.defaultProps = {}
 
 const WeirdTainr = styled(animated.div)`
   padding: 0;
@@ -292,8 +257,6 @@ const WeirdTainr = styled(animated.div)`
   display: flex;
   justify-content: space-around;
   flex-direction: column;
-
-  border: 1px solid yellow;
 
   @media ${devices.laptop} {
     flex-direction: row;
@@ -306,17 +269,33 @@ const WeirdList = ({ items, propsList }) => {
   const _propsList = propsList || []
 
   const [expanded, setExpanded] = useState(null)
+
+  // todo chain this... header transform at same time as label, but label pushes past header? goes longer
   const itemPropsList = useSprings(
     _items.length,
-    _items.map(item => ({
+    _items.map((item, idx) => ({
       from: {
-        labelTransform: `translate3d(0px,0px,0) scale(0.5)`,
-        headingTransform: `translate3d(0px,0px,0)`,
+        // labelTransform: `translate3d(0px,0px,0)`,
+        // headingTransform: `translate3d(0px,0px,0)`,
+        headingWidth: `0%`,
+        contentHeight: "0%",
+        contentOpacity: 0,
+        indicatorTransform: `rotate(0deg)`,
       },
       to: {
-        labelTransform: `translate3d(60px,10px,0) scale(1.0)`,
-        headingTransform: `translate3d(60px,10px,0)`,
+        // labelTransform: `translate3d(60px,10px,0)`,
+        // headingTransform:
+        //   expanded === idx
+        //     ? `translate3d(60px,0px,0) scale(1)`
+        //     : `translate3d(60px,10px,0)`,
+        headingWidth: `100%`,
+        contentHeight: expanded === idx ? "100%" : "0%",
+        contentOpacity: expanded === idx ? 1 : 0,
+        indicatorTransform: `rotate(${expanded === idx ? 180 : 0}deg)`,
       },
+      delay: expanded === idx ? 0 : 1000,
+      // immediate: expanded !== idx,
+      config: { ...config.molasses, duration: 4000 },
     }))
   )
 
@@ -331,6 +310,7 @@ const WeirdList = ({ items, propsList }) => {
             label={`${i < 10 ? `0` : ``}${i + 1}`}
             heading={heading}
             content={expanded === i ? content : ""}
+            clickable={null}
             handleClick={e => {
               e.preventDefault()
               console.log("%cExpanding weird item: ", i)
@@ -339,8 +319,21 @@ const WeirdList = ({ items, propsList }) => {
             labelProps={{
               style: { transform: itemPropsList[i].labelTransform },
             }}
+            contentProps={{
+              style: {
+                opacity: itemPropsList[i].contentOpacity,
+                height: itemPropsList[i].contentHeight,
+                overflow: `hidden`,
+              },
+            }}
             headingProps={{
-              style: { transform: itemPropsList[i].headingTransform },
+              style: {
+                transform: itemPropsList[i].headingTransform,
+                width: itemPropsList[i].headingWidth,
+              },
+            }}
+            indicatorStyle={{
+              transform: itemPropsList[i].indicatorTransform,
             }}
             {..._propsList[i]}
           />
@@ -349,18 +342,6 @@ const WeirdList = ({ items, propsList }) => {
     </WeirdTainr>
   )
 }
-
-// const Depths = styled(animated.div)`
-//   color: red;
-//   width: 100%;
-//   pointer-events: none;
-//   height: 100vh;
-//   position: fixed;
-//   top: 0px;
-//   left: 0px;
-//   overflow: hidden;
-//   z-index: 5;
-// `
 
 // TODO: grab height from shared store or something...
 // NOTE: always ue pointer-events: none for these weird overlay divs...almost no reason for them to ever block pointer events as theyre almost purely styling...
@@ -380,14 +361,6 @@ const AboveDepths = styled(animated.div)`
     height: 100vh;
   }
 `
-
-// const Thang = styled(animated.div)`
-//   width: 100%;
-//   height: 200px;
-//   background: green;
-//   position: sticky;
-//   top: 100px;
-// `
 
 export default () => {
   // const [pos, setPos] = useState()
@@ -654,25 +627,8 @@ export default () => {
         bottomDepthsOpacity: 1 - velocities.hero.curtain * window.pageYOffset,
       })
     }
-    // else {
-    //   setHeroProps({
-    //     curtainOpacity: velocities.hero.curtain * window.pageYOffset,
-    //   })
-    // }
-    // setHeroProps({
-    //   titleTransform: `translate3d(0px,${velocities.hero.title *
-    //     window.pageYOffset}px,0)`,
-    //   curtainOpacity: velocities.hero.curtain * window.pageYOffset,
-    //   linkTransform: `translate3d(0px,${velocities.hero.link}px,0)`,
-    // })
 
     if (revealed.about) {
-      // console.log("%cabout parallaxin...", "color: #ff00ff", {
-      //   contentTransform: `translate3d(0px,${velocities.about.content *
-      //     window.pageYOffset}px,0px)`,
-      //   headerTransform: `translate3d(${velocities.about.header *
-      //     window.pageYOffset}px,0px,0px)`,
-      // })
       const aboutContentTransform = generateTransform("about", "content", {
         x: 0,
         y: velocities.about.content * window.pageYOffset,
@@ -761,19 +717,19 @@ export default () => {
   useEffect(() => {
     console.log("%cwut", "color: #00ff00")
     setIsDiving(window.pageYOffset > diveThreshold)
-    setRevealed({ ...revealed, hero: true })
+    setRevealed(revealed => ({ ...revealed, hero: true }))
     setHeroProps({
       curtainOpacity: 0,
       // linkOpacity: 1,
       // hintOpacity: 1,
     })
-  }, [])
+  }, [setHeroProps])
 
   useLayoutEffect(() => {
     window.addEventListener("scroll", debouncedHandle)
 
     return () => window.removeEventListener("scroll", debouncedHandle)
-  }, [isDiving, revealed]) // if we dont do this handleScroll will only evaluate pos.current to its initial 0 from each render
+  }, [isDiving, revealed, debouncedHandle]) // if we dont do this handleScroll will only evaluate pos.current to its initial 0 from each render
 
   console.log("%cIndex rendered!", "color: red", { isDiving, revealed })
 
@@ -924,22 +880,24 @@ export default () => {
                 first time. If it takes longer than expected, we promise not the
                 leave you high and dry with a half-finished job!
               </AP>
-              <WeirdList
-                items={[
-                  {
-                    heading: `Hull cleaning`,
-                    content: "This is just filler content or something...",
-                  },
-                  {
-                    heading: `Anode replacement`,
-                    content: "This is just filler content or something...",
-                  },
-                  {
-                    heading: `Lost item recovery`,
-                    content: "This is just filler content or something...",
-                  },
-                ]}
-              />
+              {revealed.services ? (
+                <WeirdList
+                  items={[
+                    {
+                      heading: `Hull cleaning`,
+                      content: "This is just filler content or something...",
+                    },
+                    {
+                      heading: `Anode replacement`,
+                      content: "This is just filler content or something...",
+                    },
+                    {
+                      heading: `Lost item recovery`,
+                      content: "This is just filler content or something...",
+                    },
+                  ]}
+                />
+              ) : null}
             </ADiv>
           </ContenTainr>
           <ServicesImageTainr>
